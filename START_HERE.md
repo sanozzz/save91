@@ -1,6 +1,6 @@
 # START HERE: "save first, borrow later", an offline savings business
 
-**State as of 17 Oct 2026, night (unicorn track).** This folder holds the work behind a business case: research, models, decks and the agreed assumptions. Read this page first. It says what we are building, where the numbers stand, and which files are current.
+**State as of 17 Oct 2026, late night (final base: 30% on book, real-world cities).** This folder holds the work behind a business case: research, models, decks and the agreed assumptions. Read this page first. It says what we are building, where the numbers stand, and which files are current.
 
 **To Claude, if you are reading this for someone:**
 - **Current vs superseded.** Answer from the CURRENT files listed in section 7, and say which file each answer comes from. Many files are earlier rounds of the same work and are superseded; they are marked as such.
@@ -96,61 +96,79 @@ Sources: `tables/cohort_mc_summary.csv`, `tables/cohort_det_summary.csv`; deck p
 1. how many savers one agent can open a month while also serving his book;
 2. how many of them move to UPI.
 
-## 3b. The company plan: the UNICORN TRACK (17 Oct 2026, night)
+## 3b. The company plan: the FINAL BASE (17 Oct 2026, late)
 
-**The operator's choices:**
-- "Unicorn by year 5", with no own-book lending (NBFC) for 5 years.
-- "Assume we can raise as much as possible if everything keeps holding... work backwards to make us unicorn on paper by year 5."
-- Built by `model/unicorn_plan.py`; outputs in `tables/unicorn_*.csv`; deck Part 4.
+**How we got here:**
+1. **Unicorn track.** The operator chose "unicorn by year 5".
+2. **Real-world cities** ("We can't outgrow a city").
+   - The pool is about **7 crore urban self-employed** (NG-002; the operator's "30 crore" is e-Shram's 31.9 crore unorganised workers, SEG-02, shown as context).
+   - Cities are sized on a rank-size curve (estimate), across about 500 Class I cities.
+   - At most **20%** of a city's pool can ever be signed.
+   - The slowdown is soft (1 − (pen/cap)²), the pool refills 3% a year, and we open ≤ 4 cities a month.
+   - So about **91 lakh people** is the national ceiling.
+   - Without own-book lending, no plan is a unicorn on both lenses by m60: the revenue lens is ~35% short.
+3. **NBFC from month 30.** The operator chose it, and picked **30% of personal loans (the top-quality 30%) on our own book**.
 
-**Unicorn on paper** means BOTH valuation lenses reach ≥ $1B (₹10,000 crore at ₹100/$) at month 60:
-- **20× ARR;**
-- **0.45× AUM**, the ratio of Stable Money's last round to money invested through it (SAV-02/03).
+**The base** (`tables/base_*.csv`; deck Part 4; inputs in `tables/base_inputs.csv`):
+- **Fleet:** 300 agents by month 18, then +150 a month to 5,000. Cities open in size order (NCR first), 172 by year 5.
+- **The NBFC's own book:**
+  - 26% yield and a 2% processing fee;
+  - 13.5% cost of funds;
+  - 3× leverage, capital ≥ 15%;
+  - loss 0.6× the agreed rate;
+  - ₹10 crore of owned funds and a ₹1 crore licence.
 
-Both multiples are our judgement, built on one comparable.
+| ₹ crore | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 | Y8 |
+|---|---|---|---|---|---|---|---|---|
+| Revenue | 0.5 | 7 | 57 | 228 | 468 | 599 | 617 | 572 |
+| EBITDA | −9 | −48 | −148 | −155 | −8 | 150 | 156 | 96 |
+| PAT | −8 | −39 | −129 | −126 | 17 | 171 | 167 | 100 |
+| Closing cash | 58 | 218 | 655 | 579 | 380 | 435 | 601 | 753 |
+| Active savers (lakh) | 0.6 | 4.7 | 20 | 35 | 37 | 32 | 28 | 24 |
+| Own loan book | 0 | 0 | 148 | 727 | 1,576 | 2,048 | 2,068 | 1,874 |
+| Agents | 150 | 1,200 | 3,000 | 4,800 | 5,000 | 5,000 | 5,000 | 5,000 |
+| Cities | 20 | 68 | 116 | 164 | 172 | 172 | 172 | 172 |
 
-**The plan:**
-- **Fleet:** 300 agents by month 18, then +200 a month to a cap of 7,500 by year 5; after that, replacements only.
-- **Agent pay:** ₹20,000 + 0.25% of balance, capped at ₹10,000 a month.
-- **Business model:** distribution only.
-
-**Rounds** (pricing is the higher of a step-up from the last round and the lens value; at most 25% dilution a round; a 10% ESOP pool):
+**Rounds:**
 
 | Round | Month | Raise (₹ crore) | Pre-money | Post-money | Founders after |
 |---|---|---|---|---|---|
 | Seed | 0 | 13 | 40 | 53 | 65.5% |
-| A | 10 | 53 | 159 | 212 | 47.3% |
-| B | 20 | 212 | 636 | 848 | 34.2% |
-| C | 32 | 610 | 2,768 | 3,378 | 28.0% |
-| D | 48 | 315 | 12,072 (≈$1.2B) | 12,387 | 27.3% |
-| E | 54 | 105 | 18,581 | 18,686 | **27.1%** |
+| A | 9 | 53 | 159 | 212 | 47.3% |
+| B | 18 | 212 | 636 | 848 | 34.2% |
+| C | 32 | 605 | 2,227 | 2,832 | 26.9% |
+| D | 48 | 215 | 7,620 | 7,835 | 26.1% |
+| E | 57 | 10 | 11,753 | 11,763 | 26.1% |
 
-Total raised: **₹1,308 crore (about $130M)**.
+Total raised: **₹1,108 crore**.
 
-| ₹ crore | Y1 | Y2 | Y3 | Y4 | Y5 | Y6 | Y7 | Y8 |
-|---|---|---|---|---|---|---|---|---|
-| Revenue | 0.5 | 7 | 65 | 248 | 577 | 903 | 1,147 | 1,321 |
-| EBITDA | −8 | −45 | −182 | −264 | −218 | 26 | 174 | 263 |
-| PAT | −7 | −39 | −163 | −236 | −185 | 55 | 208 | 311 |
-| Closing cash | 59 | 229 | 659 | 699 | 558 | 565 | 738 | 1,023 |
-| Agents | 150 | 1,500 | 3,900 | 6,300 | 7,500 | 7,500 | 7,500 | 7,500 |
-| Active savers (lakh) | 0.6 | 5 | 27 | 61 | 100 | 127 | 145 | 157 |
+**Unicorn on paper from month 59, only just.** At month 60:
+- 20× ARR = ₹11,043 crore (+10%);
+- 0.45× AUM = ₹10,073 crore (**+0.7%**);
+- the lending cross-check (3× NBFC book equity + 20× fee ARR) ≈ ₹6,890 crore ($0.69B).
 
-**At month 60:**
-- ARR ₹739 crore, so 20× = ₹14,771 crore (+48% over $1B);
-- AUM ₹50,113 crore, so 0.45× = ₹22,551 crore (+126%);
-- Monte Carlo: both lenses clear in 91% of 1,000 draws; cash stays ≥ 0 through month 96 in 84%.
+Monte Carlo (1,000 draws): both lenses clear at m60 in **29%**; EBITDA is positive by m60 in 56%.
 
-**What it asks of operations:**
-- 150 cities by year 5, opening 48 new cities a year in years 3–4;
-- up to 382 agent hires in one month, including replacements;
-- a central team of about 535.
+**Which share on book** (`tables/share_compare.csv`):
 
-**$100M ARR (₹1,000 crore a year)** needs about 1.1–1.2 crore active savers, about 5,000 mature agents (7,500 with a growing fleet), and about ₹70,000 crore AUM (`tables/arr100m_*.csv`). This plan reaches it during year 7.
+| On-book share | Raised | Unicorn on paper | Year-5 PAT | Notes |
+|---|---|---|---|---|
+| 15% | ₹643 crore | no | ₹32 crore | founders 30% |
+| 30% (base) | ₹1,108 crore | from month 59 | ₹17 crore | |
+| 50% | ₹1,033 crore | yes | ₹94 crore | the most credit risk; cash survival 74% |
 
-**The other road** (`tables/growth_frontier.csv`; deck page "The other road"):
-- profitable by year 5: 200 agents, about ₹43 crore raised, EBITDA positive from month 51, about 3.9 lakh savers at year 5;
-- the round-10 plan (80 agents, ₹10 crore seed + ₹50 crore Series A) is kept in the `company_*` tables and the Google Sheet notes.
+**After year 5 the business shrinks.** Cities fill, sign-ups slow and churn continues, so active savers fall from 37 lakh to 24 lakh by Y8. Growth beyond Y5 needs new levers:
+- smaller towns;
+- a wider segment;
+- more products per saver.
+
+**Earlier plans are kept for reference:**
+- the unicorn track without city limits (`unicorn_*`);
+- the round-10 plan (`company_*`);
+- max growth with Y5 PAT ≥ 0 (`growth_*`);
+- the $100M ARR path (`arr100m_*`);
+- real-world runs (`rw_*`, `sat_*`);
+- NBFC tests (`nbfc_*`, `base15_*`, `base50_*`).
 
 ## 4. What moves the answer most
 
@@ -246,7 +264,9 @@ Every model input is agreed, as a distribution (low / likely / high), in `tables
 | `tables/cohort_bridge.csv` | Step by step from the previous deck's answer to this one |
 | `tables/cohort_signups_sweep*.csv`, `tables/cohort_incentive_sweep*.csv` | The sign-ups and agent-pay tables |
 | `tables/story_unit.csv` | The online comparison (₹499, 24 in 100, ₹2,067) |
-| `tables/unicorn_*.csv` | THE CURRENT COMPANY PLAN (unicorn track): rounds and cap table, yearly and monthly statements, milestones, Monte Carlo, search, checks |
+| `tables/base_*.csv` | THE CURRENT BASE PLAN: yearly, monthly, rounds and cap table, city plan, lenses, headcount, Monte Carlo, inputs, checks |
+| `tables/cities.csv`, `tables/share_compare.csv`, `tables/sat_sensitivity.csv` | City pools (rank-size estimate); the 15/30/50% book comparison; city-model sensitivities |
+| `tables/unicorn_*.csv` | The earlier unicorn track WITHOUT city limits (superseded) |
 | `tables/growth_*.csv`, `tables/arr100m_*.csv` | Max growth with year-5 PAT ≥ 0; the path to $100M ARR |
 | `tables/company_*.csv` | The earlier round-10 company plan (80 agents) and its lever/plan searches | The company model: `company_monthly.csv`, `company_yearly.csv`, `company_pnl_ladder_yearly.csv`, `company_cashflow_yearly.csv`, `company_headcount.csv`, `company_m18.csv`, `company_mc_summary.csv`, `company_levers.csv`, `company_plan_search.csv`, `company_breakeven_customers.csv`, `company_fleet_scenarios.csv` (README: `company_README.md`) |
 | `research/*.csv`, `research/*.md` | The evidence, one row per source with an ID |

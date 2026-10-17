@@ -74,6 +74,11 @@ Round 9 (story/CHANGES_round9_fee_ramp_2026-10-17.md): fee is a DSA's rate at th
 month t = fee x (1 + (fee_mult_end - 1) x (t - 1) / 59), with fee_mult_start = 1.0 and fee_mult_end = 1.5 (fixed, month 60).
 Round 10 (story/CHANGES_round10_company_base_2026-10-17.md): incentive_cap (the balance pay is capped at ₹10,000 a month per agent;
 the salary and the cap rise 7% a year) and the company plan as decision rows: fleet_plan, seed, series_a, central_team.
+The final base plan (30% on book): every row of tables/base_inputs.csv not already here is added under its own key (BASE_MAP:
+cities, fleet path, central-team pay, costs and finance, the NBFC from month 30, round rules, valuation lenses, model settings),
+as fixed decision rows, except the addressable pool (city_pool, a pert distribution). The NBFC's yield and loss reuse `rate` and
+`loss`. Conflicts resolved in favour of the final base (tables/base_*): fleet_plan, seed and central_team now follow it; series_a is
+superseded by `rounds` (read from tables/base_rounds.csv); incentive_cap stays.
 """
 import csv
 import html
@@ -100,7 +105,7 @@ PDF = ROOT / "Assumptions_to_agree.pdf"
 PDF_AGREED = ROOT / "Assumptions_agreed.pdf"
 AGREED_ON = "2026-10-16"
 AGREED_17 = ("signups_run", "signup_decline_y5", "online_lead_share", "lead_cost", "channel", "signup_growth", "fee", "fee_mult_start", "fee_mult_end",
-             "incentive_cap", "fleet_plan", "seed", "series_a", "central_team")   # round 8, agreed 17 Oct
+             "incentive_cap", "fleet_plan", "seed", "series_a", "central_team", "rounds")   # round 8, agreed 17 Oct
 PENDING = ()       # early_takeup_mult, early_approval_mult, fund_return: OK'd by the operator 16 Oct (taps)
 RHO = -0.5                                                    # agreed: approvals fall as losses rise
 SEED, DRAWS = 20261016, 20000
@@ -125,6 +130,13 @@ OWED = 0.5                                                    # share of the loa
 OLD_OTHER = 63.0                                              # XO-39 middle: the v2 single line
 
 YOURS, PUB, GUIDE, OURS = "Your number", "Published", "Industry guide, not verified", "Our judgement"
+ROUNDS = list(csv.DictReader((T / "base_rounds.csv").open()))
+ROUNDS_TOTAL = sum(float(r["Amount (Rs)"]) for r in ROUNDS) / 1e7
+ROUNDS_TEXT = (f"{len(ROUNDS)} rounds per tables/base_rounds.csv: "
+               + "; ".join(f"{'seed' if r['Round'] == 'Seed' else r['Round']} ₹{float(r['Amount (Rs)']) / 1e7:,.0f} crore m{r['Month']}" for r in ROUNDS)
+               + f"; ₹{ROUNDS_TOTAL:,.0f} crore in total")
+HEAD_CENTRAL = [float(v) for v in next(r for r in csv.DictReader((T / "base_headcount.csv").open())
+                                       if r["Department"] == "Central team" and r["Role"] == "Total") .values() if v.replace(".", "", 1).isdigit()]
 CONFS = (YOURS, PUB, GUIDE, OURS)
 
 
@@ -658,14 +670,20 @@ DECISIONS = [
     fixed("incentive_cap", "Cap on the agent's balance pay, per agent a month (the salary and the cap rise 7% a year)", "Pay cap", 10000,
           "Rs per agent a month", YOURS, "operator (17 Oct): 'salary only team is tough... some incentives'; tap: '0.25% of balance, capped'",
           "Your decision: 0.25% of balance, capped at ₹10,000 a month per agent; the salary and the cap rise 7% a year.", "₹10,000", "a month", rule=True),
-    fixed("fleet_plan", "Company fleet plan", "Fleet", 80, "agents by month 18, then hire only to replace leavers (30% a year)", YOURS, "operator (17 Oct)",
-          "80 agents by m18, then replace leavers", "80 by m18", "then replace leavers", group="company", rule=True),
-    fixed("seed", "Seed round", "Seed", 1e8, "Rs at month 0 (₹10 crore)", YOURS, "operator (17 Oct)", "₹10 crore at m0", "₹10 crore", "month 0",
+    fixed("fleet_plan", "Company fleet plan", "Fleet", 300,
+          "agents by month 18, then +150 a month to a cap of 5,000, within real-world city limits", YOURS, "final base plan (tables/base_*); operator (17 Oct)",
+          "300 agents by m18, then +150 a month to a cap of 5,000, within real-world city limits", "300 by m18", "+150 a month to 5,000",
           group="company", rule=True),
+    fixed("seed", "Seed round", "Seed", 1.3e8, "Rs at month 0 (₹13 crore; pre-money ₹40 crore)", YOURS, "final base plan (tables/base_rounds.csv)",
+          "₹13 crore at m0, pre-money ₹40 crore", "₹13 crore", "month 0", group="company", rule=True),
     fixed("series_a", "Series A", "Series A", 5e8, "Rs at month 18 (₹50 crore, operator: \"50cr for sure\"; the minimum to keep cash ≥ ₹5 crore is about ₹19 crore, closing by m20)",
           YOURS, "operator (17 Oct)", "₹50 crore at m18", "₹50 crore", "month 18", group="company", rule=True),
-    fixed("central_team", "Central team", "Central team", 15, "people: the lean hold, about 15", YOURS, "operator (17 Oct)", "lean hold ~15", "~15",
-          "lean hold", group="company", rule=True),
+    fixed("central_team", "Central team", "Central team", HEAD_CENTRAL[4], f"people: scales with the fleet (tables/base_headcount.csv): "
+          f"{HEAD_CENTRAL[0]:.0f} at year 1, {HEAD_CENTRAL[4]:.0f} by year 5", YOURS, "final base plan (tables/base_headcount.csv)",
+          "scales with the fleet (base_headcount.csv)", f"{HEAD_CENTRAL[0]:.0f} → {HEAD_CENTRAL[4]:.0f}", "scales with the fleet",
+          low=HEAD_CENTRAL[0], group="company", rule=True),
+    fixed("rounds", "Funding rounds (tables/base_rounds.csv)", "Rounds", len(ROUNDS), ROUNDS_TEXT, OURS, "final base plan (tables/base_rounds.csv)",
+          ROUNDS_TEXT, f"{len(ROUNDS)} rounds", f"₹{ROUNDS_TOTAL:,.0f} crore in total", group="company", rule=True),
     fixed("marketplace_from", "Month the marketplace opens to a saver (loans, cards, insurance and more)", "Marketplace opens", 1, "month of saving",
           YOURS, "operator (16 Oct)", "Your decision 16 Oct: 'the marketplace opens as soon as possible. Simple. It's not at our cost.'",
           "month 1", "no cost to us"),
@@ -714,6 +732,126 @@ for _pre in RENEW_COMM:
     DECISIONS.append(fixed(f"{_pre}_renew_comm", f"{next(pr[3] for pr in PRODUCTS if pr[0] == _pre)}: commission on a renewal", "Renewal commission", _rc, "share of the renewal premium", PUB,
                            "REG-054, XO-19, XO-20", "Draft cap on renewals (5% health and retail; 7.5% term life).", pc(_rc), "on renewals",
                            group="insurance", rule=True))
+BASE_ROWS = list(csv.DictReader((T / "base_inputs.csv").open()))
+BASE_MAP = [  # key, group, Input prefix, value, tile name, shown, sub[, low]
+    ("city_towns", "cities", "Urban towns on the rank-size", 4000, "Urban towns", "4,000", "on the rank-size curve"),
+    ("city_served", "cities", "Cities a fleet serves", 500, "Cities served", "500", "population ≥ 1 lakh"),
+    ("city_ncr_share", "cities", "NCR's share of urban India", 0.063, "NCR's share", "6.3%", "of urban India"),
+    ("city_rank_q", "cities", "Rank-size exponent q", 0.8648, "Rank-size q", "0.865", "fitted, not census"),
+    ("city_cap", "cities", "City cap", 0.2, "City cap", "20%", "of a city's pool"),
+    ("city_saturation", "cities", "Saturation curve", 2, "Slowdown", "soft", "× (1 − (pen/cap)²)"),
+    ("city_refill", "cities", "Pool refill", 0.03, "Pool refill", "3% a year", "new shops, migrants"),
+    ("city_max_new", "cities", "Most new cities a month", 4, "New cities", "≤4 a month", "operating pace"),
+    ("city_open_headroom", "cities", "Open the next city when", 25000, "Open next city", "25,000", "headroom a head"),
+    ("city_launch_cost", "cities", "City launch cost", 300000, "City launch", "₹3 lakh", "once per city"),
+    ("city_office", "cities", "City office", 50000, "City office", "₹50,000", "a month per city"),
+    ("city_manager", "cities", "City manager", 80000, "City manager", "₹80,000", "a month, one a city"),
+    ("team_lead", "cities", "Team lead, one per 10 agents", 40000, "Team lead", "₹40,000", "a month per 10 agents"),
+    ("fleet_m18", "fleet", "Agents by month 18", 300, "Fleet by m18", "300 agents", "m3 25 … m18 300"),
+    ("fleet_hires_after_m18", "fleet", "Hires a month after month 18", 150, "Hires after m18", "150 a month", "agents"),
+    ("fleet_cap", "fleet", "Agent cap", 5000, "Agent cap", "5,000", "then replace leavers"),
+    ("agent_attrition", "fleet", "Agents who leave a year", 0.3, "Agents who leave", "30% a year", "replaced next month"),
+    ("saver_loss_on_replace", "fleet", "Savers who stop when their agent", 0.1, "Savers lost", "10%", "when he is replaced"),
+    ("agent_statutory", "fleet", "Agent statutory on top of salary", 3000, "Agent statutory", "₹3,000", "a month"),
+    ("hire_cost", "fleet", "Hiring and kit", 12000, "Hiring and kit", "₹12,000", "per hire"),
+    ("pay_rise", "fleet", "Pay rise, agents and staff", 0.07, "Pay rise", "7% a year", "agents and staff"),
+    ("acq_share_agent_cost", "fleet", "Acquisition share of agent cost", 0.5, "Acquisition share", "50% → 20%", "of agent cost, m1–12 → m60", 0.2),
+    ("pay_founders", "central", "Founders (Founders)", 150000, "Founders", "₹1.5 lakh", "a month each"),
+    ("pay_tech_lead", "central", "Tech lead (Technology)", 250000, "Tech lead", "₹2.5 lakh", "a month"),
+    ("pay_engineer", "central", "Engineers (Technology)", 120000, "Engineers", "₹1.2 lakh", "a month each"),
+    ("pay_product", "central", "Product and design (Technology)", 150000, "Product, design", "₹1.5 lakh", "a month each"),
+    ("pay_compliance_head", "central", "Compliance and operations head", 150000, "Compliance head", "₹1.5 lakh", "a month"),
+    ("pay_ops_exec", "central", "Operations executives", 40000, "Ops executives", "₹40,000", "a month each"),
+    ("pay_growth", "central", "Growth and marketing", 120000, "Growth", "₹1.2 lakh", "a month each"),
+    ("pay_finance_admin", "central", "Finance and admin", 70000, "Finance, admin", "₹70,000", "a month each"),
+    ("pay_risk_lead", "central", "Risk and fraud lead", 150000, "Risk lead", "₹1.5 lakh", "from 100 agents"),
+    ("pay_cash_recon", "central", "Cash reconciliation executives", 35000, "Cash reconciliation", "₹35,000", "1 per 50 agents"),
+    ("pay_hr", "central", "HR and recruiting executives", 50000, "HR, recruiting", "₹50,000", "1 per 100 agents"),
+    ("pay_support_lead", "central", "Customer support lead", 60000, "Support lead", "₹60,000", "from 50,000 savers"),
+    ("central_scale", "central", "Engineers and ops executives after m18", 50, "Team scaling", "+1 per 50", "agents beyond 60"),
+    ("statutory_central", "costs", "Statutory on central", 0.1, "Statutory", "10%", "of central pay"),
+    ("laptop_cost", "costs", "Laptop per central hire", 60000, "Laptop", "₹60,000", "per central hire"),
+    ("tools_per_person", "costs", "Tools per central person", 1000, "Tools", "₹1,000", "a person a month"),
+    ("app_cloud", "costs", "App: cloud, SMS and KYC tools", 150000, "App running", "₹1.5 lakh", "a month"),
+    ("app_integrations", "costs", "App integrations, months 1-3", 1500000, "App build", "₹15 lakh", "months 1–3"),
+    ("licences_setup", "costs", "Licences and setup, one-time", 750000, "Licences, setup", "₹7.5 lakh", "once"),
+    ("licences_yearly", "costs", "Licences and compliance, yearly", 1000000, "Licences, yearly", "₹10 lakh", "a year"),
+    ("head_office", "costs", "Head office", 150000, "Head office", "₹1.5 lakh", "a month"),
+    ("travel", "costs", "Travel", 100000, "Travel", "₹1 lakh", "a month"),
+    ("brand_marketing", "costs", "Brand marketing", 200000, "Brand marketing", "₹2 lakh", "a month"),
+    ("bureau_pull", "costs", "Bureau pull per personal-loan", 25, "Bureau pull", "₹25", "per loan application"),
+    ("fraud_provision", "costs", "Fraud provision on cash collected", 0.0005, "Fraud provision", "0.05%", "of cash collected"),
+    ("cash_cover_share", "costs", "Cash cover: the larger of", 0.00015, "Cash cover share", "0.015%", "of his cash, min ₹1,000"),
+    ("contingency", "costs", "Contingency on every expensed line", 0.1, "Contingency", "10%", "on expensed lines"),
+    ("income_tax", "costs", "Income tax on profit", 0.25, "Income tax", "25%", "after past losses"),
+    ("interest_on_cash", "costs", "Interest on cash", 0.055, "Interest on cash", "5.5% a year", ""),
+    ("commission_lag", "costs", "Commissions arrive after", 2, "Commission lag", "2 months", ""),
+    ("depreciation_months", "costs", "Depreciation of laptops", 36, "Depreciation", "36 months", "straight line"),
+    ("raise_cost_seed", "costs", "Fund-raising cost", 500000, "Raising the seed", "₹5 lakh", "cost"),
+    ("raise_cost_round", "costs", "Fund-raising cost", 1500000, "Raising a round", "₹15 lakh", "each later round"),
+    ("nbfc_month", "nbfc", "NBFC-ICC acquired or built", 24, "NBFC licence", "month 24", "acquired or built"),
+    ("nbfc_licence_cost", "nbfc", "Licence cost", 10000000, "Licence cost", "₹1 crore", "once"),
+    ("nbfc_nof", "nbfc", "Net owned funds held", 100000000, "Net owned funds", "₹10 crore", "from the licence month"),
+    ("nbfc_opex", "nbfc", "NBFC opex: credit, risk", 1500000, "NBFC running cost", "₹15 lakh", "a month"),
+    ("nbfc_opex_scaling", "nbfc", "NBFC opex that scales with the book", 500000, "Cost with the book", "₹5 lakh", "a month per ₹500 cr"),
+    ("onbook_start", "nbfc", "On-book lending starts", 30, "On-book lending", "month 30", "starts"),
+    ("nbfc_yield", "nbfc", "Yield on the outstanding book", 0.26, "Yield", "26% a year", "= rate"),
+    ("nbfc_processing_fee", "nbfc", "Processing fee at disbursal", 0.02, "Processing fee", "2%", "paid by the borrower"),
+    ("nbfc_cost_of_funds", "nbfc", "Cost of borrowings", 0.135, "Cost of funds", "13.5% a year", ""),
+    ("nbfc_leverage", "nbfc", "Borrowings at most this multiple", 3.0, "Leverage cap", "3× equity", "borrowings"),
+    ("onbook_share", "nbfc", "On-book share of personal-loan volume", 0.3, "On our book", "30%", "best part by score"),
+    ("onbook_loss_mult", "nbfc", "On-book loss as a multiple", 0.6, "On-book loss", "0.6× loss", "the top 30% by score"),
+    ("nbfc_equity_share", "nbfc", "NBFC equity = the larger of NOF", 0.25, "NBFC equity", "max(₹10 cr, 25%)", "of the book"),
+    ("capital_floor_reg", "nbfc", "Capital floor", 0.15, "Capital, regulatory", "15%", "of the book"),
+    ("capital_floor_op", "nbfc", "Capital floor", 0.20, "Capital, operating", "20% (25% held)", "of the book"),
+    ("onbook_dsa_fee", "nbfc", "DSA origination fee on on-book loans", 0, "DSA fee on book", "none", "we are the lender"),
+    ("onbook_coll_fee", "nbfc", "Collection fees on on-book loans", 0, "Collection fees", "internal", "partners' 70% unchanged"),
+    ("seed_premoney", "rounds", "Seed pre-money", 400000000, "Seed pre-money", "₹40 crore", ""),
+    ("stepup_a", "rounds", "Step-up into round A", 3.0, "Step-up into A", "3×", ""),
+    ("stepup_b", "rounds", "Step-up into round B", 3.0, "Step-up into B", "3×", ""),
+    ("stepup_c", "rounds", "Step-up into round C", 2.5, "Step-up into C", "2.5×", ""),
+    ("stepup_d", "rounds", "Step-up into round D", 2.0, "Step-up into D", "2×", ""),
+    ("stepup_e", "rounds", "Step-up into round E", 1.5, "Step-up into E", "1.5×", ""),
+    ("stepup_later", "rounds", "Step-up for later rounds", 1.5, "Later rounds", "1.5×", ""),
+    ("stepup_extension", "rounds", "Step-up for later rounds", 1.0, "Extensions", "1×", ""),
+    ("premoney_rule", "rounds", "Pre-money = the higher of", 1, "Pre-money rule", "higher of the two", "never below last post"),
+    ("lens_a_arr", "rounds", "Lens pricing", 25, "Round A lens", "25× ARR", "or 0.45× AUM"),
+    ("lens_later_arr", "rounds", "Lens pricing", 20, "Later lens", "20× ARR", "or 0.45× AUM"),
+    ("dilution_cap", "rounds", "Dilution cap per round", 0.25, "Dilution cap", "25%", "a round"),
+    ("round_cadence", "rounds", "Cadence", 12, "Cadence", "every 12 months", "seed m0, A m12 …"),
+    ("early_round_runway", "rounds", "A round comes earlier", 6, "Early round", "6 months", "of forward burn"),
+    ("round_size_months", "rounds", "Round size", 24, "Round size", "24 months", "of burn (or 18)"),
+    ("round_buffer", "rounds", "Round size", 100000000, "Round buffer", "₹10 crore", "on top"),
+    ("esop_pool", "rounds", "ESOP pool", 0.1, "ESOP pool", "10%", "topped up at A, B"),
+    ("unicorn_threshold", "lenses", "Unicorn threshold", 100000000000, "Unicorn", "₹10,000 crore", "$1B at ₹100"),
+    ("lens_arr", "lenses", "Lens 1: x ARR", 20, "Lens: ARR", "20×", "fee + interest ARR"),
+    ("lens_aum", "lenses", "Lens 2: x AUM", 0.45, "Lens: AUM", "0.45×", "month-end fund"),
+    ("lens_nbfc_pb", "lenses", "Lens 3 (cross-check)", 3, "Lens: NBFC", "3× book equity", "+ 20× fee ARR"),
+    ("model_horizon", "model", "Horizon", 96, "Horizon", "96 months", "the unicorn plan"),
+    ("mc_draws", "model", "Monte Carlo draws", 1000, "MC draws", "1,000", "fleet and funding fixed"),
+]
+BASE_SKIPPED = ("Addressable pool: urban", "Addressable pool, range", "Lifetime credit loss after recoveries")   # city_pool; `loss`
+
+
+def _base_row(prefix):
+    m = [r for r in BASE_ROWS if r["Input"].startswith(prefix)]
+    assert len(m) == 1, (prefix, len(m))
+    return m[0]
+
+
+for _key, _grp, _pre, _val, _short, _shown, _sub, *_lo in BASE_MAP:
+    _r = _base_row(_pre)
+    try:
+        _num = float(_r["Value"].replace(",", ""))
+        assert abs(_num - _val) <= 1e-9 * max(1, abs(_val)) or _lo, (_key, _num, _val)
+    except ValueError:
+        pass                                               # text values ("soft", "50% -> 20%", "rule", ...) are encoded in BASE_MAP
+    DECISIONS.append(fixed(_key, _r["Input"], _short, _val, _r["Unit"] or "", _r["Confidence"], _r["Source"],
+                           f"Base plan (tables/base_inputs.csv): {_r['Value']} {_r['Unit']}".strip(), _shown, _sub,
+                           low=_lo[0] if _lo else None, group=_grp, rule=True))
+assert {r["Input"] for r in BASE_ROWS} == {_base_row(m[2])["Input"] for m in BASE_MAP} | {r["Input"] for r in BASE_ROWS if r["Input"].startswith(BASE_SKIPPED)}
+BASE_KEYS = [m[0] for m in BASE_MAP] + ["city_pool"]
+
 for _d in DECISIONS:
     _d.rule = getattr(_d, "rule", False)
 
@@ -740,7 +878,16 @@ REFERENCE = [
        "Legacy only (legacy=True reproduces v2): replaced by the product lines.", rs, rsr, kind="legacy"),
 ]
 
-INPUTS = CORE + XSELL
+CITY_POOL = In("cities", "city_pool", "Addressable pool: urban self-employed (own-account workers, employers, helpers)", "Addressable pool", "pert",
+               6.5e7, 7.0e7, 7.7e7, "people", OURS, [E(0, "40.4% of urban workers self-employed", "NG-002", "40.4", axis=False)],
+               "NG-002 (40.4% of urban workers self-employed, 34.0% own-account or employer); urban workers about 19 crore (lead's estimate)",
+               "PERT 6.5–7.7 crore around 7 crore: the base plan's pool and its Monte Carlo range (tables/base_inputs.csv).",
+               lambda v: f"{v / 1e7:.1f} cr", lambda v: f"{v / 1e7:.2f} cr")
+for _d in [d for d in DECISIONS if d.key == "series_a"]:          # superseded 17 Oct by `rounds`
+    DECISIONS.remove(_d)
+    _d.kind, _d.why = "superseded", "Superseded 17 Oct by `rounds` (the final base's six rounds); kept for the record."
+    REFERENCE.append(_d)
+INPUTS = CORE + XSELL + [CITY_POOL]
 I = {i.key: i for i in INPUTS + DECISIONS + REFERENCE}
 COHORT_KEYS = ["signups_run", "ramp_months", "r3", "r12", "churn_late", "daily", "days", "amount_growth", "term", "rollover", "withdraw_m", "trail",
                "upi_12", "upi_ramp", "visit_every", "capacity", "extra_capacity_cost", "apply", "eligible", "approved_first", "approved_repeat",
@@ -749,7 +896,7 @@ COHORT_KEYS = ["signups_run", "ramp_months", "r3", "r12", "churn_late", "daily",
                "early_takeup_mult", "early_approval_mult", "fund_return", "signup_growth", "takeup_growth", "approval_growth",
                "ticket_growth", "topup_share", "topup_size", "cash_cover", "ins_partner_share", "saver_fee", "licences", "cash_route",
                "managers", "agent_balance_pay", "signup_decline_y5", "online_lead_share", "lead_cost", "channel", "fee_mult_start", "fee_mult_end",
-               "incentive_cap", "fleet_plan", "seed", "series_a", "central_team"]
+               "incentive_cap", "fleet_plan", "seed", "series_a", "central_team", "rounds"]
 assert all(k in I for k in COHORT_KEYS), [k for k in COHORT_KEYS if k not in I]
 assert len(I) == len(INPUTS) + len(DECISIONS) + len(REFERENCE)
 for _gone in ("coll_fee", "rec_fee", "trail_debt", "approved", "signups", "dpd30_rate", "dpd30_emis", "dpd30_resolve", "dpd30_fee",
@@ -1269,14 +1416,14 @@ def fan(x, y, w, h, curves, start, mid, ylo, yhi, yfmt, ytick, xlab, ylab, col=U
 
 # ---------- pages ----------
 TILE_GROUPS = [("saver", "Saver", "jar"), ("agent", "Agent", "person"), ("fund", "Fund", "coin"), ("loans", "Loans", "bank"),
-               ("collections", "Collections", "hands"), ("xsell", "Cross-sell", "card"), ("online", "Online", "phone")]
+               ("collections", "Collections", "hands"), ("xsell", "Cross-sell", "card"), ("online", "Online, cities", "phone")]
 XSELL_GROUPS = ("cards", "insurance", "investments", "payments", "other_loans")
 OP_DECISIONS = [d for d in DECISIONS if not d.rule]
 TOTAL = 15
 
 
 def gkey(i):
-    return "xsell" if i.group in XSELL_GROUPS else i.group
+    return "xsell" if i.group in XSELL_GROUPS else "online" if i.group == "cities" else i.group
 
 
 def legend(x, y, size=11):
@@ -1300,7 +1447,7 @@ def p_agree():
         s.append(icon(ic, x + 14, y + 14, 40, MUTED if dec else US))
         s.append(V.text(x + 132, y + 50, str(len(items)), 34, 800, MUTED if dec else US, "end"))
         s.append(V.text(x + 14, y + 86, name, 15, 700, INK))
-        per, step, r0 = (10, 13, 4.4) if len(items) > 18 else (6, 20, 6.5)
+        per, step, r0 = (15, 8.4, 3.0) if len(items) > 80 else (10, 13, 4.4) if len(items) > 18 else (6, 20, 6.5)
         for j, i in enumerate(items):
             rr, cc = divmod(j, per)
             if dec:
@@ -1311,17 +1458,22 @@ def p_agree():
     s.append(lg)
     cx = 655
     s.append(tk(cx, -2, "✓ AGREED", 12, 700, GOOD, "start"))
-    chips = [("Agreed", "Still saving: 55%"), ("Agreed", "Sign-ups: 100 a month → 70 by year 5; half from ₹250 online leads"), ("Agreed", "Fund: debt, 0.35%"),
-             ("Agreed", "Cards: 3%"), ("Agreed", "Approvals, losses linked"), ("Agreed", "Kept at term end: 25%"),
+    chips = [("Agreed", "Still saving: 55%"), ("Agreed", "Sign-ups 100 → 70; half online"), ("Agreed", "Debt fund"),
+             ("Agreed", "Cards 3%"), ("Agreed", "Approvals, losses linked"), ("Agreed", "25% kept at term end"),
              ("Agreed", "IRDAI caps"),
-             ("Agreed", "Months 1–6 lower; 7%"),
-             ("Agreed", "Rates grow with history"), ("Agreed", "Agent: ₹20,000 + 0.25%, capped ₹10,000"),
-             ("Agreed", "Company: 80 agents, ₹10 cr seed, ₹20 cr Series A"),
-             ("Agreed", "Loan fee: a DSA's rate, rising to 1.5× by year 5")]
+             ("Agreed", "Months 1–6 lower"),
+             ("Agreed", "Rates grow"), ("Agreed", "Agent: ₹20,000 + 0.25%, capped"),
+             ("Agreed", "Fee: DSA → 1.5× by year 5"),
+             ("Agreed", "Company: 300 → 5,000 agents; 6 rounds, ₹1,108 crore"),
+             ("Agreed", "Cities: 20% cap, soft slowdown, 3% refill, ≤4 a month"),
+             ("Agreed", "NBFC from m30: top 30% of loans on our book")]
     n_open = 0
     y = 6
     for k, (state, t) in enumerate(chips):
-        lines = t.split("; ") if len(t) * 12.5 * 0.54 > 300 else [t]          # a long chip wraps onto two lines
+        lines = [t]
+        if len(t) * 12.5 * 0.54 > 300:                                          # a long chip wraps onto two lines
+            cut = t.find("; ") if "; " in t else t.find(", ", len(t) // 2 - 6)
+            lines = [t[:cut], t[cut + 2:]] if cut > 0 else [t]
         hc = 31 + 15 * (len(lines) - 1)
         ok = state != "open"
         s.append(f'<rect x="{cx}" y="{y}" width="350" height="{hc}" rx="15.5" fill="{V.TINT["good" if ok else "bad"]}"/>')
@@ -1330,7 +1482,9 @@ def p_agree():
         else:
             n_open += 1
             s.append(f'<circle cx="{cx + 20}" cy="{y + 18.5}" r="12" fill="{BAD}"/>' + V.text(cx + 20, y + 23, str(n_open), 12, 800, "#fff", "middle"))
-        s.append(V.text(cx + 40, y + 20, ";|".join(lines) if len(lines) > 1 else t, 12.5, 700, INK, lh=15))
+        fs = 12.5 if len(lines) > 1 else min(12.5, 300 / (len(t) * 0.54))
+        sep = ";|" if "; " in t else ",|"
+        s.append(V.text(cx + 40, y + 20, sep.join(lines) if len(lines) > 1 else t, fs, 700, INK, lh=15))
         y += hc + 6
     return svg(1000, max(412, y), "".join(s)), n_open
 
@@ -1375,7 +1529,8 @@ def tile(i, x, y, w=140, h=118, tick=9.5):
 
 def dtile(i, x, y, w=140, h=62):
     yy = y + (h - 62) / 2
-    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{FLAT}"/>' + V.text(x + 8, yy + 16, i.short, 10, 700, MUTED)
+    return (f'<rect x="{x}" y="{y}" width="{w}" height="{h}" rx="10" fill="{FLAT}"/>' + dot(x + w - 9, y + 11, i.conf, 4.6)
+            + V.text(x + 8, yy + 16, i.short, 10, 700, MUTED)
             + V.text(x + 8, yy + 40, i.shown, 15 if len(i.shown) < 13 else 12.5, 800, INK) + V.text(x + 8, yy + 54, i.sub, 9, 500, MUTED))
 
 
@@ -1493,6 +1648,21 @@ def emi(P, rate, months):
 
 
 HOME_EMI = emi(2500000, 0.09, 240)                  # ₹25 lakh over 20 years at ~9%: about ₹22,500 a month
+
+
+def p_cities():
+    return grid([[("LIMITS", ["city_pool", "city_cap", "city_saturation", "city_refill", "city_max_new", "city_open_headroom"])],
+                 [("THE CURVE|AND COSTS", ["city_towns", "city_served", "city_ncr_share", "city_rank_q", "city_launch_cost", "city_office"])],
+                 [("FIELD|MANAGERS", ["city_manager", "team_lead"]), ("FLEET", ["fleet_m18", "fleet_hires_after_m18", "fleet_cap"])],
+                 [("FLEET|(MORE)", ["agent_attrition", "saver_loss_on_replace", "agent_statutory", "hire_cost", "pay_rise", "acq_share_agent_cost"])]],
+                TH=100)
+
+
+def p_nbfc():
+    return grid([[("LICENCE", ["nbfc_month", "nbfc_licence_cost", "nbfc_nof", "onbook_start", "nbfc_opex", "nbfc_opex_scaling"])],
+                 [("THE BOOK", ["onbook_share", "nbfc_yield", "nbfc_processing_fee", "nbfc_cost_of_funds", "nbfc_leverage", "onbook_loss_mult"])],
+                 [("CAPITAL|AND FEES", ["nbfc_equity_share", "capital_floor_reg", "capital_floor_op", "onbook_dsa_fee", "onbook_coll_fee", "loss"])]],
+                TH=104)
 
 
 def p_grid5():
@@ -1812,7 +1982,7 @@ def slide(no, kicker, title, visual, caption="", src="", cls=""):
             + (f'<div class="cap">{caption}</div>' if caption else "") + (f'<div class="src">Sources: {src}</div>' if src else "") + '</section>')
 
 
-GRID_PAGES = (2, 3, 4, 5, 6)
+GRID_PAGES = (2, 3, 4, 5, 6, 7, 8)
 
 
 def build(S, D):
@@ -1821,15 +1991,17 @@ def build(S, D):
     ln, rep = D["loans_per_100"], D["loans_per_100_repeat_rule"]
     agree, _ = p_agree()
     n_in = len(INPUTS)
-    g = lambda k: f"Every assumption, as a distribution ({k} of 5)"
+    g = lambda k: f"Every assumption, as a distribution ({k} of 7)"
     pages = [
-        slide(1, "Agreed, 16–17 Oct 2026", f"Agreed: {n_in - len(PENDING)} inputs, {len(DECISIONS)} fixed", agree),
+        slide(1, "Agreed 16–17 Oct", f"{n_in - len(PENDING)} inputs, {len(DECISIONS)} fixed", agree),
         slide(2, g(1), "The saver, the agent, the fund", p_grid1(), "", "tables/dist_agreed_v1.csv", "grid"),
         slide(3, g(2), "Every take rate: loans, cards, collections, timing", p_grid2(), "", "tables/dist_agreed_v1.csv", "grid"),
         slide(4, g(3), "Insurance: every product's take-up, premium and commission", p_grid3(), "", "XO-09 to XO-35, REG-054, GAP-04, GAP-05", "grid"),
         slide(5, g(4), "Investments: take-up, ticket and commission", p_grid4(), "", "XO-01 to XO-37, LEV-036, BM-03", "grid"),
         slide(6, g(5), "Payments and other lenders' loans, with housing", p_grid5(), "",
               "XO-25, XO-26, XO-33, XL-28, XL-54, GAP-06, XL-15, XL-16, XL-24 to XL-26, XL-29, IV-04", "grid"),
+        slide(0, g(6), "Cities (real-world limits)", p_cities(), "", "tables/base_inputs.csv; NG-002", "grid"),
+        slide(0, g(7), "Our own NBFC from month 30", p_nbfc(), "", "tables/base_inputs.csv; LEV-012, LEV-014, LEV-015, LEV-023, LEV-031", "grid"),
         slide(7, "How many loans", f"About {trim(ln['p50'], 1)} first loans a year per 100 active savers; 8 in 10 draws: {trim(ln['p10'], 1)} to {trim(ln['p90'], 1)}",
               p_loans(S), f"The middle sits near the older evidence's 2.5. If a saver with a loan running cannot apply, it falls to {trim(rep['p50'], 1)}.",
               SRC["loans"]),
@@ -1850,6 +2022,7 @@ def build(S, D):
         slide(15, "Decisions", "Decisions, cash route",
               p_decisions(D)),
     ]
+    pages = [re.sub(r'<span class="pg">\d+ / \d+</span>', f'<span class="pg">{k} / {len(pages)}</span>', pg, count=1) for k, pg in enumerate(pages, 1)]
     return f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Agreed assumptions</title><style>{css}</style></head><body>{"".join(pages)}</body></html>'
 
 
@@ -1872,7 +2045,7 @@ def main():
             "name": "Correlation in a draw between loss and each of approved_first and approved_repeat (Gaussian copula)",
             "unit": "correlation of normal scores", "confidence": YOURS, "evidence_points": "operator, 16 Oct: link approvals and losses in bad years",
             "source_ids": "operator", "why_this_shape": "Agreed: in a bad year approvals fall as losses rise; the two approvals then share +0.25."}
-    write("dist_agreed_v1.csv", [{**r, "agreed_on": "pending" if r["key"] in PENDING else "2026-10-17" if r["key"] in AGREED_17 else AGREED_ON}
+    write("dist_agreed_v1.csv", [{**r, "agreed_on": "pending" if r["key"] in PENDING else "2026-10-17" if r["key"] in AGREED_17 + tuple(BASE_KEYS) else AGREED_ON}
                                  for r in rows + [corr]])
     D_rows, S = derived(d)
     write("dist_derived_v1.csv", D_rows)

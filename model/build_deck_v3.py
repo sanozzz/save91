@@ -1608,6 +1608,389 @@ def ua_headcount():
     return cash_table(rows_, ["People at year end", *[f"Year {y}" for y in UYRS]], None, cls="ctab hc")
 
 
+
+# ---------- Part 4: THE BASE (final): 30% on our book from m30, real-world city limits (tables/base_*, share_compare, cities) ----------
+BY = {r["Line"]: r for r in tab("base_yearly")}
+BMO = tab("base_monthly")
+RUN = "30% on our book"
+BRD = [r for r in tab("base_rounds") if r["Run"] == RUN]
+BCP = tab("base_city_plan")
+BLN = {int(r["Month"]): r for r in tab("base_lenses")}
+BHC = tab("base_headcount")
+BMC = {r["Measure"]: r for r in tab("base_mc_summary")}
+BIN = tab("base_inputs")
+SHC = tab("share_compare")
+CITY = tab("cities")
+SEG02 = next(r for r in csv.DictReader((R / "market_benchmarks.csv").open()) if r[next(iter(r))] == "SEG-02")
+by = lambda line, y: float(BY[line][f"Year {y}"])
+bm = lambda col, m: float(BMO[m - 1][col])
+
+
+def binp(prefix):
+    r = next(x for x in BIN if x["Input"].startswith(prefix))
+    try:
+        return float(str(r["Value"]).replace(",", ""))
+    except ValueError:
+        return r["Value"]
+
+
+B_PLAN = BMC["Plan"]["Value"]
+B_A18, B_STEP, B_CAP = binp("Agents by month 18"), binp("Hires a month after month 18"), binp("Agent cap")
+assert abs(bm("Agents working", 18) - B_A18) < 0.5 and abs(by("Agents working", 5) - B_CAP) < 0.5
+B_RAISED = sum(float(r["Amount (Rs)"]) for r in BRD)
+B_FOUNDERS = float(BRD[-1]["Founders % after"])
+B_EBITDA_M = next(i + 1 for i in range(len(BMO)) if all(float(x["EBITDA (Rs)"]) > 0 for x in BMO[i:]))
+B_PAT_Y = next((y for y in range(1, 9) if by("PAT (net profit after tax)", y) > 0), None)
+B_WORST_Y = min(range(1, 6), key=lambda y: by("EBITDA", y))
+B_NBFC_M = int(binp("On-book lending starts"))
+B_SHARE = binp("On-book share of personal-loan volume")
+B_LOSS_X = binp("On-book loss as a multiple")
+B_LOSS = binp("Lifetime credit loss after recoveries") * B_LOSS_X
+B_CITYCAP = binp("City cap")
+B_POOL = binp("Addressable pool: urban self-employed")
+B_PERMONTH = int(binp("Most new cities a month"))
+B_USD = binp("Unicorn threshold")
+SERVED = [c for c in CITY if c["Served (Class I, top 500)"] == "yes"]
+CEILING = sum(float(c["Cap: 20% of addressable (sign-ups)"]) for c in SERVED)
+SERVED_POOL = sum(float(c["Addressable (urban self-employed)"]) for c in SERVED)
+assert abs(sum(float(c["Addressable (urban self-employed)"]) for c in CITY) - B_POOL) < 1e3
+OP_POOL = float(SEG02[list(SEG02)[3]]) * 1e7
+L60, L59 = BLN[60], BLN[min(m for m, r in BLN.items() if r["Lenses 1 and 2 both clear $1B"] == "yes")]
+B_UNI_M = int(L59["Month"])
+LENS = (("Lens 1 (20 x ARR)", "20 × ARR", THEM), ("Lens 2 (0.45 x AUM)", "0.45 × AUM", US), ("Lens 3 (3 x NBFC equity + 20 x fee ARR)", "lending lens", GREY))
+P_BOTH_B = float(BMC["P(lenses 1 and 2 both >= $1B at m60)"]["Value"])
+usd = lambda rs: f"${rs / B_USD:.2f}B"
+
+
+def crs(n):
+    return f"{n / 1e7:.1f} crore" if n >= 1e7 else (f"{n / 1e5:.0f} lakh" if n >= 1e6 else f"{n / 1e5:.1f} lakh")
+
+
+def b_limits():
+    steps = [(OP_POOL, f"{crs(OP_POOL)}", "e-Shram: all unorganised workers (context)", "#d9d4ca"),
+             (B_POOL, crs(B_POOL), "urban self-employed: our pool", THEM),
+             (SERVED_POOL, crs(SERVED_POOL), f"in {len(SERVED)} serveable cities", THEM),
+             (CEILING, crs(CEILING), f"the ceiling: {pct(B_CITYCAP)} of each city", US)]
+    vmax = steps[0][0]
+    s = []
+    for i, (v, big, lab, col) in enumerate(steps):
+        y = i * 84
+        w = max(40, 640 * v / vmax)
+        s.append(f'<rect x="0" y="{y}" width="{w}" height="64" rx="10" fill="{col}"/>' + T_(w + 16, y + 30, big, 24, 800, INK if i == 0 else col)
+                 + T_(w + 16, y + 52, lab, 14, 600, MUTED))
+    ncr = CITY[0]
+    s.append(f'<rect x="0" y="352" width="1000" height="60" rx="14" fill="{V.TINT["good"]}"/>' + V.icon("bank", 16, 360, 42, GOOD)
+             + T_(72, 390, f"{ncr['City']} first: {crs(float(ncr['Addressable (urban self-employed)']))} people, cap {crs(float(ncr['Cap: 20% of addressable (sign-ups)']))}", 18, 800, GOOD)
+             + T_(984, 390, "estimate, not census", 13, 600, MUTED, "end"))
+    return V.svg(1000, 414, "".join(s))
+
+
+def b_cities():
+    s = [T_(0, 14, "CITIES OPEN AT YEAR END", 12, 700, MUTED)]
+    vals = [by("Cities", y) for y in range(1, 6)]
+    for i, v in enumerate(vals):
+        h = 200 * v / max(vals)
+        x = 10 + i * 66
+        s.append(f'<rect x="{x}" y="{250 - h}" width="48" height="{h}" rx="5" fill="{THEM}" opacity="{0.5 + 0.1 * i:.2f}"/>'
+                 + T_(x + 24, 244 - h, f"{v:.0f}", 13, 800, THEM, "middle") + T_(x + 24, 270, f"Y{i + 1}", 12, 600, MUTED, "middle"))
+    peak = lambda c: max(float(c[k]) for k in c if k.startswith("Agents at launch") or k == "Agents in the launch month")
+    top = BCP[:10]
+    vmax = max(peak(c) for c in top)
+    x0, x1 = 520, 900
+    s.append(T_(x0, 14, "AGENTS PER CITY, AT ITS PEAK", 12, 700, MUTED))
+    for i, c in enumerate(top):
+        y = 26 + i * 30
+        v = peak(c)
+        s.append(T_(x0 - 10, y + 15, c["City"], 13, 600, INK, "end") + f'<rect x="{x0}" y="{y + 3}" width="{(x1 - x0) * v / vmax}" height="16" rx="3" fill="{US}"/>'
+                 + T_(x0 + (x1 - x0) * v / vmax + 6, y + 16, f"{v:,.0f}", 12, 800, US))
+    return V.svg(1000, max(26 + 10 * 30, 310), "".join(s))
+
+
+def b_plan():
+    rows_ = (("Agents", [by("Agents working", y) for y in range(1, 6)], lambda v: f"{v:,.0f}", US),
+             ("Savers", [by("Savers still saving", y) for y in range(1, 6)], big_n, GOOD),
+             ("In the fund, ₹ crore", [by("Money in the fund at month end (AUM)", y) for y in range(1, 6)], lambda v: inr(round(v / 1e7))[1:], THEM),
+             ("Our book, ₹ crore", [by("NBFC: loan book, net of provisions", y) for y in range(1, 6)], lambda v: inr(round(v / 1e7))[1:] if v else "—", INK))
+    x0, cw = 170, 166
+    s = [T_(x0 + i * cw + cw / 2, 14, f"Y{i + 1}", 15, 800, INK, "middle") for i in range(5)]
+    for j, (lab, vals, f, col) in enumerate(rows_):
+        y = 30 + j * 98
+        vmax = max(vals)
+        s.append(f'<rect x="0" y="{y}" width="1000" height="88" rx="14" fill="{PAPER}"/>' + T_(20, y + 50, lab, 18, 800, col))
+        for i, v in enumerate(vals):
+            h = max(3, 44 * v / vmax) if vmax else 3
+            bx = x0 + i * cw + 30
+            s.append(f'<rect x="{bx}" y="{y + 78 - h}" width="{cw - 60}" height="{h}" rx="5" fill="{col}" opacity="{0.45 + 0.12 * i:.2f}"/>'
+                     + T_(bx + (cw - 60) / 2, y + 78 - h - 7, f(v), 13.5, 800, col, "middle"))
+    return V.svg(1000, 30 + 4 * 98, "".join(s))
+
+
+def b_nbfc():
+    y5 = 5
+    s = [f'<rect x="0" y="0" width="360" height="410" rx="16" fill="{PAPER}"/>', T_(20, 30, "LOANS WE ARRANGE", 12, 700, MUTED)]
+    s.append(f'<rect x="20" y="48" width="320" height="64" rx="10" fill="{THEM}" opacity="0.8"/>' + T_(180, 88, f"{pct(1 - B_SHARE)} to partners", 17, 800, "#fff", "middle"))
+    s.append(f'<rect x="20" y="124" width="320" height="64" rx="10" fill="{US}"/>' + T_(180, 164, f"{pct(B_SHARE)} on our book", 17, 800, "#fff", "middle"))
+    s.append(T_(20, 236, f"from month {B_NBFC_M}", 17, 800, US) + T_(20, 264, f"losses {pct(B_LOSS, 1)} of money lent", 15, 700, BAD))
+    s.append(T_(20, 320, f"YEAR {y5} BOOK", 12, 700, MUTED) + T_(20, 354, cr(by("NBFC: loan book, net of provisions", y5)), 26, 800, INK)
+             + T_(20, 384, f"{cr(by('NBFC: equity in the book (capital held)', y5))} equity + {cr(by('NBFC: borrowings', y5))} borrowed", 13, 600, MUTED))
+    lines = (("NBFC: net interest income", "net interest", GOOD), ("NBFC: processing fees (2% of on-book loans)", "processing fees", "#4E9BD9"),
+             ("Credit cost: expected-loss provisions on the book", "credit cost", BAD))
+    vmax = max(by(k, y5) for k, *_ in lines)
+    x0, base = 430, 340
+    s.append(T_(x0, 30, f"YEAR {y5}, ₹ CRORE", 12, 700, MUTED))
+    for j, (k, lab, col) in enumerate(lines):
+        v = by(k, y5)
+        h = 260 * v / vmax
+        bx = x0 + j * 190
+        s.append(f'<rect x="{bx}" y="{base - h}" width="140" height="{h}" rx="6" fill="{col}"/>' + T_(bx + 70, base - h - 10, f"{v / 1e7:.0f}", 22, 800, col, "middle")
+                 + T_(bx + 70, base + 26, lab, 15, 700, INK, "middle"))
+    return V.svg(1000, 412, "".join(s))
+
+
+def b_pnl():
+    lines = (("Revenue, total (fee revenue + net interest income + processing fees)", "Revenue", THEM), ("CM3 (after acquiring customers)", "CM3", COLS["cards"]),
+             ("EBITDA", "EBITDA", US), ("PAT (net profit after tax)", "PAT", INK))
+    yrs = tuple(range(1, 9))
+    vals = {k: [by(k, y) for y in yrs] for k, *_ in lines}
+    vmax, vmin = max(max(v) for v in vals.values()), min(min(v) for v in vals.values())
+    x0, x1, y0, y1 = 110, 1000, 10, 230
+    Y = lambda v: y0 + (y1 - y0) * (vmax - v) / (vmax - vmin)
+    gw = (x1 - x0) / len(yrs)
+    bw = (gw - 20) / len(lines)
+    s = [f'<rect x="{x0 + 5 * gw}" y="0" width="{3 * gw}" height="{y1 + 150}" fill="#eceae5" opacity="0.7"/>',
+         T_(x0 + 6.5 * gw, y1 + 140, "years 6–8: context", 12, 700, MUTED, "middle"), f'<line x1="{x0 - 10}" y1="{Y(0)}" x2="{x1}" y2="{Y(0)}" stroke="{INK}"/>']
+    for i, y in enumerate(yrs):
+        for j, (k, lab, col) in enumerate(lines):
+            v = vals[k][i]
+            s.append(f'<rect x="{x0 + i * gw + 10 + j * bw:.1f}" y="{min(Y(v), Y(0)):.1f}" width="{bw - 2:.1f}" height="{max(abs(Y(v) - Y(0)), 1):.1f}" fill="{col}"/>')
+    ty = y1 + 26
+    s.append(T_(0, ty, "₹ crore", 12, 700, MUTED))
+    for i, y in enumerate(yrs):
+        s.append(T_(x0 + i * gw + gw / 2, ty, f"Y{y}", 13, 800, INK, "middle"))
+    for j, (k, lab, col) in enumerate(lines):
+        yy = ty + 22 + j * 22
+        s.append(f'<rect x="0" y="{yy - 11}" width="12" height="12" rx="2" fill="{col}"/>' + T_(18, yy, lab, 13, 800, INK))
+        for i, y in enumerate(yrs[:5]):
+            v = vals[k][i]
+            txt = f"{abs(v) / 1e7:.1f}" if abs(v) < 1e8 else inr(round(abs(v) / 1e7))[1:]
+            s.append(T_(x0 + i * gw + gw / 2, yy, f"{'−' if v < 0 else ''}{txt}", 13, 700, BAD if v < 0 else INK, "middle"))
+    return V.svg(1000, ty + 22 + len(lines) * 22 + 10, "".join(s))
+
+
+def b_cash():
+    m = [0] + [int(r["Month"]) for r in BMO]
+    c = [0.0] + [float(r["Closing cash, with every round (Rs)"]) for r in BMO]
+    vmax = max(c) * 1.1
+    x0, x1, y0, y1 = 70, 960, 30, 380
+    X = lambda t: x0 + (x1 - x0) * t / m[-1]
+    Y = lambda v: y1 - (y1 - y0) * v / vmax
+    s = []
+    step = next(st for st in (100, 200, 250, 500, 1000) if vmax / 1e7 / st <= 6) * 1e7
+    v = 0.0
+    while v <= vmax:
+        s.append(f'<line x1="{x0}" y1="{Y(v)}" x2="{x1}" y2="{Y(v)}" stroke="{INK if v == 0 else RULE}"/>' + T_(x0 - 8, Y(v) + 4, inr(v / 1e7)[1:], 12, 400, MUTED, "end"))
+        v += step
+    s.append(T_(x0 - 30, y0 - 12, "₹ crore", 12, 700, MUTED))
+    for t in range(12, m[-1] + 1, 12):
+        s.append(T_(X(t), y1 + 20, str(t), 12, 400, MUTED, "middle"))
+    s.append(f'<rect x="{X(60)}" y="{y0}" width="{X(m[-1]) - X(60)}" height="{y1 - y0}" fill="#eceae5" opacity="0.6"/>' + T_((X(60) + X(m[-1])) / 2, y0 + 16, "context", 12, 700, MUTED, "middle"))
+    s.append(f'<path d="M' + " L".join(f"{X(t):.1f},{Y(v):.1f}" for t, v in zip(m, c)) + f'" fill="none" stroke="{US}" stroke-width="3.5"/>')
+    months = [int(r["Month"]) for r in BRD]
+    for k, r in enumerate(BRD):
+        t = months[k]
+        v = c[t] if t else float(r["Amount (Rs)"])
+        near_next = k + 1 < len(months) and months[k + 1] - t <= 9
+        near_prev = k > 0 and t - months[k - 1] <= 9
+        anchor, dx = ("end", -10) if near_next and t else (("start", 10) if near_prev or t == 0 else ("middle", 0))
+        s.append(f'<circle cx="{X(t)}" cy="{Y(v)}" r="7" fill="{GOOD}" stroke="#fff" stroke-width="2"/>')
+        s.append(halo(T_(X(t) + dx, Y(v) - 62 if t == 0 else Y(v) - 14, f"{r['Round']} {cr(float(r['Amount (Rs)']))}", 13, 800, GOOD, anchor)))
+    return V.svg(1000, y1 + 30, "".join(s))
+
+
+def b_owner():
+    import math as _m
+    posts = [float(r["Post-money (Rs)"]) for r in BRD]
+    lo, hi = _m.log10(min(posts)) - 0.3, _m.log10(max(max(posts), B_USD)) + 0.15
+    n, x0, cw, y0, y1 = len(BRD), 40, 150, 40, 300
+    Y = lambda v: y1 - (y1 - y0) * (_m.log10(v) - lo) / (hi - lo)
+    s = [f'<line x1="0" y1="{Y(B_USD)}" x2="{x0 + n * cw}" y2="{Y(B_USD)}" stroke="{BAD}" stroke-width="2" stroke-dasharray="6 4"/>', halo(T_(4, Y(B_USD) - 6, "$1B", 13, 800, BAD))]
+    pts = []
+    for i, r in enumerate(BRD):
+        x = x0 + i * cw + 30
+        v = float(r["Post-money (Rs)"])
+        s.append(f'<rect x="{x}" y="{Y(v)}" width="{cw - 60}" height="{y1 - Y(v)}" rx="5" fill="{THEM}" opacity="{0.5 + 0.08 * i:.2f}"/>'
+                 + halo(T_(x + (cw - 60) / 2, Y(v) - 8, cr(v), 13, 800, THEM, "middle"))
+                 + T_(x + (cw - 60) / 2, y1 + 22, r["Round"], 15, 800, INK, "middle") + T_(x + (cw - 60) / 2, y1 + 40, f"month {r['Month']}", 12, 400, MUTED, "middle"))
+        pts.append((x + (cw - 60) / 2, float(r["Founders % after"])))
+    fy0, fy1 = 380, 470
+    FY = lambda p: fy1 - (fy1 - fy0) * p
+    s.append(T_(0, fy0 - 6, "FOUNDERS OWN", 12, 700, US) + f'<path d="M' + " L".join(f"{x:.1f},{FY(p):.1f}" for x, p in pts) + f'" fill="none" stroke="{US}" stroke-width="3"/>')
+    for x, p in pts:
+        s.append(f'<circle cx="{x}" cy="{FY(p)}" r="5" fill="{US}"/>' + halo(T_(x, FY(p) - 10, pct(p, 1), 13, 800, US, "middle")))
+    return V.svg(1000, fy1 + 10, "".join(s))
+
+
+def b_lenses():
+    vals = [float(L60[k]) for k, *_ in LENS]
+    vmax = max(max(vals), B_USD) * 1.12
+    x0, x1 = 230, 760
+    X = lambda v: x0 + (x1 - x0) * v / vmax
+    s = []
+    for i, ((k, lab, col), v) in enumerate(zip(LENS, vals)):
+        y = 20 + i * 92
+        mg = float(L60[k + " margin over $1B"])
+        s.append(T_(x0 - 14, y + 34, lab, 19, 800, col if col != GREY else MUTED, "end"))
+        s.append(f'<rect x="{x0}" y="{y + 10}" width="{X(v) - x0}" height="44" rx="8" fill="{col}"/>')
+        s.append(T_(X(v) + 10, y + 32, f"{usd(v)}", 18, 800, col if col != GREY else MUTED) + T_(X(v) + 10, y + 52, f"{'+' if mg >= 0 else '−'}{abs(mg) * 100:.1f}%", 14, 800, GOOD if mg >= 0.05 else (WARN if mg >= 0 else BAD)))
+    s.append(f'<line x1="{X(B_USD)}" y1="10" x2="{X(B_USD)}" y2="290" stroke="{BAD}" stroke-width="2.5" stroke-dasharray="6 4"/>' + halo(T_(X(B_USD) + 6, 18, "$1B", 14, 800, BAD)))
+    s.append(f'<rect x="0" y="304" width="480" height="96" rx="16" fill="{V.TINT["warn"]}"/>' + T_(24, 360, pct(P_BOTH_B), 40, 800, WARN)
+             + T_(150, 346, "of futures clear lenses", 16, 700, WARN) + T_(150, 368, "1 and 2 at month 60", 16, 700, WARN))
+    s.append(f'<rect x="510" y="304" width="490" height="96" rx="16" fill="#eceae5"/>' + T_(530, 344, "EVERY MULTIPLE IS", 12, 700, MUTED)
+             + T_(530, 374, JUDGE, 15, 800, INK))
+    return V.svg(1000, 404, "".join(s))
+
+
+def _share_take():
+    rs = sorted(SHC, key=lambda r: float(r["On-book share"]))
+    hi = rs[-1]
+    base = next(r for r in rs if abs(float(r["On-book share"]) - B_SHARE) < 1e-9)
+    if float(hi["Year-5 PAT (Rs)"]) > float(base["Year-5 PAT (Rs)"]):
+        return f"{float(hi['On-book share']) * 100:.0f}% earns more only if its weaker loans lose as little as assumed."
+    return f"{pct(B_SHARE)} gives the most for the money raised."
+
+
+
+
+def b_share():
+    cols = [f"{float(r['On-book share']) * 100:.0f}% on book" for r in SHC]
+    base_i = next(i for i, r in enumerate(SHC) if abs(float(r["On-book share"]) - B_SHARE) < 1e-9)
+    rows_ = [("Loss on our book", lambda r: pct(float(r["On-book loss (likely)"]), 2).rstrip("0").rstrip(".") + ("" if pct(float(r["On-book loss (likely)"]), 2).endswith("%") else "")),
+             ("Raised by month 60", lambda r: cr(float(r["Total raised (Rs)"]))), ("Year-5 PAT", lambda r: cr(float(r["Year-5 PAT (Rs)"]))),
+             ("Both lenses clear (MC)", lambda r: pct(float(r["MC: P(lenses 1 and 2 both >= $1B at m60)"])))]
+    s = []
+    for j, c in enumerate(cols):
+        x = 330 + j * 225
+        hl = j == base_i
+        s.append(f'<rect x="{x}" y="0" width="205" height="{50 + len(rows_) * 64}" rx="16" fill="{"#f6efe7" if hl else PAPER}" stroke="{US if hl else "none"}" stroke-width="2.5"/>'
+                 + T_(x + 102, 32, c + (" (base)" if hl else ""), 15, 800, US if hl else INK, "middle"))
+    for i, (lab, f) in enumerate(rows_):
+        y = 50 + i * 64
+        s.append(T_(310, y + 38, lab, 16, 700, INK, "end"))
+        for j, r in enumerate(SHC):
+            s.append(T_(330 + j * 225 + 102, y + 40, f(r), 20, 800, US if j == base_i else INK, "middle"))
+    return V.svg(1000, 54 + len(rows_) * 64, "".join(s))
+
+
+SHARE_TAKE = _share_take()
+
+
+def b_after5():
+    yrs = list(range(1, 9))
+    sv = [by("Savers still saving", y) for y in yrs]
+    x0, x1, y0, y1 = 70, 620, 30, 360
+    vmax = max(sv) * 1.15
+    X = lambda i: x0 + (x1 - x0) * i / (len(yrs) - 1)
+    Y = lambda v: y1 - (y1 - y0) * v / vmax
+    s = [f'<rect x="{X(4)}" y="{y0}" width="{X(7) - X(4)}" height="{y1 - y0}" fill="#eceae5" opacity="0.6"/>']
+    for i, y in enumerate(yrs):
+        s.append(T_(X(i), y1 + 22, f"Y{y}", 13, 700, MUTED, "middle"))
+    s.append(f'<line x1="{x0}" y1="{y1}" x2="{x1}" y2="{y1}" stroke="{INK}"/>')
+    s.append(f'<path d="M' + " L".join(f"{X(i):.1f},{Y(v):.1f}" for i, v in enumerate(sv)) + f'" fill="none" stroke="{GOOD}" stroke-width="4"/>')
+    pk = max(range(len(sv)), key=lambda i: sv[i])
+    for i in (pk, len(sv) - 1):
+        s.append(f'<circle cx="{X(i)}" cy="{Y(sv[i])}" r="7" fill="{GOOD}"/>' + halo(T_(X(i), Y(sv[i]) - 14, big_n(sv[i]), 16, 800, GOOD, "middle")))
+    s.append(T_(x0, 16, "ACTIVE SAVERS AT YEAR END", 12, 700, MUTED))
+    asks = [("bank", "New towns", f"beyond the {len(SERVED)} cities"), ("hands", "A wider segment", "beyond the urban self-employed"), ("coin", "More products", "more from each saver")]
+    for k, (ic, t, sub) in enumerate(asks):
+        y = 20 + k * 112
+        s.append(f'<rect x="680" y="{y}" width="320" height="96" rx="14" fill="{PAPER}"/>' + V.icon(ic, 696, y + 24, 44, US) + T_(756, y + 42, t, 19, 800, INK)
+                 + T_(756, y + 68, sub, 13.5, 600, MUTED))
+    return V.svg(1000, y1 + 32, "".join(s))
+
+
+def b_one_line():
+    g = GATES
+    steps = [("hands", "Prove one agent", ["one salaried agent, 12 months", f"stop below {float(g['signups_run']['stop']):.0f} sign-ups a month",
+                                          f"or {pct(float(g['r12']['stop']))} still saving"], US),
+             ("bank", "Then build the base", [f"{B_A18:.0f} agents by month 18, +{B_STEP:.0f} a month", f"our own NBFC from month {B_NBFC_M}",
+                                              f"{cr(B_RAISED)} in {len(BRD)} rounds"], THEM)]
+    s = []
+    for i, (ic, head, lines, col) in enumerate(steps):
+        x = i * 520
+        s.append(f'<rect x="{x}" y="0" width="480" height="300" rx="20" fill="{PAPER}"/><rect x="{x}" y="0" width="480" height="8" rx="4" fill="{col}"/>')
+        s.append(V.icon(ic, x + 24, 30, 56, col) + T_(x + 96, 68, head, 24, 800, col))
+        for k, ln in enumerate(lines):
+            s.append(f'<circle cx="{x + 40}" cy="{136 + k * 52}" r="7" fill="{col}"/>' + T_(x + 60, 142 + k * 52, ln, 18, 600, INK))
+        if i == 0:
+            s.append(V.arrow(486, 150, 514, 150, INK, 3.5))
+    return V.svg(1000, 304, "".join(s))
+
+
+def ba_rounds():
+    rows_ = [([r["Round"], r["Month"], cr(float(r["Amount (Rs)"])), cr(float(r["Pre-money (Rs)"])), cr(float(r["Post-money (Rs)"])),
+               pct(float(r["Dilution (new investors' share of post-money)"]), 1), pct(float(r["Founders % after"]), 1), pct(float(r["ESOP % after"]), 1),
+               pct(float(r["Investors % after"]), 1), r["Priced on"].replace("Rs ", "₹")], False) for r in BRD]
+    rows_.append((["Total", "", cr(B_RAISED), "", "", "", "", "", "", ""], True))
+    return cash_table(rows_, ["Round", "Month", "Raised", "Pre-money", "Post-money", "Dilution", "Founders", "ESOP", "Investors", "Priced on"], None, cls="ctab cf")
+
+
+def ba_ladder(part):
+    keys = [k for k in BY if BY[k]["Unit"] in ("Rs", "share")]
+    first = keys.index("Revenue: Fund trail")
+    last = keys.index("PAT (net profit after tax)")
+    keys = [k for k in keys[first:last + 1]]
+    c1, c2 = keys.index("CM1, share of revenue") + 1, keys.index("CM3, share of revenue") + 1
+    keys = (keys[:c1] if part == 1 else keys[c1:c2] if part == 2 else
+            keys[c2:] + [k for k in BY if k.startswith("NBFC:") and BY[k]["Unit"] == "Rs" and k not in keys])
+    bold = lambda k: not k.startswith(("Revenue:", "Direct:", "Servicing:", "Acquisition:", "Central:", "Depreciation:", "NBFC:")) and "share" not in k
+    rows_ = []
+    for k in keys:
+        u = BY[k]["Unit"]
+        f = (lambda v: f"{float(v) * 100:.0f}%") if u == "share" else (lambda v: f"{'−' if float(v) < 0 else ''}{abs(float(v)) / 1e7:,.1f}")
+        rows_.append(([k.replace("Rs ", "₹"), *[f(BY[k][f"Year {y}"]) for y in range(1, 9)]], bold(k)))
+    return cash_table(rows_, ["₹ crore", *[f"Year {y}" for y in range(1, 9)]], None)
+
+
+def ba_cashflow():
+    keys = [k for k in BY if k.startswith(("Cash flow,", "Cash from", "Net change", "Opening cash", "Closing cash, with"))]
+    rows_ = [([k.replace("Rs ", "₹"), *[f"{'−' if by(k, y) < 0 else ''}{abs(by(k, y)) / 1e7:,.1f}" for y in range(1, 9)]], k.startswith(("Cash from", "Net change", "Closing")))
+             for k in keys]
+    return cash_table(rows_, ["₹ crore", *[f"Year {y}" for y in range(1, 9)]], None, cls="ctab cf")
+
+
+def ba_headcount():
+    keep = [r for r in BHC if r["Role"] in ("Agents", "City managers", "Team leads") or r["Role"] == "Department total" or r["Department"] in ("Central team", "All")]
+    rows_ = [([(r["Department"] if r["Role"] == "Department total" else (r["Role"] if r["Department"] not in ("Central team", "All") else ("Central team, total" if r["Department"] == "Central team" else "Everyone"))),
+               *[f"{float(r[f'Year {y}']):,.0f}" for y in range(1, 9)]], r["Department"] in ("Central team", "All")) for r in keep]
+    return cash_table(rows_, ["People at year end", *[f"Year {y}" for y in range(1, 9)]], None, cls="ctab hc")
+
+
+def ba_cityplan():
+    cols = ["Launch month", "Agents at launch +12 months", "Agents at launch +24 months", "Agents at launch +48 months"]
+    rows_ = [([c["Rank"], c["City"], crs(float(c["Addressable (urban self-employed)"])), crs(float(c["Cap: 20% of addressable (sign-ups)"])),
+               *[f"{float(c[k]):,.0f}" for k in cols]], False) for c in BCP[:30]]
+    return cash_table(rows_, ["#", "City (estimate, not census)", "People", "Cap (20%)", "Opens in month", "Agents +12 m", "+24 m", "+48 m"], None, cls="ctab city cf")
+
+
+def ba_inputs(part):
+    n = (len(BIN) + 3) // 4
+    part_rows = BIN[(part - 1) * n:part * n]
+
+    def val(r):
+        v, u = str(r["Value"]), str(r["Unit"])
+        try:
+            x = float(v.replace(",", ""))
+        except ValueError:
+            return v.replace("Rs ", "₹")
+        if u.startswith("Rs"):
+            return inr(x) if x < 1e7 else cr(x)
+        if u.startswith(("share", "a year")) and x < 1:
+            return f"{x * 100:g}%"
+        return f"{x:,.10g}"
+    rows_ = [([r["Group"], r["Input"].replace("Rs ", "₹"), val(r), r["Unit"].replace("Rs ", "₹").replace("Rs", "₹"), r["Confidence"]], False) for r in part_rows]
+    return cash_table(rows_, ["Group", "Input", "Value", "Unit", "Confidence"], None, cls="ctab bi")
+
+
 # ---------- assembly ----------
 PAGES = []        # (kind, title, takeaway, sources)
 
@@ -1621,7 +2004,7 @@ def page(no, kicker, title, visual, takeaway="", sources="", kind="story"):
             + (f'<div class="src">{sources}</div>' if sources else "") + "</section>")
 
 
-N_STORY = 25
+N_STORY = 27
 
 
 def build():
@@ -1660,26 +2043,30 @@ def build():
              "The pilot must measure these three first.", "Sources: A2. Table: cohort_mc_drivers.csv"),
         page(16, "Part 3 · Our answer", "Our answer: pilot one salaried agent for 12 months.", p_pilot(),
              HEADLINE, "Sources: A9. Tables: deck_v3_gates.csv, cohort_mc_summary.csv"),
-        page(17, "Part 4 · The unicorn track", f"{U_A18:,} agents by month 18, then +{U_STEP} a month to {U_CAP:,}.", u_plan(),
-             f"{big_n(uy('Active savers at year end', 5))} savers by month 60; lending stays with partners.", "Sources: A17. Table: unicorn_yearly.csv"),
-        page(18, "Part 4 · The unicorn track", f"EBITDA turns positive in year {U_EBITDA_Y}, after peak losses in year {U_WORST_Y}.", u_pnl(),
-             f"Year {U_WORST_Y} EBITDA is {cr(uy('EBITDA', U_WORST_Y))}: the price of the speed.", "Sources: A16. Table: unicorn_yearly.csv"),
-        page(19, "Part 4 · The unicorn track", f"Cash and the rounds: {len(URD)} raises, {cr(U_RAISED)} in all.", u_cash(),
-             "Each round lands before cash falls to six months of burn.", "Sources: A15, A17. Tables: unicorn_monthly.csv, unicorn_rounds.csv"),
-        page(20, "Part 4 · The unicorn track", f"Founders keep {pct(U_FOUNDERS, 1)} at the unicorn round.", u_rounds(),
-             f"No round dilutes more than {pct(max(float(r[chr(68) + 'ilution (new investors' + chr(39) + ' share of post-money)']) for r in URD))}; ESOP stays near 10%.",
-             "Sources: A15. Table: unicorn_rounds.csv"),
-        page(21, "Part 4 · The unicorn track", "Unicorn on paper at month 60: both lenses clear $1B.", u_lenses(),
-             f"Margins of {float(CHK_R['Margin over $1B (share)']) * 100:.0f}% and {float(CHK_A['Margin over $1B (share)']) * 100:.0f}% over $1B.",
-             "Tables: unicorn_milestones.csv, unicorn_mc_summary.csv"),
-        page(22, "Part 4 · The unicorn track", "What it takes at year 5.", u_year5(),
-             "A national field company, built in five years.", "Table: unicorn_yearly.csv"),
-        page(23, "Part 4 · The unicorn track", "The risk: big losses, fast hiring, judgement multiples.", u_risk(),
-             "Any one can stop the track.", "Tables: unicorn_yearly.csv, unicorn_mc_summary.csv"),
-        page(24, "Part 4 · The unicorn track", "The other road: profitable by year 5, far smaller.", u_other(),
-             f"The {OTHER['Agents at m18']}-agent plan raises far less and stays small.", "Tables: growth_frontier.csv, unicorn_yearly.csv"),
-        page(25, "Summary", "The plan in one line: prove one agent, then the unicorn track.", u_one_line(),
-             f"One agent: {of10(P60)} of 10 futures in profit by month 60.", "Sources: pages 16–24."),
+        page(17, "Part 4 · The company", "Cities have limits: about 91 lakh people is the national ceiling."
+             .replace("91 lakh", crs(CEILING)), b_limits(),
+             f"We can sign at most {pct(B_CITYCAP)} of any city.", "Tables: cities.csv, base_inputs.csv; SEG-02"),
+        page(18, "Part 4 · The company", f"{by('Cities', 5):.0f} cities by year 5, at most {B_PERMONTH} new a month.", b_cities(),
+             "Cities fill, then the next opens.", "Sources: A19. Table: base_city_plan.csv"),
+        page(19, "Part 4 · The company", f"{B_A18:.0f} agents by month 18, then +{B_STEP:.0f} a month to {B_CAP:,.0f}.", b_plan(),
+             f"Our own loan book starts in year {next(y for y in range(1, 9) if by('NBFC: loan book, net of provisions', y) > 0)}.", "Sources: A18. Table: base_yearly.csv"),
+        page(20, "Part 4 · The company", f"Our own NBFC: the best {pct(B_SHARE)} of loans.", b_nbfc(),
+             "Interest earns more than a fee, but needs capital.", "Sources: A16, A20. Table: base_yearly.csv"),
+        page(21, "Part 4 · The company", f"EBITDA turns positive in month {B_EBITDA_M}; PAT in year {B_PAT_Y}.", b_pnl(),
+             f"Year {B_WORST_Y} EBITDA is {cr(by('EBITDA', B_WORST_Y))}, the low point.", "Sources: A16. Table: base_yearly.csv"),
+        page(22, "Part 4 · The company", f"Cash and the rounds: {len(BRD)} raises, {cr(B_RAISED)} in all.", b_cash(),
+             "Each round lands before cash falls to six months of burn.", "Sources: A15, A17. Tables: base_monthly.csv, base_rounds.csv"),
+        page(23, "Part 4 · The company", f"Founders keep {pct(B_FOUNDERS, 1)} after the last round.", b_owner(),
+             "Late rounds are small, so they barely dilute.", "Sources: A15. Table: base_rounds.csv"),
+        page(24, "Part 4 · The company", f"Unicorn on paper from month {B_UNI_M}, but only just.", b_lenses(),
+             f"At month 60, lens 2 clears by {float(L60['Lens 2 (0.45 x AUM) margin over $1B']) * 100:.1f}%; the lending lens says {usd(float(L60[LENS[2][0]]))}.",
+             "Tables: base_lenses.csv, base_mc_summary.csv"),
+        page(25, "Part 4 · The company", "Which share of loans on our book?", b_share(),
+             SHARE_TAKE, "Table: share_compare.csv"),
+        page(26, "Part 4 · The company", f"After year 5, savers fall as cities fill.", b_after5(),
+             "Growth after year 5 needs new towns, a wider segment or more products.", "Table: base_yearly.csv"),
+        page(27, "Summary", "The plan in one line: prove one agent, then build the base.", b_one_line(),
+             f"One agent: {of10(P60)} of 10 futures in profit by month 60.", "Sources: pages 16–26."),
     ]
     assert len(st) == N_STORY
     grid_src = "Table: dist_agreed_v1.csv. Dot: how sure we are."
@@ -1711,13 +2098,19 @@ def build():
              "Tables: cohort_signups_sweep.csv (a Monte Carlo at each point), cohort_signups_sweep_likely.csv (likely values)", "appx"),
         page("A14", "Appendix · paying the agent", "Paying the agent", a_pay(), "",
              "Table: cohort_incentive_sweep.csv (the base inputs, ways to pay him)", "appx"),
-        page("A15", "Appendix · the unicorn track", "Rounds, valuations and the cap table", ua_rounds(), "",
-             "Table: unicorn_rounds.csv (valuations are our judgement: lens multiples and step-ups)", "exempt"),
-        page("A16", "Appendix · the unicorn track", "The P&L by year, years 1–8 (₹ crore)", ua_ladder(), "", "Table: unicorn_yearly.csv (years 6–8 are context)", "exempt"),
-        page("A17", "Appendix · the unicorn track", "The cash-flow statement by year, years 1–8 (₹ crore)", ua_cashflow(), "", "Table: unicorn_monthly.csv, summed by year", "exempt"),
-        page("A18", "Appendix · the unicorn track", "Headcount by department, at each year end", ua_headcount(), "", "Table: unicorn_monthly.csv", "exempt"),
-        page("A19", "Appendix · the unicorn track", "Company cost assumptions", a_costs(), "",
-             "Table: company_gsheet_spec.json (Company inputs; fleet and funding: A15, page 17)", "exempt"),
+        page("A15", "Appendix · the company", "Rounds, valuations and the cap table", ba_rounds(), "",
+             "Table: base_rounds.csv (valuations are our judgement: step-ups and lenses)", "exempt"),
+        page("A16", "Appendix · the company (1 of 3)", "The P&L by year: revenue, with the NBFC, to CM1 (₹ crore)", ba_ladder(1), "", "Table: base_yearly.csv (years 6–8: context)", "exempt"),
+        page("A16", "Appendix · the company (2 of 3)", "The P&L by year: serving and acquiring, to CM3 (₹ crore)", ba_ladder(2), "", "Table: base_yearly.csv", "exempt"),
+        page("A16", "Appendix · the company (3 of 3)", "The P&L by year: central costs to PAT, and the book (₹ crore)", ba_ladder(3), "", "Table: base_yearly.csv", "exempt"),
+        page("A17", "Appendix · the company", "The cash-flow statement by year (₹ crore)", ba_cashflow(), "", "Table: base_yearly.csv", "exempt"),
+        page("A18", "Appendix · the company", "Headcount by department, at each year end", ba_headcount(), "", "Table: base_headcount.csv", "exempt"),
+        page("A19", "Appendix · the company", "The city plan: the top 30 cities", ba_cityplan(), "", "Table: base_city_plan.csv (sizes from a rank-size curve)", "exempt"),
+        page("A20", "Appendix · the company (1 of 4)", "Base inputs" + ("" if 1 == 1 else " (continued)"), ba_inputs(1), "", "Table: base_inputs.csv", "exempt"),
+        page("A20", "Appendix · the company (2 of 4)", "Base inputs" + ("" if 2 == 1 else " (continued)"), ba_inputs(2), "", "Table: base_inputs.csv", "exempt"),
+        page("A20", "Appendix · the company (3 of 4)", "Base inputs" + ("" if 3 == 1 else " (continued)"), ba_inputs(3), "", "Table: base_inputs.csv", "exempt"),
+        page("A20", "Appendix · the company (4 of 4)", "Base inputs" + ("" if 4 == 1 else " (continued)"), ba_inputs(4), "", "Table: base_inputs.csv", "exempt"),
+
     ]
     css = V.CSS.replace("INK", INK).replace("MUTED", MUTED).replace("RULE", RULE).replace("US", US) + EXTRA
     return (f'<!doctype html><html lang="en"><head><meta charset="utf-8"><title>Offline model v3</title><style>{css}</style></head>'
@@ -1733,6 +2126,10 @@ EXTRA = f"""
 .ctab tr.b td {{ font-weight: 700; background: #f6efe7; }}
 .ctab.hc table {{ font-size: 11pt; }} .ctab.hc td {{ padding: 4px 10px; }}
 .ctab.cf table {{ font-size: 10pt; }} .ctab.cf td {{ padding: 4px 8px; }}
+.ctab.bi table {{ font-size: 7.6pt; }} .ctab.bi td {{ padding: 2px 4px; white-space: nowrap; text-align: left; }} .ctab.bi th {{ text-align: left; }}
+.ctab.bi td:nth-child(2) {{ white-space: normal; }} .ctab.bi td:nth-child(4) {{ max-width: 46mm; overflow: hidden; text-overflow: ellipsis; color: {MUTED}; }}
+.ctab.city td:nth-child(2) {{ text-align: left; }}
+.ctab.bi td:nth-child(3) {{ font-weight: 700; white-space: nowrap; }}
 .ccols {{ display: grid; grid-template-columns: 1fr 1fr; gap: 14px; width: 100%; align-items: start; }}
 .ctab.cc table {{ font-size: 7.1pt; }} .ctab.cc td {{ padding: 1.3px 4px; }} .ctab.cc td:nth-child(2) {{ font-weight: 700; }}
 .ctab.cc td:nth-child(3) {{ color: {MUTED}; text-align: left; }}
