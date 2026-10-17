@@ -1,0 +1,133 @@
+cell,measure,expected
+'Company summary'!B2,"Revenue, year 1 (fees + net interest income + processing fees)",4573880.884936173
+'Company summary'!B3,"Revenue, year 2 (fees + net interest income + processing fees)",75366763.24097903
+'Company summary'!B4,"Revenue, year 3 (fees + net interest income + processing fees)",588287929.0536355
+'Company summary'!B5,"Revenue, year 4 (fees + net interest income + processing fees)",2279478822.7397146
+'Company summary'!B6,"Revenue, year 5 (fees + net interest income + processing fees)",4640021202.981118
+'Company summary'!B7,"Revenue, year 6 (fees + net interest income + processing fees)",5936657816.5869665
+'Company summary'!B8,"Revenue, year 7 (fees + net interest income + processing fees)",6141321596.172687
+'Company summary'!B9,"Revenue, year 8 (fees + net interest income + processing fees)",5733791139.3196945
+'Company summary'!B10,"EBITDA, year 1",-92160901.82805948
+'Company summary'!B11,"EBITDA, year 2",-499449708.4728478
+'Company summary'!B12,"EBITDA, year 3",-1448274575.7445517
+'Company summary'!B13,"EBITDA, year 4",-1504346934.8101294
+'Company summary'!B14,"EBITDA, year 5",-112945975.53255409
+'Company summary'!B15,"EBITDA, year 6",1446610360.80652
+'Company summary'!B16,"EBITDA, year 7",1537058380.089015
+'Company summary'!B17,"EBITDA, year 8",979219810.058516
+'Company summary'!B18,"PAT, year 1",-80061342.65952201
+'Company summary'!B19,"PAT, year 2",-418726623.0428032
+'Company summary'!B20,"PAT, year 3",-1257470648.7784183
+'Company summary'!B21,"PAT, year 4",-1219982242.5118737
+'Company summary'!B22,"PAT, year 5",139921364.67755315
+'Company summary'!B23,"PAT, year 6",1658625548.8151393
+'Company summary'!B24,"PAT, year 7",1656364616.4280996
+'Company summary'!B25,"PAT, year 8",1011588585.7186985
+'Company summary'!B27,"Fee revenue, year 5",2621952097.150999
+'Company summary'!B28,"Net interest income, year 5",1771848262.2451808
+'Company summary'!B29,"Processing fees, year 5",246220843.58493742
+'Company summary'!B30,"Credit cost (provisions), year 5",221598759.2264437
+'Company summary'!B31,"Loan book, net of provisions, month 60",15586880244.045713
+'Company summary'!B32,"NBFC equity (capital held), month 60",3896720061.0114284
+'Company summary'!B33,"NBFC borrowings, month 60",11690160183.034285
+'Company summary'!B35,ARR at month 60 (12 x the month's fees + NII + processing fees),5468004480.016771
+'Company summary'!B36,"AUM at month 60 (money in the fund, month end)",222732189000.39664
+'Company summary'!B37,Lens 1: arr_mult x ARR (20x agreed),109360089600.33542
+'Company summary'!B38,Lens 2: aum_mult x AUM (0.45x agreed),100229485050.17848
+'Company summary'!B39,Lens 3 (cross-check): pb_mult x NBFC equity + arr_mult x fee ARR (3x and 20x),68273870240.02977
+'Company summary'!B40,"Lens 1 margin over the threshold (Rs 10,000 crore)",0.09360089600335408
+'Company summary'!B41,Lens 2 margin over the threshold,0.0022948505017847953
+'Company summary'!B42,Lens 3 margin over the threshold,-0.31726129759970234
+'Company summary'!B43,Unicorn on paper at month 60 (lenses 1 and 2 both clear),yes
+'Company summary'!B45,"Lowest month-end cash, months 1-96",89902122.62580283
+'Company summary'!B46,Month of the lowest cash,8.0
+'Company summary'!B47,Closing cash at month 60,3871099264.146548
+'Company summary'!B48,Closing cash at month 96,7547624610.944675
+'Company summary'!B49,EBITDA break-even month (stays positive from here),55.0
+'Company summary'!B50,Equity raised by month 60 (rounds table),11080000000.0
+'Company summary'!B51,Founders' share after the unicorn round (E),0.26094733970954875
+'Company summary'!B53,"Savers still saving, month 60",3645967.5123552424
+'Company summary'!B54,"Agents working, month 60",5000.0
+'Company summary'!B55,"Cities open, month 60",172.0
+'Company summary'!B56,"Central team, month 60",360.0
+'Company summary'!B57,Cumulative sign-ups to month 60,7413436.559946331
+'Company summary'!B58,National penetration at month 60 (cumulative sign-ups / the pool),0.10590623657066188
+'Company summary'!B59,"Money lent in year 5, personal loans incl. top-ups (on and off our book)",41036807264.15624
+'Company summary'!B60,"Money lent in year 5, home loans and LAP (other lenders)",111357250863.06119
+'Funding & cap table'!E5,Seed: post-money,530000000.0
+'Funding & cap table'!F5,Seed: dilution,0.24528301886792453
+'Funding & cap table'!H5,Seed: founders % after,0.6547169811320755
+'Funding & cap table'!I5,Seed: ESOP % after,0.1
+'Funding & cap table'!J5,Seed: investors % after,0.24528301886792453
+'Funding & cap table'!K5,Seed: adds to 100%,1.0
+'Funding & cap table'!L5,Seed: lens value that month,
+'Funding & cap table'!E6,A: post-money,2120000000.0
+'Funding & cap table'!F6,A: dilution,0.25
+'Funding & cap table'!H6,A: founders % after,0.47285115303983233
+'Funding & cap table'!I6,A: ESOP % after,0.1
+'Funding & cap table'!J6,A: investors % after,0.4271488469601677
+'Funding & cap table'!K6,A: adds to 100%,1.0
+'Funding & cap table'!L6,A: lens value that month,266147572.1248803
+'Funding & cap table'!E7,B: post-money,8480000000.0
+'Funding & cap table'!F7,B: dilution,0.25
+'Funding & cap table'!H7,B: founders % after,0.3415036105287678
+'Funding & cap table'!I7,B: ESOP % after,0.1
+'Funding & cap table'!J7,B: investors % after,0.5584963894712323
+'Funding & cap table'!K7,B: adds to 100%,1.0
+'Funding & cap table'!L7,B: lens value that month,2226476097.4365926
+'Funding & cap table'!E8,C: post-money,28316013013.40072
+'Funding & cap table'!F8,C: dilution,0.21366002329271433
+'Funding & cap table'!H8,C: founders % after,0.2685379411486452
+'Funding & cap table'!I8,C: ESOP % after,0.07863399767072857
+'Funding & cap table'!J8,C: investors % after,0.6528280611806262
+'Funding & cap table'!K8,C: adds to 100%,1.0
+'Funding & cap table'!L8,C: lens value that month,22583536920.51731
+'Funding & cap table'!E9,D: post-money,78353878484.54266
+'Funding & cap table'!F9,D: dilution,0.027439611689728204
+'Funding & cap table'!H9,D: founders % after,0.2611693643195673
+'Funding & cap table'!I9,D: ESOP % after,0.07647631130903279
+'Funding & cap table'!J9,D: investors % after,0.6623543243713998
+'Funding & cap table'!K9,D: adds to 100%,0.9999999999999999
+'Funding & cap table'!L9,D: lens value that month,75620649943.943
+'Funding & cap table'!E10,E: post-money,117630817726.814
+'Funding & cap table'!F10,E: dilution,0.0008501173581249785
+'Funding & cap table'!H10,E: founders % after,0.26094733970954875
+'Funding & cap table'!I10,E: ESOP % after,0.07641129746930361
+'Funding & cap table'!J10,E: investors % after,0.6626413628211476
+'Funding & cap table'!K10,E: adds to 100%,1.0
+'Funding & cap table'!L10,E: lens value that month,101716423884.80278
+'Funding & cap table'!E11,(spare): post-money,0.0
+'Funding & cap table'!F11,(spare): dilution,0.0
+'Funding & cap table'!H11,(spare): founders % after,0.26094733970954875
+'Funding & cap table'!I11,(spare): ESOP % after,0.07641129746930361
+'Funding & cap table'!J11,(spare): investors % after,0.6626413628211476
+'Funding & cap table'!K11,(spare): adds to 100%,1.0
+'Funding & cap table'!L11,(spare): lens value that month,
+'Funding & cap table'!E12,(spare): post-money,0.0
+'Funding & cap table'!F12,(spare): dilution,0.0
+'Funding & cap table'!H12,(spare): founders % after,0.26094733970954875
+'Funding & cap table'!I12,(spare): ESOP % after,0.07641129746930361
+'Funding & cap table'!J12,(spare): investors % after,0.6626413628211476
+'Funding & cap table'!K12,(spare): adds to 100%,1.0
+'Funding & cap table'!L12,(spare): lens value that month,
+'Funding & cap table'!B24,ARR: 12 x the month's fees + net interest income + processing fees (₹),5468004480.016771
+'Funding & cap table'!B25,Fee ARR: 12 x the month's fee revenue (₹),2829185502.8497744
+'Funding & cap table'!B26,AUM: money in the fund at month end (₹),222732189000.39664
+'Funding & cap table'!B27,NBFC equity in the book (₹),3896720061.0114284
+'Funding & cap table'!B28,Lens 1: arr_mult x ARR (₹; our judgement),109360089600.33542
+'Funding & cap table'!B29,Lens 2: aum_mult x AUM (₹; our judgement),100229485050.17848
+'Funding & cap table'!B30,Lens 3 (cross-check): pb_mult x NBFC equity + arr_mult x fee ARR (₹; our judgement),68273870240.02977
+'Funding & cap table'!B31,Unicorn threshold (₹),100000000000.0
+'Funding & cap table'!B32,Lens 1 margin over the threshold,0.09360089600335408
+'Funding & cap table'!B33,Lens 2 margin over the threshold,0.0022948505017847953
+'Funding & cap table'!B34,Lens 3 margin over the threshold,-0.31726129759970234
+'Funding & cap table'!B35,ARR needed for the threshold on lens 1 (₹),5000000000.0
+'Funding & cap table'!B36,AUM needed for the threshold on lens 2 (₹),222222222222.22223
+'Funding & cap table'!B37,Lens 1 clears the threshold?,yes
+'Funding & cap table'!B38,Lens 2 clears the threshold?,yes
+'Funding & cap table'!B39,Lens 3 (cross-check) clears the threshold?,no
+'Funding & cap table'!B40,UNICORN ON PAPER at the check month (lenses 1 and 2 both clear)?,yes
+'Funding & cap table'!B41,Equity raised by the check month (₹),11080000000.0
+'Funding & cap table'!B42,"Equity raised, every round in the table (₹)",11080000000.0
+'Funding & cap table'!B43,Founders' share after the unicorn round,0.26094733970954875
+'Funding & cap table'!B44,Post-money of the unicorn round (₹),117630817726.814

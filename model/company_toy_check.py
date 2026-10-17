@@ -114,6 +114,10 @@ def company_inputs():
     I["hires_after"] = (h, "Growth hires a month after month 18", "agents a month", "num0", "base: 150 (check only)")
     I["agent_cap"] = (cap, "Agent cap: no growth hires beyond this many agents (leavers are always replaced)", "agents", "num0",
                       "base: 5,000 (check only)")
+    dd = ce.load_dists()[0]["signups_run"]
+    pert_mean = (dd[1] + 4 * dd[2] + dd[3]) / 6
+    I["agent_level"] = (pert_mean / dd[2], "Fleet's average sign-up level, x the likely (each agent draws his own level)", "x", "f3",
+                        f"agreed distribution pert {dd[1]:g}/{dd[2]:g}/{dd[3]:g}: mean {pert_mean:.1f} a month vs likely {dd[2]:g}")
     I["attrition_y"] = (C.ATTRITION_YEAR, "Agents who leave a year (replaced the next month; the new agent inherits the book)", "a year", "pct", "")
     I["handover_loss"] = (C.HANDOVER_LOSS, "Savers who stop when their agent is replaced", "share", "pct", "")
     I["acq_early"] = (C.ACQ_SHARE_EARLY, "Acquisition share of an agent's cost, his months 1-12", "share", "pct", "the rest is servicing")
@@ -333,9 +337,9 @@ def company(v, I, plan, role_tab, rounds, cplan=None):
     o["visits"] = convho(p["visits"], o["signups"])
     # the saturation ratio for the per-book costs: the books' balance, visits and cash as if every city were unsaturated, x this
     sr = lambda a, b: np.where(b > 0, a / np.where(b > 0, b, 1.0), 1.0)
-    o["r_bal"] = sr(o["balance"], convho(p["balance"], o["signups_unsat"]))
-    o["r_vis"] = sr(o["visits"], convho(p["visits"], o["signups_unsat"]))
-    o["r_cd"] = sr(o["cashdep"], convho(cashdep_ps, o["signups_unsat"]))
+    o["bal_u"], o["vis_u"], o["cd_u"] = (convho(p["balance"], o["signups_unsat"]), convho(p["visits"], o["signups_unsat"]),
+                                         convho(cashdep_ps, o["signups_unsat"]))
+    o["r_bal"], o["r_vis"], o["r_cd"] = sr(o["balance"], o["bal_u"]), sr(o["visits"], o["vis_u"]), sr(o["cashdep"], o["cd_u"])
     o["apps"] = convho(p["apps"], o["signups_adj"]) * mt["tf"] * mt["pool"]
     o["loans"] = convho(p["loans"], o["signups_adj"]) * mt["lf0"]
     o["topups"] = convho(p["topups"], o["signups_adj"]) * mt["lf20"]

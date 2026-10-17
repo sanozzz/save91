@@ -773,11 +773,16 @@ class Book:
         if fn == "MAKEARRAY":
             nr, nc, lam = int(self.num(vals[0])), int(self.num(vals[1])), vals[2]
             assert lam[0] == "lambda" and len(lam[1]) == 2
-            out = np.zeros((nr, nc))
+            out = np.zeros((nr, nc), dtype=object)
+            texts = False
             for i in range(nr):
                 for j in range(nc):
-                    out[i, j] = self.num(self.ev(lam[2], {**lam[3], lam[1][0]: float(i + 1), lam[1][1]: float(j + 1)}, here))
-            return out
+                    val = self.ev(lam[2], {**lam[3], lam[1][0]: float(i + 1), lam[1][1]: float(j + 1)}, here)
+                    if isinstance(val, str) and not val.startswith("#"):
+                        out[i, j], texts = val, True                    # Sheets' MAKEARRAY may return text (a header row)
+                    else:
+                        out[i, j] = self.num(val)
+            return out if texts else out.astype(float)
         if fn == "SCAN":
             acc, arr, lam = vals[0], self.num(vals[1]), vals[2]
             assert lam[0] == "lambda" and len(lam[1]) == 2

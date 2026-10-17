@@ -380,7 +380,8 @@ SWEEP_HDR = {"signups_a_month": "Sign-ups a month", "salary_per_signup": "Salary
 def sweep_sheet(title, fname, note):
     data = read_csv(fname)
     cols = list(data[0])
-    rows = [[sig(r[c]) if c != "pay" else r[c] for c in cols] for r in data]
+    # Sheets reads text that starts with "+" as a formula (#ERROR!), so "+0.25% ..." is written "salary +0.25% ..."
+    rows = [[sig(r[c]) if c != "pay" else ("salary " + r[c] if r[c].startswith(("+", "=")) else r[c]) for c in cols] for r in data]
     return table_sheet(title, note, [SWEEP_HDR.get(c, c) for c in cols], rows, {"A": 230}, {"B3:Q20": "#,##0.###"})
 
 
@@ -476,51 +477,55 @@ def readme_sheet(recon, n_formulas, v):
     r += 1
     cells[f"A{r}"] = (f"Checks: model/toy_check.py replays all {n_formulas} formulas of this workbook through a Sheets formula interpreter and "
                       f"matches every Summary cell to its numpy twin; the toy-vs-full table is tables/toy_vs_full.csv.")
-    co = T / "unicorn_toy_vs_full.csv"                  # the company tabs (model/company_gsheet.py), unicorn track
-    old = T / "company_toy_vs_full.csv"                  # the earlier plan's reconciliation (round 10 base), kept for reference
+    co = T / "base_toy_vs_full.csv"                     # the company tabs (model/company_gsheet.py), THE BASE
+    old = T / "company_toy_vs_full.csv"                  # the round-10 plan's reconciliation, kept for reference
+    uni = T / "unicorn_toy_vs_full.csv"                  # the unicorn track's reconciliation, kept for reference
     if co.exists():
         r += 2
         cr = lambda z: f"₹{z / 1e7:,.0f} crore"
         rd = [(nm, m, a) for nm, m, a, _p, _e in ct_rounds() if a > 0]
         rtxt = "; ".join(f"{nm} {cr(a)} at month {m:.0f}" for nm, m, a in rd)
         lines = [
-            ("Company tabs: the UNICORN TRACK (operator, 17 Oct: \"unicorn on paper\" by year 5; distribution only, no own-book "
-             "lending; story/BRIEF_unicorn_plan_2026-10-17.md)", "bold"),
-            ("The plan (tables/unicorn_*.csv, model/unicorn_plan.py): 300 agents by month 18 on the earlier ramp, then +200 a month, "
-             "capped at 7,500, then replace leavers only; the central team as built (no lean hold); funding = the rounds table: "
-             f"{rtxt}; 96 company months.", ""),
-            ("Company inputs: the fleet path, the team table, costs and the ROUNDS table (round, month, amount, pre-money; blue). "
-             "Company per book: one agent's territory by its age (1-96). Company monthly: months 1-96: calendar factors, fleet, "
-             "headcount, savers, lending, revenue by line, CM1, CM2, CM3, EBITDA, depreciation, interest on cash, tax, PAT, cash flow, "
-             "closing cash, ARR and the two lenses. Company yearly: years 1-8 (6-8 are context). Funding & cap table: post-money, "
-             "dilution, founders %, ESOP % and investors % after each round, and the month-60 unicorn check. Company summary: the toy "
-             "against the full model.", ""),
-            ("The unicorn check (Funding & cap table): at month 60, revenue lens = 20 x ARR (ARR = 12 x month-60 revenue) and AUM lens = "
-             "0.45 x month-end AUM, each against ₹10,000 crore ($1B at ₹100 a dollar). Both multiples are OUR JUDGEMENT and are blue "
-             "inputs there (the AUM multiple's basis, SAV-03, is cumulative money invested, not AUM: a rough proxy).", ""),
-            ("Months 61-96, as the full model's 96-month run: take-up and approval growth held at year 5 (year_hold), the fee multiplier "
-             "held at 1.5x, the agent pay rate 0.10% of balance (pay_after). 'Per saver' runs to age 96 for the company tabs (rows 62-97; "
-             "the toy itself uses ages 1-60).", ""),
-            ("How the company toy stacks agents: one MMULT per line over the books opened each month. Every book carries the EXPECTED "
-             "effect of 30% a year attrition (a handover loses 10% of the book's savers; the new agent restarts the ramp; the agent-cost "
-             "split follows the expected tenure of whoever holds the book). Helpers, cash cover and the capped pay are worked on the "
-             "average book of each age. Every agent signs up at the likely 100 a month (the full model draws each agent's own level). "
-             "The 17 non-housing products are one line, split by the full model's mix.", ""),
+            ("Company tabs: THE BASE (final; tables/base_*, model/base_plan.py): 30% of personal-loan volume on our own NBFC book from "
+             "month 30, and the real-world city limits", "bold"),
+            ("The plan: 172 cities opened in rank order (City plan tab), 300 agents by month 18, then +150 a month, capped at 5,000; "
+             "each city's sign-ups slow as it fills: x (1 - (cumulative / cap)^2), cap = 20% of the city's urban self-employed pool, "
+             "growing 3% a year; the central team as built; funding = the rounds table: " + rtxt + "; 96 company months.", ""),
+            ("Tabs: Company inputs (fleet path as a check, cities, costs, NBFC, the ROUNDS table; blue). City plan: 172 cities (blue: "
+             "city, rank, addressable, launch month, agents at each tenure point) with each city's penetration and slowdown at months "
+             "60 and 96. City by month: 96 months x 172 cities (agents, new books, sign-ups before the slowdown, the cap, cumulative "
+             "sign-ups, sign-ups). Company per book, Company monthly (the company's agents and sign-ups are summed from the cities; "
+             "NBFC lines: on-book loans, book, interest, cost of funds, NII, processing fees, provisions, equity, borrowings), "
+             "Company yearly (years 1-8), Funding & cap table (cap table; the three lenses at month 60), Company summary.", ""),
+            ("Every city is modelled individually (no aggregate): the slowdown runs row by row over the 96 months, vectorised across "
+             "the 172 cities. Each book's agent works at the fleet's average sign-up level (agent_level, the agreed distribution's mean, "
+             "1.017 x the likely 100). The per-book costs (capped pay on balance, helpers, cash cover) use the average book of each "
+             "age, scaled by the company's ratio of saturated to unsaturated balance, visits and cash (one ratio for all cities: an "
+             "approximation). The NBFC as the full model (nbfc.py): EMIs at the 26% yield over 36 months, provisions of 0.6 x the "
+             "agreed 3% loss at disbursal, equity = the larger of ₹10 crore NOF and 25% of the book, borrowings the rest at 13.5%.", ""),
+            ("The unicorn check (Funding & cap table): lens 1 = 20 x ARR (ARR = 12 x month-60 fees + NII + processing fees), lens 2 "
+             "= 0.45 x AUM, both against ₹10,000 crore; lens 3 (cross-check) = 3 x NBFC equity + 20 x fee ARR. All multiples are OUR "
+             "JUDGEMENT and blue inputs there.", ""),
+            ("Where the toy and the full model part: the full model opens cities AUTOMATICALLY (each hire to the city with the most "
+             "headroom); the City plan records that rollout at tenure points, and its straight lines put about 7.5% more agents in year "
+             "2. The full model run on the same City plan gives year-2 revenue +9.2% and year-5 EBITDA -₹9.0 crore (vs -₹7.9 crore "
+             "AUTO); the toy is within 1% of that run's revenue in every year.", ""),
         ]
+        if uni.exists():
+            u = {row["measure"]: row for row in csv.DictReader(uni.open())}
+            lines.append((
+                "Earlier plan 2, kept for reference: the unicorn track (no NBFC, no city limits): 300 agents by month 18, +200 a month, "
+                "cap 7,500; rounds ₹1,308 crore by month 60. Full model: year-5 revenue "
+                f"₹{float(u['Revenue, year 5']['full_model']) / 1e7:,.0f} crore, year-5 EBITDA ₹{float(u['EBITDA, year 5']['full_model']) / 1e7:,.0f} crore; "
+                "the toy matched it within 1.7% on revenue and 0.8% on EBITDA in years 1-5 (tables/unicorn_toy_vs_full.csv).", ""))
         if old.exists():
             orow = {row["measure"]: row for row in csv.DictReader(old.open())}
             f5 = lambda k: float(orow[k]["full_model"])
-            g = lambda pre: max(abs(float(orow[f"{pre}, year {y}"]["gap_pct"])) for y in range(1, 6))
             lines.append((
-                "Earlier plan, kept for reference (round 10 base, replaced by the unicorn track on 17 Oct): 80 agents by month 18, then "
-                "replace leavers; central lean hold; seed ₹10 crore + Series A ₹50 crore at month 18. Full company model over 60 months: "
-                f"year-5 revenue ₹{f5('Revenue, year 5') / 1e7:,.2f} crore, year-5 EBITDA "
-                f"−₹{-f5('EBITDA, year 5') / 1e7:,.2f} crore, cash at month 60 {cr(f5('Closing cash at month 60, with the Series A'))}; "
-                "the seed alone ran out in month 21. The toy matched it within "
-                f"{g('Revenue'):.1%} on revenue and {g('EBITDA'):.1%} on EBITDA in years 1-5 (tables/company_toy_vs_full.csv). To see it "
-                "again here: agents_m18 80, hires_after 0, lean_hold 1, and the rounds seed ₹10 crore at month 0 and A ₹50 crore at "
-                "month 18 (amounts of the other rounds 0).", ""))
-        lines.append(("Company reconciliation (toy vs the full unicorn model, tables/unicorn_toy_vs_full.csv; years 6-8 are context)", "bold"))
+                "Earlier plan 1, kept for reference (round 10): 80 agents by month 18, then replace leavers; central lean hold; seed "
+                f"₹10 crore + Series A ₹50 crore at month 18; year-5 revenue ₹{f5('Revenue, year 5') / 1e7:,.2f} crore, year-5 EBITDA "
+                f"−₹{-f5('EBITDA, year 5') / 1e7:,.2f} crore (tables/company_toy_vs_full.csv).", ""))
+        lines.append(("Company reconciliation (toy vs the full base model, tables/base_toy_vs_full.csv; years 6-8 are context)", "bold"))
         for text, style in lines:
             cells[f"A{r}"] = text
             if style == "bold":
@@ -530,9 +535,9 @@ def readme_sheet(recon, n_formulas, v):
             cells[f"{chr(65 + j)}{r}"] = h
         fm["bold_rows"].append(r)
         r += 1
-        keep = ("Revenue, year", "EBITDA, year", "PAT, year 5", "ARR at month 60", "AUM at month 60", "Revenue lens (", "AUM lens (",
-                "Unicorn on paper", "Lowest month-end cash", "Closing cash at month 60", "EBITDA break-even", "Savers still saving, month 60",
-                "Founders' share")
+        keep = ("Revenue, year", "EBITDA, year", "PAT, year 5", "Net interest income, year 5", "Loan book", "NBFC equity",
+                "ARR at month 60", "AUM at month 60", "Lens 1:", "Lens 2:", "Lens 3 (", "Unicorn on paper", "Lowest month-end cash",
+                "Closing cash at month 60", "EBITDA break-even", "Savers still saving, month 60", "Cumulative sign-ups", "Founders' share")
         for row in csv.DictReader(co.open()):
             if not row["measure"].startswith(keep):
                 continue
