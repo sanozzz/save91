@@ -1,0 +1,53 @@
+Measure,Unit,P10,Median (P50),P90,Mean,Value,Note
+Draws,draws,,,,,2000,seed 20261017; market inputs Latin hypercube with the bad-year copula; r12 < r3 redraws 5
+Plan,,,,,,"m18 80 agents; +0 a month after m18; Rs 20,000 + 0.25% of balance, capped at Rs 10,000 a month; UPI 30% (agreed, drawn); central lean hold",
+Common sign-up factor (all agents in a draw),x each agent's own draw,0.7923670665223258,1.0127555883573414,1.246604769949437,1.0166769489753857,,the draw's market-level signups_run over 100 (fix 6)
+"P(cash stays above 0, seed only, through m18)",share of draws,,,,,1.0,"about 100.0% +/- 0.0pp (95% sampling margin, 2,000 draws); every month end 1-18, no Series A"
+"Lowest cash, seed only, through m18",Rs,12552796.205900328,17045681.707301725,20580424.193396326,16751385.473702194,,negative = the gap
+"Month of the lowest cash, seed only, through m18",company month,18.0,18.0,18.0,,,
+Month the seed alone runs out,company month,20.0,21.0,22.0,,,first month-end below 0 with no Series A
+The Series A must close by month,company month,19.0,20.0,20.0,,,the latest month-end the Rs 50 crore can land without cash going below 0 before it
+Series A slips to month 21: lowest cash through m60,Rs,-2971127.5371180987,2747323.3172307936,7457223.09678935,2399336.624667311,,
+Series A slips to month 21: P(cash goes below 0),share of draws,,,,,0.2585,"about 26% +/- 2pp (95% sampling margin, 2,000 draws)"
+Series A slips to month 24: lowest cash through m60,Rs,-25812886.328955937,-18097717.96581605,-11697308.008666469,-18579971.8752256,,
+Series A slips to month 24: P(cash goes below 0),share of draws,,,,,1.0,"about 100.0% +/- 0.0pp (95% sampling margin, 2,000 draws)"
+Headroom over the minimum A: Rs 50 crore less the smallest A,Rs,251965212.72300744,310456906.1251823,370922494.6796894,310701120.14582264,,P10 = the headroom when the need is at its P90 (the tight case)
+Smallest Series A at month 18 that keeps cash at or above Rs 5 crore through m60,Rs,129077505.3203106,189543093.87481773,248034787.2769926,189298879.85417736,,searched per draw; found in 100% of draws (search ceiling Rs 500 crore)
+"P(cash stays above 0, with the Series A, through m60)",share of draws,,,,,1.0,"about 100.0% +/- 0.0pp (95% sampling margin, 2,000 draws); seed Rs 10 crore + Series A Rs 50 crore at m18; every month end 1-60"
+"Lowest cash, with the Series A, through m60",Rs,20768855.84624323,24584788.040334772,27616259.154493198,24335987.10597731,,
+"Month of the lowest cash, with the Series A, through m60",company month,17.0,17.0,17.0,,,
+"Extra funding needed to month 60, beyond the seed and the Rs 50 crore A",Rs,0.0,0.0,0.0,0.0,,0 = none
+Share of draws that need extra funding to month 60,share of draws,,,,,0.0,"about 0.0% +/- 0.0pp (95% sampling margin, 2,000 draws)"
+P(EBITDA break-even by m36),share of draws,,,,,0.012,"about 1.2% +/- 0.5pp (95% sampling margin, 2,000 draws); first month positive and staying positive"
+P(EBITDA break-even by m42),share of draws,,,,,0.0935,"about 9% +/- 1pp (95% sampling margin, 2,000 draws); first month positive and staying positive"
+P(EBITDA break-even by m48),share of draws,,,,,0.1865,"about 19% +/- 2pp (95% sampling margin, 2,000 draws); first month positive and staying positive"
+P(EBITDA breaks even within 60 months),share of draws,,,,,0.4525,"about 45% +/- 2pp (95% sampling margin, 2,000 draws); EBITDA stays positive from some month to month 60"
+EBITDA break-even month,company month,43.0,never within 60 months,never within 60 months,,,the first month from which monthly EBITDA stays positive to month 60
+First month with positive EBITDA,company month,43.0,never within 60 months,never within 60 months,,,may dip again later
+Year-5 revenue,Rs,83703554.57139926,126982741.75812396,193866559.2112116,134864799.0458779,,months 49-60
+Year-5 CM1,Rs,79432719.02210121,121334052.37122563,187716352.2722938,129272937.02901538,,months 49-60
+Year-5 CM2,Rs,29327164.534300923,65289108.4076802,127306412.25589052,73498979.70012051,,months 49-60
+Year-5 CM3,Rs,-1847015.0860663285,32880346.877516303,92988580.08200894,41037543.23940914,,months 49-60
+Year-5 EBITDA,Rs,-47678613.250111535,-13247302.388022032,44648018.35463481,-5775860.085733255,,months 49-60
+Year-5 interest on cash,Rs,20278156.485890593,23233097.705418613,27683164.08287855,23645909.689041555,,months 49-60
+Year-5 PAT,Rs,-26902348.538488317,9987651.805935247,72592264.03308865,16755518.792243581,,months 49-60
+Year-1 revenue,Rs,903726.3185599238,1316069.5378476349,1865318.0991678357,1361717.4577586604,,
+Year-2 revenue,Rs,11857202.787751006,17049329.30639788,23946663.953669947,17622139.77695401,,
+Year-3 revenue,Rs,36874929.52392593,53612365.011229545,77585729.33393459,55915371.59181378,,
+Year-4 revenue,Rs,61518413.68033935,91695408.67120822,136976369.44122618,96539833.84453022,,
+Year-1 EBITDA,Rs,-47948901.7928473,-46423857.13331057,-45287042.73692568,-46540016.61443817,,
+Year-2 EBITDA,Rs,-85022738.33929394,-78444873.63083407,-71879799.4907571,-78569808.63595493,,
+Year-3 EBITDA,Rs,-76229276.02976963,-63185197.21349592,-44108298.570005015,-61591414.050053,,
+Year-4 EBITDA,Rs,-61018889.26196859,-38657091.93964707,-937432.6490131574,-34131611.28037148,,
+Cumulative PAT at month 60,Rs,-226952605.21567982,-150692156.42578512,-25411417.806816682,-137691452.5096082,,undiscounted
+"Cash at month 60, with the Series A",Rs,355317198.51397914,426592676.7253374,540180047.9031142,438231162.80331945,,
+Savers still saving at month 18,savers,30847.99231379695,40105.5758179205,50044.855916214256,40416.808439719396,,
+Savers still saving at month 60,savers,110580.70734846179,149312.24028561084,194209.43483306284,150688.10496785038,,
+Money in the fund (AUM) at month 18,Rs,833309394.1334572,1208251168.5366673,1698234314.6062365,1241932345.9088173,,
+Money in the fund (AUM) at month 60,Rs,5672698456.441395,8811944529.386988,13587193370.890474,9321209696.042969,,
+"Money lent, months 1-18",Rs,30671349.82148816,72005481.37020497,145244735.38608748,81778659.6823378,,personal loans incl. top-ups
+"Money lent, 60 months",Rs,1559697828.9827046,3653900782.793804,7335714706.564511,4138855919.1221437,,personal loans incl. top-ups
+Revenue in month 18,Rs a month,866172.0144630283,1239611.858045537,1743948.7935872783,1282163.1682831564,,
+"Agents hired in 60 months, incl. replacements",agents,177.0,177.0,177.0,177.0,,
+Average year-1 sign-up level of the agents hired,sign-ups a month,80.59615265705929,102.86325806978499,126.94614768636397,103.38546318995218,,each agent's own draw x the common factor
+Share of draws where the lean hold ends (EBITDA turns positive) within 60 months,share of draws,,,,,0.4525,"about 45% +/- 2pp (95% sampling margin, 2,000 draws)"

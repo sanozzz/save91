@@ -1,0 +1,17 @@
+Line,Unit,Year 1,Year 2,Year 3,Year 4,Year 5,Five years,How the year is formed
+"Cash flow, operating: PAT",Rs,-54101359.381202154,-130474927.21720858,-96783281.61705692,-39791576.41408676,3503879.684186237,-317647264.9453681,sum of the months
+"Cash flow, operating: add back depreciation",Rs,733333.3333333333,933333.3333333333,979999.9999999998,246666.6666666667,103333.33333333336,2996666.666666666,sum of the months
+"Cash flow, operating: less the increase in commissions receivable",Rs,-1458442.4275074461,-10187204.453839343,-15083397.158794869,-14866477.750910558,-14781541.217202693,-56377063.008254915,sum of the months
+"Cash flow, operating: tax booked less tax paid (paid in the month booked)",Rs,0.0,0.0,0.0,0.0,0.0,0.0,sum of the months
+Cash from operations (includes interest received),Rs,-54826468.475376256,-139728798.3377146,-110886678.77585179,-54411387.498330645,-11174328.199683122,-371027661.2869565,sum of the months
+"Cash flow, investing: laptops",Rs,-960000.0,-480000.0,0.0,0.0,-420000.0,-1860000.0,sum of the months
+"Cash flow, investing: app integrations",Rs,-1500000.0,0.0,0.0,0.0,0.0,-1500000.0,sum of the months
+Cash from investing,Rs,-2460000.0,-480000.0,0.0,0.0,-420000.0,-3360000.0,sum of the months
+"Cash flow, financing: seed (lands at m0, shown in month 1)",Rs,180000000.0,0.0,0.0,0.0,0.0,180000000.0,sum of the months
+"Cash flow, financing: Series A (end of month 18)",Rs,0.0,300000000.0,0.0,0.0,0.0,300000000.0,sum of the months
+Cash from financing,Rs,180000000.0,300000000.0,0.0,0.0,0.0,480000000.0,sum of the months
+Net change in cash,Rs,122713531.52462372,159791201.6622854,-110886678.77585179,-54411387.498330645,-11594328.199683122,105612338.71304363,sum of the months
+Opening cash,Rs,0.0,122713531.52462372,282504733.1869091,171618054.41105732,117206666.91272669,0.0,at year start
+"Closing cash, with the Series A",Rs,122713531.52462372,282504733.1869091,171618054.41105732,117206666.91272669,105612338.71304354,105612338.71304354,at year end
+"Lowest month-end cash in the year, with the Series A",Rs,122713531.52462372,69365872.67579515,171618054.41105732,117206666.91272669,105612338.71304354,69365872.67579515,lowest month end
+Month of that lowest cash,company month,12.0,17.0,36.0,48.0,60.0,17.0,lowest month end

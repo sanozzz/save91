@@ -1,0 +1,7 @@
+step,what,breakeven5,breakeven3,npv5_r0.55
+last,"Last deck: 1% fee, 2.5 loans per 100, cards on every sign-up",0.3364561115914917,0.42179407424124915,287183.04969839734
+today_signup_cards,"Today's fee and funnel, cards still paid on every sign-up",0.22346884793065985,0.27364949555391344,647588.8789524972
+round0,"v2 as first built: cards only to proven savers, once, in month 7",0.2880095086829627,0.3559768894896238,573030.042234513
+m1_alone,M1 alone: the balance builds over each yearly term,0.32974917429636363,0.41181270674100556,491865.659419195
+m2_alone,"M2 alone: insurance and other products from month 7, proven savers only",0.3279619213488028,0.41014707869145095,487447.0348702816
+this_deck,M1 + M2 together: this deck,0.36912296615987705,0.4665005204653466,406282.65205496363

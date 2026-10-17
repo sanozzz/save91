@@ -1,0 +1,6 @@
+case,p_net_pos,net_p50,net_p90,p_payback_le_36,cac_p50
+loans only while saving,0.13175,-350.87250219798784,52.0109906380454,0.1375,
+proven savers keep borrowing,0.202,-277.8910843395501,179.38407241727808,0.20425,
+"proven savers keep borrowing, take-up 20%",0.428,-69.07178506150564,477.81889304682323,0.4345,
+"proven savers keep borrowing, cost to win at most Rs 250",0.442,-30.014055174856935,355.9366782476192,0.44575,250.00000000000003
+"proven savers keep borrowing, take-up 20%, cost to win at most Rs 250",0.813,196.62432904542126,681.8637245632038,0.8225,250.00000000000003

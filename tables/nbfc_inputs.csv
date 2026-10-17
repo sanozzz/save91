@@ -1,0 +1,16 @@
+Input,Value,Unit,What it is,Basis
+licence_month,24,company month,NBFC-ICC acquired or built,LEV-031
+licence_cost,10000000.0,"Rs, once",Licence cost,LEV-031
+nof,100000000.0,Rs,Net owned funds held as capital from the licence month,RBI minimum for an NBFC-ICC (Rs 10 crore)
+opex_base,1500000.0,Rs a month,"NBFC opex: credit, risk, compliance, treasury",judgement
+opex_per_500cr,500000.0,Rs a month per Rs 500 crore of book,NBFC opex that scales with the book (pro rata),judgement
+share_start_month,30,company month,On-book lending starts,operator tap: test NBFC from year 3
+share_start,0.1,share of personal-loan volume,On-book share at the start,brief
+share_full_month,54,company month,On-book share reaches its full level,brief
+share_full,0.5,share of personal-loan volume,On-book share from then on (NB3: 0.80),brief
+yield,0.26,a year,Yield on the outstanding book = the agreed EMI rate (rate),agreed input; LEV-012 25-28%
+processing_fee,0.02,share of the loan,"Processing fee at disbursal, paid by the borrower",judgement
+cost_of_funds,0.135,a year,Cost of borrowings,LEV-014/015
+leverage,3.0,x equity,Borrowings at most this multiple of NBFC equity,LEV-023 (AUM/TNW 3.25x)
+capital_floor,0.2,share of the book,Operating capital floor (regulatory minimum 15%),brief
+loss,0.03,share of money lent,Lifetime credit loss after recoveries = the agreed `loss`,agreed input (likely 3%; Paytm worst 5%)

@@ -1,0 +1,14 @@
+Measure,Unit,Value,P10,Median (P50),P90,Note
+Plan,,"300 agents by m18, +200 a month, cap 7,500; funding fixed: seed Rs 13 crore; m10 Rs 53 crore; m20 Rs 212 crore; m32 Rs 610 crore; m48 Rs 315 crore; m54 Rs 105 crore",,,,seed 20261018; market inputs Latin hypercube with the bad-year copula; r12 < r3 redraws 1
+P(both lenses >= $1B at m60),share of draws,0.91,,,,"about 91% +/- 2pp (95% sampling margin, 1,000 draws); 20 x ARR and 0.45 x AUM, both our judgement"
+P(AUM lens >= $1B at m60),share of draws,0.99,,,,"about 99.0% +/- 0.6pp (95% sampling margin, 1,000 draws)"
+P(revenue lens >= $1B at m60),share of draws,0.913,,,,"about 91% +/- 2pp (95% sampling margin, 1,000 draws)"
+P(cash >= 0 through m96),share of draws,0.835,,,,"about 84% +/- 2pp (95% sampling margin, 1,000 draws); the funding plan fixed: no extra rounds in a bad draw"
+P(cash >= 0 through m60),share of draws,0.994,,,,"about 99.4% +/- 0.5pp (95% sampling margin, 1,000 draws)"
+Revenue-lens valuation at m60 (20 x ARR),Rs,,101985378315.36646,154137868166.6734,236270394227.4218,
+AUM-lens valuation at m60 (0.45 x AUM),Rs,,140318696540.11218,214808575647.77994,311796057502.36053,
+ARR at m60,Rs,,5099268915.768323,7706893408.333672,11813519711.371092,
+AUM at m60,Rs,,311819325644.6938,477352390328.3999,692880127783.0234,
+Lowest cash through m96,Rs,,-2460788872.350148,82771485.95950758,85383839.02466573,negative = the extra money a bad draw needs
+Year-5 EBITDA,Rs,,-3914115795.091517,-2103937200.930358,546200592.7059993,
+Year-5 PAT,Rs,,-3673732633.6004243,-1758243554.5209436,1002821694.3427855,

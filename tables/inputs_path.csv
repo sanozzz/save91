@@ -1,0 +1,11 @@
+year,new_activated,cac_scale,fixed_opex_cr,basis,notes
+1,25000,1.00,6,assumption,Pilot: Delhi NCR delivery + ride drivers; team of ~20
+2,150000,1.00,15,assumption,Second and third city
+3,500000,1.10,30,assumption,Top 8 cities; channels start to saturate
+4,1200000,1.20,50,assumption,Wider blue-collar beyond gig (warehouse / factory / security)
+5,2000000,1.30,70,assumption,
+6,3000000,1.40,85,assumption,
+7,4000000,1.50,100,assumption,
+8,5000000,1.60,115,assumption,
+9,6000000,1.70,130,assumption,
+10,7000000,1.80,145,assumption,

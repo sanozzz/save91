@@ -1,0 +1,6 @@
+segment,loan_size,keep_borrowing,evidence,max_cac_10,cac_evidence,still_m12,max_cac_20
+Delivery riders,25000.0,True,"SG-21 (actual loans Rs 2-10k; Rs 25k is generous), gig retention evidence",11.32835492208929,450.1199840042655,0.18988518275917562,35.35973295035909
+Drivers and home-service workers,150000.0,True,"SG-15 (UC Rs 28,322 net), vehicle loans Rs 75k-3 lakh; gig retention (no own data)",165.06867120506553,450.1199840042655,0.18988518275917562,342.8403655163116
+Shopkeepers,150000.0,True,"redesign base: XB-08, XB-10",211.4425301511834,499.2394215203765,0.2415425502763293,429.7434714054916
+Salaried workers via employers,150000.0,True,"SG-22, SG-14, SG-06, SG-07; account moves with the worker",292.36143873475515,499.2394215203765,0.39816589845028194,596.1219728162529
+"Salaried, loans stop when they change jobs",150000.0,False,"as above, loans tied to one employer",202.83214768657905,499.2394215203765,0.39816589845028194,417.06339071990067

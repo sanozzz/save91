@@ -1,0 +1,73 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-10-02T04:57:19Z"
+ },
+ "lists": "css",
+ "title": "Save First, Lend Later: Should We?",
+ "cover": "m01",
+ "order": [
+  "m01",
+  "m02",
+  "m03",
+  "m04",
+  "m05",
+  "m06",
+  "m07",
+  "m08",
+  "m09",
+  "m10",
+  "m11",
+  "m12",
+  "a00",
+  "a01",
+  "a02",
+  "a03",
+  "a04",
+  "a05",
+  "a06",
+  "a07",
+  "a08",
+  "a09",
+  "a10",
+  "a11",
+  "a12",
+  "a13",
+  "a14",
+  "a15"
+ ],
+ "sections": {
+  "s1": {
+   "description": "The answer and how it works",
+   "start": "m01"
+  },
+  "s2": {
+   "description": "How sure, and what decides it",
+   "start": "m04"
+  },
+  "s3": {
+   "description": "Who and how big",
+   "start": "m07"
+  },
+  "s4": {
+   "description": "Competition, risks, the pilot",
+   "start": "m09"
+  },
+  "s5": {
+   "description": "Appendix: the evidence and the numbers",
+   "start": "a00"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+  }
+ },
+ "designSystems": []
+}

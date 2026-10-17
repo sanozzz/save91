@@ -1,0 +1,28 @@
+Check,Passes,Note
+Ladder: revenue = fee revenue + net interest income + processing fees,True,
+Ladder: revenue - direct - credit cost = CM1; CM1 - servicing - acquisition - central = EBITDA,True,
+Ladder: EBITDA - depreciation + interest on cash - tax = PAT,True,
+Fee revenue lines add to fee revenue,True,
+Book: net book = equity deployed + borrowings,True,
+Book: capital >= 20% of the book and borrowings <= 3 x equity while lending,True,
+Book: on-book share 0 before m30 and a flat 50% from m30,True,
+Book: on-book loss = 0.75 x the agreed loss,True,2.25% vs agreed 3.00%
+Book: credit cost = on-book loss x on-book loans; processing fees = 2% of them,True,
+DSA fees: origination on the partners' 85% only after m30,True,applied in nbfc.apply_nbfc (rev_orig x (1 - share))
+"Cash roll: closing = previous + net change, every month",True,
+Cash: net change = operations + investing + equity + borrowings,True,
+Cash stays at or above 0 through m96,True,"lowest Rs 89,511,276"
+Cap table after Seed: sums to 100%; dilution <= 25%,True,dilution 24.5%
+Cap table after A: sums to 100%; dilution <= 25%,True,dilution 25.0%
+Cap table after B: sums to 100%; dilution <= 25%,True,dilution 25.0%
+Cap table after C: sums to 100%; dilution <= 25%,True,dilution 21.0%
+Cap table after D: sums to 100%; dilution <= 25%,True,dilution 2.2%
+Cap table after E: sums to 100%; dilution <= 25%,True,dilution 0.1%
+A priced at or above the previous post-money,True,
+B priced at or above the previous post-money,True,
+C priced at or above the previous post-money,True,
+D priced at or above the previous post-money,True,
+E priced at or above the previous post-money,True,
+Yearly = monthly: 97 summed lines,True,
+Cities: at most 4 new a month; no city past its growing cap,True,
+Cities: agents and sign-ups add to the company's,True,

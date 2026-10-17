@@ -1,0 +1,8 @@
+input,segment,dist,low,mode,high,params,sign,group,status,basis,evidence
+wc_loans_year,all,triangular,0.02,0.08,0.2,,1,redesign,triangulated,unsecured loans a year per active saver: ordinary fintech users ~3.6% take any product a year; riders 6% ever took a digital loan; Paytm's engaged device merchants at most ~20% a year; mode near the middle (geometric mean),"XL-04, XL-37, TB-31, XB-06"
+wc_ticket,all,triangular,50000,150000,250000,,1,redesign,triangulated,Rs per loan: Paytm merchant loans averaged ~Rs 2.05 lakh; Bachatt lends up to Rs 5 lakh; founder's idea up to Rs 2 lakh; smaller shops borrow less,"XB-08, XB-10, founder"
+wc_fee,all,triangular,0.01,0.02,0.03,,1,redesign,triangulated,referral fee as a share of the loan: lead-based sourcing pays 1-3%; Paisabazaar earns at most 4.6% incl. cards,"XL-13, XL-41, XL-42, XL-45, XL-09"
+wc_clawback,all,triangular,0.0,0.025,0.05,,1,redesign,triangulated,share of fees clawed back on early defaults: merchant-loan ECL 4.5-5% (lenders' books),"XB-07, XL-13, XL-21, XL-47"
+fund_trail,all,triangular,0.002,0.003,0.005,,1,redesign,triangulated,"distributor trail on debt funds, regular minus direct plan",XB-04
+incentive_share,all,uniform,0.0,0.25,0.5,,1,redesign,triangulated,"share of savers who are new B30 or women investors in eligible (non-liquid, non-low-duration) funds",XB-05
+xs_other,all,lognormal,14.0,105.9623,802.0,,1,redesign,triangulated,"everything else per active saver a year (insurance, funds, pension, bills, recharge, gold/home/vehicle/phone loans, FD card): the cross-sell map without personal and business loans; P5 = all low, P95 = all at their best",crosssell_map.csv

@@ -1,0 +1,7 @@
+﻿step,label,detail,uses
+1,Win owners in person,"Trade groups, wholesale markets, suppliers' staff. Pay agents only for owners still saving at month 3.",W2 T2
+2,Save a slice of each day's sales,"The amount follows takings, not a fixed Rs 100.",O4 T4
+3,Sell lenders a better borrower,"A saving streak plus the whole bank account, with consent.",S3 O1 O2
+gate,12-month test,Rs 250 or less to win · 1 in 5 borrow a year · still saving after a year,
+yes,Passes,Raise a Series A. Start our own loan book if losses stay at 7.5% a year or less.,
+no,Fails,Over Rs 500 to win and under 1 in 10 borrowing: stop or change the model.,

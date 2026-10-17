@@ -1,0 +1,52 @@
+key,name,unit,p10,p50,p90,mean,at_likely_values,last_deck,how
+loans_per_100,First loans per 100 active savers a year,loans,1.7544,2.8756,4.5081,3.0235,2.835,3.5,100 × apply × eligible × approved_first
+loans_per_100_months_1_6,"First loans per 100 active savers a year, in a saver's months 1–6",loans,0.4672,0.8389,1.4321,0.9057,0.8505,,loans × early_takeup_mult × early_approval_mult (agreed)
+loans_per_100_repeat_rule,"The same, if a saver with a loan running does not apply (steady state)",loans,1.6654,2.6433,3.9685,2.7455,2.6128,,loans ÷ (1 + loans/100 × tenure in years); none of this bites in a saver's first loan year
+fee_per_loan,"What one loan earns us at the start (origination fee kept, a DSA's rate)",Rs a loan,2235.8778,4218.8127,6709.9822,4361.2816,4265.625,6398.4375,"loan size × fee × (1 − taken back), company month 1"
+fee_per_loan_month60,What one loan earns us at month 60 (1.5× the starting fee),Rs a loan,3353.8166,6328.219,10064.9733,6541.9224,6398.4375,,× fee_mult_end
+loss_rate,"Money lost on loans, after recoveries (the input, as drawn)",share of money lent,0.0221,0.0305,0.0398,0.0308,0.03,,"pert 1.5 / 3 / 5%; falls on the lender, not us (no first-loss cover)"
+share_90plus,Implied share of loans that ever go 90+ days bad,share of loans,0.0694,0.0965,0.1268,0.0974,0.0923,,"loss / (owed × (1 − recovered)); compare NG-015 10.2% (self-employed unsecured, < ₹10 lakh) and MAC-03 3.6% (personal loans > ₹50k)"
+share_falling_behind,Share of loans that fall 31–90 days behind (brought back early + go 90+),share of loans,0.2388,0.3051,0.3757,0.3062,0.2923,,early_cured + p90; checked against 50%
+draws_behind_above_50pct,Share of draws where early_cured + p90 is above 50%,share of draws,0.0,0.0,0.0,0.0,,,the addendum 3 check
+coll_fee_early_per_loan,"Fees on early accounts brought back, per loan made (~9 months after)",Rs a loan,57.854,97.5063,158.1399,103.7787,90.0,,early_cured × fee_early
+coll_fee_b3_per_loan,"Fees on 90+ accounts recovered, per loan made (~18 months after)",Rs a loan,52.3873,89.6764,147.5196,96.0107,80.7692,154.5224,p90 × recovered × fee_b3; last deck: recovery fees ₹155 a loan
+collections_per_loan,All collection fees per loan made,Rs a loan,133.0518,194.4728,274.2564,199.7893,170.7692,154.5224,early + 90+ (undiscounted)
+origination_per_100,Origination fees per 100 active savers a year,Rs a year,5394.0104,11753.2992,22766.8035,13190.5296,12093.0469,22394.5312,loans × fee per loan
+collections_per_100,Collection fees per 100 active savers a year,Rs a year,307.7309,550.0307,946.2642,598.6524,484.1308,540.8285,loans × collection fees per loan
+xsell_hlth_small,"Cross-sell: Small health, per active saver a year (holdings settled)",Rs a year,3.4659,6.4518,11.1001,6.9256,6.1071,,insurance
+xsell_hlth_family,"Cross-sell: Family health, per active saver a year (holdings settled)",Rs a year,19.5501,36.4931,61.7496,39.0811,32.2222,,insurance
+xsell_life_term,"Cross-sell: Term life, per active saver a year (holdings settled)",Rs a year,4.8936,8.7101,14.5696,9.3239,8.5379,,insurance
+xsell_accident,"Cross-sell: Accident, per active saver a year (holdings settled)",Rs a year,0.9603,1.6832,2.7581,1.7871,1.6193,,insurance
+xsell_two_wheeler,"Cross-sell: Two-wheeler, per active saver a year (holdings settled)",Rs a year,7.2964,12.128,19.2307,12.8035,11.875,,insurance
+xsell_device,"Cross-sell: Phone cover, per active saver a year (holdings settled)",Rs a year,0.8093,1.4817,2.4799,1.5751,1.4199,,insurance
+xsell_shop,"Cross-sell: Shop cover, per active saver a year (holdings settled)",Rs a year,2.0011,4.4833,9.1791,5.1248,3.378,,insurance
+xsell_sip,"Cross-sell: SIP trail, per active saver a year (holdings settled)",Rs a year,13.5708,25.3962,46.9221,28.2771,23.5714,,investments
+xsell_choti,"Cross-sell: Choti SIP, per active saver a year (holdings settled)",Rs a year,3.9104,6.0121,9.0476,6.2893,5.625,,investments
+xsell_nps,"Cross-sell: NPS, per active saver a year (holdings settled)",Rs a year,3.9594,5.9838,8.0044,5.9856,6.0,,investments
+xsell_gold,"Cross-sell: Digital gold, per active saver a year (holdings settled)",Rs a year,9.2542,16.6492,27.1928,17.6334,16.0744,,investments
+xsell_fd,"Cross-sell: FD, per active saver a year (holdings settled)",Rs a year,2.6749,5.4958,10.2541,6.0673,5.0,,investments
+xsell_recharge,"Cross-sell: Recharge, per active saver a year (holdings settled)",Rs a year,8.1861,13.341,20.3848,13.8831,13.0,,payments
+xsell_bills,"Cross-sell: Bill payments, per active saver a year (holdings settled)",Rs a year,6.7928,12.0545,19.8345,12.8334,12.0,,payments
+xsell_loan_gold,"Cross-sell: Gold loan, per active saver a year (holdings settled)",Rs a year,14.9977,26.0454,42.5272,27.6508,25.0,,other_loans
+xsell_loan_cd,"Cross-sell: Consumer loan, per active saver a year (holdings settled)",Rs a year,4.1391,8.3701,14.853,9.0457,8.0,,other_loans
+xsell_loan_vehicle,"Cross-sell: Vehicle loan, per active saver a year (holdings settled)",Rs a year,4.4997,10.2491,21.8237,12.0004,7.5,,other_loans
+xsell_loan_home,"Cross-sell: Home loan, per active saver a year (holdings settled)",Rs a year,47.7136,93.9507,176.001,104.3403,84.375,,other_loans
+xsell_loan_lap,"Cross-sell: Loan on property, per active saver a year (holdings settled)",Rs a year,17.9646,34.7872,62.9351,38.1614,33.75,,other_loans
+xsell_total,"Cross-sell, all products, per active saver a year (holdings settled)",Rs a year,285.9188,351.3503,441.671,358.789,305.0553,63.0,"sum of the 19 products; last deck: one line, ₹63 (XO-39)"
+xsell_total_months_1_6,"Cross-sell, all products, per active saver a year, in months 1–6",Rs a year,123.5436,174.4055,240.9611,179.3747,152.5277,,× early_takeup_mult (agreed)
+fund_return_on_balance,"What the fund earns him a year on ₹42,000 held",Rs a year,2744.5228,2913.9339,3055.0323,2905.5005,2940.0,,balance × fund_return (agreed)
+gain_vs_janta,"What he gains a year on ₹350 a day against a janta deposit (₹42,000 held)",Rs a year,1694.5228,1863.9339,2005.0323,1855.5005,1890.0,,"balance × (fund_return − janta_rate 2.5%); janta_rate is a reference row, not an NPV input"
+xsell_total_first_year,"Cross-sell, all products, first-year sales only (the XO-39 method)",Rs a year,222.8248,280.9788,367.1475,289.3332,246.0757,63.0,take-up × ticket × first-year commission
+cost_to_win_per_saver,Cost to win a saver: salary ÷ sign-ups + online share × lead cost,Rs a saver,275.1898,334.9507,407.5134,339.0409,325.0,,"₹20,000 ÷ sign-ups a month + online_lead_share × lead_cost; against ₹499 online (story_unit)"
+card_once_per_active,"A credit card, once, per active saver",Rs once,16.5914,31.1215,53.5276,33.3819,30.0,62.5,card share × fee per card
+marketplace_yearly_per_100,"Marketplace money per 100 active savers, every year",Rs a year,38263.1183,48465.3224,62491.1299,49668.0812,43082.7117,29235.3597,"origination + collections + cross-sell (holdings settled); approvals and losses linked (agreed, rho -0.5)"
+marketplace_once_per_100,"Marketplace money per 100 active savers, once (cards)",Rs once,1659.1383,3112.1456,5352.7555,3338.1898,3000.0,6250.0,100 × card share × fee per card
+marketplace_yearly_per_100_independent,"Marketplace money per 100 active savers, every year, if approvals and losses were independent",Rs a year,38255.9634,48479.9095,62525.9197,49673.2713,,,comparison only: the loss draws shuffled against the approvals; same marginals
+still_saving_m3,Share of a cohort still saving at month 3,share,0.7036,0.7899,0.8638,0.7862,0.8,0.8612,"curve from r3, r12, churn_late; last deck: the same monthly drop-off from r12 = 55%"
+still_saving_m6,Share of a cohort still saving at month 6,share,0.6165,0.6876,0.7527,0.6859,0.7061,0.7416,"curve from r3, r12, churn_late; last deck: the same monthly drop-off from r12 = 55%"
+still_saving_m12,Share of a cohort still saving at month 12,share,0.4088,0.5334,0.6406,0.5282,0.55,0.55,"curve from r3, r12, churn_late; last deck: the same monthly drop-off from r12 = 55%"
+still_saving_m24,Share of a cohort still saving at month 24,share,0.3321,0.4348,0.5277,0.4321,0.4588,0.3025,"curve from r3, r12, churn_late; last deck: the same monthly drop-off from r12 = 55%"
+still_saving_m36,Share of a cohort still saving at month 36,share,0.2669,0.3541,0.4406,0.3541,0.3827,0.1664,"curve from r3, r12, churn_late; last deck: the same monthly drop-off from r12 = 55%"
+deposits_age1,Deposits a month per active saver at age 1,Rs a month,5265.0644,6966.9169,8787.4565,7002.379,7000.0,7000.0,daily × days × (1 + growth)^(years saved)
+deposits_age13,Deposits a month per active saver at age 13,Rs a month,5518.498,7314.1297,9238.1917,7353.6845,7350.0,7000.0,daily × days × (1 + growth)^(years saved)
+deposits_age25,Deposits a month per active saver at age 25,Rs a month,5774.0396,7673.2942,9719.3654,7725.1039,7717.5,7000.0,daily × days × (1 + growth)^(years saved)

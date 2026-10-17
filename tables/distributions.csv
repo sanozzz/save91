@@ -1,0 +1,101 @@
+input,segment,dist,low,mode,high,params,sign,group,status,basis,evidence
+cac_target,gig,lognormal,168,450.12,1206,,1,independent,triangulated,"CAC per activated saver, Rs: Groww Rs 796-1,374 with 83% organic; finance-app CPI Rs 100-300; Jar/Stable Money clear Rs 249 only if half of sign-ups save","TB-18..TB-22, TB-37, TB-38, BM-04, BM-05"
+cac_target,ng,lognormal,186,499.2394,1340,,1,independent,triangulated,as gig x 1.1: no payments firm publishes merchant acquisition cost,"TB-18..TB-22, NG-043"
+churn_late,all,triangular,0.008,0.015,0.03,,-1,retention,triangulated,Acorns ~1-1.3% monthly churn after year one,TB-11
+cost_fraud,all,triangular,0.0002,0.0005,0.002,,1,independent,triangulated,"98.5% of fraud value is in payments over Rs 10,000; system ~0.01% of value",TC-40
+cost_notice,all,uniform,0.0,0.075,0.15,,1,independent,triangulated,pre-debit notice triggered through the payment company; whether billed is unknown,"TC-03, REG-048"
+cost_support,all,lognormal,2.4,6.0,15,,1,independent,triangulated,a support contact costs Rs 50-150; Groww non-tech opex Rs 32 per active user (upper bound); no direct data,"TC-37, TC-38"
+cost_tech,all,triangular,2,4,10,,1,independent,triangulated,Jar cloud Rs 0.6-0.8 per registered user; Groww Rs 28.6 tech + transaction per active user,"TC-20, TC-36"
+daily_amount,gig,lognormal,20,36.0555,65,,1,engagement,triangulated,Jar average purchase ~Rs 64 incl. lump sums; Gullak ~Rs 580 a month; most riders have no buffer,"TB-15, TB-17, TB-40"
+daily_amount,ng,lognormal,25,52.4404,110,,1,engagement,triangulated,"Bachatt Rs 51-200 is a product minimum, not behaviour; vendors save more","TB-40, BAC-05, NG-031"
+debits_success,gig,triangular,10,17,24,,1,engagement,triangulated,"NACH ~69% success by count (salaried EMIs); UPI Autopay 55-90% of attempts failed at major banks, mostly low balance","TB-13, TB-36, TC-05, LEV-040"
+debits_success,ng,triangular,12,19,25,,1,engagement,triangulated,as gig; daily UPI receipts help,"TB-13, TB-36, TC-05"
+dlg_fee_uplift,all,triangular,0.025,0.045,0.07,,1,independent,triangulated,uplift prices ~3% losses (Moneyview's cover paid 2.9-3.4%); low losses invite a lower uplift,TC-41
+fd_fee,all,triangular,0.001,0.003,0.006,,1,independent,triangulated,RBI allows only a sourcing fee for deposits; Stable Money implies <= 0.3-0.4%,"TC-24, TC-25, BM-03"
+gold_margin,all,triangular,0.005,0.0125,0.024,,1,independent,triangulated,only figure is Jar's ~2.4% (case study); a newcomer gets less of a 2-3% spread,"TC-13, TC-18, TC-19, LEV-036"
+ins_comm_first,all,triangular,0.05,0.1,0.15,,1,independent,triangulated,draft caps 15% / 5% with a loan / 2.5-5% group; Bima Vistaar pays 10%,"TC-29, TC-30, REG-054"
+ins_comm_renew,all,triangular,0.025,0.04,0.05,,1,independent,triangulated,draft cap 5%; 2.5% if sold with a loan,TC-30
+ins_persist,all,beta,0.2087,0.45,0.7032,4.5;5.5,1,engagement,triangulated,voluntary micro-insurance renewal 23% -> 46% after redesign; auto-debited PMJJBY/PMSBY 51-70%,"TB-23, TB-24, TB-41"
+ins_premium,all,triangular,300,800,1500,,1,independent,triangulated,"what this group buys: accident cover Rs 50-100, hospital cash from ~Rs 799, the IRDAI Bima Vistaar bundle Rs 1,500 (the top); riders already get ~Rs 2,100 of free cover (updated 2 Oct 2026 from Rs 500/1,500/3,500)","TC-26, TC-27, TC-28, XO-30, XO-34, XO-35"
+ins_uptake,gig,triangular,0.002,0.008,0.025,,1,engagement,triangulated,PhonePe ~1-2% of users a YEAR; Paytm <1% a quarter for all products; riders have free platform cover,"TB-25, TB-26, TB-27, TB-31, TB-41"
+ins_uptake,ng,triangular,0.002,0.012,0.025,,1,engagement,triangulated,"as gig, but no platform cover","TB-25, TB-26, TB-31, TB-41"
+ladder_dpd90,all,triangular,0.005,0.015,0.03,,1,independent,triangulated,founder's repeat-loan rate 1-2%; no Indian study shows savers default less,"founder, TB-30"
+loan_apply,all,triangular,0.005,0.015,0.04,,1,engagement,triangulated,"Paytm ~0.9% of users take any product a quarter; Moneyview 8%, GCash 11% ever borrowed; secured-on-own-savings demand weak","TB-08, TB-31, TB-33, TB-44, LEND-04"
+loan_repeat,all,triangular,0.3,0.5,0.65,,1,engagement,triangulated,"repeat share >50% (Paytm merchant), ~73% (Kissht), 68% PM SVANidhi second loan","TB-31, TB-43, NG-014"
+lsp_fee,all,triangular,0.0075,0.015,0.025,,1,independent,triangulated,lead-based sourcing pays 1-3%,"TC-34, LEV-009"
+pay_pct,all,triangular,0.015,0.02,0.034,,1,independent,triangulated,"percentage pricing: share of each debit, incl. GST","TC-15, TC-16, TC-17"
+ret_m1,all,derived,,,,,1,retention,triangulated,base curve shape scaled to the month-12 draw,
+ret_m12,gig,beta,0.0753,0.2,0.3594,4;16,1,retention,triangulated,small Indian SIPs ~38% at 12m (ceiling); RCTs 3-45%; Jar actives 4-7% of registered; Zomato rider churn high,"TB-01..TB-08, TB-11, TB-12, TB-16, NG-033"
+ret_m12,ng,beta,0.1099,0.25,0.4191,5;15,1,retention,triangulated,"as gig, without platform churn","TB-01..TB-08, TB-11, NG-033"
+ret_m24,all,derived,,,,,1,retention,triangulated,month-12 draw x ret_m24_ratio,
+ret_m24_ratio,all,triangular,0.4,0.6,0.8,,1,independent,triangulated,"month 24 as a share of month 12: churn flattens after year one (Acorns, SIP vintages, PMJJBY)","TB-01, TB-02, TB-11, TB-23"
+ret_m3,all,derived,,,,,1,retention,triangulated,base curve shape scaled to the month-12 draw,
+ret_m6,all,derived,,,,,1,retention,triangulated,base curve shape scaled to the month-12 draw,
+secured_fee,all,triangular,0.0025,0.0075,0.02,,1,independent,triangulated,"bank margin on loans against FD 1-2% a year, fees nil-0.5%; no lender found for Rs 2-6k secured loans (founder's 2% is the top)","TC-31, TC-32, TC-33"
+trail_liquid,all,triangular,0.00025,0.0005,0.001,,1,independent,triangulated,trail actually paid: ~0.05% at 5 of 6 fund houses,"TC-21, TC-22"
+wk_success,all,triangular,3.0,3.9,4.3,,1,engagement,triangulated,WEEKLY design only: successful debits a month when one debit lands just after payout day (variants.csv),variants.csv weekly_payday
+amount_growth,all,triangular,0.0,0.1,0.2,,1,engagement,provisional,bear/base/bull widened by half a range each side,
+card_churn,all,triangular,0.0025,0.025,0.0525,,1,independent,provisional,bear/base/bull widened by half a range each side,
+card_eligible,all,triangular,0.125,0.4,0.625,,1,independent,provisional,bear/base/bull widened by half a range each side,
+card_fee,all,triangular,0.0,500.0,1400.0,,1,independent,provisional,bear/base/bull widened by half a range each side,BM-08
+card_ic_share,all,triangular,0.0,0.0,0.00375,,1,independent,provisional,bear/base/bull widened by half a range each side,REG-087
+card_ops_cost,all,triangular,37.5,100.0,187.5,,1,independent,provisional,bear/base/bull widened by half a range each side,
+card_spend,all,triangular,0.0,3000.0,6750.0,,1,independent,provisional,bear/base/bull widened by half a range each side,
+card_start,all,fixed,6.0,6.0,6.0,,1,fixed,fixed,"founder decision, product design or convention",
+card_uptake,all,uniform,0.005,0.017499999999999998,0.03,,1,independent,unevidenced,no data on FD-secured card take-up: unevidenced,"TB-35, BM-08"
+cohort_size,all,fixed,1000.0,1000.0,1000.0,,1,fixed,fixed,"founder decision, product design or convention",
+cost_rewards,all,triangular,0.0,0.0,4.5,,1,independent,provisional,bear/base/bull widened by half a range each side,"REG-082, REG-083"
+debits_scheduled,all,fixed,30.0,30.0,30.0,,1,fixed,fixed,"founder decision, product design or convention",
+disc_rate,all,fixed,0.2,0.2,0.2,,1,fixed,fixed,"founder decision, product design or convention",
+dlg_cap,all,fixed,0.05,0.05,0.05,,1,fixed,fixed,"founder decision, product design or convention",
+dlg_on,all,fixed,1.0,1.0,1.0,,1,fixed,fixed,"founder decision, product design or convention",
+dormant_withdraw,all,triangular,0.005,0.05,0.105,,1,independent,provisional,bear/base/bull widened by half a range each side,
+fail_billed,all,bernoulli,0,0.5,1,0.5,1,independent,assumption,"under flat pricing, are failed debits billed at Rs 5.90? No payment company says; 50/50","TC-05, TC-15"
+fd_share,all,triangular,0.1,0.3,0.5,,1,independent,provisional,bear/base/bull widened by half a range each side,
+fd_start,all,fixed,6.0,6.0,6.0,,1,fixed,fixed,"founder decision, product design or convention",
+first_time_share,all,fixed,0.9,0.9,0.9,,1,fixed,fixed,no range given,
+fund_yield,all,triangular,0.045,0.055,0.065,,1,independent,provisional,bear/base/bull widened by half a range each side,OWN-02
+gold_on,all,fixed,1.0,1.0,1.0,,1,fixed,fixed,"founder decision, product design or convention",
+gold_share,all,fixed,0.5,0.5,0.5,,1,fixed,fixed,"founder decision, product design or convention",
+ins_eligible,all,triangular,0.7,0.9,1.0,,1,independent,provisional,bear/base/bull widened by half a range each side,
+ins_ops_cost,all,triangular,10.0,60.0,130.0,,1,independent,provisional,bear/base/bull widened by half a range each side,
+ins_start,all,fixed,3.0,3.0,3.0,,1,fixed,fixed,"founder decision, product design or convention",
+leaver_withdraw,all,triangular,0.2,0.6,1.0,,1,independent,provisional,bear/base/bull widened by half a range each side,
+loan_approval,gig,triangular,0.225,0.6,0.925,,1,independent,provisional,bear/base/bull widened by half a range each side,"EVD-02, EVD-03"
+loan_approval,ng,triangular,0.175,0.55,0.875,,1,independent,provisional,bear/base/bull widened by half a range each side,"EVD-02, EVD-03"
+loan_dpd90,gig,fixed,0.045,0.045,0.045,,1,fixed,fixed,"founder decision, product design or convention",
+loan_dpd90,ng,fixed,0.07,0.07,0.07,,1,fixed,fixed,"founder decision, product design or convention",
+loan_ead,all,triangular,0.6,0.8,1.0,,1,independent,provisional,bear/base/bull widened by half a range each side,
+loan_eligible,all,triangular,0.125,0.5,0.825,,1,independent,provisional,bear/base/bull widened by half a range each side,"LEND-04, CMP-07, CMP-05"
+loan_lgd,all,triangular,0.3,0.5,0.7,,1,independent,provisional,bear/base/bull widened by half a range each side,
+loan_ops_cost,all,triangular,37.5,100.0,187.5,,1,independent,provisional,bear/base/bull widened by half a range each side,
+loan_start,all,fixed,4.0,4.0,4.0,,1,fixed,fixed,"founder decision, product design or convention",
+loan_stepup,all,fixed,1.2,1.2,1.2,,1,fixed,fixed,"founder decision, product design or convention",
+loan_tenor,all,fixed,6.0,6.0,6.0,,1,fixed,fixed,"founder decision, product design or convention",
+loan_ticket,all,fixed,15000.0,15000.0,15000.0,,1,fixed,fixed,"founder decision, product design or convention",
+mf_incentive,all,fixed,0.0,0.0,0.0,,1,fixed,fixed,no range given,
+mix_gig,all,fixed,0.5,0.5,0.5,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_apr,all,fixed,0.28,0.28,0.28,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_cof,all,fixed,0.14,0.14,0.14,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_equity,all,fixed,0.33,0.33,0.33,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_fixed_cr,all,fixed,5.0,5.0,5.0,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_nof_cr,all,fixed,10.0,10.0,10.0,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_on,all,fixed,0.0,0.0,0.0,,1,fixed,fixed,"founder decision, product design or convention",
+nbfc_proc_fee,all,fixed,0.03,0.03,0.03,,1,fixed,fixed,"founder decision, product design or convention",
+part_unsec_multiple,all,fixed,1.0,1.0,1.0,,1,fixed,fixed,"founder decision, product design or convention",
+pay_flat,all,bernoulli,0,0.5,1,0.5,1,independent,assumption,"payment pricing: 1 = flat list price Rs 5 + 18% GST per debit (Cashfree, Zoho); 0 = a % of the debit (Razorpay reported, PhonePe PG 1.99%). Which a new app gets is unknown: 50/50 is an assumption","TC-02, TC-06, TC-15, TC-16, TC-17"
+secured_ltv,all,fixed,0.85,0.85,0.85,,1,fixed,fixed,"founder decision, product design or convention",
+service_cost,all,triangular,50.0,250.0,450.0,,1,independent,provisional,bear/base/bull widened by half a range each side,"LEV-018, LEV-019"
+sip_amount,all,triangular,0.0,500.0,1000.0,,1,independent,provisional,bear/base/bull widened by half a range each side,
+sip_eligible,all,fixed,1.0,1.0,1.0,,1,fixed,fixed,no range given,
+sip_redeem,all,triangular,0.0,0.02,0.04,,1,independent,provisional,bear/base/bull widened by half a range each side,
+sip_return,all,triangular,0.06,0.1,0.14,,1,independent,provisional,bear/base/bull widened by half a range each side,
+sip_start,all,fixed,6.0,6.0,6.0,,1,fixed,fixed,"founder decision, product design or convention",
+sip_stop,all,triangular,0.005,0.03,0.065,,1,independent,provisional,bear/base/bull widened by half a range each side,
+sip_uptake,all,triangular,0.0,0.01,0.0275,,1,engagement,provisional,bear/base/bull widened by half a range each side,
+trail_equity,all,triangular,0.0025,0.0075,0.0125,,1,independent,provisional,bear/base/bull widened by half a range each side,OWN-04
+unsec_fee,all,triangular,0.0,1000.0,2750.0,,1,independent,provisional,bear/base/bull widened by half a range each side,BM-08
+unsec_grad,all,triangular,0.0,0.01,0.0275,,1,independent,provisional,bear/base/bull widened by half a range each side,
+unsec_start,all,fixed,18.0,18.0,18.0,,1,fixed,fixed,"founder decision, product design or convention",
+usd_inr,all,fixed,96.1,96.1,96.1,,1,fixed,fixed,"founder decision, product design or convention",
+withdraw_rate,all,triangular,0.015,0.1,0.195,,-1,engagement,provisional,bear/base/bull widened by half a range each side,

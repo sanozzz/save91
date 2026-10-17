@@ -1,0 +1,26 @@
+years,pay,case,breakeven_r12
+3,salary only,fee 2%,0.5184477257573561
+3,salary only,fee 2.625% (1.5 × a DSA),0.4665005204653466
+3,salary only,fee 3% (1.5 × 2%),0.43989947471525964
+3,salary + 0.5% a year of balance,fee 2%,not reachable
+3,salary + 0.5% a year of balance,fee 2.625% (1.5 × a DSA),0.9688900199550514
+3,salary + 0.5% a year of balance,fee 3% (1.5 × 2%),0.8781934985190349
+3,salary + 1% of collections,fee 2%,not reachable
+3,salary + 1% of collections,fee 2.625% (1.5 × a DSA),not reachable
+3,salary + 1% of collections,fee 3% (1.5 × 2%),not reachable
+3,salary only,low funnel (10% x 30% x 25%),0.703854142645765
+3,salary only,750 sign-ups a year,0.6389148739001648
+3,salary only,savings only (no cross-sell),not reachable
+5,salary only,fee 2%,0.4068819967612077
+5,salary only,fee 2.625% (1.5 × a DSA),0.36912296615987705
+5,salary only,fee 3% (1.5 × 2%),0.34953697537356976
+5,salary + 0.5% a year of balance,fee 2%,0.8171368664916296
+5,salary + 0.5% a year of balance,fee 2.625% (1.5 × a DSA),0.6977231276575548
+5,salary + 0.5% a year of balance,fee 3% (1.5 × 2%),0.6420661079049523
+5,salary + 1% of collections,fee 2%,not reachable
+5,salary + 1% of collections,fee 2.625% (1.5 × a DSA),not reachable
+5,salary + 1% of collections,fee 3% (1.5 × 2%),not reachable
+5,salary only,low funnel (10% x 30% x 25%),0.5366326564644812
+5,salary only,750 sign-ups a year,0.48957874045594263
+5,salary only,savings only (no cross-sell),0.8776362905901761
+5,salary only,"one customer won, his own first 5 years (value = Rs 240)",0.31349118856296

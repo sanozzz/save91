@@ -1,0 +1,22 @@
+cell,measure,expected
+Summary!B2,Cumulative P&L at month 12,-359583.6038189361
+Summary!B3,Cumulative P&L at month 36,-132027.49727630703
+Summary!B4,Cumulative P&L at month 60,1644152.528021949
+Summary!B5,Payback month (cumulative P&L stays at or above 0 from here),39.0
+Summary!B6,Peak cash need (lowest cumulative P&L),-440682.36103505315
+Summary!B7,"Savers still saving, year-5 average (months 49-60)",2154.827288630088
+Summary!B8,"Money lent in year 5 (first, repeat and top-up loans)",25413891.50795438
+Summary!B9,Loans made in year 5 (first and repeat),96.97168458204436
+Summary!B10,Money lent in 60 months,66871794.757563755
+Summary!B11,Revenue per active saver a year (60-month average),680.3504449804452
+Summary!B14,Fund trail,1302347.3891675198
+Summary!B15,Loan fees (net of fees taken back),1533156.3007827718
+Summary!B16,Collection fees,28441.75319862016
+Summary!B17,Card fees,132603.20642837812
+Summary!B18,"Insurance, investments, payments and other loans (lumped)",955144.3812060369
+Summary!B19,Home-loan and LAP fees,1044858.9671995747
+Summary!B20,Income,4996551.9979829015
+Summary!B21,Costs,3352399.4699609526
+Summary!B22,Net (= cumulative P&L at month 60),1644152.528021949
+Summary!B23,"  of the costs: online leads, 60 months",625000.0
+Summary!B24,"  of the costs: extra cash-collection capacity (helpers), 60 months",332696.021310933

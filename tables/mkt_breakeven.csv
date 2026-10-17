@@ -1,0 +1,13 @@
+years,pay,case,breakeven_r12
+3,salary only,low,0.9077260712287081
+3,salary only,middle,0.30858875671255936
+3,salary only,high,0.05
+3,salary + 0.5% a year of balance,low,not reachable
+3,salary + 0.5% a year of balance,middle,not reachable
+3,salary + 0.5% a year of balance,high,0.06776396448785521
+5,salary only,low,0.6616606748155127
+5,salary only,middle,0.25062595421826744
+5,salary only,high,0.05
+5,salary + 0.5% a year of balance,low,not reachable
+5,salary + 0.5% a year of balance,middle,0.7374126051054584
+5,salary + 0.5% a year of balance,high,0.05717321329927287

@@ -1,0 +1,6 @@
+gate,when,what,key,go,stop,apply_multiplier,for_3_year_payback,cum_pnl60_at_go
+1,months 1-3,sign-ups a month,signups_run,100.0,44.194076171875,,,1642101.0482013293
+2,months 1-6,"loans per 100 savers offered, a year",loans_per_100_offered_year,3.5403062243483734,,,,1642101.0482013293
+3,month 12,still saving at month 12,r12,0.55,0.26059619140625,,0.643956671875,1642101.0482013293
+4,months 1-12,loan size lenders give,ticket,250000.0,,,,1642101.0482013293
+5,month 12,running cost per active saver a month,support_cost,5.0,23.632915039062503,,,1642101.0482013293

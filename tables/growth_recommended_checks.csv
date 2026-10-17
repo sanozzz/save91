@@ -1,0 +1,81 @@
+Check,Largest gap,Largest gap as share of the biggest value,Tolerance (share),Passes,Note
+"One agent hired in month 1, no attrition, no central costs: signups = cohort_engine.run(start_month=1) signups",0.0,0.0,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: still_saving = cohort_engine.run(start_month=1) still_saving",4.547473508864641e-13,2.032184971630073e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: balance = cohort_engine.run(start_month=1) balance",2.9802322387695312e-08,2.1815268790274526e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: fund_end = cohort_engine.run(start_month=1) fund_end",5.960464477539063e-08,4.0848176289417374e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: money_lent = cohort_engine.run(start_month=1) money_lent",4.656612873077393e-10,2.1039204630389646e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: rev_fund = cohort_engine.run(start_month=1) rev_fund",7.275957614183426e-12,1.8260548652573528e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: rev_orig_loans+rev_orig_topups = cohort_engine.run(start_month=1) rev_origination",2.1827872842550278e-11,3.853334181390044e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: rev_collections = cohort_engine.run(start_month=1) rev_dpd31_90+rev_recovery90",3.410605131648481e-13,2.702616532323904e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: rev_cards = cohort_engine.run(start_month=1) rev_cards",4.547473508864641e-13,1.61946093796477e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: rev_insurance+rev_investments+rev_payments+rev_housing+rev_other_lenders = cohort_engine.run(start_month=1) rev_crosssell",2.1827872842550278e-11,3.327106969932853e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: revenue = cohort_engine.run(start_month=1) income",5.820766091346741e-11,3.506895516380072e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: _eng_salary = cohort_engine.run(start_month=1) cost_salary",0.0,0.0,1e-09,True,"the engine's default path; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 1, no attrition, no central costs: cost_helpers = cohort_engine.run(start_month=1) cost_extra_capacity",7.275957614183426e-12,5.429857411916008e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: cost_kyc = cohort_engine.run(start_month=1) cost_kyc",0.0,0.0,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: cost_support = cohort_engine.run(start_month=1) cost_support",1.8189894035458565e-12,1.6257479773040573e-16,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: _eng_cash_cover = cohort_engine.run(start_month=1) cost_cash_cover",0.0,0.0,1e-09,True,"the engine's default path; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 1, no attrition, no central costs: _eng_incentive = cohort_engine.run(start_month=1) cost_incentive",1.8189894035458565e-12,1.8189894035458566e-16,1e-09,True,"the engine's default path; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 1, no attrition, no central costs: cost_leads = cohort_engine.run(start_month=1) cost_leads",0.0,0.0,1e-09,True,the engine's default path
+"One agent hired in month 1, no attrition, no central costs: _eng_net = cohort_engine.run(start_month=1) net",5.820766091346741e-11,5.88895667813901e-16,1e-09,True,"the engine's default path; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 1: acquisition share of his cost follows his tenure (50% to month 12, 20% at month 60)",0.0,0.0,1e-12,True,
+One agent hired in month 1: cumulative agent-unit P&L at month 60 = cohort_engine cum_cash,6.984919309616089e-10,4.253647677325948e-16,1e-09,True,
+"One agent: salary = the engine's Rs 20,000 x 1.07 ^ (company year - 1) (fix 4)",0.0,0.0,1e-12,True,
+"One agent: cash cover = the larger of Rs 1,000 or 0.015% of his cash collected (fix 1)",0.0,0.0,1e-12,True,0.015% binds from month 18
+"One agent hired in month 13, no attrition, no central costs: signups = cohort_engine.run(start_month=13) signups",0.0,0.0,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: still_saving = cohort_engine.run(start_month=13) still_saving",4.547473508864641e-13,2.2144104554372934e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: balance = cohort_engine.run(start_month=13) balance",2.9802322387695312e-08,2.499844338091432e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: fund_end = cohort_engine.run(start_month=13) fund_end",2.9802322387695312e-08,2.336407938941496e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: money_lent = cohort_engine.run(start_month=13) money_lent",2.3283064365386963e-10,1.170237949317675e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: rev_fund = cohort_engine.run(start_month=13) rev_fund",7.275957614183426e-12,2.0925036312149268e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: rev_orig_loans+rev_orig_topups = cohort_engine.run(start_month=13) rev_origination",2.1827872842550278e-11,4.2865858949365386e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: rev_collections = cohort_engine.run(start_month=13) rev_dpd31_90+rev_recovery90",2.2737367544323206e-13,2.1742044932538828e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: rev_cards = cohort_engine.run(start_month=13) rev_cards",9.094947017729282e-13,2.867025286438273e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: rev_insurance+rev_investments+rev_payments+rev_housing+rev_other_lenders = cohort_engine.run(start_month=13) rev_crosssell",2.1827872842550278e-11,3.7644465391124505e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: revenue = cohort_engine.run(start_month=13) income",5.820766091346741e-11,3.9446422214536416e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: _eng_salary = cohort_engine.run(start_month=13) cost_salary",0.0,0.0,1e-09,True,"company months 13-60 against his tenure months 1-48; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 13, no attrition, no central costs: cost_helpers = cohort_engine.run(start_month=13) cost_extra_capacity",7.275957614183426e-12,6.664877881891036e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: cost_kyc = cohort_engine.run(start_month=13) cost_kyc",0.0,0.0,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: cost_support = cohort_engine.run(start_month=13) cost_support",1.8189894035458565e-12,1.7715283643498346e-16,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: _eng_cash_cover = cohort_engine.run(start_month=13) cost_cash_cover",0.0,0.0,1e-09,True,"company months 13-60 against his tenure months 1-48; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 13, no attrition, no central costs: _eng_incentive = cohort_engine.run(start_month=13) cost_incentive",1.8189894035458565e-12,1.8189894035458566e-16,1e-09,True,"company months 13-60 against his tenure months 1-48; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 13, no attrition, no central costs: cost_leads = cohort_engine.run(start_month=13) cost_leads",0.0,0.0,1e-09,True,company months 13-60 against his tenure months 1-48
+"One agent hired in month 13, no attrition, no central costs: _eng_net = cohort_engine.run(start_month=13) net",5.820766091346741e-11,6.954921941245574e-16,1e-09,True,"company months 13-60 against his tenure months 1-48; the engine prices pay flat and cover at Rs 1,000, so this is the company's agent unit before raises and the 0.015% cover"
+"One agent hired in month 13: acquisition share of his cost follows his tenure (50% to month 12, 20% at month 60)",0.0,0.0,1e-12,True,
+"Central team (incl. the scale roles): headcount x pay x raises x 1.10 = central pay cost, 60 months",5.960464477539063e-08,3.6832881122061797e-16,1e-12,True,
+"Field management: (city managers x 80,000 + team leads x 40,000) x raises x 1.10 = their cost, 60 months",5.960464477539063e-08,7.956670953821404e-16,1e-12,True,
+"Agents: agents working x (salary + Rs 3,000) x raises = agent salaries + statutory, 60 months",1.1920928955078125e-07,4.300435677333447e-16,1e-12,True,
+"Scale roles follow their rules (risk lead from 100 agents; cash reconciliation 1 per 50; HR 1 per 100; support lead from 50,000 savers)",0.0,0.0,0.0,True,risk lead from month 12; support lead from month 14
+"Agent cost: acquisition share + servicing share = salary + statutory + pay on balance, every month",9.313225746154785e-10,8.609154248555455e-17,1e-12,True,
+Pay on balance: the books' balances add to the company balance,1.52587890625e-05,6.755502333691789e-16,1e-10,True,
+Cash collected: the books add to the company total,2.384185791015625e-06,1.0235484944282718e-15,1e-10,True,
+Agents working each month = the agreed fleet path,0.0,0.0,0.0,True,
+Pay on balance: each agent gets the smaller of 0.25%/12 of his book's balance and the cap (rising 7% a year),0.0,0.0,1e-12,True,"cap Rs 10,000 a month in year-1 terms; it binds in 5299 agent-months"
+Every book has exactly one agent in every month after it opens,0.0,0.0,0.0,True,
+Agents who left a year / average agents working = 30% (years 1-5),0.016878402903811207,0.056261343012704024,0.25,True,whole agents: the small early fleet rounds the rate
+"Sign-ups: each hire = his level x the ramp on his tenure x the decline on his BOOK's age (fix 5), every hire and month",0.0,0.0,1e-12,True,247 replacement hires inherit a book's age
+"Ladder: CM1 - servicing - acquisition - central = EBITDA, every month",0.0,0.0,1e-12,True,
+"Ladder: EBITDA - depreciation + interest - tax = PAT, every month",0.0,0.0,1e-12,True,
+Ladder: contingency = 10% of every expensed line above it,4.656612873077393e-10,1.7107534285875026e-16,1e-12,True,the base is all expensed costs less the contingency itself
+Licences one-time = Rs 7.5 lakh (fix 3),0.0,0.0,1e-12,True,
+Depreciation: 60 months of depreciation + book value left at month 60 = capex,4.656612873077393e-10,1.3858966884158905e-16,1e-12,True,
+Interest = 5.5% / 12 x the cash at the start of the month (the seed counts from month 1),0.0,0.0,1e-12,True,
+Tax: no tax while losses are still carried (none used up by month 60),0.0,0.0,0.0,True,"losses carried at month 60: Rs 317,647,265"
+"Cash: closing(t) = closing(t - 1) + net change, every month",0.0,0.0,1e-12,True,
+Cash: the indirect statement = the direct one (commissions + interest received - costs - tax - capex + money raised),1.0710209608078003e-08,3.766732895695045e-17,1e-12,True,
+"Cash = cumulative PAT + depreciation - capex + money raised - commissions not yet received, every month",4.76837158203125e-07,1.3481297417802348e-15,1e-12,True,
+Cash: revenue earned in months 1-58 = commissions received in months 3-60,0.0,0.0,1e-12,True,
+"Smallest Series A: with it, the lowest cash from m18 to m60 is Rs 5 crore (to Rs 100)",0.1357632428407669,2.7152648568153382e-09,1e-05,True,"Rs 1 lakh less gives Rs 49,878,826"
+Smallest Series A: Rs 1 lakh less breaks the Rs 5 crore floor,0.0,0.0,0.0,True,
+Series A close-by month 21: closing at month 22 instead lets cash go below 0 first,0.0,0.0,0.0,True,
+Funding tests: the base plan through treasury() = the statements,0.0,0.0,0.0,True,
+Stacking: savers summed hire by hire and cohort by cohort = the matrix total,1.8044374883174896e-09,4.3880265456050085e-15,1e-10,True,
+"Stacking: revenue before the fee ramp, summed hire by hire = the matrix total",1.601874828338623e-07,6.361991183818856e-15,1e-10,True,
+Cash visits a day: the books add to the company total,7.275957614183426e-11,5.7904915486571e-16,1e-10,True,
+Revenue lines add to revenue = engine income + the fee-ramp uplift,1.1175870895385742e-08,3.926340760779321e-16,1e-10,True,
+"Yearly = monthly: the five year columns add to the 60 months, all 86 summed lines",3.814697265625e-06,5.26321052869653e-17,1e-12,True,
+"Yearly ladder: revenue, CM1, CM2, CM3, EBITDA, interest, PAT (five years) = the monthly table",0.0,0.0,1e-12,True,
+"Yearly cash flow: opening + net change = closing, each year",2.9802322387695312e-08,1.0549317900446531e-16,1e-12,True,
+Funding sized by the model: year-5 PAT with this seed and Series A = the search row,0.0,0.0,1e-09,True,
+Funding sized by the model: cash from m18 to m60 stays at or above Rs 5 crore,0.0,0.0,0.0,True,"lowest Rs 105,612,339"
+Funding sized by the model: the seed keeps cash at or above Rs 5 crore until the Series A,0.0,0.0,0.0,True,"lowest Rs 69,365,873 (months 1-17)"

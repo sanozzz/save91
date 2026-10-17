@@ -1,0 +1,36 @@
+key,says,source_ids
+card_fee_bm,"₹500–2,000 is typical per approved card",BM-08
+card_fee_gromo,"GroMo pays its sub-agents ₹1,000–2,400 per approved card",XL-20
+card_unsecured,Unsecured cards need salaried or ITR income and a bureau score,XL-20
+card_pb,"Paisabazaar issued 91,000 cards in one quarter (Apr–Jun 2026)",XL-08
+card_india,Only 3% of Indians hold a credit card; new cards fell 28% in a year,XL-40
+card_issuer,The issuer decides who gets a card; we may only source it,REG-087
+card_fd,An FD-secured card needs an FD at the issuing bank; our fund is not one,"REG-029, XL-54, TB-35"
+card_fd_payout,"No published payout for FD-secured cards, and no count of them","TB-35, BM-08"
+card_no_dlg,No first-loss cover is allowed on credit cards,REG-007
+ins_phonepe,PhonePe earns ₹8 of insurance revenue per active user a year,XO-10
+ins_xo38,"Savers buy more than the average UPI user, so 2–3× PhonePe is defensible; 9× is not",XO-38
+ins_draft,IRDAI draft caps: comments close 25 Oct 2026; not yet law,REG-053
+ins_health,"Health and accident, first sale: 15%; health renewals: 5%","REG-054, XO-19"
+ins_motor,Third-party motor: nil to 2.5%,XO-18
+ins_term,Term life: 7.5–25% in the first year,XO-20
+ins_ide,A distributor licence (IDE) needs ₹10 lakh of capital,REG-057
+ins_ca,A corporate agent selling only insurance needs ₹50 lakh net worth,REG-059
+lend_pays,The lender pays our fee; the borrower pays us nothing,XL-01
+lend_offers,With several lenders we must show every matching offer and push none,XL-46
+lend_kissht_ever,Kissht: 17.5% of registered users ever borrowed,XL-42
+lend_brazil,Brazil payroll loans: 20% of eligible workers borrowed in year one,LS-06
+lend_paytm_users,Paytm: under 1% of monthly users take a financial product in a quarter,XL-04
+lend_active,41% of small-business borrowers already have an active loan,XB-09
+lend_50pct,Repayments are capped at 50% of income for households up to ₹3 lakh a year,XL-34
+lend_income,"His customers earn ₹20,000–40,000 a month",IV-04
+lend_kissht_appr,Kissht approves 11% of new applicants and 74% of repeat ones,XL-41
+lend_npa,"CRIF: loans over ₹50,000 peak at 3.6% going 90+ days bad",MAC-03
+lend_recovered,Paytm-sourced loans: 30–35% recovered after 90+ days,XB-07
+lend_takeback,DSA fees can be taken back if a loan closes or goes bad within 6 months,XL-47
+lend_paytm_ticket,Paytm's average merchant loan: ₹2.05 lakh,XB-08
+lend_bachatt,Bachatt's partners lend up to ₹5 lakh,XL-12
+lend_dlg,RBI caps a lending partner's first-loss cover at 5% of loans,SE-04
+lend_rate_cap,"RBI draft: rate ceilings on loans up to ₹50,000 from April 2027",REG-078
+fund_trail,Debt-fund distributor commission: 0.2–0.5% a year,XB-04
+other_total,Insurance and other products: ₹8 / ₹63 / ₹259 a saver a year,XO-39

@@ -1,0 +1,10 @@
+﻿row_id,row_label,daily_contact,holds_savings,lends_and_collects,insurance_and_wealth,built_for_owners,why
+C1,"Payment apps (PhonePe, Paytm, BharatPe)",2,1,2,1,1,QR at the counter every day; savings is a side feature; loans repaid from daily sales; business apps sit beside consumer apps
+C2,Bachatt,1,2,1,1,1,"Daily auto-debit, no counter presence; debt funds; refers loans and the lender collects; gold and silver funds, cards; aimed at merchants and the self-employed"
+C3,"Consumer saving apps (Jar, PhonePe Daily SIP)",1,2,1,1,0,Daily debit; funds or gold; PhonePe lends against funds (Jar loans not confirmed); built for young consumers
+C4,Cash agent and credit co-op,2,2,2,0,2,Agent at the counter daily; holds deposits; lends to members and collects in cash; no deposit insurance
+C5,Online business lenders,0,0,2,0,2,"No daily contact; own loan book, now shrinking"
+C6,Gold-loan lenders,1,0,2,0,1,Branch in every market; secured loans; serve households and shops alike
+C7,"Business account and bookkeeping apps (Tide, Khatabook)",1,1,1,0,2,Used daily for books or payments; Tide offers FDs; refer loans to partners
+S91,Save91 at launch (plan),1,2,1,1,2,Daily auto-debit; fund in the owner's name; partner lenders collect; insurance and wealth on the same app; owners only
+S91T,Save91 if the plan works,2,2,2,2,2,Human channel plus daily saving; own loan book later; full cross-sell

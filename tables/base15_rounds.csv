@@ -1,0 +1,6 @@
+Run,Round,Month,Amount (Rs),Pre-money (Rs),Post-money (Rs),Dilution (new investors' share of post-money),Founders % after,ESOP % after,Investors % after,Priced on,Why this month,Capped at 25% dilution,Basis
+15% on our book,Seed,0,130000000.0,400000000.0,530000000.0,0.24528301886792453,0.6547169811320755,0.1,0.24528301886792453,fixed Rs 40 crore,start,yes,valuations are our judgement (step-ups and lenses)
+15% on our book,A,9,530000000.0,1590000000.0,2120000000.0,0.25,0.47285115303983233,0.1,0.4271488469601677,step-up 3x,cash would fall to 6 months of forward burn,yes,valuations are our judgement (step-ups and lenses)
+15% on our book,B,18,2120000000.0,6360000000.0,8480000000.0,0.25,0.3415036105287678,0.1,0.5584963894712323,step-up 3x,cash would fall to 6 months of forward burn,yes,valuations are our judgement (step-ups and lenses)
+15% on our book,C,33,3300000000.0,25122689867.940308,28422689867.940308,0.1161044227457962,0.30185353096272,0.08838955772542038,0.6097569113118596,AUM lens,cash would fall to 6 months of forward burn,no,valuations are our judgement (step-ups and lenses)
+15% on our book,D,48,350000000.0,69076792585.86629,69426792585.86629,0.0050412814270099525,0.30033180236340024,0.0879439610897176,0.6117242365468821,AUM lens,cadence (m48),no,valuations are our judgement (step-ups and lenses)

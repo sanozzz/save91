@@ -1,0 +1,12 @@
+input,dist,low,mode,high,basis,evidence
+credit_cost,triangular,0.03,0.06,0.1,"bad-loan losses, share of loan balance a year","LEV-020, LEV-021, LEV-022, LEV-026, LEV-029, founder"
+running_cost,triangular,0.03,0.05,0.08,"running cost a year, excluding winning customers","LEV-018, LEV-019, LEV-026"
+cost_of_funds,triangular,0.12,0.14,0.16,"what we pay to borrow, a year","LEV-014, LEV-015, LEV-016, LEV-062"
+rate,triangular,0.22,0.26,0.3,interest charged a year,"LEV-012, inputs nbfc_apr"
+fee,triangular,0.02,0.025,0.04,"processing fee, share of the loan","LEV-011, inputs nbfc_proc_fee"
+takeup,triangular,0.05,0.2,0.5,proven savers taking a loan each year,"TB-31, XB-06, LS-06, founder"
+rate_salaried,triangular,0.18,0.24,0.3,salaried: interest charged a year (more lenders compete),"LEV-011, LEV-012"
+ret_m12_salaried,beta,0.24904174048205205,0.4007782101167315,0.5614685758968576,salaried: still saving at month 12,"SG-06, SG-07"
+loan_size_shopkeepers,triangular,50000.0,150000.0,250000.0,"shopkeepers: loan size, 12 months","XB-08, XB-10, SG rows, founder"
+loan_size_drivers,triangular,50000.0,100000.0,200000.0,"drivers: loan size, 18 months","XB-08, XB-10, SG rows, founder"
+loan_size_salaried,triangular,50000.0,100000.0,200000.0,"salaried: loan size, 18 months","XB-08, XB-10, SG rows, founder"

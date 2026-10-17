@@ -1,0 +1,173 @@
+id,display,population,source_ids,source_short
+rider_net,"₹18,761",net earnings per month after 32% operating costs; full-time two-wheeler delivery riders on one platform (n=2547),INC-01,"IDinsight, 2024 survey (pub. Mar 2025)"
+rider_gross,"₹27,814",gross earnings per month; same population,INC-01,"IDinsight, 2024"
+rider_tenure,13 months,average tenure on the platform; same population,INC-01,"IDinsight, 2024"
+rider_parttime,77%,share working 8 hours a day or less; same population,INC-01,"IDinsight, 2024"
+rider_women,under 1%,share of riders who are women; same population,INC-01,"IDinsight, 2024"
+rider_n,"2,547",riders surveyed,INC-01,"IDinsight, 2024"
+rider_borrowed,half,"smartphone owners among 2,547 riders of one platform who borrowed to buy their phone (59% for bikes); 18% response, weighted",INC-02; TF-09,"IDinsight 2025 report, Table 5.2b"
+rider_missed,about a third,share of those borrowers who missed at least one repayment,INC-02,"IDinsight via IDR, 2025"
+gig_under15k,40%,gig workers as counted by the Indian Staffing Federation (incl. staffing-type gigs); self-reported; gross or net not stated,INC-03; TF-01; TF-02,"Indian Staffing Federation, via Economic Survey 2025-26"
+gig_fy25,about 12M,gig workers in India in FY25 (Indian Staffing Federation; NITI's own path gives 12.7M),SEG-01; TF-04; TF-06,Indian Staffing Federation via Economic Survey 2025-26; NITI Aayog 2022
+gig_2030,23.5M,gig workers projected for 2029-30,SEG-01,"NITI Aayog, Jun 2022"
+swiggy_riders,"648,000",Swiggy average monthly transacting delivery partners Q1 FY27 (riders multi-app; not additive),SEG-05,"Swiggy Q1 FY27, Jul 2026"
+loans_90plus,6-7%,personal loans of ₹10-50k that reach 90+ days late at peak (6.0% all lenders; 7.2% NBFCs),MAC-03,"CRIF High Mark, Jan 2025"
+sip_min,₹100,typical minimum for a daily mutual-fund SIP,REG-043,"AMC notices, Oct 2024"
+gold_min,₹10,minimum digital-gold purchase,LEV-039,"SafeGold / Jar, 2025"
+instant_redeem,"₹50,000",liquid-fund instant withdrawal limit per day per scheme,REG-041,"SEBI/AMC, Jun 2024"
+fd_min,7 days,minimum FD tenor,REG-029,"RBI Interest Rate on Deposits Directions, Apr 2025"
+dlg_cap,5%,cap on a loan service provider's loss cover (share of the amount disbursed),REG-003,"RBI Digital Lending Directions, May 2025"
+debit_list,₹5,list price per UPI Autopay debit under ₹1000 (paid by the merchant),REG-050,"Cashfree price page, Sep 2026"
+mandate_list,₹7.5,list price per UPI Autopay mandate,REG-050,"Cashfree price page, Sep 2026"
+emandate_limit,"₹15,000",recurring debit without re-authentication,REG-049,"RBI e-mandate framework, Apr 2026"
+trail_liquid,0.08%,distributor trail on a liquid-fund balance per year (regular minus direct expense ratio),BM-01,"ICICI Pru factsheet, Aug 2026"
+trail_liquid_rs,₹4,trail per year on a ₹5000 liquid-fund balance,BM-01,"derived from ICICI Pru factsheet, Aug 2026"
+fd_fee,0.5%,FD distribution fee (anecdotal; unverified),BM-03,"The CapTable, Feb 2025"
+gold_comm,about 2.4%,Jar's commission per gold purchase as a distributor (case study; unverified),LEV-036,case study (undated)
+gold_spread,2-3%,buy-sell spread on digital gold (saver pays; plus 3% GST),LEV-037,"SafeGold and others, 2026"
+gold_gst,3%,GST on digital gold purchases,LEV-037,2026
+lsp_nodlg,1-3%,loan-sourcing payout without loss cover (share of disbursal),LEV-009,"DSA platforms, 2026"
+mv_fee,about 11%,Moneyview partner fees as a share of partner disbursal (derived from its RHP),LEV-059,"Moneyview RHP, Sep 2026"
+mv_dlg_paid,3.4%,loss cover Moneyview actually paid in FY26 (share of covered disbursal),LEV-060,"Moneyview RHP, Sep 2026"
+jar_roc,"₹2,447.8 cr",Jar FY25 revenue from operations in its filing (mostly gold sold),JAR-01,"RoC filing via Entrackr, Nov 2025"
+jar_opr,₹208 cr,Jar FY25 'operating revenue' (company-defined; cannot be rebuilt from the filing),JAR-02; LEV-034,"Jar press release, Sep 2025"
+jar_loss,₹50.5 cr,Jar FY25 net loss,JAR-04,"RoC filing via Inc42, Nov 2025"
+jar_users,35M,Jar registered users since launch,JAR-07,"TechCrunch, Sep 2025"
+jar_raised,$63-66M,Jar total equity raised,JAR-13,"TechCrunch / Inc42, 2025"
+bachatt_raise,$12M,Bachatt Series A (Accel lead; Lightspeed and Info Edge),BAC-01,"company release, Mar 2026"
+bachatt_users,3M,Bachatt users acquired since May 2025 (company claim),BAC-02,"company release, Mar 2026"
+stable_rev,₹4.3 cr,Stable Money FY25 operating revenue,SAV-01,"Entrackr, Feb 2026"
+stable_users,40 lakh,Stable Money users who have invested (cumulative),SAV-02,"Entrackr, Feb 2026"
+mv_monetized,8%,Moneyview registered users who ever used a revenue product,LEND-04,"Moneyview RHP, 2026"
+gcash_borrowers,about 11%,GCash lifetime users who have borrowed (10.5M borrowers),CMP-07,"GMA News, Feb 2026"
+fuliza_x,13x,Fuliza overdraft lending vs M-Shwari savings-linked lending in Kenya (2025),CMP-11,"TechTrends KE, Mar 2026"
+chime_pay,about 68%,share of Chime FY25 revenue from payments (mostly interchange),CMP-02,"Chime results, Feb 2026"
+brazil_revolve,451.5%,Brazil credit-card revolving rate per year (Aug 2025),CMP-09,"Banco Central do Brasil via press, Sep 2025"
+india_cards,122.86M,credit cards outstanding in India (Jul 2026),CMP-10,"RBI via Mint, Aug 2026"
+tyme_years,about 5 years,TymeBank launch to first monthly profit,CMP-06,"company, Dec 2024"
+fi_raised,$137-169M,Fi Money total raised (sources disagree),FI-02,"Inc42 / TechCrunch, 2026"
+fi_customers,3.5M,Fi customers moved off when banking stopped (Mar 2026),FI-01,"TechCrunch, Mar 2026"
+shg_npa,2.05% vs 8.72%,NPA of savings-linked SHG bank loans vs microfinance (correlation only),EVD-03,"NABARD, Jul 2024"
+flexi_churn,21-22%,flexi staff leaving per quarter at TeamLease and Quess (derived),LEV-048; LEV-053,"company results, Jul 2026"
+bc_tenure,21 months,average blue-collar tenure,LEV-049,"Deloitte, May 2025"
+gold_upi,"₹2,500 cr",digital gold bought via UPI per month (Jun-Aug 2026 average),LEV-044,"World Gold Council / NPCI, Sep 2026"
+usd_inr,₹96.1,rupees per US dollar (30 Sep 2026),OWN-01,"exchangerates.org.uk, 30 Sep 2026"
+nof,₹10 crore,minimum net owned fund for a new NBFC,REG-017,"RBI, 2021 (by Mar 2027)"
+arn_fee,"₹40,000",AMFI distributor registration for a private company (+GST),REG-036,"AMFI, Oct 2024"
+ca_networth,₹50 lakh,net worth for an insurance corporate agent (exclusive),REG-059,"IRDAI, Sep 2026"
+irdai_health,15%,draft cap on first-year health commission for open distributors,REG-054; BM-10,"IRDAI draft, 23 Sep 2026"
+irdai_renew,5%,draft cap on renewal health commission,REG-054; BM-10,"IRDAI draft, 23 Sep 2026"
+irdai_loan,5%,draft cap on commission for health/PA insurance packaged with a loan,BM-10,"IRDAI draft, 23 Sep 2026"
+bueno_loans,"15,000+",Bueno loans made in its best month,founder,founder CV
+bueno_team,60,Bueno team at peak,founder,founder CV
+bueno_raised,$3.5M,Bueno equity raised,founder,founder CV
+bueno_approval,25%,Bueno applicants approved,founder,founder data (30 Sep 2026)
+bueno_dpd,6-7%,Bueno 3-month first loans that went 90+ days late,founder,founder data (30 Sep 2026)
+bueno_irr,50%,yearly rate paid by Bueno borrowers incl. fees,founder,founder data (30 Sep 2026)
+bueno_nbfc,18%,yearly rate Bueno paid its partner NBFC,founder,founder data (30 Sep 2026)
+bueno_platform,over 75%,Bueno loans sourced through platforms,founder,founder data (30 Sep 2026)
+bueno_fee,₹200,Swiggy data fee per loan,founder,founder data (30 Sep 2026)
+bueno_ticket,"₹17,500",typical first loan (midpoint of ₹10-25k),founder,founder data (30 Sep 2026)
+bueno_repeat,30-50%,repayers who took a second loan,founder,founder data (30 Sep 2026)
+founder_ret12,20 of 100,savers still saving after a year (founder view),founder,founder view (30 Sep 2026)
+founder_ret24,10 of 100,savers still saving after two years (founder view),founder,founder view (30 Sep 2026)
+rider_net_round,"about ₹18,800",net earnings per month for a full-time rider (₹18761 rounded),INC-01,"IDinsight, 2024"
+nbfc_time,12–18 months,time to an NBFC licence (MobiKwik about 12 months; Groww about 23),LEV-032; LEV-069,"practitioners and filings, 2026"
+ca_time,3–6 months,time to IRDAI corporate-agent registration (unverified),REG-059,"regulatory_map.md, Sep 2026"
+se_delhi_share,39.1%,"Delhi workers who are self-employed (own-account + employer + helper), 2025",NG-004,PLFS 2025 (Mar 2026)
+se_urban_income,"₹23,012",average monthly earnings of urban self-employed (mean; includes employers),NG-005,PLFS 2025 (Mar 2026)
+se_delhi_income,"₹34,868",average monthly earnings of Delhi urban self-employed (mean; includes shop owners with staff),NG-006,PLFS 2025 (Mar 2026)
+vendor_income,"₹9,000–15,000","monthly income of most street vendors (Ludhiana survey, n=605, 2020)",NG-045,journal survey (Dec 2022)
+udyam_micro,5.36 crore,"micro enterprises on the Udyam portal (cumulative), plus 4.32 crore informal units",NG-007,Udyam dashboard (30 Sep 2026)
+udyam_delhi,19.6 lakh,Delhi enterprises registered on Udyam and Udyam Assist,NG-008,Udyam dashboard (30 Sep 2026)
+svanidhi_vendors,75.5 lakh,street vendors who borrowed under PM SVANidhi (cumulative),NG-010,PIB (May 2026)
+svanidhi_npa,12–16%,PM SVANidhi loans that became NPAs to May 2022 (minister vs RTI),NG-013,RTI via CHRI (Jul 2022)
+ubl_90plus,10.2%,small unsecured business loans to the self-employed that reach 90+ days late at peak,NG-015,CRIF High Mark (Jan 2025)
+jannivesh_ceased,35.6%,SBI daily Rs 250 SIP registrations in FY26 that had stopped by 1 Apr 2026,NG-033,SBI MF data via press (Jul 2026)
+vendor_save_x,about 2.2x,deposits by market vendors vs bicycle-taxi drivers given the same savings account (Kenya RCT),NG-040,"Dupas and Robinson, AEJ Applied (2013)"
+upi_merchants,about 6.5 crore,merchants accepting UPI QR (active merchants far fewer),NG-027,PIB (Dec 2025)
+phonepe_merchants,4.72 crore,PhonePe registered merchants (1.13 crore monthly active),NG-029,PhonePe DRHP via press (Mar 2026)
+delhi_mfi_par180,21.3%,"Delhi microfinance loans 180+ days overdue (share of book, Mar 2025)",NG-020,NABARD / MFIN (Oct 2025)
+bachatt_band,"₹30,000–70,000","Bachatt's stated target income band (a target, not measured)",NG-031,company releases (Apr 2025)
+jar_profit_q,2 quarters,Jar profitable after tax in Jan–Mar and Apr–Jun 2025 (company claim),JAR-06,"TechCrunch, Sep 2025"
+jar_rev_user,about ₹59,"Jar FY25 operating revenue (₹208 cr) per registered user (35M, Sep 2025); derived",JAR-09,derived: Entrackr + TechCrunch
+stable_loss,₹44.8 cr,Stable Money FY25 net loss,SAV-01,"Entrackr, Feb 2026"
+gullak_raise,$7.5M,"Gullak (gold-savings app) Series A, Sep 2025",SAV-04,"Entrackr, Sep 2025"
+phonepe_daily,"₹10–5,000 a day","PhonePe Daily Savings in digital gold, built with Jar (launched Oct 2024)",SAV-08,"Medianama, Oct 2024"
+bachatt_loans,up to ₹5 lakh,"loans Bachatt cross-sells through 7 lending partners, plus lifetime-free credit cards",BAC-05,"Elets BFSI, Apr 2025; company site, accessed 30 Sep 2026"
+bachatt_lenders,7,"lending partners listed by Bachatt (L&T Finance, Prefr, Moneyview, Kissht, FatakPay, Western Capital, Moneyboxx)",BAC-05,"company site, accessed 30 Sep 2026"
+bachatt_daily,₹51–200 a day,"Bachatt daily fund saving, for self-employed earning ₹30,000–70,000 a month (its target)",BAC-05,"Elets BFSI, Apr 2025"
+fibe_rev,"₹1,228 cr",Fibe FY25 revenue from operations,LEND-07,"Entrackr, 2026"
+fibe_pat,₹114 cr,Fibe FY25 profit after tax,LEND-07,"Entrackr, 2026"
+shg_npa_shg,2.05%,"NPA on bank loans to savings-linked self-help groups (77.4 lakh credit-linked SHGs), Mar 2024",EVD-03,"NABARD, Status of Microfinance 2023-24"
+shg_npa_mfi,8.72%,"NPA across all microfinance lenders (CRIF MicroLend), Mar 2024",EVD-03,"NABARD, Status of Microfinance 2023-24"
+rider_bike_borrowed,6 in 10,"riders who own their bike and borrowed to buy it (59%), 2,547 riders of one platform",TF-09,"IDinsight 2025 report, Table 5.2b"
+ev_upi_fail,55-90%,"UPI AutoPay execution attempts that failed at major banks in Aug 2025, mostly low balance (all merchants, by count)",TB-13,"NPCI data via Mint, Sep 2025"
+ev_nach_ok,69%,"NACH auto-debits that succeeded, by count, Oct 2021 (mostly salaried EMIs)",TB-36,"NPCI via Business Standard, Nov 2021"
+ev_debit_gst,₹5.90,"list price per UPI Autopay debit under ₹1,000, incl. 18% GST (Cashfree and Zoho both list ₹5 + GST)",TC-02; TC-06,"Cashfree and Zoho price pages, 2026"
+ev_debit_pct,about 2%,"of each debit, where payment companies price Autopay as a percentage (Razorpay reported 2%; PhonePe PG lists 1.99%)",TC-15; TC-17,"SalaryBox comparison, Sep 2026; PhonePe PG page, Oct 2026"
+ev_rail_cost,₹0.40,estimated cost of one UPI transaction to the whole system (analyst estimate),TC-09,"The Painted Stork, Nov 2024"
+ev_groww_cac,"₹796-1,374","Groww's cost per new customer, H1 FY25 to H1 FY26, with 81-84% of customers arriving organically",TB-18,"Entrackr, Nov 2025 (from Groww's RHP and results)"
+ev_cpi,₹100-300,cost per app install for wealth and broking apps in India (vendor benchmark; fintech median ₹75),TB-19,"Linkrunner and vmobify benchmarks, 2026"
+ev_jar_active,about 4%,"Jar users saving on a given day as a share of all registered users (derived from ~300,000 daily saves on 11M users, c. 2023)",TB-16,"Soul Startup, 2023 (derived)"
+ev_zomato_exit,1.5-2 lakh a month,"Zomato delivery partners who leave voluntarily each month, on about 4.8 lakh active (CEO, Jan 2026)",TB-12,"Storyboard18, Jan 2026"
+ev_chhoti_churn,8-17% a month,"share of live Chhoti SIPs (₹250, first-time investors) closing each month, Apr 2025 to May 2026 (derived)",TB-04,"Business Standard, Jul 2026"
+ev_jannivesh,35.6%,SBI JanNivesh daily ₹250 SIP registrations in FY26 that had stopped by 1 Apr 2026,NG-033,"SBI Funds RHP, 2026"
+ev_sip_survive,52%,"SIPs registered in 2023 still active at end-2024 (all Indian SIPs, mostly monthly)",TB-01,"Business Standard, Mar 2025"
+ev_rct_low,3-17%,"of unbanked people offered a free account who made 5+ deposits in two years (RCTs: Chile, Malawi, Uganda)",TB-06,"Dupas, Karlan, Robinson and Ubfal, 2018"
+ev_acorns,55-75%,"Acorns subscribers still paying after 12 months (US, 2015-2020 cohorts, company claim)",TB-11,"Acorns SPAC materials, SEC, Sep 2021"
+ev_gullak,about ₹580,"saved a month by Gullak's transacting users in its first 60 days (derived, 2022)",TB-40,"Y Combinator launch page, 2022"
+ev_phonepe_ins,about 4M a year,"insurance policies PhonePe sold in the year to Jan 2024, across several hundred million users",TB-25,"Business Standard, Jan 2024"
+ev_paytm_fin,about 0.9%,"of Paytm's monthly users taking a loan, broking or insurance product in a quarter (Q3 FY26, derived)",TB-31,Paytm Q3 FY26 earnings release
+ev_platform_cover,₹1-2 lakh,"insurance cover Swiggy, Zomato and Zepto already pay for their riders, free to the rider",TB-27,"Inc42, 2026"
+ev_bima_vistaar,"₹1,500","premium a year for IRDAI's Bima Vistaar mass-market bundle, which pays a 10% commission",TC-28; TC-29,"Asia Insurance Post, 2024-25"
+ev_trail,0.05%,"liquid-fund trail paid to distributors a year, at 5 of 6 fund houses (2021 tables; 0.03-0.10% in 2025-26)",TC-21; TC-22,AMC commission statements via HDFC Sales
+ev_lafd,1-2%,a bank's whole margin over the FD rate on a loan against an FD (lends 85-90% of the FD),TC-33,"Scripbox, 2026 (SBI, HDFC Bank, ICICI Bank terms)"
+ev_lamf,about 0.3%,"of Indian fund investors who ever borrowed against their funds through Volt, the largest digital lender of this kind",TB-44,"Indian Startup Times, Aug 2026 (derived)"
+ev_groww_tech,₹28.6,"Groww's tech and transaction cost per active user a month, Q2 FY26 (derived)",TC-36,Groww Q2 FY26 shareholders' letter
+ev_mv_dlg,2.9-3.4%,"of guarantee-backed loans Moneyview paid out under its loss cover a year, FY25-FY26 (derived)",TC-41,"Moneyview RHP via Multibagg, Sep 2026"
+ev_swiggy_zerodha,₹100,minimum Swiggy delivery partners can invest in the Swiggy rider app through a Zerodha Fund House tie-up (launched Jun 2026; uptake not disclosed),TB-45,"Business Today, Jun 2026"
+ev_jar_rev_active,₹440-770,"Jar FY25 revenue excluding jewellery (₹208 cr less about ₹100 cr) per active saver, if 4-7% of 35M users are active (derived, approximate)",JAR-02; JAR-07; JAR-10; TB-16,"derived from Entrackr, TechCrunch and Soul Startup"
+ev_debit_high,₹17.70,"list price per UPI Autopay debit above ₹1,000, incl. 18% GST (Cashfree and Zoho both list ₹15 + GST)",TC-02; TC-06,"Cashfree and Zoho price pages, 2026"
+ev_debit_tier,"₹1,000","debit size above which the flat Autopay list price rises from ₹5 to ₹15 (Zoho: 'up to Rs 1,000')",TC-02; TC-06,"Cashfree and Zoho price pages, 2026"
+xs_paytm_user,about ₹350–410,"a year per monthly transacting Paytm user from ALL its financial-services distribution, mostly loans (₹672 cr x 4 / 7.6 cr, Q3 FY26; ₹814 cr x 4 / 8.0 cr, Q1 FY27; derived)",XL-05; XL-06; XO-11,"Paytm earnings releases, Jan and Jul 2026"
+xs_phonepe_ins_user,about ₹8,"of insurance revenue a year per monthly active PhonePe user (₹191 cr / 23.7 cr users, FY26, derived)",XO-10,"Outlook Business, Jul 2026"
+xs_home_fee,"₹2,400–15,000",earned per affordable home loan referred: 0.3-1% of an ₹8-15 lakh loan,XL-15; XL-24; XL-25; XL-51,"lender and connector rate cards; HFC investor decks, 2025-26"
+xs_home_market,about 31 lakh,"home loans sanctioned a year in India, all borrowers (7.8 lakh in Q1 FY26, x 4)",XL-28,"CRIF High Mark, How India Lends, Jun 2025"
+xs_bike_owned,73%,"of delivery riders already own their bike, mostly bought before joining the platform",XL-36,"IDinsight, Feb 2025"
+xs_irdai_renewal_cap,5%,proposed cap on health-insurance renewal commission (IRDAI distribution reform draft; comments to 25 Oct 2026),XO-19,"Khaitan & Co summary, 29 Sep 2026"
+xs_paytm_negligible,negligible,"Paytm on mutual funds, gold savings and add-on insurance: they 'contribute negligible revenue/profitability'",XO-11,"Paytm Q1 FY27 earnings release, Jul 2026"
+mf_distributor_fee,nothing,transaction fee a mutual-fund distributor pays on BSE StAR MF; the fund house pays the exchange instead,XB-01,"Cafemutual, 2016-18"
+amc_fee,₹6–30,"per transaction the fund house pays BSE StAR MF, depending on volume",XB-01,"Cafemutual, 2016-18"
+paytm_devices,1.51 crore,"Paytm subscription (device) merchants, cumulative, Mar 2026",XB-06,Paytm Q4 FY26 earnings release
+paytm_borrow_rate,up to 1 in 5,a year: Paytm's key financial-services customers a quarter (7.5 lakh) against its 1.51 crore device merchants (derived upper bound),XB-06,Paytm Q4 FY26 earnings release
+paytm_ecl,4.5–5%,"expected credit loss on Paytm-sourced merchant loans, lenders' books, Mar 2026 quarter",XB-07,Paytm Q4 FY26 earnings release
+fintech_borrow_rate,about 1 in 25,"a year: Paytm monthly users taking any loan, broking or insurance product (about 0.9% a quarter, derived)",TB-31,Paytm Q3 FY26 earnings release
+bachatt_daily_savers,about 1 lakh,people saving daily at Bachatt: 2M fund transactions in Feb 2026 / ~20 debits a month each (derived),XB-03,"Bachatt press release, Mar 2026"
+rbi_mf_cap,50%,"of household income: cap on total loan repayments for households earning up to ₹3 lakh a year (RBI microfinance rules, all lenders)",XL-34,"RBI microfinance FAQ, Jan 2025"
+sebi_women_bonus,"up to ₹2,000",SEBI's extra 1% of first-year SIPs paid to a distributor per new woman or small-town investor (from 1 Mar 2026),XB-05,Cafemutual; Business Standard
+salaried_pay,"₹26,247","a month: average pay of urban salaried employees (PLFS 2025; includes office staff, so blue-collar pay is lower)",SG-22,"MoSPI, PLFS 2025 Statement 11"
+salaried_capacity,₹1.7–2.5 lakh,"the largest loan an ₹18,000–26,000 salary can carry under RBI's 50% cap (24 months at ~24%, no other debt; derived)",SG-22; SG-14,PLFS 2025; RBI microfinance rules
+salaried_tenure,21 months,average tenure of blue-collar workers; 69% of blue-collar hires are temporary,SG-07,"Deloitte, Blue collar workforce trends 2025"
+ewa_ticket,"₹5,000–20,000","typical salary advance, repaid by the employer deducting it from the next salary",SG-40,"Emerald Finance via Zennivesh, 2025 (blog)"
+staffing_exit,about 21%,"of general-staffing workers leave each quarter (Quess, Q1 FY27; derived from hires and net additions)",SG-06,"Quess investor presentation, Jul 2026"
+uk_optin,1%,"of new joiners saving from pay when they had to opt in (UK autosave trial, blue-collar employer)",SG-09,"Nest Insight autosave trial, 2022"
+uk_optout,53%,of new joiners saving from pay when enrolled automatically with a choice to leave (same trial),SG-09,"Nest Insight autosave trial, 2022"
+rider_loans,"₹2,000–10,000","what delivery riders actually borrow day to day, mostly from friends and family",SG-21,"IDinsight financial diaries, 2025"
+staffing_reach,about 7.6 lakh,"flexi staff at the two largest staffing firms (TeamLease 2.9 lakh, Quess 4.7 lakh), both already with a finance partner",SG-05; SG-06; SG-47,"TeamLease and Quess investor presentations, Jul 2026"
+shg_loan,"about ₹35,000",loan per member through a self-help group (₹3.82 lakh per group of about 11),SG-27,"NABARD / DAY-NRLM, 2025"
+kcc_rate,4%,effective interest on Kisan Credit Card loans after the government subsidy,SG-35,"RBI / NABARD, 2025"
+uc_pay,"₹28,322",a month: average net earnings in hand of active Urban Company service partners (9M FY26),SG-15,"Urban Company filings, 2026"
+founder_repeat_late,1–2%,of repeat loans that went late in the founder's past lending (borrowers who had repaid before),founder,founder's past lending data
+crif_small_pl,4.8%,"late-stage delinquency (91–180 days) on personal loans up to ₹1 lakh, June 2025 (7.6% in June 2023)",LS-02,"CRIF High Mark, via Moneylife"
+digital_credit_cost,7–10%,"a year of the loan book lost to bad loans at digital lenders today (KreditBee 7.7%, Kissht 8.5–9%, Groww 7%)",LEV-021; LEV-022; LEV-029,"CRISIL, CareEdge, ICRA ratings notes, 2025-26"
+digital_running_cost,9–16%,"a year of the loan book spent running digital lenders, including marketing (KreditBee 9.6%, Kissht 14.5–16%, Stashfin 8.8%)",LEV-018; LEV-019; LEV-026,"CRISIL, CareEdge ratings notes, 2025-26"
+digital_roa,1–4%,a year of the loan book that digital personal-loan lenders keep as profit,LEV-027,"industry report cited by PTI, Mar 2026"
+nbfc_cof_range,13–15%,"a year: what digital-lending NBFCs pay to borrow (Moneyview 14.7%, Kissht 13.3%)",LEV-014; LEV-015; LEV-062,"Moneyview RHP; CRISIL, 2025-26"
+brazil_takeup,20%,of eligible private-sector workers took a payroll loan in the first year of Brazil's scheme (9.5 of 47 million),LS-06; SU-05,"Brazil government release, 2026"
+colend_min,10%,"the least share of each co-lent loan a lender must keep on its own books (RBI, from Jan 2026)",LS-01,"RBI Co-Lending Directions 2025, via Business Standard"
+nbfc_nof,₹10 crore,"minimum net owned funds for an NBFC, by March 2027",REG-017,RBI scale-based regulation
+nbfc_fixed,₹3–8 crore,"a year: extra fixed cost of running an NBFC (compliance, risk, audit); ₹5 crore middle",LEV-028; LEV-029,Jupiter (Amica) and Groww (Creditserv) precedents; assumption
+payout_deduction,restaurants only,Zomato pays its RESTAURANT partners' payouts into an NBFC-run account that takes the instalment first (NeoGrowth); no current public case for riders or drivers,LS-04,NeoGrowth partner page (opened Oct 2026)
+crif_big_ticket,3.6%,"of loans above ₹50,000 that ever go 90+ days late (vs 6.0% for ₹10–50k, 8.9% under ₹10k), all lenders",LEV-066,CRIF High Mark vintage data
+nbfc_licence_time,up to about two years,from setting up to getting an NBFC licence (Groww took about 23 months; practitioners quote 6–12),LEV-029; LEV-032,Groww Creditserv filings; practitioners

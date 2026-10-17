@@ -1,0 +1,4 @@
+saver,per_day,deposits_a_year,cost_a_year,trail_low,trail_mid,trail_high,nonloan_low,nonloan_mid,nonloan_high,loanref_low,loanref_mid,loanref_high,years_money_must_stay_low,years_money_must_stay_high,total_low,covered_low,total_mid,covered_mid,total_high,covered_high
+Bachatt minimum,51.0,12240.0,183.6,12.24,21.42,30.6,8.0,63.0,259.0,1.5,15.0,140.0,3.0,7.5,21.740000000000002,0.1184095860566449,99.42,0.5415032679738563,429.6,2.3398692810457518
+our model saver,100.0,24000.0,360.0,24.0,42.0,60.0,8.0,63.0,259.0,1.5,15.0,140.0,3.0,7.5,33.5,0.09305555555555556,120.0,0.3333333333333333,459.0,1.275
+Arvinder's middle customer,350.0,84000.0,1260.0,84.0,147.0,210.0,8.0,63.0,259.0,1.5,15.0,140.0,3.0,7.5,93.5,0.0742063492063492,225.0,0.17857142857142858,609.0,0.48333333333333334

@@ -1,0 +1,26 @@
+product,group,rs_per_active_saver_year_low,mid,high,take_rate_mid,verdict,evidence,population,as_of
+"Small personal loan, referral only",loans,1.5,15,140,2% of loan,small,"XL-13, XL-41, XL-42, XL-29, XL-37, XL-45, XL-48","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Gold loan,loans,1.5,22.5,180,1% of loan,small; safest loan to refer,"XL-17, XL-29, XL-32, XL-52","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Business or property loan,loans,2.5,30,150,2% of loan,small; shopkeepers only,"XL-14, XL-16, XL-43, XL-53","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Credit card backed by an FD,loans,1.5,15,75,Rs 750 per card (assumed),small; fits the story,"XL-20, XL-40, XL-54","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Home loan (affordable housing),loans,1.2,11,75,0.5% of loan,"small: big fee, very rare","XL-15, XL-24..XL-27, XL-30, XL-51","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Auto-rickshaw or used-car loan,loans,0.75,9,120,1% of loan,small,"XL-18, XL-44, XL-54","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Phone / consumer-durable EMI,loans,0.5,8,45,2% of loan (assumed),small; sold at the shop,"XL-29, XL-35, XL-54","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Two-wheeler loan incl. EV,loans,0.7,4.7,48,1% of loan,small; most riders own a bike,"XL-19, XL-21..XL-23, XL-31, XL-36, XL-50","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Microfinance group loans,loans,,,,no data,needs field staff,"XL-33, XL-34","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Personal loan we guarantee (before defaults),loans (excluded from total),6.8,37.5,351,"5% of loan, minus defaults",not advised: we carry defaults,"XL-02, XL-07, XL-10, XL-11, XL-49","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Mobile recharge,other,2.6,13,39,2% of recharge,small; others do it free,"XO-25, XO-33","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Bill payments,other,1.2,12,54,Rs 2 per bill,small,XO-26,"active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Term life (small cover),other,0.4,7.5,36,25% of year-1 premium,small; caps proposed,"XO-20, XO-32","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Accident or hospital-cash cover,other,0.6,7.2,45,15% of premium,small,"XO-19, XO-09, XO-10, XO-30, XO-35, XO-31","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Two-wheeler insurance,other,0.9,7.1,33.2,4.75% blended,small,"XO-18, XO-21, XO-22","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+NPS / NPS Lite,other,0.3,6,10,Rs 200 once,small; money locked to 60,"XO-16, XO-17","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Choti SIP incentive (Rs 250 SIP),other,1.7,5.6,18,"Rs 500 once, after 24 months",small; equity only,XO-01..XO-04,"active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Equity SIP trail,other,0.4,2.3,10.8,0.75% of balance a year,small,XO-05..XO-08,"active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Device insurance,other,0.2,2.3,9.4,15% (no published rate),small,"XO-34, XO-19","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+PMJJBY / PMSBY,other,0,0,1.5,Rs 30 once; Rs 0 online,not reachable; offer free,"XO-12, XO-13, XO-23","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+Atal Pension Yojana,other,0,0,2.5,paid to banks only,not reachable,"XO-14, XO-15","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+"Money transfer, account referral, e-Shram",other,0,0,0,no data or nil,not reachable,"XO-27, XO-28, XO-29","active saver of the app, per year; take-up is the researchers' estimate (no public source)",2026-10-02
+TOTAL loans,loans,10.15,115.2,833.0,,sum of products; high = every product at its best at once (not plausible),"XL-54, XO-39",,2026-10-02
+TOTAL other,other,8.3,63.0,259.4,,sum of products; high = every product at its best at once (not plausible),"XL-54, XO-39",,2026-10-02
+TOTAL all cross-sell,all,18.450000000000003,178.2,1092.4,,"vs gap of Rs 1,029 per active saver a year",,,2026-10-02

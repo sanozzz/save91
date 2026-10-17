@@ -1,0 +1,29 @@
+Check,Passes,Note
+NB1: ladder: revenue - direct - credit cost - servicing - acquisition - central = EBITDA,True,
+NB1: revenue = fee revenue + NII + processing fees,True,
+NB1: the book is funded: net book = equity deployed + borrowings,True,
+NB1: capital at least 20% of the book and borrowings at most 3x equity while lending,True,capital 25.0% at the lowest
+NB1: processing fees = 2% and credit cost = loss x on-book disbursals,True,
+"NB1: on-book share 0 before m30, 10% at m30, full from m54",True,
+NB1: cash roll: closing = previous + net change,True,
+NB1: cash stays at or above 0,True,"lowest Rs 50,778,733"
+NB1: cap table sums to 100% and no round dilutes more than 25%,True,
+NB2: ladder: revenue - direct - credit cost - servicing - acquisition - central = EBITDA,True,
+NB2: revenue = fee revenue + NII + processing fees,True,
+NB2: the book is funded: net book = equity deployed + borrowings,True,
+NB2: capital at least 20% of the book and borrowings at most 3x equity while lending,True,capital 25.0% at the lowest
+NB2: processing fees = 2% and credit cost = loss x on-book disbursals,True,
+"NB2: on-book share 0 before m30, 10% at m30, full from m54",True,
+NB2: cash roll: closing = previous + net change,True,
+NB2: cash stays at or above 0,True,"lowest Rs 89,511,276"
+NB2: cap table sums to 100% and no round dilutes more than 25%,True,
+NB2: 57 of 225 paths clear lenses 1 and 2 at m60 with cash >= 0,True,
+NB3: ladder: revenue - direct - credit cost - servicing - acquisition - central = EBITDA,True,
+NB3: revenue = fee revenue + NII + processing fees,True,
+NB3: the book is funded: net book = equity deployed + borrowings,True,
+NB3: capital at least 20% of the book and borrowings at most 3x equity while lending,True,capital 25.0% at the lowest
+NB3: processing fees = 2% and credit cost = loss x on-book disbursals,True,
+"NB3: on-book share 0 before m30, 10% at m30, full from m54",True,
+NB3: cash roll: closing = previous + net change,True,
+NB3: cash stays at or above 0,True,"lowest Rs 89,511,276"
+NB3: cap table sums to 100% and no round dilutes more than 25%,True,

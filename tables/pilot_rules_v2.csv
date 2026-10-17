@@ -1,0 +1,72 @@
+key,value,from
+five_year_breakeven_m12,0.36912296615987705,"xs_breakeven_v2.csv: 5 years, salary only, 2.625% fee"
+five_year_breakeven_m3,0.7794580860689482,same steady monthly drop-off: R12^(3/12)
+five_year_breakeven_m6,0.6075549079382678,R12^(6/12)
+three_year_breakeven_m12,0.4665005204653466,"xs_breakeven_v2.csv: 3 years, salary only, 2.625% fee"
+go_m3_of_100,78,"go line at month 3, whole savers of 100, rounded up"
+go_m6_of_100,61,"go line at month 6, rounded up"
+go_m12_of_100,37,"go line at month 12 (5-year NPV positive), rounded up"
+go_m12_3y_of_100,47,"month-12 line for a 3-year payback, rounded up"
+first_month_signups,83.33333333333333,the savers the month-3 line is read on
+signups_plan_a_month,83.33333333333333,"1,000 a year"
+signups_stop_a_month,63,"750 a year (low end of the range, judgement) = 62.5 a month, rounded up"
+five_year_breakeven_at_750_signups,0.48957874045594263,xs_breakeven_v2.csv
+loans_per_100_proven_plan,3.4999999999999996,middle funnel 20% x 50% x 35%
+five_year_breakeven_low_funnel,0.5366326564644812,xs_breakeven_v2.csv
+rethink_loans_by_m12,1,rethink at 1 loan or none by month 12 (lead's rule)
+apply_rate_plan,0.2,share of proven savers applying in a year
+capacity_visits_a_day,400.0,cash visits one agent can make a day
+cash_savers_one_agent,1000.0,400 a day x one visit every 2.5 days
+pilot_salary_12m,240000.0,"Rs 20,000 a month"
+pilot_year1_result_r0.3,-170895.79992714262,"12 months in cash, not discounted; recovery fees and support costs not counted"
+pilot_year1_income_r0.3,69104.20007285739,what his savers bring in during the pilot (no recovery fees)
+pilot_year1_result_with_recoveries_r0.3,-170526.34104182327,the same if recovery fees were counted (M4 effect)
+pilot_year1_loans_r0.3,2.3909726392334387,loans made in months 7-12
+pilot_year1_applications_r0.3,13.662700795619655,loan applications in months 7-12
+pilot_year1_cards_r0.3,13.693063937629155,cards given in months 7-12
+pilot_year1_proven_end_r0.3,216.24862337552418,proven savers at month 12
+pilot_year1_savers_end_r0.3,611.0627868829026,savers at month 12
+pilot_cash_visits_a_day_m12_r0.3,244.42511475316104,if every saver is on cash
+upi_share_needed_end_y2_r0.3,0.0,share of his book that must save by UPI at the end of year 2
+upi_share_needed_end_y5_r0.3,0.0,the same at the end of year 5
+npv5_per_agent_r0.3,-134752.42624495528,xs_npv_v2.csv
+npv3_per_agent_r0.3,-166898.69301182585,xs_npv_v2.csv
+pilot_year1_result_r0.4,-160240.88307980975,"12 months in cash, not discounted; recovery fees and support costs not counted"
+pilot_year1_income_r0.4,79759.11692019025,what his savers bring in during the pilot (no recovery fees)
+pilot_year1_result_with_recoveries_r0.4,-159798.87884957992,the same if recovery fees were counted (M4 effect)
+pilot_year1_loans_r0.4,2.860453660470024,loans made in months 7-12
+pilot_year1_applications_r0.4,16.345449488400135,loan applications in months 7-12
+pilot_year1_cards_r0.4,15.811388300841898,cards given in months 7-12
+pilot_year1_proven_end_r0.4,263.50079214137753,proven savers at month 12
+pilot_year1_savers_end_r0.4,680.1321263540523,savers at month 12
+pilot_cash_visits_a_day_m12_r0.4,272.0528505416209,if every saver is on cash
+upi_share_needed_end_y2_r0.4,0.0,share of his book that must save by UPI at the end of year 2
+upi_share_needed_end_y5_r0.4,0.1086914704057853,the same at the end of year 5
+npv5_per_agent_r0.4,63355.31030481635,xs_npv_v2.csv
+npv3_per_agent_r0.4,-67565.6319399114,xs_npv_v2.csv
+pilot_year1_result_r0.55,-146199.122853873,"12 months in cash, not discounted; recovery fees and support costs not counted"
+pilot_year1_income_r0.55,93800.87714612698,what his savers bring in during the pilot (no recovery fees)
+pilot_year1_result_with_recoveries_r0.55,-145659.342518126,the same if recovery fees were counted (M4 effect)
+pilot_year1_loans_r0.55,3.4932168781155304,loans made in months 7-12
+pilot_year1_applications_r0.55,19.96123930351732,loan applications in months 7-12
+pilot_year1_cards_r0.55,18.540496217739154,cards given in months 7-12
+pilot_year1_proven_end_r0.55,328.5723479786786,proven savers at month 12
+pilot_year1_savers_end_r0.55,771.619211611578,savers at month 12
+pilot_cash_visits_a_day_m12_r0.55,308.64768464463117,if every saver is on cash
+upi_share_needed_end_y2_r0.55,0.16388643437853423,share of his book that must save by UPI at the end of year 2
+upi_share_needed_end_y5_r0.55,0.3859043115014067,the same at the end of year 5
+npv5_per_agent_r0.55,406282.65205496363,xs_npv_v2.csv
+npv3_per_agent_r0.55,87202.02450519311,xs_npv_v2.csv
+pilot_year1_result_r0.7,-133692.9370952187,"12 months in cash, not discounted; recovery fees and support costs not counted"
+pilot_year1_income_r0.7,106307.06290478131,what his savers bring in during the pilot (no recovery fees)
+pilot_year1_result_with_recoveries_r0.7,-133064.33790511967,the same if recovery fees were counted (M4 effect)
+pilot_year1_loans_r0.7,4.0680127729827085,loans made in months 7-12
+pilot_year1_applications_r0.7,23.24578727418691,loan applications in months 7-12
+pilot_year1_cards_r0.7,20.916500663351897,cards given in months 7-12
+pilot_year1_proven_end_r0.7,388.87243625052554,proven savers at month 12
+pilot_year1_savers_end_r0.7,853.6638974387187,savers at month 12
+pilot_cash_visits_a_day_m12_r0.7,341.46555897548745,if every saver is on cash
+upi_share_needed_end_y2_r0.7,0.31092869701699644,share of his book that must save by UPI at the end of year 2
+upi_share_needed_end_y5_r0.7,0.5775770022461848,the same at the end of year 5
+npv5_per_agent_r0.7,822931.0856298173,xs_npv_v2.csv
+npv3_per_agent_r0.7,251835.0910168531,xs_npv_v2.csv

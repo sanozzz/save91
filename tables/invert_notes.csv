@@ -1,0 +1,7 @@
+key,value,from
+cost_to_win,499.2394215203765,tables/lend_breakeven.csv (today's evidence)
+still_saving_at_12m,0.2415425502763293,tables/lend_funnel.csv
+cost_to_win_per_saver_still_saving,2066.879814547114,cost_to_win / still_saving_at_12m
+years_of_1.5pct_at_100,5.741332818186429,"per saver still saving, at Rs 100 a day"
+loans_per_customer_won_per_year,0.046642674237634275,tables/lend_funnel.csv at 20% take-up
+gold_commission_on_flow,0.024,LEV-036: Jar earns ~2.4% of each gold purchase

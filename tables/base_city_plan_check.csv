@@ -1,0 +1,10 @@
+Measure,AUTO,PLANNED (from base_city_plan.csv),Gap (share),Within 1%
+"Columns the City plan tab needs, present",,,,yes
+Blank cells in those columns,,0,,yes
+Cities in the plan / cities the AUTO run opened,172,172,0.0,yes
+Cumulative sign-ups to m60,7437830.675932249,7408371.93996393,-0.003960662355980138,yes
+Active savers at m60,3655694.668485301,3642138.3722310197,-0.0037082681907617543,yes
+AUM at m60,223833637822.45203,222433186278.53278,-0.006256662571110572,yes
+Agents at m60,5000.0,5000.0,0.0,yes
+"Revenue before the NBFC, years 1-5",5246734684.57196,5233898579.478455,-0.002446494032040669,yes
+"Revenue before the NBFC, years 1-8",13962718117.78339,13936916475.323795,-0.0018478953912800522,yes

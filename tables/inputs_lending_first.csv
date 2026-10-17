@@ -1,0 +1,20 @@
+id,section,name,bear,base,bull,unit,population,basis,source,as_of,notes
+lf_applicants,Lending-first,Loan applicants in one cohort,1000,1000,1000,applicants,one cohort,definition,,2026-09-30,
+lf_cost_per_applicant,Lending-first,Cost to get one applicant (ads + staff + offers),150,150,100,INR per applicant,Bueno applicants 2019-2022,founder data (under Rs 150),,2026-09-30,
+lf_underwrite_cost,Lending-first,KYC + bureau pull per applicant,60,40,20,INR per applicant,all applicants,founder data (2026-09-30): KYC + bureau Rs 20-60 per applicant,,2026-09-30,Added so CAC is fully loaded
+lf_approval,Lending-first,Share of applicants approved,0.25,0.25,0.25,share,Bueno applicants,founder data,,2026-09-30,
+lf_ticket,Lending-first,Loan size,10000,17500,25000,INR,Bueno loans,founder data (Rs 10k-25k),,2026-09-30,
+lf_tenor,Lending-first,Loan length,3,3,3,months,Bueno loans,founder data,,2026-09-30,
+lf_irr,Lending-first,Yearly rate paid by borrower incl. fees,0.50,0.50,0.50,annual IRR,Bueno loans,founder data,,2026-09-30,
+lf_cof,Lending-first,Yearly rate paid to the partner NBFC,0.18,0.18,0.18,annual IRR,Bueno loan book,founder data,,2026-09-30,
+lf_risk_share,Lending-first,Share of losses borne by us,1,1,1,share,Bueno loan book,founder data,,2026-09-30,Today an LSP guarantee is capped at 5% of the portfolio
+lf_dpd90_first,Lending-first,Share of first loans that went 90+ days late,0.07,0.065,0.06,share of loans (count),Bueno first loans,founder data (6-7% of loans 90+ days late),,2026-09-30,"Confirmed 2026-09-30: count of loans 90+ late, some money recovered later"
+lf_dpd90_repeat,Lending-first,Share of repeat loans that went 90+ days late,0.02,0.015,0.01,share of loans (count),Bueno repeat loans,founder data (2026-09-30): repeat loans 1-2% late,,2026-09-30,Not given by founder
+lf_ead,Lending-first,Share of the loan still owed when it goes 90+ late,0.95,0.92,0.9,share of loan,loans 90+ late,founder data (2026-09-30): nearly all still unpaid at 90+ late,,2026-09-30,3-month loan; typically 1 instalment paid before default
+lf_lgd,Lending-first,Share of that never recovered,0.6,0.5,0.4,share,amount owed at 90+ late,founder data (2026-09-30): about half recovered,,2026-09-30,
+lf_repeat,Lending-first,Share of repaid loans followed by another loan,0.30,0.40,0.50,share,repaid loans,founder data (30-50%),,2026-09-30,
+lf_collection,Lending-first,Collection cost per loan,300,200,100,INR per loan,Bueno loans,founder data (Rs 100-300),,2026-09-30,
+lf_platform_share,Lending-first,Share of loans sourced through a platform,0.9,0.85,0.8,share,Bueno loans,founder data (2026-09-30): over 75% via platforms,,2026-09-30,To confirm with founder
+lf_platform_fee,Lending-first,Platform data fee per platform-sourced loan,200,200,200,INR per loan,platform-sourced loans,founder data (Swiggy),,2026-09-30,
+lf_ops_cost,Lending-first,Disbursal + servicing cost per loan,150,100,75,INR per loan,Bueno loans,assumption,,2026-09-30,
+lf_equity_ratio,Lending-first,Equity needed per rupee of loan book (own NBFC today),0.25,0.25,0.20,share of book,own-NBFC structure,assumption,,2026-09-30,About 3-4x leverage

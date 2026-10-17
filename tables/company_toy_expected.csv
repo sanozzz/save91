@@ -1,0 +1,33 @@
+cell,measure,expected
+'Company summary'!B2,"Revenue, year 1",1216634.1027251268
+'Company summary'!B3,"Revenue, year 2",15884744.321909372
+'Company summary'!B4,"Revenue, year 3",50272784.967232615
+'Company summary'!B5,"Revenue, year 4",86511780.69638455
+'Company summary'!B6,"Revenue, year 5",121304555.83978154
+'Company summary'!B7,"EBITDA, year 1",-46050202.18542957
+'Company summary'!B8,"EBITDA, year 2",-77220009.02229807
+'Company summary'!B9,"EBITDA, year 3",-62677668.48096621
+'Company summary'!B10,"EBITDA, year 4",-40016754.67220459
+'Company summary'!B11,"EBITDA, year 5",-15553993.970304461
+'Company summary'!B12,"PAT, year 1",-42328029.11817094
+'Company summary'!B13,"PAT, year 2",-63003602.103009
+'Company summary'!B14,"PAT, year 3",-37761658.99988684
+'Company summary'!B15,"PAT, year 4",-16220063.877623245
+'Company summary'!B16,"PAT, year 5",7713205.416102668
+'Company summary'!B17,"Closing cash at month 60, with the Series A",426641377.8989714
+'Company summary'!B18,"Month the seed alone runs out (first month-end below 0, no Series A)",21.0
+'Company summary'!B19,"Lowest cash, seed only, through m18",18203833.39637244
+'Company summary'!B20,"Lowest cash, with the Series A, through m60",25611547.07399196
+'Company summary'!B21,EBITDA break-even month (stays positive from here),not within 60 months
+'Company summary'!B22,"Savers still saving, month 18",39815.447058607846
+'Company summary'!B23,"Money in the fund (AUM), end of month 18",1236060694.4531603
+'Company summary'!B24,"Money lent, months 1-18",72920218.16666232
+'Company summary'!B25,Revenue run-rate at month 18 (x12),13848690.618248679
+'Company summary'!B26,Burn in month 18 (cash used by operations and investing),9057713.677619522
+'Company summary'!B27,"Cash at the end of month 18, with the Series A",516553833.39637244
+'Company summary'!B28,"Agents working, month 18",80.0
+'Company summary'!B29,"Cities, month 18",3.0
+'Company summary'!B30,"Central team, month 18",15.0
+'Company summary'!B31,"Cost to win a saver, months 1-18 (acquisition / sign-ups)",425.6648063864137
+'Company summary'!B32,"Contribution per agent in month 18, CM2",-14685.625478897005
+'Company summary'!B33,Lean hold ends after month,60.0

@@ -1,0 +1,22 @@
+Measure,Unit,Value,P10,Median (P50),P90,Note
+Plan,,"300 agents by m18, +150 a month, cap 5,000 agents; open a city below 25,000 headroom a head (at most 4 a month); funding fixed: seed Rs 13 crore; m9 Rs 53 crore; m18 Rs 212 crore; m32 Rs 605 crore; m48 Rs 215 crore; m57 Rs 10 crore; 30% on our book from m30 at 0.6 x the agreed loss",,,,seed 20261019; market inputs Latin hypercube with the bad-year copula; pool pert 6.5/7.0/7.7 crore; r12 < r3 redraws 4
+P(lenses 1 and 2 both >= $1B at m60),share of draws,0.291,,,,"about 29% +/- 3pp (95% sampling margin, 1,000 draws); the unicorn-on-paper test"
+P(lens 1 >= $1B at m60: 20 x ARR),share of draws,0.595,,,,"about 60% +/- 3pp (95% sampling margin, 1,000 draws)"
+P(lens 2 >= $1B at m60: 0.45 x AUM),share of draws,0.407,,,,"about 41% +/- 3pp (95% sampling margin, 1,000 draws)"
+P(lens 3 >= $1B at m60: 3 x NBFC equity + 20 x fee ARR),share of draws,0.122,,,,"about 12% +/- 2pp (95% sampling margin, 1,000 draws); cross-check"
+P(cash >= 0 through m96),share of draws,0.923,,,,"about 92% +/- 2pp (95% sampling margin, 1,000 draws); the funding plan fixed: no extra round in a bad draw"
+P(cash >= 0 through m60),share of draws,1.0,,,,"about 100.0% +/- 0.0pp (95% sampling margin, 1,000 draws)"
+P(EBITDA positive for good by m60),share of draws,0.563,,,,"about 56% +/- 3pp (95% sampling margin, 1,000 draws)"
+P(year-5 PAT >= 0),share of draws,0.545,,,,"about 55% +/- 3pp (95% sampling margin, 1,000 draws)"
+Lens 1 at m60 (20 x ARR),Rs,,66265990529.40326,109275006524.13925,181742336280.88528,
+Lens 2 at m60 (0.45 x AUM),Rs,,64176311930.33841,93656876180.37746,130993715467.65732,
+Lens 3 at m60 (cross-check),Rs,,47365084188.09863,71570858913.32733,102584887219.2873,
+ARR at m60,Rs,,3313299526.470163,5463750326.206963,9087116814.044264,
+AUM at m60,Rs,,142614026511.86313,208126391511.9499,291097145483.6829,
+Loan book at m60 (net),Rs,,6329962885.131171,15056088168.664751,30462407650.17394,
+NBFC equity at m60,Rs,,1582490721.2827928,3764022042.166188,7615601912.543485,
+Active savers at m60,savers,,2815027.5592151275,3480512.593096907,4086688.716040402,
+Year-5 revenue,Rs,,2874189362.8335257,4685348319.279676,7625915004.016052,
+Year-5 EBITDA,Rs,,-1714830709.1845493,-85280382.82987356,2617959814.409256,
+Year-5 PAT,Rs,,-1469191736.1157846,164488031.07176194,2583194324.120684,
+Lowest cash through m96,Rs,,85032477.62652731,88665811.43780994,90536797.88148682,negative = the extra money a bad draw needs

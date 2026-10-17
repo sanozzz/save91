@@ -1,0 +1,18 @@
+id,name,base,low,high,unit,population,basis,as_of,notes
+bueno_cost_per_applicant,Cost to get one loan applicant (all-in),150,100,150,INR per applicant,"Bueno applicants, all channels, 2019-2022",founder data (range answer: under Rs 150),2026-09-30,Base uses the top of the range to stay conservative against the lending-first case being flattered
+bueno_approval_rate,Share of applicants approved,0.25,0.25,0.25,share,"Bueno applicants, 2019-2022",founder data,2026-09-30,
+bueno_first_loan_loss,Share of a first loan never repaid,0.065,0.06,0.07,share of principal,"Bueno first loans, 3-month tenor",founder data (6-7%),2026-09-30,"Most applicants had CIBIL/Experian scores that were not good enough; definition of 'bad' (e.g. 90+ DPD) and whether % is of principal: TO CONFIRM at checkpoint 1"
+bueno_ticket,Typical first loan size,17500,10000,25000,INR,"Bueno first loans",founder data (range Rs 10k-25k; base = midpoint),2026-09-30,
+bueno_tenor_months,Loan length,3,3,3,months,"Bueno first loans",founder data,2026-09-30,
+bueno_borrower_irr,Yearly rate paid by borrower incl. processing and late fees,0.50,0.50,0.50,annual IRR,"Bueno loans",founder data,2026-09-30,
+bueno_nbfc_cost,Yearly rate Bueno paid the partner NBFC for its money,0.18,0.18,0.18,annual IRR,"Bueno loan book",founder data,2026-09-30,
+bueno_risk_share,Share of default losses borne by Bueno,1.00,1.00,1.00,share,"Bueno loan book",founder data,2026-09-30,"Full first-loss; today RBI caps a default-loss guarantee from a loan service provider at 5% of the portfolio (to verify)"
+bueno_repeat_rate,Share of repayers who took a second loan,0.40,0.30,0.50,share,"Bueno borrowers who repaid a first loan",founder data (range 30-50%; base = midpoint),2026-09-30,Loss on repeat loans: not given
+bueno_collection_cost,Cost to collect and chase per loan,200,100,300,INR per loan,"Bueno loans",founder data (range; base = midpoint),2026-09-30,
+bueno_platform_fee,Fee Swiggy charged per loan for its data,200,200,200,INR per loan,"Bueno loans sourced through Swiggy",founder data,2026-09-30,Swiggy also deducted repayments from payouts at source
+bueno_peak_loans_month,Loans made in the best month,15000,15000,15000,loans per month,"Bueno, peak month",founder data (CV),2026-09-30,
+bueno_team_peak,Team size at peak,60,60,60,people,"Bueno",founder data (CV),2026-09-30,
+bueno_raised_usd,Money raised,3500000,3500000,3500000,USD,"Bueno, lifetime",founder data (all equity),2026-09-30,
+bueno_platform_vs_ads,Platform borrowers vs ad-sourced borrowers,,,,qualitative,"Bueno borrowers",founder data,2026-09-30,Platform borrowers were cheaper AND repaid better; no numbers
+bueno_employer_channel,Employer channel outcome,,,,qualitative,"Bueno",founder data,2026-09-30,Failed: TAM was small; first loan not profitable from day one
+bueno_saver_signal,Evidence that regular payers are better borrowers,,,,qualitative,"Bueno",founder data,2026-09-30,A hunch only; no Bueno numbers. Must rest on outside evidence or the pilot.

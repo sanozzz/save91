@@ -1,0 +1,14 @@
+what,last deck,this deck,why
+Origination fee per loan,"1% of ₹2.5 lakh: ₹2,438 kept","2.625% (1.5 × a DSA): ₹6,398 kept",operator: 1.5 × a DSA
+Loans per 100 proven savers a year,2.5 (one lender approves 25%),3.5 (a marketplace approves 35%),several lenders
+Credit cards,"5% of sign-ups, ₹1,250, in the month he joins","5% of proven savers, ₹1,250, once, in month 7",a card is a lender product
+Recovery fees on bad loans,not counted,₹155 a loan on average,the marketplace model's middle case
+M1: money in his fund,"₹42,000 from his first day","builds ₹7,000 a month; paid out at each term's end; ₹42,000 on average",5-year bar alone: 28.8 → 33.0
+M2: insurance and other products,"every saver, from month 1","proven savers only, from month 7",5-year bar alone: 28.8 → 32.8
+M3: one agent's capacity,not checked,400 cash visits a day; 39 of 100 on UPI by year 5 at 55 of 100,no effect on NPV: a condition the pilot must test
+M4: recovery fees in the pilot year,counted,left out: they arrive about 18 months after a loan,pilot year only
+M5: one-way tests,13 rows,"15 rows: salary ₹15,000–25,000, FD-secured card fee ₹300–1,500, card share 0.5–5%",no effect on the base
+"0.5% of balance, 5-year break-even","never, at a 1% fee",69.8 of 100,"new fee, funnel, cards, M1, M2"
+"Pilot year, after what his savers bring in","−₹71,239 to −₹99,569","−₹1,33,693 to −₹1,70,896","first v2 build: −₹84,812 to −₹1,25,223"
+Stop lines at months 3 / 6,76 / 58 of 100,78 / 61 of 100,follow the new month-12 bar (rounded up)
+Paytm earns more per loan,3.7–4.1×,1.4–1.6×,"against ₹6,398 kept"

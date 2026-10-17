@@ -1,0 +1,5 @@
+key,bad_end,threshold,draws,chance_cum_pnl60_above_zero,median_cum_pnl60,chance_cum_pnl36_above_zero
+all,every draw,,10000,0.9439,1661270.0430188198,0.3584
+signups_run,sign-ups in the worst 1 in 10 draws,79.23646309134706,1000,0.884,1000763.7112404983,0.194
+ticket,loan size in its worst 1 in 10 draws,134645.3092718687,1000,0.817,790862.1671308941,0.104
+support_cost,running cost in its worst 1 in 10 draws,9.665697562206155,1000,0.87,1267033.1441416894,0.207

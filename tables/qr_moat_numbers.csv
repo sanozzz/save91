@@ -1,0 +1,54 @@
+key,value,from,what
+qr_per_merchant,8.747692307692308,QM-01 / QM-02,QR codes per merchant (gross; not all active)
+qr_codes_cr,56.86,QM-01,"UPI QR codes, crore"
+phonepe_people,56657.0,QM-12 + QM-12 high,PhonePe field staff plus commissioned agents
+paytm_share_dec23,13.09,QM-15,"Paytm app share of UPI payments, Dec 2023, %"
+paytm_share_dec24,6.88,QM-16,"the same, Dec 2024, %"
+paytm_share_drop,0.47440794499618033,1 - QM-16 / QM-15,fall in Paytm's share of UPI payments
+paytm_dev_dec23,1.06,QM-06,"Paytm device merchants, crore"
+paytm_dev_mar24,1.07,QM-07,
+paytm_dev_mar26,1.51,QM-08,
+paytm_dev_jun26,1.57,QM-09,
+paytm_dev_shock_change,0.009433962264151052,QM-07 / QM-06 - 1,change in device merchants through the shock quarter
+paytm_dev_since,0.4672897196261683,QM-09 / QM-07 - 1,growth in device merchants since the shock
+paytm_ml_q3fy24,3579.0,QM-17,"Paytm merchant loans, Rs crore a quarter"
+paytm_ml_q4fy24,1671.0,QM-18,
+paytm_ml_drop,0.5331098072087175,1 - QM-18 / QM-17,fall in Paytm merchant loans in one quarter
+phonepe_ml_fy23,11.0,QM-27,"PhonePe merchant loans, Rs crore"
+phonepe_ml_fy24,1718.0,QM-28,
+phonepe_ml_fy25,4507.0,QM-29,
+phonepe_ml_h1fy26,3820.0,QM-30,Apr-Sep 2025
+phonepe_ml_h1fy25,1838.0,QM-30 (value_high),Apr-Sep 2024
+phonepe_ml_fy25_x,2.6233993015133876,QM-29 / QM-28,PhonePe FY25 merchant loans vs FY24
+phonepe_ml_h1_x,2.0783460282916213,QM-30 / QM-30 high,PhonePe H1 FY26 vs H1 FY25
+paytm_ecl_low,0.045,QM-22,"Paytm-sourced merchant loans, expected loss"
+paytm_ecl_high,0.05,QM-22 (value_high),
+be_losses,0.07564149735636438,lend_breakeven.csv,losses a shopkeeper can carry and still pay back
+losses_today,0.06,lend_breakeven.csv,losses assumed today (industry steady state)
+be_cost,703.8319289731454,lend_breakeven.csv,most we can pay to win a shopkeeper
+cost_today,499.2394215203765,lend_breakeven.csv,
+be_takeup,0.1424242891972297,lend_breakeven.csv,fewest proven savers who must borrow each year
+takeup_today,0.2,lend_breakeven.csv,
+be_rate,0.24434579843140805,lend_breakeven.csv,lowest rate that still pays back
+rate_today,0.26,lend_breakeven.csv,
+value_today,204.59250745276893,lend_breakeven.csv,"one shopkeeper at today's evidence, Rs"
+headroom_vs_paytm,0.02564149735636438,be_losses - QM-22 high,room between Paytm's losses and our break-even
+autopay_fail_low,0.55,QM-26,"UPI Autopay debits that failed, by bank, Aug 2025 (low end)"
+autopay_fail_high,0.9,QM-26 (value_high),the same (high end)
+digital_losses_low,0.07,QM-40,losses at digital lenders without the till (low end)
+digital_losses_high,0.1,QM-40 (value_high),the same (high end)
+aa_lakh_cr,3.82,QM-24,"Account Aggregator lending FY26, Rs lakh crore"
+aa_share_value,0.084,QM-25,
+sal_safe_24,747.6110224995198,lend_salaried.csv,"salaried, 24% rate, losses 3%: value per customer, Rs"
+sal_normal_24,-153.3655140628975,lend_salaried.csv,"salaried, 24% rate, losses 6%"
+save_year,36500.0,Rs 100 x 365,"a year of Rs 100 a day, if every debit succeeds"
+save_year_share_of_loan,0.24333333333333335,save_year / Rs 1.5 lakh,that year's savings as a share of one shopkeeper loan
+bachatt_users,3000000.0,QM-41 x 1e6,"Bachatt users, company claim"
+bachatt_txns,2000000.0,QM-42 x 1e6,Bachatt fund purchases in Feb 2026
+debits_per_saver,20.0,QM-43,assumed fund purchases a month per daily saver
+bachatt_daily_savers,100000.0,QM-42 x 1e6 / QM-43,daily savers implied by the February purchases
+bachatt_saver_share,0.03333333333333333,daily savers / QM-41,implied daily savers as a share of claimed users
+bachatt_loan_cap,500000.0,QM-44,largest loan Bachatt says its partners offer
+bachatt_raised,16.0,QM-45,"seed plus Series A, USD million"
+value_if_losses_3,596.9958102660805,lend_breakeven.csv losses value_at_low,"one shopkeeper if losses are 3% and nothing else changes, Rs"
+value_if_losses_10,-318.6118962983147,lend_breakeven.csv losses value_at_high,"one shopkeeper if losses are 10% and nothing else changes, Rs"

@@ -1,0 +1,1000 @@
+City,Rank,Kind,Detail,Severity
+NCR,1,would outgrow its headroom,"442 agents x 5,000 expected 5-year sign-ups each = 2,210,000 > remaining cap 882,000; the slowdown will hold them back",warning
+Mumbai MMR,2,would outgrow its headroom,"268 agents x 5,000 expected 5-year sign-ups each = 1,340,000 > remaining cap 484,335; the slowdown will hold them back",warning
+Mumbai MMR,2,opened before the previous rank is 10% penetrated,NCR is 2.0% penetrated in month 16,information
+Kolkata,3,would outgrow its headroom,"188 agents x 5,000 expected 5-year sign-ups each = 940,000 > remaining cap 341,088; the slowdown will hold them back",warning
+Kolkata,3,opened before the previous rank is 10% penetrated,Mumbai MMR is 0.5% penetrated in month 19,information
+Bengaluru,4,would outgrow its headroom,"147 agents x 5,000 expected 5-year sign-ups each = 735,000 > remaining cap 265,964; the slowdown will hold them back",warning
+Bengaluru,4,opened before the previous rank is 10% penetrated,Kolkata is 0.2% penetrated in month 19,information
+Chennai,5,would outgrow its headroom,"122 agents x 5,000 expected 5-year sign-ups each = 610,000 > remaining cap 219,290; the slowdown will hold them back",warning
+Chennai,5,opened before the previous rank is 10% penetrated,Bengaluru is 0.2% penetrated in month 19,information
+Hyderabad,6,would outgrow its headroom,"103 agents x 5,000 expected 5-year sign-ups each = 515,000 > remaining cap 187,303; the slowdown will hold them back",warning
+Hyderabad,6,opened before the previous rank is 10% penetrated,Chennai is 0.2% penetrated in month 19,information
+Ahmedabad,7,would outgrow its headroom,"91 agents x 5,000 expected 5-year sign-ups each = 455,000 > remaining cap 163,927; the slowdown will hold them back",warning
+Ahmedabad,7,opened before the previous rank is 10% penetrated,Hyderabad is 0.2% penetrated in month 19,information
+Pune,8,would outgrow its headroom,"81 agents x 5,000 expected 5-year sign-ups each = 405,000 > remaining cap 146,050; the slowdown will hold them back",warning
+Pune,8,opened before the previous rank is 10% penetrated,Ahmedabad is 0.2% penetrated in month 19,information
+Surat,9,would outgrow its headroom,"75 agents x 5,000 expected 5-year sign-ups each = 375,000 > remaining cap 131,906; the slowdown will hold them back",warning
+Surat,9,opened before the previous rank is 10% penetrated,Pune is 0.2% penetrated in month 20,information
+Jaipur,10,would outgrow its headroom,"68 agents x 5,000 expected 5-year sign-ups each = 340,000 > remaining cap 120,419; the slowdown will hold them back",warning
+Jaipur,10,opened before the previous rank is 10% penetrated,Surat is 0.2% penetrated in month 20,information
+Lucknow,11,would outgrow its headroom,"61 agents x 5,000 expected 5-year sign-ups each = 305,000 > remaining cap 110,892; the slowdown will hold them back",warning
+Lucknow,11,opened before the previous rank is 10% penetrated,Jaipur is 0.2% penetrated in month 20,information
+Kanpur,12,would outgrow its headroom,"57 agents x 5,000 expected 5-year sign-ups each = 285,000 > remaining cap 102,854; the slowdown will hold them back",warning
+Kanpur,12,opened before the previous rank is 10% penetrated,Lucknow is 0.2% penetrated in month 20,information
+Nagpur,13,would outgrow its headroom,"54 agents x 5,000 expected 5-year sign-ups each = 270,000 > remaining cap 95,975; the slowdown will hold them back",warning
+Nagpur,13,opened before the previous rank is 10% penetrated,Kanpur is 0.2% penetrated in month 20,information
+Indore,14,would outgrow its headroom,"51 agents x 5,000 expected 5-year sign-ups each = 255,000 > remaining cap 90,018; the slowdown will hold them back",warning
+Indore,14,opened before the previous rank is 10% penetrated,Nagpur is 0.2% penetrated in month 20,information
+Patna,15,would outgrow its headroom,"47 agents x 5,000 expected 5-year sign-ups each = 235,000 > remaining cap 84,804; the slowdown will hold them back",warning
+Patna,15,opened before the previous rank is 10% penetrated,Indore is 0.2% penetrated in month 20,information
+City 16,16,would outgrow its headroom,"45 agents x 5,000 expected 5-year sign-ups each = 225,000 > remaining cap 80,201; the slowdown will hold them back",warning
+City 16,16,opened before the previous rank is 10% penetrated,Patna is 0.2% penetrated in month 20,information
+City 17,17,would outgrow its headroom,"42 agents x 5,000 expected 5-year sign-ups each = 210,000 > remaining cap 76,104; the slowdown will hold them back",warning
+City 17,17,opened before the previous rank is 10% penetrated,City 16 is 0.2% penetrated in month 20,information
+City 18,18,would outgrow its headroom,"41 agents x 5,000 expected 5-year sign-ups each = 205,000 > remaining cap 72,434; the slowdown will hold them back",warning
+City 18,18,opened before the previous rank is 10% penetrated,City 17 is 0.2% penetrated in month 20,information
+City 19,19,would outgrow its headroom,"38 agents x 5,000 expected 5-year sign-ups each = 190,000 > remaining cap 69,125; the slowdown will hold them back",warning
+City 19,19,opened before the previous rank is 10% penetrated,City 18 is 0.2% penetrated in month 20,information
+City 20,20,would outgrow its headroom,"37 agents x 5,000 expected 5-year sign-ups each = 185,000 > remaining cap 66,126; the slowdown will hold them back",warning
+City 20,20,opened before the previous rank is 10% penetrated,City 19 is 0.2% penetrated in month 20,information
+City 21,21,would outgrow its headroom,"36 agents x 5,000 expected 5-year sign-ups each = 180,000 > remaining cap 63,394; the slowdown will hold them back",warning
+City 21,21,opened before the previous rank is 10% penetrated,City 20 is 0.2% penetrated in month 20,information
+City 22,22,would outgrow its headroom,"34 agents x 5,000 expected 5-year sign-ups each = 170,000 > remaining cap 60,894; the slowdown will hold them back",warning
+City 22,22,opened before the previous rank is 10% penetrated,City 21 is 0.2% penetrated in month 20,information
+City 23,23,would outgrow its headroom,"33 agents x 5,000 expected 5-year sign-ups each = 165,000 > remaining cap 58,598; the slowdown will hold them back",warning
+City 23,23,opened before the previous rank is 10% penetrated,City 22 is 0.2% penetrated in month 20,information
+City 24,24,would outgrow its headroom,"32 agents x 5,000 expected 5-year sign-ups each = 160,000 > remaining cap 56,481; the slowdown will hold them back",warning
+City 24,24,opened before the previous rank is 10% penetrated,City 23 is 0.2% penetrated in month 20,information
+City 25,25,would outgrow its headroom,"30 agents x 5,000 expected 5-year sign-ups each = 150,000 > remaining cap 54,521; the slowdown will hold them back",warning
+City 25,25,opened before the previous rank is 10% penetrated,City 24 is 0.2% penetrated in month 20,information
+City 26,26,would outgrow its headroom,"30 agents x 5,000 expected 5-year sign-ups each = 150,000 > remaining cap 52,703; the slowdown will hold them back",warning
+City 26,26,opened before the previous rank is 10% penetrated,City 25 is 0.2% penetrated in month 20,information
+City 27,27,would outgrow its headroom,"29 agents x 5,000 expected 5-year sign-ups each = 145,000 > remaining cap 51,011; the slowdown will hold them back",warning
+City 27,27,opened before the previous rank is 10% penetrated,City 26 is 0.5% penetrated in month 21,information
+City 28,28,would outgrow its headroom,"27 agents x 5,000 expected 5-year sign-ups each = 135,000 > remaining cap 49,432; the slowdown will hold them back",warning
+City 28,28,opened before the previous rank is 10% penetrated,City 27 is 0.2% penetrated in month 21,information
+City 29,29,would outgrow its headroom,"27 agents x 5,000 expected 5-year sign-ups each = 135,000 > remaining cap 47,954; the slowdown will hold them back",warning
+City 29,29,opened before the previous rank is 10% penetrated,City 28 is 0.2% penetrated in month 21,information
+City 30,30,would outgrow its headroom,"26 agents x 5,000 expected 5-year sign-ups each = 130,000 > remaining cap 46,569; the slowdown will hold them back",warning
+City 30,30,opened before the previous rank is 10% penetrated,City 29 is 0.2% penetrated in month 21,information
+City 31,31,would outgrow its headroom,"25 agents x 5,000 expected 5-year sign-ups each = 125,000 > remaining cap 45,267; the slowdown will hold them back",warning
+City 31,31,opened before the previous rank is 10% penetrated,City 30 is 0.2% penetrated in month 21,information
+City 32,32,would outgrow its headroom,"25 agents x 5,000 expected 5-year sign-ups each = 125,000 > remaining cap 44,041; the slowdown will hold them back",warning
+City 32,32,opened before the previous rank is 10% penetrated,City 31 is 0.2% penetrated in month 21,information
+City 33,33,would outgrow its headroom,"24 agents x 5,000 expected 5-year sign-ups each = 120,000 > remaining cap 42,884; the slowdown will hold them back",warning
+City 33,33,opened before the previous rank is 10% penetrated,City 32 is 0.2% penetrated in month 21,information
+City 34,34,would outgrow its headroom,"24 agents x 5,000 expected 5-year sign-ups each = 120,000 > remaining cap 41,791; the slowdown will hold them back",warning
+City 34,34,opened before the previous rank is 10% penetrated,City 33 is 0.2% penetrated in month 21,information
+City 35,35,would outgrow its headroom,"23 agents x 5,000 expected 5-year sign-ups each = 115,000 > remaining cap 40,757; the slowdown will hold them back",warning
+City 35,35,opened before the previous rank is 10% penetrated,City 34 is 0.2% penetrated in month 21,information
+City 36,36,would outgrow its headroom,"22 agents x 5,000 expected 5-year sign-ups each = 110,000 > remaining cap 39,776; the slowdown will hold them back",warning
+City 36,36,opened before the previous rank is 10% penetrated,City 35 is 0.2% penetrated in month 21,information
+City 37,37,would outgrow its headroom,"22 agents x 5,000 expected 5-year sign-ups each = 110,000 > remaining cap 38,845; the slowdown will hold them back",warning
+City 37,37,opened before the previous rank is 10% penetrated,City 36 is 0.2% penetrated in month 21,information
+City 38,38,would outgrow its headroom,"21 agents x 5,000 expected 5-year sign-ups each = 105,000 > remaining cap 37,959; the slowdown will hold them back",warning
+City 38,38,opened before the previous rank is 10% penetrated,City 37 is 0.2% penetrated in month 21,information
+City 39,39,would outgrow its headroom,"21 agents x 5,000 expected 5-year sign-ups each = 105,000 > remaining cap 37,116; the slowdown will hold them back",warning
+City 39,39,opened before the previous rank is 10% penetrated,City 38 is 0.2% penetrated in month 21,information
+City 40,40,would outgrow its headroom,"21 agents x 5,000 expected 5-year sign-ups each = 105,000 > remaining cap 36,312; the slowdown will hold them back",warning
+City 40,40,opened before the previous rank is 10% penetrated,City 39 is 0.2% penetrated in month 21,information
+City 41,41,would outgrow its headroom,"20 agents x 5,000 expected 5-year sign-ups each = 100,000 > remaining cap 35,545; the slowdown will hold them back",warning
+City 41,41,opened before the previous rank is 10% penetrated,City 40 is 0.2% penetrated in month 21,information
+City 42,42,would outgrow its headroom,"20 agents x 5,000 expected 5-year sign-ups each = 100,000 > remaining cap 34,812; the slowdown will hold them back",warning
+City 42,42,opened before the previous rank is 10% penetrated,City 41 is 0.2% penetrated in month 21,information
+City 43,43,would outgrow its headroom,"19 agents x 5,000 expected 5-year sign-ups each = 95,000 > remaining cap 34,111; the slowdown will hold them back",warning
+City 43,43,opened before the previous rank is 10% penetrated,City 42 is 0.2% penetrated in month 21,information
+City 44,44,would outgrow its headroom,"19 agents x 5,000 expected 5-year sign-ups each = 95,000 > remaining cap 33,439; the slowdown will hold them back",warning
+City 44,44,opened before the previous rank is 10% penetrated,City 43 is 0.2% penetrated in month 21,information
+City 45,45,would outgrow its headroom,"18 agents x 5,000 expected 5-year sign-ups each = 90,000 > remaining cap 32,796; the slowdown will hold them back",warning
+City 45,45,opened before the previous rank is 10% penetrated,City 44 is 0.2% penetrated in month 21,information
+City 46,46,would outgrow its headroom,"18 agents x 5,000 expected 5-year sign-ups each = 90,000 > remaining cap 32,178; the slowdown will hold them back",warning
+City 46,46,opened before the previous rank is 10% penetrated,City 45 is 0.2% penetrated in month 21,information
+City 47,47,would outgrow its headroom,"18 agents x 5,000 expected 5-year sign-ups each = 90,000 > remaining cap 31,585; the slowdown will hold them back",warning
+City 47,47,opened before the previous rank is 10% penetrated,City 46 is 0.2% penetrated in month 21,information
+City 48,48,would outgrow its headroom,"17 agents x 5,000 expected 5-year sign-ups each = 85,000 > remaining cap 31,015; the slowdown will hold them back",warning
+City 48,48,opened before the previous rank is 10% penetrated,City 47 is 0.2% penetrated in month 21,information
+City 49,49,would outgrow its headroom,"17 agents x 5,000 expected 5-year sign-ups each = 85,000 > remaining cap 30,467; the slowdown will hold them back",warning
+City 49,49,opened before the previous rank is 10% penetrated,City 48 is 0.2% penetrated in month 21,information
+City 50,50,would outgrow its headroom,"17 agents x 5,000 expected 5-year sign-ups each = 85,000 > remaining cap 29,940; the slowdown will hold them back",warning
+City 50,50,opened before the previous rank is 10% penetrated,City 49 is 0.2% penetrated in month 21,information
+City 51,51,would outgrow its headroom,"16 agents x 5,000 expected 5-year sign-ups each = 80,000 > remaining cap 29,431; the slowdown will hold them back",warning
+City 51,51,opened before the previous rank is 10% penetrated,City 50 is 0.2% penetrated in month 21,information
+City 52,52,would outgrow its headroom,"16 agents x 5,000 expected 5-year sign-ups each = 80,000 > remaining cap 28,941; the slowdown will hold them back",warning
+City 52,52,opened before the previous rank is 10% penetrated,City 51 is 0.2% penetrated in month 21,information
+City 53,53,would outgrow its headroom,"16 agents x 5,000 expected 5-year sign-ups each = 80,000 > remaining cap 28,468; the slowdown will hold them back",warning
+City 53,53,opened before the previous rank is 10% penetrated,City 52 is 0.2% penetrated in month 21,information
+City 54,54,would outgrow its headroom,"16 agents x 5,000 expected 5-year sign-ups each = 80,000 > remaining cap 28,012; the slowdown will hold them back",warning
+City 54,54,opened before the previous rank is 10% penetrated,City 53 is 0.2% penetrated in month 21,information
+City 55,55,would outgrow its headroom,"15 agents x 5,000 expected 5-year sign-ups each = 75,000 > remaining cap 27,571; the slowdown will hold them back",warning
+City 55,55,opened before the previous rank is 10% penetrated,City 54 is 0.2% penetrated in month 21,information
+City 56,56,would outgrow its headroom,"15 agents x 5,000 expected 5-year sign-ups each = 75,000 > remaining cap 27,145; the slowdown will hold them back",warning
+City 56,56,opened before the previous rank is 10% penetrated,City 55 is 0.2% penetrated in month 21,information
+City 57,57,would outgrow its headroom,"15 agents x 5,000 expected 5-year sign-ups each = 75,000 > remaining cap 26,732; the slowdown will hold them back",warning
+City 57,57,opened before the previous rank is 10% penetrated,City 56 is 0.2% penetrated in month 21,information
+City 58,58,would outgrow its headroom,"15 agents x 5,000 expected 5-year sign-ups each = 75,000 > remaining cap 26,333; the slowdown will hold them back",warning
+City 58,58,opened before the previous rank is 10% penetrated,City 57 is 0.2% penetrated in month 21,information
+City 59,59,would outgrow its headroom,"14 agents x 5,000 expected 5-year sign-ups each = 70,000 > remaining cap 25,947; the slowdown will hold them back",warning
+City 59,59,opened before the previous rank is 10% penetrated,City 58 is 0.2% penetrated in month 21,information
+City 60,60,would outgrow its headroom,"14 agents x 5,000 expected 5-year sign-ups each = 70,000 > remaining cap 25,572; the slowdown will hold them back",warning
+City 60,60,opened before the previous rank is 10% penetrated,City 59 is 0.2% penetrated in month 21,information
+City 61,61,would outgrow its headroom,"15 agents x 5,000 expected 5-year sign-ups each = 75,000 > remaining cap 25,209; the slowdown will hold them back",warning
+City 61,61,opened before the previous rank is 10% penetrated,City 60 is 0.2% penetrated in month 21,information
+City 62,62,would outgrow its headroom,"14 agents x 5,000 expected 5-year sign-ups each = 70,000 > remaining cap 24,857; the slowdown will hold them back",warning
+City 62,62,opened before the previous rank is 10% penetrated,City 61 is 0.2% penetrated in month 21,information
+City 63,63,would outgrow its headroom,"14 agents x 5,000 expected 5-year sign-ups each = 70,000 > remaining cap 24,516; the slowdown will hold them back",warning
+City 63,63,opened before the previous rank is 10% penetrated,City 62 is 0.2% penetrated in month 21,information
+City 64,64,would outgrow its headroom,"14 agents x 5,000 expected 5-year sign-ups each = 70,000 > remaining cap 24,184; the slowdown will hold them back",warning
+City 64,64,opened before the previous rank is 10% penetrated,City 63 is 0.2% penetrated in month 21,information
+City 65,65,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 23,862; the slowdown will hold them back",warning
+City 65,65,opened before the previous rank is 10% penetrated,City 64 is 0.2% penetrated in month 21,information
+City 66,66,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 23,549; the slowdown will hold them back",warning
+City 66,66,opened before the previous rank is 10% penetrated,City 65 is 0.2% penetrated in month 21,information
+City 67,67,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 23,245; the slowdown will hold them back",warning
+City 67,67,opened before the previous rank is 10% penetrated,City 66 is 0.2% penetrated in month 21,information
+City 68,68,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 22,949; the slowdown will hold them back",warning
+City 68,68,opened before the previous rank is 10% penetrated,City 67 is 0.2% penetrated in month 21,information
+City 69,69,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 22,661; the slowdown will hold them back",warning
+City 69,69,opened before the previous rank is 10% penetrated,City 68 is 0.2% penetrated in month 21,information
+City 70,70,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 22,381; the slowdown will hold them back",warning
+City 70,70,opened before the previous rank is 10% penetrated,City 69 is 0.2% penetrated in month 21,information
+City 71,71,would outgrow its headroom,"13 agents x 5,000 expected 5-year sign-ups each = 65,000 > remaining cap 22,108; the slowdown will hold them back",warning
+City 71,71,opened before the previous rank is 10% penetrated,City 70 is 0.2% penetrated in month 21,information
+City 72,72,would outgrow its headroom,"12 agents x 5,000 expected 5-year sign-ups each = 60,000 > remaining cap 21,842; the slowdown will hold them back",warning
+City 72,72,opened before the previous rank is 10% penetrated,City 71 is 0.2% penetrated in month 21,information
+City 73,73,would outgrow its headroom,"12 agents x 5,000 expected 5-year sign-ups each = 60,000 > remaining cap 21,583; the slowdown will hold them back",warning
+City 73,73,opened before the previous rank is 10% penetrated,City 72 is 0.2% penetrated in month 21,information
+City 74,74,would outgrow its headroom,"12 agents x 5,000 expected 5-year sign-ups each = 60,000 > remaining cap 21,331; the slowdown will hold them back",warning
+City 74,74,opened before the previous rank is 10% penetrated,City 73 is 0.2% penetrated in month 21,information
+City 75,75,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 21,085; the slowdown will hold them back",warning
+City 75,75,opened before the previous rank is 10% penetrated,City 74 is 0.2% penetrated in month 21,information
+City 76,76,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 20,844; the slowdown will hold them back",warning
+City 76,76,opened before the previous rank is 10% penetrated,City 75 is 0.2% penetrated in month 21,information
+City 77,77,would outgrow its headroom,"12 agents x 5,000 expected 5-year sign-ups each = 60,000 > remaining cap 20,610; the slowdown will hold them back",warning
+City 77,77,opened before the previous rank is 10% penetrated,City 76 is 0.2% penetrated in month 21,information
+City 78,78,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 20,381; the slowdown will hold them back",warning
+City 78,78,opened before the previous rank is 10% penetrated,City 77 is 0.2% penetrated in month 21,information
+City 79,79,would outgrow its headroom,"12 agents x 5,000 expected 5-year sign-ups each = 60,000 > remaining cap 20,158; the slowdown will hold them back",warning
+City 79,79,opened before the previous rank is 10% penetrated,City 78 is 0.2% penetrated in month 21,information
+City 80,80,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 19,940; the slowdown will hold them back",warning
+City 80,80,opened before the previous rank is 10% penetrated,City 79 is 0.5% penetrated in month 22,information
+City 81,81,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 19,727; the slowdown will hold them back",warning
+City 81,81,opened before the previous rank is 10% penetrated,City 80 is 0.2% penetrated in month 22,information
+City 82,82,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 19,519; the slowdown will hold them back",warning
+City 82,82,opened before the previous rank is 10% penetrated,City 81 is 0.1% penetrated in month 22,information
+City 83,83,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 19,315; the slowdown will hold them back",warning
+City 83,83,opened before the previous rank is 10% penetrated,City 82 is 0.2% penetrated in month 22,information
+City 84,84,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 19,116; the slowdown will hold them back",warning
+City 84,84,opened before the previous rank is 10% penetrated,City 83 is 0.2% penetrated in month 22,information
+City 85,85,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 18,922; the slowdown will hold them back",warning
+City 85,85,opened before the previous rank is 10% penetrated,City 84 is 0.2% penetrated in month 22,information
+City 86,86,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 18,731; the slowdown will hold them back",warning
+City 86,86,opened before the previous rank is 10% penetrated,City 85 is 0.1% penetrated in month 22,information
+City 87,87,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 18,545; the slowdown will hold them back",warning
+City 87,87,opened before the previous rank is 10% penetrated,City 86 is 0.2% penetrated in month 22,information
+City 88,88,would outgrow its headroom,"11 agents x 5,000 expected 5-year sign-ups each = 55,000 > remaining cap 18,363; the slowdown will hold them back",warning
+City 88,88,opened before the previous rank is 10% penetrated,City 87 is 0.2% penetrated in month 22,information
+City 89,89,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 18,184; the slowdown will hold them back",warning
+City 89,89,opened before the previous rank is 10% penetrated,City 88 is 0.1% penetrated in month 22,information
+City 90,90,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 18,009; the slowdown will hold them back",warning
+City 90,90,opened before the previous rank is 10% penetrated,City 89 is 0.2% penetrated in month 22,information
+City 91,91,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 17,838; the slowdown will hold them back",warning
+City 91,91,opened before the previous rank is 10% penetrated,City 90 is 0.2% penetrated in month 22,information
+City 92,92,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 17,670; the slowdown will hold them back",warning
+City 92,92,opened before the previous rank is 10% penetrated,City 91 is 0.2% penetrated in month 22,information
+City 93,93,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 17,506; the slowdown will hold them back",warning
+City 93,93,opened before the previous rank is 10% penetrated,City 92 is 0.2% penetrated in month 22,information
+City 94,94,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 17,344; the slowdown will hold them back",warning
+City 94,94,opened before the previous rank is 10% penetrated,City 93 is 0.2% penetrated in month 22,information
+City 95,95,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 17,186; the slowdown will hold them back",warning
+City 95,95,opened before the previous rank is 10% penetrated,City 94 is 0.2% penetrated in month 22,information
+City 96,96,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 17,032; the slowdown will hold them back",warning
+City 96,96,opened before the previous rank is 10% penetrated,City 95 is 0.2% penetrated in month 22,information
+City 97,97,would outgrow its headroom,"10 agents x 5,000 expected 5-year sign-ups each = 50,000 > remaining cap 16,880; the slowdown will hold them back",warning
+City 97,97,opened before the previous rank is 10% penetrated,City 96 is 0.2% penetrated in month 22,information
+City 98,98,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 16,731; the slowdown will hold them back",warning
+City 98,98,opened before the previous rank is 10% penetrated,City 97 is 0.2% penetrated in month 22,information
+City 99,99,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 16,584; the slowdown will hold them back",warning
+City 99,99,opened before the previous rank is 10% penetrated,City 98 is 0.2% penetrated in month 22,information
+City 100,100,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 16,441; the slowdown will hold them back",warning
+City 100,100,opened before the previous rank is 10% penetrated,City 99 is 0.2% penetrated in month 22,information
+City 101,101,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 16,300; the slowdown will hold them back",warning
+City 101,101,opened before the previous rank is 10% penetrated,City 100 is 0.2% penetrated in month 22,information
+City 102,102,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 16,162; the slowdown will hold them back",warning
+City 102,102,opened before the previous rank is 10% penetrated,City 101 is 0.2% penetrated in month 22,information
+City 103,103,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 16,026; the slowdown will hold them back",warning
+City 103,103,opened before the previous rank is 10% penetrated,City 102 is 0.2% penetrated in month 22,information
+City 104,104,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,892; the slowdown will hold them back",warning
+City 104,104,opened before the previous rank is 10% penetrated,City 103 is 0.2% penetrated in month 22,information
+City 105,105,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,762; the slowdown will hold them back",warning
+City 105,105,opened before the previous rank is 10% penetrated,City 104 is 0.2% penetrated in month 22,information
+City 106,106,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,633; the slowdown will hold them back",warning
+City 106,106,opened before the previous rank is 10% penetrated,City 105 is 0.2% penetrated in month 22,information
+City 107,107,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,506; the slowdown will hold them back",warning
+City 107,107,opened before the previous rank is 10% penetrated,City 106 is 0.2% penetrated in month 22,information
+City 108,108,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,382; the slowdown will hold them back",warning
+City 108,108,opened before the previous rank is 10% penetrated,City 107 is 0.2% penetrated in month 22,information
+City 109,109,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,260; the slowdown will hold them back",warning
+City 109,109,opened before the previous rank is 10% penetrated,City 108 is 0.2% penetrated in month 22,information
+City 110,110,would outgrow its headroom,"9 agents x 5,000 expected 5-year sign-ups each = 45,000 > remaining cap 15,140; the slowdown will hold them back",warning
+City 110,110,opened before the previous rank is 10% penetrated,City 109 is 0.2% penetrated in month 22,information
+City 111,111,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 15,022; the slowdown will hold them back",warning
+City 111,111,opened before the previous rank is 10% penetrated,City 110 is 0.2% penetrated in month 22,information
+City 112,112,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,906; the slowdown will hold them back",warning
+City 112,112,opened before the previous rank is 10% penetrated,City 111 is 0.2% penetrated in month 22,information
+City 113,113,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,792; the slowdown will hold them back",warning
+City 113,113,opened before the previous rank is 10% penetrated,City 112 is 0.1% penetrated in month 22,information
+City 114,114,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,680; the slowdown will hold them back",warning
+City 114,114,opened before the previous rank is 10% penetrated,City 113 is 0.1% penetrated in month 22,information
+City 115,115,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,569; the slowdown will hold them back",warning
+City 115,115,opened before the previous rank is 10% penetrated,City 114 is 0.1% penetrated in month 22,information
+City 116,116,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,460; the slowdown will hold them back",warning
+City 116,116,opened before the previous rank is 10% penetrated,City 115 is 0.2% penetrated in month 22,information
+City 117,117,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,353; the slowdown will hold them back",warning
+City 117,117,opened before the previous rank is 10% penetrated,City 116 is 0.1% penetrated in month 22,information
+City 118,118,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,248; the slowdown will hold them back",warning
+City 118,118,opened before the previous rank is 10% penetrated,City 117 is 0.1% penetrated in month 22,information
+City 119,119,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,145; the slowdown will hold them back",warning
+City 119,119,opened before the previous rank is 10% penetrated,City 118 is 0.1% penetrated in month 22,information
+City 120,120,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 14,043; the slowdown will hold them back",warning
+City 120,120,opened before the previous rank is 10% penetrated,City 119 is 0.2% penetrated in month 22,information
+City 121,121,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,942; the slowdown will hold them back",warning
+City 121,121,opened before the previous rank is 10% penetrated,City 120 is 0.1% penetrated in month 22,information
+City 122,122,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,843; the slowdown will hold them back",warning
+City 122,122,opened before the previous rank is 10% penetrated,City 121 is 0.1% penetrated in month 22,information
+City 123,123,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,746; the slowdown will hold them back",warning
+City 123,123,opened before the previous rank is 10% penetrated,City 122 is 0.1% penetrated in month 22,information
+City 124,124,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,650; the slowdown will hold them back",warning
+City 124,124,opened before the previous rank is 10% penetrated,City 123 is 0.2% penetrated in month 22,information
+City 125,125,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,556; the slowdown will hold them back",warning
+City 125,125,opened before the previous rank is 10% penetrated,City 124 is 0.2% penetrated in month 22,information
+City 126,126,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,462; the slowdown will hold them back",warning
+City 126,126,opened before the previous rank is 10% penetrated,City 125 is 0.2% penetrated in month 22,information
+City 127,127,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 13,371; the slowdown will hold them back",warning
+City 127,127,opened before the previous rank is 10% penetrated,City 126 is 0.2% penetrated in month 22,information
+City 128,128,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 13,280; the slowdown will hold them back",warning
+City 128,128,opened before the previous rank is 10% penetrated,City 127 is 0.1% penetrated in month 22,information
+City 129,129,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,191; the slowdown will hold them back",warning
+City 129,129,opened before the previous rank is 10% penetrated,City 128 is 0.1% penetrated in month 22,information
+City 130,130,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,103; the slowdown will hold them back",warning
+City 130,130,opened before the previous rank is 10% penetrated,City 129 is 0.2% penetrated in month 22,information
+City 131,131,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 13,017; the slowdown will hold them back",warning
+City 131,131,opened before the previous rank is 10% penetrated,City 130 is 0.2% penetrated in month 22,information
+City 132,132,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,932; the slowdown will hold them back",warning
+City 132,132,opened before the previous rank is 10% penetrated,City 131 is 0.1% penetrated in month 22,information
+City 133,133,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,847; the slowdown will hold them back",warning
+City 133,133,opened before the previous rank is 10% penetrated,City 132 is 0.1% penetrated in month 22,information
+City 134,134,would outgrow its headroom,"8 agents x 5,000 expected 5-year sign-ups each = 40,000 > remaining cap 12,765; the slowdown will hold them back",warning
+City 134,134,opened before the previous rank is 10% penetrated,City 133 is 0.2% penetrated in month 22,information
+City 135,135,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,683; the slowdown will hold them back",warning
+City 135,135,opened before the previous rank is 10% penetrated,City 134 is 0.2% penetrated in month 22,information
+City 136,136,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,602; the slowdown will hold them back",warning
+City 136,136,opened before the previous rank is 10% penetrated,City 135 is 0.1% penetrated in month 22,information
+City 137,137,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,522; the slowdown will hold them back",warning
+City 137,137,opened before the previous rank is 10% penetrated,City 136 is 0.2% penetrated in month 22,information
+City 138,138,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,444; the slowdown will hold them back",warning
+City 138,138,opened before the previous rank is 10% penetrated,City 137 is 0.2% penetrated in month 22,information
+City 139,139,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,366; the slowdown will hold them back",warning
+City 139,139,opened before the previous rank is 10% penetrated,City 138 is 0.1% penetrated in month 22,information
+City 140,140,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,290; the slowdown will hold them back",warning
+City 140,140,opened before the previous rank is 10% penetrated,City 139 is 0.1% penetrated in month 22,information
+City 141,141,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,215; the slowdown will hold them back",warning
+City 141,141,opened before the previous rank is 10% penetrated,City 140 is 0.2% penetrated in month 22,information
+City 142,142,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 12,140; the slowdown will hold them back",warning
+City 142,142,opened before the previous rank is 10% penetrated,City 141 is 0.2% penetrated in month 22,information
+City 143,143,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 12,067; the slowdown will hold them back",warning
+City 143,143,opened before the previous rank is 10% penetrated,City 142 is 0.2% penetrated in month 22,information
+City 144,144,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,994; the slowdown will hold them back",warning
+City 144,144,opened before the previous rank is 10% penetrated,City 143 is 0.2% penetrated in month 22,information
+City 145,145,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,923; the slowdown will hold them back",warning
+City 145,145,opened before the previous rank is 10% penetrated,City 144 is 0.2% penetrated in month 22,information
+City 146,146,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,852; the slowdown will hold them back",warning
+City 146,146,opened before the previous rank is 10% penetrated,City 145 is 0.2% penetrated in month 22,information
+City 147,147,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,782; the slowdown will hold them back",warning
+City 147,147,opened before the previous rank is 10% penetrated,City 146 is 0.2% penetrated in month 22,information
+City 148,148,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,713; the slowdown will hold them back",warning
+City 148,148,opened before the previous rank is 10% penetrated,City 147 is 0.2% penetrated in month 22,information
+City 149,149,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,645; the slowdown will hold them back",warning
+City 149,149,opened before the previous rank is 10% penetrated,City 148 is 0.1% penetrated in month 22,information
+City 150,150,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,578; the slowdown will hold them back",warning
+City 150,150,opened before the previous rank is 10% penetrated,City 149 is 0.2% penetrated in month 22,information
+City 151,151,would outgrow its headroom,"7 agents x 5,000 expected 5-year sign-ups each = 35,000 > remaining cap 11,512; the slowdown will hold them back",warning
+City 151,151,opened before the previous rank is 10% penetrated,City 150 is 0.2% penetrated in month 22,information
+City 152,152,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,446; the slowdown will hold them back",warning
+City 152,152,opened before the previous rank is 10% penetrated,City 151 is 0.2% penetrated in month 22,information
+City 153,153,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,382; the slowdown will hold them back",warning
+City 153,153,opened before the previous rank is 10% penetrated,City 152 is 0.2% penetrated in month 22,information
+City 154,154,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,318; the slowdown will hold them back",warning
+City 154,154,opened before the previous rank is 10% penetrated,City 153 is 0.2% penetrated in month 22,information
+City 155,155,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,255; the slowdown will hold them back",warning
+City 155,155,opened before the previous rank is 10% penetrated,City 154 is 0.2% penetrated in month 22,information
+City 156,156,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,192; the slowdown will hold them back",warning
+City 156,156,opened before the previous rank is 10% penetrated,City 155 is 0.2% penetrated in month 22,information
+City 157,157,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,130; the slowdown will hold them back",warning
+City 157,157,opened before the previous rank is 10% penetrated,City 156 is 0.2% penetrated in month 22,information
+City 158,158,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,070; the slowdown will hold them back",warning
+City 158,158,opened before the previous rank is 10% penetrated,City 157 is 0.2% penetrated in month 22,information
+City 159,159,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 11,009; the slowdown will hold them back",warning
+City 159,159,opened before the previous rank is 10% penetrated,City 158 is 0.2% penetrated in month 22,information
+City 160,160,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,950; the slowdown will hold them back",warning
+City 160,160,opened before the previous rank is 10% penetrated,City 159 is 0.2% penetrated in month 22,information
+City 161,161,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,891; the slowdown will hold them back",warning
+City 161,161,opened before the previous rank is 10% penetrated,City 160 is 0.2% penetrated in month 22,information
+City 162,162,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,833; the slowdown will hold them back",warning
+City 162,162,opened before the previous rank is 10% penetrated,City 161 is 0.2% penetrated in month 22,information
+City 163,163,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,775; the slowdown will hold them back",warning
+City 163,163,opened before the previous rank is 10% penetrated,City 162 is 0.2% penetrated in month 22,information
+City 164,164,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,718; the slowdown will hold them back",warning
+City 164,164,opened before the previous rank is 10% penetrated,City 163 is 0.2% penetrated in month 22,information
+City 165,165,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,662; the slowdown will hold them back",warning
+City 165,165,opened before the previous rank is 10% penetrated,City 164 is 0.1% penetrated in month 22,information
+City 166,166,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,607; the slowdown will hold them back",warning
+City 166,166,opened before the previous rank is 10% penetrated,City 165 is 0.2% penetrated in month 22,information
+City 167,167,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,552; the slowdown will hold them back",warning
+City 167,167,opened before the previous rank is 10% penetrated,City 166 is 0.2% penetrated in month 22,information
+City 168,168,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,497; the slowdown will hold them back",warning
+City 168,168,opened before the previous rank is 10% penetrated,City 167 is 0.2% penetrated in month 22,information
+City 169,169,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,444; the slowdown will hold them back",warning
+City 169,169,opened before the previous rank is 10% penetrated,City 168 is 0.2% penetrated in month 22,information
+City 170,170,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,390; the slowdown will hold them back",warning
+City 170,170,opened before the previous rank is 10% penetrated,City 169 is 0.2% penetrated in month 22,information
+City 171,171,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,338; the slowdown will hold them back",warning
+City 171,171,opened before the previous rank is 10% penetrated,City 170 is 0.2% penetrated in month 22,information
+City 172,172,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,286; the slowdown will hold them back",warning
+City 172,172,opened before the previous rank is 10% penetrated,City 171 is 0.2% penetrated in month 22,information
+City 173,173,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 10,234; the slowdown will hold them back",warning
+City 173,173,opened before the previous rank is 10% penetrated,City 172 is 0.2% penetrated in month 22,information
+City 174,174,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,184; the slowdown will hold them back",warning
+City 174,174,opened before the previous rank is 10% penetrated,City 173 is 0.2% penetrated in month 22,information
+City 175,175,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 10,133; the slowdown will hold them back",warning
+City 175,175,opened before the previous rank is 10% penetrated,City 174 is 0.2% penetrated in month 22,information
+City 176,176,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,083; the slowdown will hold them back",warning
+City 176,176,opened before the previous rank is 10% penetrated,City 175 is 0.2% penetrated in month 22,information
+City 177,177,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 10,034; the slowdown will hold them back",warning
+City 177,177,opened before the previous rank is 10% penetrated,City 176 is 0.3% penetrated in month 22,information
+City 178,178,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 9,985; the slowdown will hold them back",warning
+City 178,178,opened before the previous rank is 10% penetrated,City 177 is 0.2% penetrated in month 22,information
+City 179,179,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 9,937; the slowdown will hold them back",warning
+City 179,179,opened before the previous rank is 10% penetrated,City 178 is 0.1% penetrated in month 22,information
+City 180,180,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 9,889; the slowdown will hold them back",warning
+City 180,180,opened before the previous rank is 10% penetrated,City 179 is 0.1% penetrated in month 22,information
+City 181,181,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 9,842; the slowdown will hold them back",warning
+City 181,181,opened before the previous rank is 10% penetrated,City 180 is 0.1% penetrated in month 22,information
+City 182,182,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,795; the slowdown will hold them back",warning
+City 182,182,opened before the previous rank is 10% penetrated,City 181 is 0.1% penetrated in month 22,information
+City 183,183,would outgrow its headroom,"6 agents x 5,000 expected 5-year sign-ups each = 30,000 > remaining cap 9,749; the slowdown will hold them back",warning
+City 183,183,opened before the previous rank is 10% penetrated,City 182 is 0.1% penetrated in month 22,information
+City 184,184,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,703; the slowdown will hold them back",warning
+City 184,184,opened before the previous rank is 10% penetrated,City 183 is 0.1% penetrated in month 22,information
+City 185,185,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,658; the slowdown will hold them back",warning
+City 185,185,opened before the previous rank is 10% penetrated,City 184 is 0.1% penetrated in month 22,information
+City 186,186,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,613; the slowdown will hold them back",warning
+City 186,186,opened before the previous rank is 10% penetrated,City 185 is 0.1% penetrated in month 22,information
+City 187,187,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,568; the slowdown will hold them back",warning
+City 187,187,opened before the previous rank is 10% penetrated,City 186 is 0.1% penetrated in month 22,information
+City 188,188,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,524; the slowdown will hold them back",warning
+City 188,188,opened before the previous rank is 10% penetrated,City 187 is 0.1% penetrated in month 22,information
+City 189,189,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,481; the slowdown will hold them back",warning
+City 189,189,opened before the previous rank is 10% penetrated,City 188 is 0.1% penetrated in month 22,information
+City 190,190,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,438; the slowdown will hold them back",warning
+City 190,190,opened before the previous rank is 10% penetrated,City 189 is 0.1% penetrated in month 22,information
+City 191,191,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,395; the slowdown will hold them back",warning
+City 191,191,opened before the previous rank is 10% penetrated,City 190 is 0.1% penetrated in month 22,information
+City 192,192,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,353; the slowdown will hold them back",warning
+City 192,192,opened before the previous rank is 10% penetrated,City 191 is 0.1% penetrated in month 22,information
+City 193,193,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,311; the slowdown will hold them back",warning
+City 193,193,opened before the previous rank is 10% penetrated,City 192 is 0.1% penetrated in month 22,information
+City 194,194,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,269; the slowdown will hold them back",warning
+City 194,194,opened before the previous rank is 10% penetrated,City 193 is 0.1% penetrated in month 22,information
+City 195,195,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,228; the slowdown will hold them back",warning
+City 195,195,opened before the previous rank is 10% penetrated,City 194 is 0.1% penetrated in month 22,information
+City 196,196,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,187; the slowdown will hold them back",warning
+City 196,196,opened before the previous rank is 10% penetrated,City 195 is 0.1% penetrated in month 22,information
+City 197,197,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,147; the slowdown will hold them back",warning
+City 197,197,opened before the previous rank is 10% penetrated,City 196 is 0.1% penetrated in month 22,information
+City 198,198,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,107; the slowdown will hold them back",warning
+City 198,198,opened before the previous rank is 10% penetrated,City 197 is 0.1% penetrated in month 22,information
+City 199,199,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,067; the slowdown will hold them back",warning
+City 199,199,opened before the previous rank is 10% penetrated,City 198 is 0.1% penetrated in month 22,information
+City 200,200,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 9,028; the slowdown will hold them back",warning
+City 200,200,opened before the previous rank is 10% penetrated,City 199 is 0.1% penetrated in month 22,information
+City 201,201,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,989; the slowdown will hold them back",warning
+City 201,201,opened before the previous rank is 10% penetrated,City 200 is 0.1% penetrated in month 22,information
+City 202,202,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,951; the slowdown will hold them back",warning
+City 202,202,opened before the previous rank is 10% penetrated,City 201 is 0.1% penetrated in month 22,information
+City 203,203,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,913; the slowdown will hold them back",warning
+City 203,203,opened before the previous rank is 10% penetrated,City 202 is 0.1% penetrated in month 22,information
+City 204,204,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,875; the slowdown will hold them back",warning
+City 204,204,opened before the previous rank is 10% penetrated,City 203 is 0.1% penetrated in month 22,information
+City 205,205,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,837; the slowdown will hold them back",warning
+City 205,205,opened before the previous rank is 10% penetrated,City 204 is 0.1% penetrated in month 22,information
+City 206,206,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,800; the slowdown will hold them back",warning
+City 206,206,opened before the previous rank is 10% penetrated,City 205 is 0.1% penetrated in month 22,information
+City 207,207,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,764; the slowdown will hold them back",warning
+City 207,207,opened before the previous rank is 10% penetrated,City 206 is 0.1% penetrated in month 22,information
+City 208,208,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,727; the slowdown will hold them back",warning
+City 208,208,opened before the previous rank is 10% penetrated,City 207 is 0.1% penetrated in month 22,information
+City 209,209,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,691; the slowdown will hold them back",warning
+City 209,209,opened before the previous rank is 10% penetrated,City 208 is 0.1% penetrated in month 22,information
+City 210,210,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,655; the slowdown will hold them back",warning
+City 210,210,opened before the previous rank is 10% penetrated,City 209 is 0.1% penetrated in month 22,information
+City 211,211,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,620; the slowdown will hold them back",warning
+City 211,211,opened before the previous rank is 10% penetrated,City 210 is 0.1% penetrated in month 22,information
+City 212,212,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,585; the slowdown will hold them back",warning
+City 212,212,opened before the previous rank is 10% penetrated,City 211 is 0.1% penetrated in month 22,information
+City 213,213,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,550; the slowdown will hold them back",warning
+City 213,213,opened before the previous rank is 10% penetrated,City 212 is 0.1% penetrated in month 22,information
+City 214,214,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,515; the slowdown will hold them back",warning
+City 214,214,opened before the previous rank is 10% penetrated,City 213 is 0.1% penetrated in month 22,information
+City 215,215,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,481; the slowdown will hold them back",warning
+City 215,215,opened before the previous rank is 10% penetrated,City 214 is 0.1% penetrated in month 22,information
+City 216,216,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,447; the slowdown will hold them back",warning
+City 216,216,opened before the previous rank is 10% penetrated,City 215 is 0.1% penetrated in month 22,information
+City 217,217,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,413; the slowdown will hold them back",warning
+City 217,217,opened before the previous rank is 10% penetrated,City 216 is 0.1% penetrated in month 22,information
+City 218,218,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,380; the slowdown will hold them back",warning
+City 218,218,opened before the previous rank is 10% penetrated,City 217 is 0.1% penetrated in month 22,information
+City 219,219,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,347; the slowdown will hold them back",warning
+City 219,219,opened before the previous rank is 10% penetrated,City 218 is 0.1% penetrated in month 22,information
+City 220,220,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,314; the slowdown will hold them back",warning
+City 220,220,opened before the previous rank is 10% penetrated,City 219 is 0.1% penetrated in month 22,information
+City 221,221,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,281; the slowdown will hold them back",warning
+City 221,221,opened before the previous rank is 10% penetrated,City 220 is 0.1% penetrated in month 22,information
+City 222,222,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,249; the slowdown will hold them back",warning
+City 222,222,opened before the previous rank is 10% penetrated,City 221 is 0.1% penetrated in month 22,information
+City 223,223,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,217; the slowdown will hold them back",warning
+City 223,223,opened before the previous rank is 10% penetrated,City 222 is 0.1% penetrated in month 22,information
+City 224,224,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,185; the slowdown will hold them back",warning
+City 224,224,opened before the previous rank is 10% penetrated,City 223 is 0.1% penetrated in month 22,information
+City 225,225,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,154; the slowdown will hold them back",warning
+City 225,225,opened before the previous rank is 10% penetrated,City 224 is 0.1% penetrated in month 22,information
+City 226,226,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,123; the slowdown will hold them back",warning
+City 226,226,opened before the previous rank is 10% penetrated,City 225 is 0.1% penetrated in month 22,information
+City 227,227,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,092; the slowdown will hold them back",warning
+City 227,227,opened before the previous rank is 10% penetrated,City 226 is 0.1% penetrated in month 22,information
+City 228,228,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 8,061; the slowdown will hold them back",warning
+City 228,228,opened before the previous rank is 10% penetrated,City 227 is 0.1% penetrated in month 22,information
+City 229,229,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,031; the slowdown will hold them back",warning
+City 229,229,opened before the previous rank is 10% penetrated,City 228 is 0.2% penetrated in month 22,information
+City 230,230,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 8,000; the slowdown will hold them back",warning
+City 230,230,opened before the previous rank is 10% penetrated,City 229 is 0.2% penetrated in month 22,information
+City 231,231,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,970; the slowdown will hold them back",warning
+City 231,231,opened before the previous rank is 10% penetrated,City 230 is 0.1% penetrated in month 22,information
+City 232,232,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,941; the slowdown will hold them back",warning
+City 232,232,opened before the previous rank is 10% penetrated,City 231 is 0.1% penetrated in month 22,information
+City 233,233,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,911; the slowdown will hold them back",warning
+City 233,233,opened before the previous rank is 10% penetrated,City 232 is 0.1% penetrated in month 22,information
+City 234,234,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,882; the slowdown will hold them back",warning
+City 234,234,opened before the previous rank is 10% penetrated,City 233 is 0.1% penetrated in month 22,information
+City 235,235,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,853; the slowdown will hold them back",warning
+City 235,235,opened before the previous rank is 10% penetrated,City 234 is 0.1% penetrated in month 22,information
+City 236,236,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,824; the slowdown will hold them back",warning
+City 236,236,opened before the previous rank is 10% penetrated,City 235 is 0.1% penetrated in month 22,information
+City 237,237,would outgrow its headroom,"5 agents x 5,000 expected 5-year sign-ups each = 25,000 > remaining cap 7,796; the slowdown will hold them back",warning
+City 237,237,opened before the previous rank is 10% penetrated,City 236 is 0.1% penetrated in month 22,information
+City 238,238,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,767; the slowdown will hold them back",warning
+City 238,238,opened before the previous rank is 10% penetrated,City 237 is 0.1% penetrated in month 22,information
+City 239,239,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,739; the slowdown will hold them back",warning
+City 239,239,opened before the previous rank is 10% penetrated,City 238 is 0.1% penetrated in month 22,information
+City 240,240,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,711; the slowdown will hold them back",warning
+City 240,240,opened before the previous rank is 10% penetrated,City 239 is 0.1% penetrated in month 22,information
+City 241,241,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,684; the slowdown will hold them back",warning
+City 241,241,opened before the previous rank is 10% penetrated,City 240 is 0.2% penetrated in month 22,information
+City 242,242,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,656; the slowdown will hold them back",warning
+City 242,242,opened before the previous rank is 10% penetrated,City 241 is 0.2% penetrated in month 22,information
+City 243,243,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,629; the slowdown will hold them back",warning
+City 243,243,opened before the previous rank is 10% penetrated,City 242 is 0.1% penetrated in month 22,information
+City 244,244,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,602; the slowdown will hold them back",warning
+City 244,244,opened before the previous rank is 10% penetrated,City 243 is 0.2% penetrated in month 22,information
+City 245,245,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,575; the slowdown will hold them back",warning
+City 245,245,opened before the previous rank is 10% penetrated,City 244 is 0.1% penetrated in month 22,information
+City 246,246,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,548; the slowdown will hold them back",warning
+City 246,246,opened before the previous rank is 10% penetrated,City 245 is 0.1% penetrated in month 22,information
+City 247,247,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,522; the slowdown will hold them back",warning
+City 247,247,opened before the previous rank is 10% penetrated,City 246 is 0.1% penetrated in month 22,information
+City 248,248,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,496; the slowdown will hold them back",warning
+City 248,248,opened before the previous rank is 10% penetrated,City 247 is 0.1% penetrated in month 22,information
+City 249,249,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,470; the slowdown will hold them back",warning
+City 249,249,opened before the previous rank is 10% penetrated,City 248 is 0.1% penetrated in month 22,information
+City 250,250,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,444; the slowdown will hold them back",warning
+City 250,250,opened before the previous rank is 10% penetrated,City 249 is 0.3% penetrated in month 23,information
+City 251,251,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,418; the slowdown will hold them back",warning
+City 251,251,opened before the previous rank is 10% penetrated,City 250 is 0.1% penetrated in month 23,information
+City 252,252,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,393; the slowdown will hold them back",warning
+City 252,252,opened before the previous rank is 10% penetrated,City 251 is 0.1% penetrated in month 23,information
+City 253,253,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,367; the slowdown will hold them back",warning
+City 253,253,opened before the previous rank is 10% penetrated,City 252 is 0.1% penetrated in month 23,information
+City 254,254,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,342; the slowdown will hold them back",warning
+City 254,254,opened before the previous rank is 10% penetrated,City 253 is 0.1% penetrated in month 23,information
+City 255,255,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,317; the slowdown will hold them back",warning
+City 255,255,opened before the previous rank is 10% penetrated,City 254 is 0.2% penetrated in month 23,information
+City 256,256,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,293; the slowdown will hold them back",warning
+City 256,256,opened before the previous rank is 10% penetrated,City 255 is 0.1% penetrated in month 23,information
+City 257,257,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,268; the slowdown will hold them back",warning
+City 257,257,opened before the previous rank is 10% penetrated,City 256 is 0.1% penetrated in month 23,information
+City 258,258,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,244; the slowdown will hold them back",warning
+City 258,258,opened before the previous rank is 10% penetrated,City 257 is 0.1% penetrated in month 23,information
+City 259,259,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,220; the slowdown will hold them back",warning
+City 259,259,opened before the previous rank is 10% penetrated,City 258 is 0.2% penetrated in month 23,information
+City 260,260,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,196; the slowdown will hold them back",warning
+City 260,260,opened before the previous rank is 10% penetrated,City 259 is 0.2% penetrated in month 23,information
+City 261,261,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,172; the slowdown will hold them back",warning
+City 261,261,opened before the previous rank is 10% penetrated,City 260 is 0.1% penetrated in month 23,information
+City 262,262,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,148; the slowdown will hold them back",warning
+City 262,262,opened before the previous rank is 10% penetrated,City 261 is 0.1% penetrated in month 23,information
+City 263,263,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,125; the slowdown will hold them back",warning
+City 263,263,opened before the previous rank is 10% penetrated,City 262 is 0.1% penetrated in month 23,information
+City 264,264,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,101; the slowdown will hold them back",warning
+City 264,264,opened before the previous rank is 10% penetrated,City 263 is 0.2% penetrated in month 23,information
+City 265,265,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,078; the slowdown will hold them back",warning
+City 265,265,opened before the previous rank is 10% penetrated,City 264 is 0.2% penetrated in month 23,information
+City 266,266,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,055; the slowdown will hold them back",warning
+City 266,266,opened before the previous rank is 10% penetrated,City 265 is 0.1% penetrated in month 23,information
+City 267,267,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,032; the slowdown will hold them back",warning
+City 267,267,opened before the previous rank is 10% penetrated,City 266 is 0.1% penetrated in month 23,information
+City 268,268,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 7,009; the slowdown will hold them back",warning
+City 268,268,opened before the previous rank is 10% penetrated,City 267 is 0.1% penetrated in month 23,information
+City 269,269,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,987; the slowdown will hold them back",warning
+City 269,269,opened before the previous rank is 10% penetrated,City 268 is 0.1% penetrated in month 23,information
+City 270,270,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,965; the slowdown will hold them back",warning
+City 270,270,opened before the previous rank is 10% penetrated,City 269 is 0.1% penetrated in month 23,information
+City 271,271,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,942; the slowdown will hold them back",warning
+City 271,271,opened before the previous rank is 10% penetrated,City 270 is 0.1% penetrated in month 23,information
+City 272,272,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,920; the slowdown will hold them back",warning
+City 272,272,opened before the previous rank is 10% penetrated,City 271 is 0.1% penetrated in month 23,information
+City 273,273,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,898; the slowdown will hold them back",warning
+City 273,273,opened before the previous rank is 10% penetrated,City 272 is 0.1% penetrated in month 23,information
+City 274,274,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,876; the slowdown will hold them back",warning
+City 274,274,opened before the previous rank is 10% penetrated,City 273 is 0.2% penetrated in month 23,information
+City 275,275,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,855; the slowdown will hold them back",warning
+City 275,275,opened before the previous rank is 10% penetrated,City 274 is 0.1% penetrated in month 23,information
+City 276,276,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,833; the slowdown will hold them back",warning
+City 276,276,opened before the previous rank is 10% penetrated,City 275 is 0.1% penetrated in month 23,information
+City 277,277,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,812; the slowdown will hold them back",warning
+City 277,277,opened before the previous rank is 10% penetrated,City 276 is 0.2% penetrated in month 23,information
+City 278,278,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,791; the slowdown will hold them back",warning
+City 278,278,opened before the previous rank is 10% penetrated,City 277 is 0.1% penetrated in month 23,information
+City 279,279,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,770; the slowdown will hold them back",warning
+City 279,279,opened before the previous rank is 10% penetrated,City 278 is 0.2% penetrated in month 23,information
+City 280,280,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,749; the slowdown will hold them back",warning
+City 280,280,opened before the previous rank is 10% penetrated,City 279 is 0.2% penetrated in month 23,information
+City 281,281,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,728; the slowdown will hold them back",warning
+City 281,281,opened before the previous rank is 10% penetrated,City 280 is 0.2% penetrated in month 23,information
+City 282,282,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,707; the slowdown will hold them back",warning
+City 282,282,opened before the previous rank is 10% penetrated,City 281 is 0.1% penetrated in month 23,information
+City 283,283,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,687; the slowdown will hold them back",warning
+City 283,283,opened before the previous rank is 10% penetrated,City 282 is 0.2% penetrated in month 23,information
+City 284,284,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,667; the slowdown will hold them back",warning
+City 284,284,opened before the previous rank is 10% penetrated,City 283 is 0.2% penetrated in month 23,information
+City 285,285,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,646; the slowdown will hold them back",warning
+City 285,285,opened before the previous rank is 10% penetrated,City 284 is 0.1% penetrated in month 23,information
+City 286,286,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,626; the slowdown will hold them back",warning
+City 286,286,opened before the previous rank is 10% penetrated,City 285 is 0.1% penetrated in month 23,information
+City 287,287,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,606; the slowdown will hold them back",warning
+City 287,287,opened before the previous rank is 10% penetrated,City 286 is 0.1% penetrated in month 23,information
+City 288,288,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,586; the slowdown will hold them back",warning
+City 288,288,opened before the previous rank is 10% penetrated,City 287 is 0.2% penetrated in month 23,information
+City 289,289,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,567; the slowdown will hold them back",warning
+City 289,289,opened before the previous rank is 10% penetrated,City 288 is 0.2% penetrated in month 23,information
+City 290,290,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,547; the slowdown will hold them back",warning
+City 290,290,opened before the previous rank is 10% penetrated,City 289 is 0.1% penetrated in month 23,information
+City 291,291,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,528; the slowdown will hold them back",warning
+City 291,291,opened before the previous rank is 10% penetrated,City 290 is 0.2% penetrated in month 23,information
+City 292,292,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,508; the slowdown will hold them back",warning
+City 292,292,opened before the previous rank is 10% penetrated,City 291 is 0.1% penetrated in month 23,information
+City 293,293,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,489; the slowdown will hold them back",warning
+City 293,293,opened before the previous rank is 10% penetrated,City 292 is 0.2% penetrated in month 23,information
+City 294,294,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,470; the slowdown will hold them back",warning
+City 294,294,opened before the previous rank is 10% penetrated,City 293 is 0.1% penetrated in month 23,information
+City 295,295,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,451; the slowdown will hold them back",warning
+City 295,295,opened before the previous rank is 10% penetrated,City 294 is 0.1% penetrated in month 23,information
+City 296,296,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,432; the slowdown will hold them back",warning
+City 296,296,opened before the previous rank is 10% penetrated,City 295 is 0.1% penetrated in month 23,information
+City 297,297,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,413; the slowdown will hold them back",warning
+City 297,297,opened before the previous rank is 10% penetrated,City 296 is 0.2% penetrated in month 23,information
+City 298,298,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,395; the slowdown will hold them back",warning
+City 298,298,opened before the previous rank is 10% penetrated,City 297 is 0.2% penetrated in month 23,information
+City 299,299,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,376; the slowdown will hold them back",warning
+City 299,299,opened before the previous rank is 10% penetrated,City 298 is 0.1% penetrated in month 23,information
+City 300,300,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,358; the slowdown will hold them back",warning
+City 300,300,opened before the previous rank is 10% penetrated,City 299 is 0.1% penetrated in month 23,information
+City 301,301,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,340; the slowdown will hold them back",warning
+City 301,301,opened before the previous rank is 10% penetrated,City 300 is 0.1% penetrated in month 23,information
+City 302,302,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,322; the slowdown will hold them back",warning
+City 302,302,opened before the previous rank is 10% penetrated,City 301 is 0.2% penetrated in month 23,information
+City 303,303,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,304; the slowdown will hold them back",warning
+City 303,303,opened before the previous rank is 10% penetrated,City 302 is 0.2% penetrated in month 23,information
+City 304,304,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,286; the slowdown will hold them back",warning
+City 304,304,opened before the previous rank is 10% penetrated,City 303 is 0.2% penetrated in month 23,information
+City 305,305,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,268; the slowdown will hold them back",warning
+City 305,305,opened before the previous rank is 10% penetrated,City 304 is 0.2% penetrated in month 23,information
+City 306,306,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,250; the slowdown will hold them back",warning
+City 306,306,opened before the previous rank is 10% penetrated,City 305 is 0.2% penetrated in month 23,information
+City 307,307,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,232; the slowdown will hold them back",warning
+City 307,307,opened before the previous rank is 10% penetrated,City 306 is 0.1% penetrated in month 23,information
+City 308,308,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,215; the slowdown will hold them back",warning
+City 308,308,opened before the previous rank is 10% penetrated,City 307 is 0.2% penetrated in month 23,information
+City 309,309,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,198; the slowdown will hold them back",warning
+City 309,309,opened before the previous rank is 10% penetrated,City 308 is 0.1% penetrated in month 23,information
+City 310,310,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,180; the slowdown will hold them back",warning
+City 310,310,opened before the previous rank is 10% penetrated,City 309 is 0.1% penetrated in month 23,information
+City 311,311,would outgrow its headroom,"4 agents x 5,000 expected 5-year sign-ups each = 20,000 > remaining cap 6,163; the slowdown will hold them back",warning
+City 311,311,opened before the previous rank is 10% penetrated,City 310 is 0.2% penetrated in month 23,information
+City 312,312,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,146; the slowdown will hold them back",warning
+City 312,312,opened before the previous rank is 10% penetrated,City 311 is 0.2% penetrated in month 23,information
+City 313,313,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,129; the slowdown will hold them back",warning
+City 313,313,opened before the previous rank is 10% penetrated,City 312 is 0.2% penetrated in month 23,information
+City 314,314,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,112; the slowdown will hold them back",warning
+City 314,314,opened before the previous rank is 10% penetrated,City 313 is 0.2% penetrated in month 23,information
+City 315,315,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,095; the slowdown will hold them back",warning
+City 315,315,opened before the previous rank is 10% penetrated,City 314 is 0.1% penetrated in month 23,information
+City 316,316,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,079; the slowdown will hold them back",warning
+City 316,316,opened before the previous rank is 10% penetrated,City 315 is 0.1% penetrated in month 23,information
+City 317,317,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,062; the slowdown will hold them back",warning
+City 317,317,opened before the previous rank is 10% penetrated,City 316 is 0.2% penetrated in month 23,information
+City 318,318,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,046; the slowdown will hold them back",warning
+City 318,318,opened before the previous rank is 10% penetrated,City 317 is 0.1% penetrated in month 23,information
+City 319,319,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,029; the slowdown will hold them back",warning
+City 319,319,opened before the previous rank is 10% penetrated,City 318 is 0.1% penetrated in month 23,information
+City 320,320,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 6,013; the slowdown will hold them back",warning
+City 320,320,opened before the previous rank is 10% penetrated,City 319 is 0.2% penetrated in month 23,information
+City 321,321,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,997; the slowdown will hold them back",warning
+City 321,321,opened before the previous rank is 10% penetrated,City 320 is 0.1% penetrated in month 23,information
+City 322,322,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,981; the slowdown will hold them back",warning
+City 322,322,opened before the previous rank is 10% penetrated,City 321 is 0.1% penetrated in month 23,information
+City 323,323,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,965; the slowdown will hold them back",warning
+City 323,323,opened before the previous rank is 10% penetrated,City 322 is 0.2% penetrated in month 23,information
+City 324,324,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,949; the slowdown will hold them back",warning
+City 324,324,opened before the previous rank is 10% penetrated,City 323 is 0.1% penetrated in month 23,information
+City 325,325,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,933; the slowdown will hold them back",warning
+City 325,325,opened before the previous rank is 10% penetrated,City 324 is 0.1% penetrated in month 23,information
+City 326,326,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,917; the slowdown will hold them back",warning
+City 326,326,opened before the previous rank is 10% penetrated,City 325 is 0.2% penetrated in month 23,information
+City 327,327,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,901; the slowdown will hold them back",warning
+City 327,327,opened before the previous rank is 10% penetrated,City 326 is 0.2% penetrated in month 23,information
+City 328,328,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,886; the slowdown will hold them back",warning
+City 328,328,opened before the previous rank is 10% penetrated,City 327 is 0.2% penetrated in month 23,information
+City 329,329,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,870; the slowdown will hold them back",warning
+City 329,329,opened before the previous rank is 10% penetrated,City 328 is 0.2% penetrated in month 23,information
+City 330,330,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,855; the slowdown will hold them back",warning
+City 330,330,opened before the previous rank is 10% penetrated,City 329 is 0.2% penetrated in month 23,information
+City 331,331,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,840; the slowdown will hold them back",warning
+City 331,331,opened before the previous rank is 10% penetrated,City 330 is 0.2% penetrated in month 23,information
+City 332,332,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,824; the slowdown will hold them back",warning
+City 332,332,opened before the previous rank is 10% penetrated,City 331 is 0.2% penetrated in month 23,information
+City 333,333,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,809; the slowdown will hold them back",warning
+City 333,333,opened before the previous rank is 10% penetrated,City 332 is 0.2% penetrated in month 23,information
+City 334,334,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,794; the slowdown will hold them back",warning
+City 334,334,opened before the previous rank is 10% penetrated,City 333 is 0.2% penetrated in month 23,information
+City 335,335,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,779; the slowdown will hold them back",warning
+City 335,335,opened before the previous rank is 10% penetrated,City 334 is 0.1% penetrated in month 23,information
+City 336,336,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,764; the slowdown will hold them back",warning
+City 336,336,opened before the previous rank is 10% penetrated,City 335 is 0.1% penetrated in month 23,information
+City 337,337,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,750; the slowdown will hold them back",warning
+City 337,337,opened before the previous rank is 10% penetrated,City 336 is 0.2% penetrated in month 23,information
+City 338,338,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,735; the slowdown will hold them back",warning
+City 338,338,opened before the previous rank is 10% penetrated,City 337 is 0.2% penetrated in month 23,information
+City 339,339,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,720; the slowdown will hold them back",warning
+City 339,339,opened before the previous rank is 10% penetrated,City 338 is 0.2% penetrated in month 23,information
+City 340,340,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,706; the slowdown will hold them back",warning
+City 340,340,opened before the previous rank is 10% penetrated,City 339 is 0.2% penetrated in month 23,information
+City 341,341,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,691; the slowdown will hold them back",warning
+City 341,341,opened before the previous rank is 10% penetrated,City 340 is 0.2% penetrated in month 23,information
+City 342,342,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,677; the slowdown will hold them back",warning
+City 342,342,opened before the previous rank is 10% penetrated,City 341 is 0.2% penetrated in month 23,information
+City 343,343,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,663; the slowdown will hold them back",warning
+City 343,343,opened before the previous rank is 10% penetrated,City 342 is 0.2% penetrated in month 23,information
+City 344,344,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,648; the slowdown will hold them back",warning
+City 344,344,opened before the previous rank is 10% penetrated,City 343 is 0.2% penetrated in month 23,information
+City 345,345,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,634; the slowdown will hold them back",warning
+City 345,345,opened before the previous rank is 10% penetrated,City 344 is 0.2% penetrated in month 23,information
+City 346,346,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,620; the slowdown will hold them back",warning
+City 346,346,opened before the previous rank is 10% penetrated,City 345 is 0.2% penetrated in month 23,information
+City 347,347,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,606; the slowdown will hold them back",warning
+City 347,347,opened before the previous rank is 10% penetrated,City 346 is 0.3% penetrated in month 23,information
+City 348,348,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,592; the slowdown will hold them back",warning
+City 348,348,opened before the previous rank is 10% penetrated,City 347 is 0.2% penetrated in month 23,information
+City 349,349,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,578; the slowdown will hold them back",warning
+City 349,349,opened before the previous rank is 10% penetrated,City 348 is 0.2% penetrated in month 23,information
+City 350,350,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,565; the slowdown will hold them back",warning
+City 350,350,opened before the previous rank is 10% penetrated,City 349 is 0.2% penetrated in month 23,information
+City 351,351,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,551; the slowdown will hold them back",warning
+City 351,351,opened before the previous rank is 10% penetrated,City 350 is 0.2% penetrated in month 23,information
+City 352,352,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,537; the slowdown will hold them back",warning
+City 352,352,opened before the previous rank is 10% penetrated,City 351 is 0.2% penetrated in month 23,information
+City 353,353,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,524; the slowdown will hold them back",warning
+City 353,353,opened before the previous rank is 10% penetrated,City 352 is 0.2% penetrated in month 23,information
+City 354,354,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,510; the slowdown will hold them back",warning
+City 354,354,opened before the previous rank is 10% penetrated,City 353 is 0.2% penetrated in month 23,information
+City 355,355,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,497; the slowdown will hold them back",warning
+City 355,355,opened before the previous rank is 10% penetrated,City 354 is 0.1% penetrated in month 23,information
+City 356,356,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,483; the slowdown will hold them back",warning
+City 356,356,opened before the previous rank is 10% penetrated,City 355 is 0.2% penetrated in month 23,information
+City 357,357,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,470; the slowdown will hold them back",warning
+City 357,357,opened before the previous rank is 10% penetrated,City 356 is 0.2% penetrated in month 23,information
+City 358,358,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,457; the slowdown will hold them back",warning
+City 358,358,opened before the previous rank is 10% penetrated,City 357 is 0.2% penetrated in month 23,information
+City 359,359,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,444; the slowdown will hold them back",warning
+City 359,359,opened before the previous rank is 10% penetrated,City 358 is 0.2% penetrated in month 23,information
+City 360,360,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,431; the slowdown will hold them back",warning
+City 360,360,opened before the previous rank is 10% penetrated,City 359 is 0.2% penetrated in month 23,information
+City 361,361,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,418; the slowdown will hold them back",warning
+City 361,361,opened before the previous rank is 10% penetrated,City 360 is 0.2% penetrated in month 23,information
+City 362,362,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,405; the slowdown will hold them back",warning
+City 362,362,opened before the previous rank is 10% penetrated,City 361 is 0.2% penetrated in month 23,information
+City 363,363,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,392; the slowdown will hold them back",warning
+City 363,363,opened before the previous rank is 10% penetrated,City 362 is 0.2% penetrated in month 23,information
+City 364,364,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,379; the slowdown will hold them back",warning
+City 364,364,opened before the previous rank is 10% penetrated,City 363 is 0.2% penetrated in month 23,information
+City 365,365,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,366; the slowdown will hold them back",warning
+City 365,365,opened before the previous rank is 10% penetrated,City 364 is 0.2% penetrated in month 23,information
+City 366,366,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,354; the slowdown will hold them back",warning
+City 366,366,opened before the previous rank is 10% penetrated,City 365 is 0.2% penetrated in month 23,information
+City 367,367,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,341; the slowdown will hold them back",warning
+City 367,367,opened before the previous rank is 10% penetrated,City 366 is 0.2% penetrated in month 23,information
+City 368,368,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,328; the slowdown will hold them back",warning
+City 368,368,opened before the previous rank is 10% penetrated,City 367 is 0.2% penetrated in month 23,information
+City 369,369,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,316; the slowdown will hold them back",warning
+City 369,369,opened before the previous rank is 10% penetrated,City 368 is 0.2% penetrated in month 23,information
+City 370,370,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,303; the slowdown will hold them back",warning
+City 370,370,opened before the previous rank is 10% penetrated,City 369 is 0.2% penetrated in month 23,information
+City 371,371,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,291; the slowdown will hold them back",warning
+City 371,371,opened before the previous rank is 10% penetrated,City 370 is 0.2% penetrated in month 23,information
+City 372,372,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,279; the slowdown will hold them back",warning
+City 372,372,opened before the previous rank is 10% penetrated,City 371 is 0.2% penetrated in month 23,information
+City 373,373,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,267; the slowdown will hold them back",warning
+City 373,373,opened before the previous rank is 10% penetrated,City 372 is 0.2% penetrated in month 23,information
+City 374,374,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,254; the slowdown will hold them back",warning
+City 374,374,opened before the previous rank is 10% penetrated,City 373 is 0.2% penetrated in month 23,information
+City 375,375,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,242; the slowdown will hold them back",warning
+City 375,375,opened before the previous rank is 10% penetrated,City 374 is 0.2% penetrated in month 23,information
+City 376,376,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,230; the slowdown will hold them back",warning
+City 376,376,opened before the previous rank is 10% penetrated,City 375 is 0.2% penetrated in month 23,information
+City 377,377,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,218; the slowdown will hold them back",warning
+City 377,377,opened before the previous rank is 10% penetrated,City 376 is 0.2% penetrated in month 23,information
+City 378,378,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,206; the slowdown will hold them back",warning
+City 378,378,opened before the previous rank is 10% penetrated,City 377 is 0.2% penetrated in month 23,information
+City 379,379,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,194; the slowdown will hold them back",warning
+City 379,379,opened before the previous rank is 10% penetrated,City 378 is 0.2% penetrated in month 23,information
+City 380,380,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,183; the slowdown will hold them back",warning
+City 380,380,opened before the previous rank is 10% penetrated,City 379 is 0.2% penetrated in month 23,information
+City 381,381,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,171; the slowdown will hold them back",warning
+City 381,381,opened before the previous rank is 10% penetrated,City 380 is 0.2% penetrated in month 23,information
+City 382,382,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,159; the slowdown will hold them back",warning
+City 382,382,opened before the previous rank is 10% penetrated,City 381 is 0.2% penetrated in month 23,information
+City 383,383,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,147; the slowdown will hold them back",warning
+City 383,383,opened before the previous rank is 10% penetrated,City 382 is 0.2% penetrated in month 23,information
+City 384,384,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,136; the slowdown will hold them back",warning
+City 384,384,opened before the previous rank is 10% penetrated,City 383 is 0.2% penetrated in month 23,information
+City 385,385,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,124; the slowdown will hold them back",warning
+City 385,385,opened before the previous rank is 10% penetrated,City 384 is 0.2% penetrated in month 23,information
+City 386,386,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,113; the slowdown will hold them back",warning
+City 386,386,opened before the previous rank is 10% penetrated,City 385 is 0.2% penetrated in month 23,information
+City 387,387,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,101; the slowdown will hold them back",warning
+City 387,387,opened before the previous rank is 10% penetrated,City 386 is 0.2% penetrated in month 23,information
+City 388,388,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,090; the slowdown will hold them back",warning
+City 388,388,opened before the previous rank is 10% penetrated,City 387 is 0.2% penetrated in month 23,information
+City 389,389,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,079; the slowdown will hold them back",warning
+City 389,389,opened before the previous rank is 10% penetrated,City 388 is 0.2% penetrated in month 23,information
+City 390,390,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,067; the slowdown will hold them back",warning
+City 390,390,opened before the previous rank is 10% penetrated,City 389 is 0.2% penetrated in month 23,information
+City 391,391,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,056; the slowdown will hold them back",warning
+City 391,391,opened before the previous rank is 10% penetrated,City 390 is 0.2% penetrated in month 23,information
+City 392,392,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,045; the slowdown will hold them back",warning
+City 392,392,opened before the previous rank is 10% penetrated,City 391 is 0.2% penetrated in month 23,information
+City 393,393,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,034; the slowdown will hold them back",warning
+City 393,393,opened before the previous rank is 10% penetrated,City 392 is 0.1% penetrated in month 23,information
+City 394,394,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,023; the slowdown will hold them back",warning
+City 394,394,opened before the previous rank is 10% penetrated,City 393 is 0.2% penetrated in month 23,information
+City 395,395,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,012; the slowdown will hold them back",warning
+City 395,395,opened before the previous rank is 10% penetrated,City 394 is 0.3% penetrated in month 23,information
+City 396,396,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 5,001; the slowdown will hold them back",warning
+City 396,396,opened before the previous rank is 10% penetrated,City 395 is 0.1% penetrated in month 23,information
+City 397,397,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,990; the slowdown will hold them back",warning
+City 397,397,opened before the previous rank is 10% penetrated,City 396 is 0.1% penetrated in month 23,information
+City 398,398,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,979; the slowdown will hold them back",warning
+City 398,398,opened before the previous rank is 10% penetrated,City 397 is 0.2% penetrated in month 23,information
+City 399,399,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,968; the slowdown will hold them back",warning
+City 399,399,opened before the previous rank is 10% penetrated,City 398 is 0.2% penetrated in month 23,information
+City 400,400,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,958; the slowdown will hold them back",warning
+City 400,400,opened before the previous rank is 10% penetrated,City 399 is 0.2% penetrated in month 23,information
+City 401,401,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,947; the slowdown will hold them back",warning
+City 401,401,opened before the previous rank is 10% penetrated,City 400 is 0.2% penetrated in month 23,information
+City 402,402,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,936; the slowdown will hold them back",warning
+City 402,402,opened before the previous rank is 10% penetrated,City 401 is 0.2% penetrated in month 23,information
+City 403,403,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,926; the slowdown will hold them back",warning
+City 403,403,opened before the previous rank is 10% penetrated,City 402 is 0.2% penetrated in month 23,information
+City 404,404,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,915; the slowdown will hold them back",warning
+City 404,404,opened before the previous rank is 10% penetrated,City 403 is 0.2% penetrated in month 23,information
+City 405,405,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,905; the slowdown will hold them back",warning
+City 405,405,opened before the previous rank is 10% penetrated,City 404 is 0.2% penetrated in month 23,information
+City 406,406,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,894; the slowdown will hold them back",warning
+City 406,406,opened before the previous rank is 10% penetrated,City 405 is 0.1% penetrated in month 23,information
+City 407,407,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,884; the slowdown will hold them back",warning
+City 407,407,opened before the previous rank is 10% penetrated,City 406 is 0.2% penetrated in month 23,information
+City 408,408,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,873; the slowdown will hold them back",warning
+City 408,408,opened before the previous rank is 10% penetrated,City 407 is 0.2% penetrated in month 23,information
+City 409,409,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,863; the slowdown will hold them back",warning
+City 409,409,opened before the previous rank is 10% penetrated,City 408 is 0.2% penetrated in month 23,information
+City 410,410,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,853; the slowdown will hold them back",warning
+City 410,410,opened before the previous rank is 10% penetrated,City 409 is 0.3% penetrated in month 23,information
+City 411,411,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,843; the slowdown will hold them back",warning
+City 411,411,opened before the previous rank is 10% penetrated,City 410 is 0.2% penetrated in month 23,information
+City 412,412,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,833; the slowdown will hold them back",warning
+City 412,412,opened before the previous rank is 10% penetrated,City 411 is 0.2% penetrated in month 23,information
+City 413,413,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,822; the slowdown will hold them back",warning
+City 413,413,opened before the previous rank is 10% penetrated,City 412 is 0.2% penetrated in month 23,information
+City 414,414,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,812; the slowdown will hold them back",warning
+City 414,414,opened before the previous rank is 10% penetrated,City 413 is 0.2% penetrated in month 23,information
+City 415,415,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,802; the slowdown will hold them back",warning
+City 415,415,opened before the previous rank is 10% penetrated,City 414 is 0.2% penetrated in month 23,information
+City 416,416,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,792; the slowdown will hold them back",warning
+City 416,416,opened before the previous rank is 10% penetrated,City 415 is 0.2% penetrated in month 23,information
+City 417,417,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,782; the slowdown will hold them back",warning
+City 417,417,opened before the previous rank is 10% penetrated,City 416 is 0.3% penetrated in month 23,information
+City 418,418,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,772; the slowdown will hold them back",warning
+City 418,418,opened before the previous rank is 10% penetrated,City 417 is 0.3% penetrated in month 23,information
+City 419,419,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,763; the slowdown will hold them back",warning
+City 419,419,opened before the previous rank is 10% penetrated,City 418 is 0.2% penetrated in month 23,information
+City 420,420,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,753; the slowdown will hold them back",warning
+City 420,420,opened before the previous rank is 10% penetrated,City 419 is 0.2% penetrated in month 23,information
+City 421,421,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,743; the slowdown will hold them back",warning
+City 421,421,opened before the previous rank is 10% penetrated,City 420 is 0.2% penetrated in month 23,information
+City 422,422,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,733; the slowdown will hold them back",warning
+City 422,422,opened before the previous rank is 10% penetrated,City 421 is 0.3% penetrated in month 23,information
+City 423,423,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,724; the slowdown will hold them back",warning
+City 423,423,opened before the previous rank is 10% penetrated,City 422 is 0.2% penetrated in month 23,information
+City 424,424,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,714; the slowdown will hold them back",warning
+City 424,424,opened before the previous rank is 10% penetrated,City 423 is 0.2% penetrated in month 23,information
+City 425,425,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,704; the slowdown will hold them back",warning
+City 425,425,opened before the previous rank is 10% penetrated,City 424 is 0.2% penetrated in month 23,information
+City 426,426,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,695; the slowdown will hold them back",warning
+City 426,426,opened before the previous rank is 10% penetrated,City 425 is 0.2% penetrated in month 23,information
+City 427,427,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,685; the slowdown will hold them back",warning
+City 427,427,opened before the previous rank is 10% penetrated,City 426 is 0.2% penetrated in month 23,information
+City 428,428,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,676; the slowdown will hold them back",warning
+City 428,428,opened before the previous rank is 10% penetrated,City 427 is 0.3% penetrated in month 23,information
+City 429,429,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,666; the slowdown will hold them back",warning
+City 429,429,opened before the previous rank is 10% penetrated,City 428 is 0.2% penetrated in month 23,information
+City 430,430,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,657; the slowdown will hold them back",warning
+City 430,430,opened before the previous rank is 10% penetrated,City 429 is 0.2% penetrated in month 23,information
+City 431,431,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,648; the slowdown will hold them back",warning
+City 431,431,opened before the previous rank is 10% penetrated,City 430 is 0.3% penetrated in month 23,information
+City 432,432,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,638; the slowdown will hold them back",warning
+City 432,432,opened before the previous rank is 10% penetrated,City 431 is 0.2% penetrated in month 23,information
+City 433,433,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,629; the slowdown will hold them back",warning
+City 433,433,opened before the previous rank is 10% penetrated,City 432 is 0.2% penetrated in month 23,information
+City 434,434,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,620; the slowdown will hold them back",warning
+City 434,434,opened before the previous rank is 10% penetrated,City 433 is 0.2% penetrated in month 23,information
+City 435,435,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,611; the slowdown will hold them back",warning
+City 435,435,opened before the previous rank is 10% penetrated,City 434 is 0.2% penetrated in month 23,information
+City 436,436,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,602; the slowdown will hold them back",warning
+City 436,436,opened before the previous rank is 10% penetrated,City 435 is 0.2% penetrated in month 23,information
+City 437,437,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,593; the slowdown will hold them back",warning
+City 437,437,opened before the previous rank is 10% penetrated,City 436 is 0.3% penetrated in month 23,information
+City 438,438,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,583; the slowdown will hold them back",warning
+City 438,438,opened before the previous rank is 10% penetrated,City 437 is 0.2% penetrated in month 23,information
+City 439,439,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,574; the slowdown will hold them back",warning
+City 439,439,opened before the previous rank is 10% penetrated,City 438 is 0.3% penetrated in month 23,information
+City 440,440,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,565; the slowdown will hold them back",warning
+City 440,440,opened before the previous rank is 10% penetrated,City 439 is 0.2% penetrated in month 23,information
+City 441,441,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,556; the slowdown will hold them back",warning
+City 441,441,opened before the previous rank is 10% penetrated,City 440 is 0.2% penetrated in month 23,information
+City 442,442,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,548; the slowdown will hold them back",warning
+City 442,442,opened before the previous rank is 10% penetrated,City 441 is 0.2% penetrated in month 23,information
+City 443,443,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,539; the slowdown will hold them back",warning
+City 443,443,opened before the previous rank is 10% penetrated,City 442 is 0.3% penetrated in month 23,information
+City 444,444,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,530; the slowdown will hold them back",warning
+City 444,444,opened before the previous rank is 10% penetrated,City 443 is 0.3% penetrated in month 23,information
+City 445,445,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,521; the slowdown will hold them back",warning
+City 445,445,opened before the previous rank is 10% penetrated,City 444 is 0.3% penetrated in month 23,information
+City 446,446,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,512; the slowdown will hold them back",warning
+City 446,446,opened before the previous rank is 10% penetrated,City 445 is 0.2% penetrated in month 23,information
+City 447,447,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,504; the slowdown will hold them back",warning
+City 447,447,opened before the previous rank is 10% penetrated,City 446 is 0.2% penetrated in month 23,information
+City 448,448,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,495; the slowdown will hold them back",warning
+City 448,448,opened before the previous rank is 10% penetrated,City 447 is 0.2% penetrated in month 23,information
+City 449,449,would outgrow its headroom,"3 agents x 5,000 expected 5-year sign-ups each = 15,000 > remaining cap 4,486; the slowdown will hold them back",warning
+City 449,449,opened before the previous rank is 10% penetrated,City 448 is 0.2% penetrated in month 23,information
+City 450,450,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,478; the slowdown will hold them back",warning
+City 450,450,opened before the previous rank is 10% penetrated,City 449 is 0.2% penetrated in month 23,information
+City 451,451,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,469; the slowdown will hold them back",warning
+City 451,451,opened before the previous rank is 10% penetrated,City 450 is 0.2% penetrated in month 23,information
+City 452,452,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,460; the slowdown will hold them back",warning
+City 452,452,opened before the previous rank is 10% penetrated,City 451 is 0.2% penetrated in month 23,information
+City 453,453,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,452; the slowdown will hold them back",warning
+City 453,453,opened before the previous rank is 10% penetrated,City 452 is 0.3% penetrated in month 23,information
+City 454,454,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,443; the slowdown will hold them back",warning
+City 454,454,opened before the previous rank is 10% penetrated,City 453 is 0.2% penetrated in month 23,information
+City 455,455,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,435; the slowdown will hold them back",warning
+City 455,455,opened before the previous rank is 10% penetrated,City 454 is 0.2% penetrated in month 23,information
+City 456,456,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,427; the slowdown will hold them back",warning
+City 456,456,opened before the previous rank is 10% penetrated,City 455 is 0.2% penetrated in month 23,information
+City 457,457,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,418; the slowdown will hold them back",warning
+City 457,457,opened before the previous rank is 10% penetrated,City 456 is 0.2% penetrated in month 23,information
+City 458,458,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,410; the slowdown will hold them back",warning
+City 458,458,opened before the previous rank is 10% penetrated,City 457 is 0.3% penetrated in month 23,information
+City 459,459,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,402; the slowdown will hold them back",warning
+City 459,459,opened before the previous rank is 10% penetrated,City 458 is 0.3% penetrated in month 23,information
+City 460,460,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,393; the slowdown will hold them back",warning
+City 460,460,opened before the previous rank is 10% penetrated,City 459 is 0.3% penetrated in month 23,information
+City 461,461,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,385; the slowdown will hold them back",warning
+City 461,461,opened before the previous rank is 10% penetrated,City 460 is 0.3% penetrated in month 23,information
+City 462,462,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,377; the slowdown will hold them back",warning
+City 462,462,opened before the previous rank is 10% penetrated,City 461 is 0.2% penetrated in month 23,information
+City 463,463,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,369; the slowdown will hold them back",warning
+City 463,463,opened before the previous rank is 10% penetrated,City 462 is 0.3% penetrated in month 23,information
+City 464,464,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,360; the slowdown will hold them back",warning
+City 464,464,opened before the previous rank is 10% penetrated,City 463 is 0.2% penetrated in month 23,information
+City 465,465,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,352; the slowdown will hold them back",warning
+City 465,465,opened before the previous rank is 10% penetrated,City 464 is 0.3% penetrated in month 23,information
+City 466,466,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,344; the slowdown will hold them back",warning
+City 466,466,opened before the previous rank is 10% penetrated,City 465 is 0.2% penetrated in month 23,information
+City 467,467,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,336; the slowdown will hold them back",warning
+City 467,467,opened before the previous rank is 10% penetrated,City 466 is 0.3% penetrated in month 23,information
+City 468,468,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,328; the slowdown will hold them back",warning
+City 468,468,opened before the previous rank is 10% penetrated,City 467 is 0.2% penetrated in month 23,information
+City 469,469,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,320; the slowdown will hold them back",warning
+City 469,469,opened before the previous rank is 10% penetrated,City 468 is 0.3% penetrated in month 23,information
+City 470,470,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,312; the slowdown will hold them back",warning
+City 470,470,opened before the previous rank is 10% penetrated,City 469 is 0.2% penetrated in month 23,information
+City 471,471,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,304; the slowdown will hold them back",warning
+City 471,471,opened before the previous rank is 10% penetrated,City 470 is 0.3% penetrated in month 23,information
+City 472,472,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,297; the slowdown will hold them back",warning
+City 472,472,opened before the previous rank is 10% penetrated,City 471 is 0.2% penetrated in month 23,information
+City 473,473,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,289; the slowdown will hold them back",warning
+City 473,473,opened before the previous rank is 10% penetrated,City 472 is 0.2% penetrated in month 23,information
+City 474,474,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,281; the slowdown will hold them back",warning
+City 474,474,opened before the previous rank is 10% penetrated,City 473 is 0.2% penetrated in month 23,information
+City 475,475,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,273; the slowdown will hold them back",warning
+City 475,475,opened before the previous rank is 10% penetrated,City 474 is 0.3% penetrated in month 23,information
+City 476,476,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,265; the slowdown will hold them back",warning
+City 476,476,opened before the previous rank is 10% penetrated,City 475 is 0.2% penetrated in month 23,information
+City 477,477,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,258; the slowdown will hold them back",warning
+City 477,477,opened before the previous rank is 10% penetrated,City 476 is 0.2% penetrated in month 23,information
+City 478,478,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,250; the slowdown will hold them back",warning
+City 478,478,opened before the previous rank is 10% penetrated,City 477 is 0.2% penetrated in month 23,information
+City 479,479,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,242; the slowdown will hold them back",warning
+City 479,479,opened before the previous rank is 10% penetrated,City 478 is 0.3% penetrated in month 23,information
+City 480,480,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,235; the slowdown will hold them back",warning
+City 480,480,opened before the previous rank is 10% penetrated,City 479 is 0.2% penetrated in month 23,information
+City 481,481,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,227; the slowdown will hold them back",warning
+City 481,481,opened before the previous rank is 10% penetrated,City 480 is 0.3% penetrated in month 23,information
+City 482,482,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,219; the slowdown will hold them back",warning
+City 482,482,opened before the previous rank is 10% penetrated,City 481 is 0.2% penetrated in month 23,information
+City 483,483,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,212; the slowdown will hold them back",warning
+City 483,483,opened before the previous rank is 10% penetrated,City 482 is 0.2% penetrated in month 23,information
+City 484,484,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,204; the slowdown will hold them back",warning
+City 484,484,opened before the previous rank is 10% penetrated,City 483 is 0.3% penetrated in month 23,information
+City 485,485,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,197; the slowdown will hold them back",warning
+City 485,485,opened before the previous rank is 10% penetrated,City 484 is 0.3% penetrated in month 23,information
+City 486,486,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,189; the slowdown will hold them back",warning
+City 486,486,opened before the previous rank is 10% penetrated,City 485 is 0.2% penetrated in month 23,information
+City 487,487,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,182; the slowdown will hold them back",warning
+City 487,487,opened before the previous rank is 10% penetrated,City 486 is 0.3% penetrated in month 23,information
+City 488,488,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,174; the slowdown will hold them back",warning
+City 488,488,opened before the previous rank is 10% penetrated,City 487 is 0.2% penetrated in month 23,information
+City 489,489,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,167; the slowdown will hold them back",warning
+City 489,489,opened before the previous rank is 10% penetrated,City 488 is 0.2% penetrated in month 23,information
+City 490,490,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,160; the slowdown will hold them back",warning
+City 490,490,opened before the previous rank is 10% penetrated,City 489 is 0.2% penetrated in month 23,information
+City 491,491,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,152; the slowdown will hold them back",warning
+City 491,491,opened before the previous rank is 10% penetrated,City 490 is 0.3% penetrated in month 23,information
+City 492,492,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,145; the slowdown will hold them back",warning
+City 492,492,opened before the previous rank is 10% penetrated,City 491 is 0.3% penetrated in month 23,information
+City 493,493,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,138; the slowdown will hold them back",warning
+City 493,493,opened before the previous rank is 10% penetrated,City 492 is 0.2% penetrated in month 23,information
+City 494,494,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,131; the slowdown will hold them back",warning
+City 494,494,opened before the previous rank is 10% penetrated,City 493 is 0.2% penetrated in month 23,information
+City 495,495,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,123; the slowdown will hold them back",warning
+City 495,495,opened before the previous rank is 10% penetrated,City 494 is 0.3% penetrated in month 23,information
+City 496,496,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,116; the slowdown will hold them back",warning
+City 496,496,opened before the previous rank is 10% penetrated,City 495 is 0.2% penetrated in month 23,information
+City 497,497,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,109; the slowdown will hold them back",warning
+City 497,497,opened before the previous rank is 10% penetrated,City 496 is 0.3% penetrated in month 23,information
+City 498,498,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,102; the slowdown will hold them back",warning
+City 498,498,opened before the previous rank is 10% penetrated,City 497 is 0.3% penetrated in month 23,information
+City 499,499,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,095; the slowdown will hold them back",warning
+City 499,499,opened before the previous rank is 10% penetrated,City 498 is 0.2% penetrated in month 23,information
+City 500,500,would outgrow its headroom,"2 agents x 5,000 expected 5-year sign-ups each = 10,000 > remaining cap 4,088; the slowdown will hold them back",warning
+City 500,500,opened before the previous rank is 10% penetrated,City 499 is 0.3% penetrated in month 23,information

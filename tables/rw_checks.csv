@@ -1,0 +1,9 @@
+Check,Passes,Note
+rw profitable: every round dilutes at most 25% (the seed fixed),True,Seed 24.5%; A 18.0%
+rw profitable: cash stays at or above Rs 5 crore after the seed,True,"lowest Rs 50,778,733"
+rw profitable: cap table sums to 100% after every round,True,
+rw profitable: at most 4 new cities a month,True,
+rw profitable: no city past its (growing) cap,True,
+rw profitable: city CM2 adds to the company's CM2,True,
+rw unicorn: reproduces sat_sensitivity's row (total raised by m60),True,12230000000.0
+rw unicorn: cash stays at or above 0 through m96,True,

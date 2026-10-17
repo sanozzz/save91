@@ -1,0 +1,3 @@
+key,value,from
+breakeven_r12_salary_1pct_fee,0.4262929393926333,"still saving after 12 months at which one salaried agent breaks even over 3 years, middle inputs"
+breakeven_r12_salary_paytm_fee,0.26918454210315695,the same with a Paytm-like 4.5% loan fee

@@ -1,0 +1,12 @@
+variant,input,bear,base,bull,basis,notes
+weekly_payday,debits_scheduled,4.33,4.33,4.33,product design,One debit a week timed to the platform payout day; daily streak shown in the app
+weekly_payday,debits_success,3.5,3.9,4.2,assumption,Debit lands just after payout so fewer bounce for low balance
+weekly_payday,daily_amount,107,205,343,product design,Rupees per debit set so monthly saving equals the daily plan (375 / 800 / 1440 a month); clears the Rs 100 fund minimum [REG-043]
+blue_collar,ret_m1,0.7,0.74,0.82,assumption,"Lever D: salaried blue-collar via employers/staffing firms. Bear = no better than gig riders. Deloitte: average blue-collar tenure 21 months vs 13 for riders [LEV-049, INC-01]"
+blue_collar,ret_m3,0.48,0.53,0.65,assumption,"Flexi staff churn about 21-22% of headcount per quarter at Quess and TeamLease (derived) [LEV-048, LEV-053]"
+blue_collar,ret_m6,0.33,0.38,0.5,assumption,Lever D
+blue_collar,ret_m12,0.2,0.25,0.37,assumption,Lever D
+blue_collar,ret_m24,0.1,0.14,0.25,assumption,Lever D
+blue_collar,churn_late,0.02,0.018,0.012,assumption,Lever D
+blue_collar,cac_mult,1.10,0.95,0.80,assumption,"Onboarding at worksites through employers or staffing firms (TeamLease 2.9 lakh, Quess 4.7 lakh associates) [LEV-047, LEV-052]; Bueno's employer channel failed on small TAM (founder)"
+blue_collar,loan_approval,0.45,0.65,0.80,assumption,Salaried workers with payslips are easier to approve; payroll-deduction MF saving is still only a SEBI draft (May 2026) [LEV-045]

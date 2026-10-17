@@ -1,0 +1,11 @@
+key,value,from
+our_cost_to_win,240.0,"Rs 20,000 x 12 / 1,000"
+paytm_cost_vs_ours,20.833333333333332,story_paytm.csv / ours (Paytm's is an upper bound)
+paytm_cost_vs_ours_about,20,rounded down to a multiple of 5: 'about'
+our_all_in_per_proven_saver_year,439.3535973017546,"fund + loan fees + recoveries + insurance and other, a year"
+our_card_once_per_proven_saver,62.5,"5% x Rs 1,250, once"
+rent_vs_our_all_in,2.4581567253180814,Paytm device rent a year / our all-in a year
+our_fee_per_loan,6398.437500000001,"2.625% of Rs 2.5 lakh, less 2.5% taken back"
+paytm_fee_vs_ours_low,1.4417582417582415,ratio
+paytm_fee_vs_ours_high,1.6019536019536018,ratio
+our_breakeven_r12_5y,0.36912296615987705,xs_breakeven_v2.csv

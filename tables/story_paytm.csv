@@ -1,0 +1,21 @@
+key,value,from
+paytm_cost_to_win_upto,5000.0,QM-13 / NG-043: sales and service staff cost per net device added (upper bound; includes servicing)
+paytm_devices_dec23_cr,1.06,QM-06
+paytm_devices_mar24_cr,1.07,QM-07
+paytm_devices_jun26_cr,1.57,QM-09
+paytm_rent_a_month,90.0,"QM-10 note (Inc42, Q4 FY24)"
+paytm_rent_a_year,1080.0,x 12
+paytm_loan_ticket,205000.0,XB-08
+paytm_fee_per_loan_low,9225.0,XL-07 4.5%
+paytm_fee_per_loan_high,10250.0,XL-07 5%
+paytm_losses_low,0.045,QM-22
+paytm_losses_high,0.05,QM-22
+our_income_per_saver_year,210.0,fund Rs 147 + other products Rs 63
+our_fee_per_loan,2500.0,1% of Rs 2.5 lakh (before any fee taken back)
+rent_vs_our_income,5.142857142857143,ratio
+paytm_fee_vs_ours_low,3.69,ratio
+paytm_fee_vs_ours_high,4.1,ratio
+paytm_cost_vs_ours,12.5,ratio
+agent_covered_janta_1pct,0.8523879201183058,tables/agent3_funnel.csv
+agent_covered_janta_paytm_fee,1.2248548201209584,"income with loan fees x 4.5, over Rs 12 lakh"
+agent_income_janta_paytm_fee,1469825.78414515,Rs over 3 years

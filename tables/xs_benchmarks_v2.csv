@@ -1,0 +1,8 @@
+group,who,low_pct,high_pct,source_ids,note
+referral,"DSA, banks",0.5,1.5,LEV-009,"one-off, no servicing"
+referral,"DSA, NBFC and fintech lenders",1.0,3.0,LEV-009,"one-off, no servicing"
+referral,"DSA, personal loans (typical)",1.0,2.5,XL-13,can be taken back within 6 months
+marketplace,"Paisabazaar, at most",4.6,4.7,"XL-09, LEV-065","includes card fees, so the loan-only fee is lower"
+full service,"Paytm, merchant loans, no first-loss cover",4.5,5.0,XL-07,sources and collects over the loan's life
+full service,"Moneyview, with first-loss cover",11.0,11.0,LEV-061,"gross, carries first losses"
+ours,Us: 1.5 × a DSA (range 2%–3%),2.0,3.0,operator; XL-13,middle 2.625%

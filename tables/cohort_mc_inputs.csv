@@ -1,0 +1,133 @@
+key,input,shape,low,likely,high,from,note,source
+signups_run,"Sign-ups a month in year 1, once up to speed",pert,60.0,100.0,150.0,dist_agreed_v1.csv,,"operator (17 Oct: 100 a month; 'each guy will be different'); PR-01; IV-12; yours 100 (operator); PR-01: most field agents 100+ (PR-01); PR-01: top agents 120–150 (PR-01); earlier 30 (operator); a janta agent: 6–10 new a month (IV-12); PR-01 counts onboarding, not daily cash collection; our agent also serves and collects; the janta agent's 6–10 is a bank collector who is not selling"
+ramp_months,Months for a new agent to reach full speed,triangular,0.0,3.0,6.0,dist_agreed_v1.csv,,judgement; no data; starts at 50% of full speed and rises in a straight line
+signup_decline_y5,"Sign-ups by month 49, as a share of the year-1 level (straight line from month 12)",pert,0.5,0.7,0.9,dist_agreed_v1.csv,,operator (17 Oct): 'This can decline to 70 over 5 years'
+online_lead_share,Share of onboardings that start as bought online leads,pert,0.3,0.5,0.7,dist_agreed_v1.csv,,operator (17 Oct: 50%); range judgement; no app-only channel: every saver is served offline by the agent
+lead_cost,Our cost per online lead the agent converts (Rs),pert,150.0,250.0,499.0,dist_agreed_v1.csv,,"operator (17 Oct: ₹250); context: TB-18..TB-22, story_unit; finance-app installs ₹100–300 (TB-19); our full online cost per active saver ₹499 (story_unit)"
+fee_mult_start,Fee multiplier in company month 1,fixed,1.0,1.0,1.0,dist_agreed_v1.csv,,operator (17 Oct)
+fee_mult_end,Fee multiplier reached in company month 60,fixed,1.5,1.5,1.5,dist_agreed_v1.csv,,operator (17 Oct)
+r3,Still saving at month 3,pert,0.6,0.8,0.92,dist_agreed_v1.csv,,"IV-01, IV-12; agent3_survival; XO-05; an app's savers 52% (agent3_survival); a janta book ~92% (an existing book) (IV-12, IV-01); SBI ₹250 SIP, all frequencies: 64% still on at ~6 months (avg age) (XO-05); XO-05 is SBI MF's ₹250 Jan Nivesh SIP (daily, weekly and monthly; not Choti SIP): 35.64% of FY26 sign-ups had stopped by 1 Apr 2026, at an average age of ~6 months, so 64% still on at ~6 months (shown at month 6 on the curve)"
+r12,Still saving at month 12,pert,0.25,0.55,0.72,dist_agreed_v1.csv,file matches the operator decision,"operator (agreed 16 Oct: likely 55%); story_unit; IV-01, IV-11, IV-12; xs_breakeven_v2; an app's savers 24% (story_unit); your bear case 30–40% (operator); last deck needed 37% (xs_breakeven_v2); a janta book ~72% (an existing book) (IV-12, IV-11, IV-01); agreed by the operator 16 Oct (likely 55%); a janta book of 200–400 loses 6–10 a month: 8 of 300 a month is 72% after a year (IV-01, IV-12), an existing book's churn, not a new cohort; most have saved 5+ years (IV-11); 37% is the 5-year break-even on the last deck's inputs"
+churn_late,Monthly drop-off after month 12,pert,0.01,0.015,0.03,dist_agreed_v1.csv,,"TB-11; IV-01, IV-12; distributions.csv churn_late; Acorns ~1–1.3% (TB-11); a janta book ~2.7% (IV-12, IV-01); earlier model 0.8–3% (distributions.csv)"
+daily,Daily amount at sign-up (Rs),triangular,200.0,350.0,500.0,dist_agreed_v1.csv,,operator; IV-03; yours ₹350 (operator); a janta agent's savers ₹200–500 (IV-03)
+days,Deposit days a month,pert,16.0,20.0,24.0,dist_agreed_v1.csv,,judgement; last deck 20 (xs_inputs_v2); shop open ~26 days (our guess) (judgement)
+amount_growth,Growth in his daily amount per year saved,pert,0.0,0.05,0.1,dist_agreed_v1.csv,,judgement; last deck 0% (xs_inputs_v2); earlier model 0–20% (distributions.csv)
+term,Savings term (months),fixed,12.0,12.0,12.0,dist_agreed_v1.csv,,janta yearly terms
+rollover,Share of the balance left in the fund at each term end,pert,0.0,0.25,0.6,dist_agreed_v1.csv,,judgement; last deck 0% (all paid out) (xs_inputs_v2)
+withdraw_m,"Share of the balance withdrawn mid-term, each month",pert,0.0,0.01,0.03,dist_agreed_v1.csv,,judgement; last deck 0% (xs_inputs_v2)
+fund_return,"Saver's net return on the fund, a year",pert,0.06,0.07,0.075,dist_agreed_v1.csv,,context: OWN-02; judgement (agreed 16 Oct); liquid funds 5–6% (OWN-02) (OWN-02); operator: 'Hook is high savings rate in debt funds that we offer'; GAP: no short-duration debt-fund return row in research
+early_takeup_mult,Take-up factor in a saver's months 1-6,pert,0.25,0.5,0.75,dist_agreed_v1.csv,,judgement (agreed 16 Oct); operator: 'month 1 for marketplace can have low take up rates and approval rates but business starts from there'
+early_approval_mult,"Approval factor in a saver's months 1-6 (first loans, cards)",pert,0.4,0.6,0.8,dist_agreed_v1.csv,,context: XL-41; judgement (agreed 16 Oct); Kissht approves 11% of new applicants vs 74% of repeat ones (XL-41)
+signup_growth,Sign-up growth a year (superseded in round 8: 0),fixed,0.0,0.0,0.0,dist_agreed_v1.csv,,superseded 17 Oct
+takeup_growth,Every take-up rises each calendar year with the pool's history (cap 2x),pert,0.0,0.05,0.15,dist_agreed_v1.csv,,"judgement (agreed 16 Oct); cap: 2× the agreed rate; year y multiplier (1 + g)^(y − 1), on top of the early-months factor"
+approval_growth,First-loan and card approval rise each calendar year (cap 80% absolute),pert,0.0,0.1,0.2,dist_agreed_v1.csv,,context: XL-41; judgement (agreed 16 Oct); Kissht approves 74% of repeat applicants (XL-41); cap: 80% absolute; year y multiplier (1 + g)^(y − 1)
+ticket_growth,Next loan bigger for each year repaid (cap Rs 5 lakh),pert,0.0,0.1,0.2,dist_agreed_v1.csv,,context: XL-12; judgement (agreed 16 Oct); Bachatt's partners lend up to ₹5 lakh (XL-12); cap: ₹5 lakh (XL-12: Bachatt's partners lend up to ₹5 lakh)
+topup_share,"Borrowers with 12+ EMIs paid who take a top-up, a year",pert,0.05,0.15,0.3,dist_agreed_v1.csv,,context: NG-028; judgement (agreed 16 Oct); over half of Paytm's merchant-loan money goes to repeat borrowers (NG-028); earns the origination fee net of taken back; at most one top-up runs at a time; still-saving borrowers only; the lender's call
+topup_size,"Top-up size, share of his original ticket",pert,0.25,0.4,0.6,dist_agreed_v1.csv,,judgement (agreed 16 Oct); adds to the collections base pro rata by size
+trail,Fund commission a year (debt fund),pert,0.002,0.0035,0.005,dist_agreed_v1.csv,file matches the operator decision,"operator (agreed 16 Oct: debt fund); XB-04, TC-23; fund and adviser blogs: 0.2–0.5% (XB-04); a 2026 guide: 0.20–0.60% (TC-23); last deck 0.35% (xs_inputs_v2)"
+upi_12,Share of active savers on UPI by month 12,pert,0.1,0.3,0.6,dist_agreed_v1.csv,,"operator; IV-06, IV-07; today: under 10% of collections by UPI (IV-07); 9 or 10 of 10 customers have UPI (IV-06) but 90 or more of every ₹100 is collected in cash (IV-07), by habit (IV-08); the share rises in a straight line from 0 at month 1 to this value at month 12, then stays flat"
+upi_ramp,Age at which the UPI share reaches its month-12 level,fixed,12.0,12.0,12.0,dist_agreed_v1.csv,,COHORT_INPUTS
+visit_every,Days between cash visits,fixed,2.5,2.5,2.5,dist_agreed_v1.csv,,operator
+capacity,Cash visits one agent can make a day,triangular,300.0,400.0,450.0,dist_agreed_v1.csv,,IV-01; agent_3yr.py; a janta agent's book: 200–400 savers (IV-01); model so far 400 (agent_3yr.py)
+extra_capacity_cost,Extra capacity cost a month per 400 visits a day (Rs),fixed,20000.0,20000.0,20000.0,dist_agreed_v1.csv,,COHORT_INPUTS
+apply,"Proven savers with no loan running who apply, a year",pert,0.08,0.18,0.35,dist_agreed_v1.csv,,"XL-42, LS-06, XL-04; founder; Kissht 17.5% ever (XL-42); Brazil 20% year one (LS-06); founder 35% (founder); Paytm, any financial product ~0.9% a quarter (XL-04); XL-42 is cumulative since launch among loan-app users, so a yearly rate is far lower"
+eligible,Applicants eligible,pert,0.25,0.45,0.65,dist_agreed_v1.csv,,"context: XL-34, IV-04, XB-09; last deck 50% (xs_inputs_v2); earlier range 30–70% (agent3_funnel_inputs); no direct measure: a ₹10,073 EMI (36 months) needs ₹20,145+ income under the 50% rule (XL-34); his savers earn ₹20–40k (IV-04); 41% of small-business borrowers already have a loan (XB-09)"
+approved_first,"Approved, first loan",pert,0.2,0.35,0.5,dist_agreed_v1.csv,,"XL-41; founder; Kissht: 11% of new applicants (XL-41); founder, one lender: 25% (founder)"
+approved_repeat,"Approved, repeat loan",pert,0.5,0.7,0.85,dist_agreed_v1.csv,,"XL-41, NG-028; Kissht: 74% of repeat ones (XL-41); Paytm: >50% of loan money goes to repeat borrowers (NG-028); NG-028 is a share of loan money, not an approval rate; PM SVANidhi: 68% of first-loan repayers took a second (NG-014)"
+tenure,Loan tenure (months),pert,24.0,36.0,48.0,dist_agreed_v1.csv,file matches the operator decision,"agent3_funnel_inputs.csv (the ₹10,073 EMI basis); EMI basis ₹10,073 = 36 months (agent3_funnel_inputs); ₹2.5 lakh over 36 months at about 26% a year gives the ₹10,073 EMI"
+ticket,Loan size (Rs),pert,25000.0,250000.0,500000.0,dist_agreed_v1.csv,,"operator (agreed 16 Oct: range ₹25,000 to ₹5 lakh); XB-08, XL-42; yours ₹2.5 lakh (operator); Paytm average ₹2.05 lakh (Q4 FY24) (XB-08); segment average ~₹25.6k (Kissht) (XL-42); ticket_growth's cap stays ₹5 lakh"
+fee,"Origination fee at the start: a DSA's rate (ramps up, see the multipliers)",pert,0.01,0.0175,0.025,dist_agreed_v1.csv,,"XL-13, LEV-009; operator (17 Oct: start like a DSA, 1.5× over 5 years); bank DSA 0.5–1.5% (LEV-009); DSA personal loans 1–2.5% (XL-13); 1.5× by year 5: 2.625% (operator); Paytm 4.5–5% (XL-07); Paisabazaar ≤4.6–4.7%, incl. cards (XL-09, LEV-065); operator: 'initially we start like a DSA and then move that multiplier to 1.5x over few years...lets say 5 years...slowly'; housing loans keep their own DSA rates"
+taken_back,Fees taken back,triangular,0.0,0.025,0.05,dist_agreed_v1.csv,,"XL-13, XL-47; last deck 2.5% (xs_inputs_v2); fees can be taken back if the loan closes or goes bad within 6 months (XL-47); no published rate"
+rate,Loan interest rate a year (EMI basis),fixed,0.26,0.26,0.26,dist_agreed_v1.csv,,derived: agent3_funnel_inputs.csv
+loss,"Money lost on loans, after recoveries",pert,0.015,0.03,0.05,dist_agreed_v1.csv,,"XB-07, QM-22, SE-01, EVD-03, SE-02; operator; self-help groups 1.7–2.1% (SE-01, EVD-03); Paytm 4.5–5% (your worst case) (XB-07, QM-22); NBFC-MFI 5.4% (SE-02); the anchor for the collection buckets; Paytm's 4.5–5% is expected credit loss on merchant loans it sources, Q4 FY26, on lenders' books (XB-07, QM-22); SHG figures are gross bad loans (SE-01 1.74%, EVD-03 2.05%); NBFC-MFI 5.4% is gross, a stressed year (SE-02); the loss falls on the lender, not us (no first-loss cover): it moves the fee and approvals a lender gives us"
+owed,Share of the loan still owed when it goes 90+ days bad,fixed,0.5,0.5,0.5,dist_agreed_v1.csv,,addendum 3 (judgement)
+recovered,Recovered after 90 days,pert,0.3,0.35,0.5,dist_agreed_v1.csv,,"XB-07, GAP-02; operator; Paytm's figure 30–35% (XB-07); vendor table 30–50% (GAP-02); Published at the low end (Paytm, XB-07); the range above 35% is our judgement"
+early_cured,Loans that fall 31-90 days behind and our agent brings back,pert,0.1,0.2,0.35,dist_agreed_v1.csv,,"judgement (no published figure); no published figure; GAP-02's 70–85% / 50–70% are per-spell cure rates, so they cannot be chained into a lifetime share"
+fee_early,Our fee per early account brought back (Rs),pert,200.0,450.0,1000.0,dist_agreed_v1.csv,,"GAP-01; vendor table: ₹200–400 at 31–60 days, ₹500–1,000 at 61–90 (GAP-01)"
+fee_b3,Our fee per 90+ account recovered (Rs),pert,1000.0,2500.0,5000.0,dist_agreed_v1.csv,,"GAP-01; vendor table ₹1,000–5,000 (GAP-01)"
+leaver_loan,A saver who stops keeps paying his loan (1 = yes),fixed,1.0,1.0,1.0,dist_agreed_v1.csv,,COHORT_INPUTS
+card_share,Savers reaching month 7 who get a card,pert,0.01,0.03,0.06,dist_agreed_v1.csv,file matches the operator decision,"operator (agreed 16 Oct: 3%); XL-40, XL-54; 3% of Indians hold a card (XL-40); your first figure 5% (operator); FD-secured card guess 0.5–5% (XL-54); XL-40's 3% is a stock of card holders (PwC 2022), not a take-up rate"
+card_fee,Fee per card (Rs),pert,300.0,1000.0,2000.0,dist_agreed_v1.csv,,"BM-08, XL-20, XL-54; affiliate guides ₹500–2,000 (BM-08); GroMo sub-agents ₹1,000–2,400 (XL-20); FD-secured guess ₹300–1,500 (XL-54)"
+salary,Agent's salary a month (Rs),fixed,20000.0,20000.0,20000.0,dist_agreed_v1.csv,,operator; IV-13
+kyc_cost,Onboarding and KYC cost per sign-up (Rs),pert,25.0,40.0,100.0,dist_agreed_v1.csv,,"TC-35, REG-045, REG-069; build-up ₹25–60 (TC-35); fund KYC upload ₹30 (2012) (REG-045); video KYC ₹50–150 (REG-069)"
+support_cost,Support cost per active saver a month (Rs),pert,0.0,5.0,15.0,dist_agreed_v1.csv,,operator (agreed 16 Oct)
+discount,Discount rate a year,fixed,0.0,0.0,0.0,dist_agreed_v1.csv,file matches the operator decision,operator (16 Oct)
+marketplace_from,"First month a saver is offered loans, cards and cross-sell (age)",fixed,1.0,1.0,1.0,dist_agreed_v1.csv,,operator (16 Oct)
+cash_cover,"Cash cover: fidelity and cash-in-transit insurance, per agent a month (Rs)",pert,500.0,1000.0,2000.0,dist_agreed_v1.csv,,judgement; GAP (no research row); operator: 'Daily deposit + cover'; GAP: no research row for fidelity or cash-in-transit cover; deposit charges sit inside the ₹5 running cost
+ins_partner_share,Share of insurance commission that reaches us through a broker partner,pert,0.6,0.75,0.9,dist_agreed_v1.csv,,"operator (partners' licences); judgement; operator: 'Partners' licences'; fund trail (our own ARN), loan and card fees and the other-lender loans stay whole"
+agent_balance_pay,"Agent pay on his savers' average balance, a year (company months 1-60; 0.10% after)",fixed,0.001,0.0025,0.0025,dist_agreed_v1.csv,,operator (16 Oct)
+incentive_cap,"Cap on the agent's balance pay, per agent a month (Rs)",fixed,10000.0,10000.0,10000.0,dist_agreed_v1.csv,,"operator (17 Oct): 'salary only team is tough... some incentives'; tap: '0.25% of balance, capped'"
+hlth_small_takeup,Small health / hospital cash: take-up a year (savers offered who don't hold it),pert,0.02,0.06,0.15,dist_agreed_v1.csv,,"XO-31, XO-10; judgement; 62.2% of platform workers have no health cover (XO-31); PhonePe ₹8 insurance revenue a user (XO-10)"
+hlth_small_ticket,Small health / hospital cash: ticket,pert,300.0,800.0,1500.0,dist_agreed_v1.csv,,"XO-35, XO-30; hospital cash from ₹799 (XO-35); Bima Vistaar ₹1,500 (XO-30)"
+hlth_small_comm,Small health / hospital cash: our commission,pert,0.1,0.14,0.15,dist_agreed_v1.csv,,"REG-054, XO-19; draft cap 15% (distributors) / 20% (agents) (REG-054); capped at the draft distributor (IDE) cap of 15% (16.5–18% in small towns and rural areas, XO-19); agreed 16 Oct: the draft caps"
+hlth_small_renew,Small health / hospital cash: renews / continues a year,pert,0.3,0.5,0.7,dist_agreed_v1.csv,,"XO-24, TB-23; micro-insurance renewals 4–61% (XO-24); auto-debited PMJJBY / PMSBY 51–70% (TB-23)"
+hlth_small_renew_comm,Small health / hospital cash: renewal commission,fixed,0.05,0.05,0.05,dist_agreed_v1.csv,,"REG-054, XO-19, XO-20"
+hlth_family_takeup,Family health cover: take-up a year (savers offered who don't hold it),pert,0.005,0.02,0.05,dist_agreed_v1.csv,,judgement
+hlth_family_ticket,Family health cover: ticket,pert,5500.0,8000.0,15000.0,dist_agreed_v1.csv,,"GAP-04; ₹5 lakh floater ₹5,581–6,560 (GAP-04); a family of four at age 35 costs more than GAP-04's 30-year-old"
+hlth_family_comm,Family health cover: our commission,pert,0.1,0.14,0.15,dist_agreed_v1.csv,,REG-054; draft cap 15% / 20% (REG-054); capped at the draft distributor cap of 15%
+hlth_family_renew,Family health cover: renews / continues a year,pert,0.6,0.75,0.89,dist_agreed_v1.csv,,XO-09; Policybazaar health renewals ~89% (XO-09)
+hlth_family_renew_comm,Family health cover: renewal commission,fixed,0.05,0.05,0.05,dist_agreed_v1.csv,,"REG-054, XO-19, XO-20"
+life_term_takeup,Term life (small cover): take-up a year (savers offered who don't hold it),pert,0.01,0.03,0.06,dist_agreed_v1.csv,,XO-32; 65% of gig workers lack life cover (XO-32)
+life_term_ticket,Term life (small cover): ticket,pert,500.0,1000.0,2000.0,dist_agreed_v1.csv,,judgement; no premium source in research
+life_term_comm,Term life (small cover): our commission,pert,0.075,0.2,0.25,dist_agreed_v1.csv,,"XO-20; draft caps: single 7.5%, multi-year 25% / 30% (XO-20); capped at the draft distributor cap of 25% for multi-year pure term"
+life_term_renew,Term life (small cover): renews / continues a year,pert,0.6,0.75,0.85,dist_agreed_v1.csv,,TB-24; 13th-month persistency 64–83% (TB-24)
+life_term_renew_comm,Term life (small cover): renewal commission,fixed,0.075,0.075,0.075,dist_agreed_v1.csv,,"REG-054, XO-19, XO-20"
+accident_takeup,Personal accident: take-up a year (savers offered who don't hold it),pert,0.02,0.05,0.1,dist_agreed_v1.csv,,XO-31; 44% of platform workers have no accident cover (XO-31)
+accident_ticket,Personal accident: ticket,pert,100.0,250.0,500.0,dist_agreed_v1.csv,,judgement; no premium source in research
+accident_comm,Personal accident: our commission,pert,0.1,0.14,0.15,dist_agreed_v1.csv,,XO-19; draft cap: retail 15% / 17.5% (XO-19); capped at the draft distributor cap of 15% for retail personal accident
+accident_renew,Personal accident: renews / continues a year,pert,0.3,0.5,0.7,dist_agreed_v1.csv,,TB-23; auto-debited PMSBY ~70% (TB-23)
+accident_renew_comm,Personal accident: renewal commission,fixed,0.05,0.05,0.05,dist_agreed_v1.csv,,"REG-054, XO-19, XO-20"
+two_wheeler_takeup,Two-wheeler insurance: take-up a year (savers offered who don't hold it),pert,0.05,0.15,0.3,dist_agreed_v1.csv,,XO-22; 54% of vehicles uninsured (XO-22)
+two_wheeler_ticket,Two-wheeler insurance: ticket,pert,714.0,1000.0,1200.0,dist_agreed_v1.csv,,XO-21; third-party ₹714 (IRDAI) (XO-21)
+two_wheeler_comm,Two-wheeler insurance: our commission,pert,0.025,0.0475,0.0905,dist_agreed_v1.csv,,"XO-18; draft caps: motor TP nil–5%, OD 5–15% (XO-18)"
+two_wheeler_renew,Two-wheeler insurance: renews / continues a year,pert,0.5,0.7,0.85,dist_agreed_v1.csv,,judgement; renewals pay two_wheeler_comm (the same rate)
+device_takeup,Mobile / device insurance: take-up a year (savers offered who don't hold it),pert,0.01,0.03,0.06,dist_agreed_v1.csv,,judgement
+device_ticket,Mobile / device insurance: ticket,triangular,209.0,500.0,899.0,dist_agreed_v1.csv,,XO-34; plans ₹209–899 (XO-34)
+device_comm,Mobile / device insurance: our commission,pert,0.1,0.13,0.15,dist_agreed_v1.csv,,XO-19; draft cap: retail 15% / 17.5% (XO-19); capped at the draft distributor cap of 15%
+shop_takeup,Shop insurance (fire and burglary): take-up a year (savers offered who don't hold it),pert,0.01,0.03,0.08,dist_agreed_v1.csv,,judgement
+shop_ticket,Shop insurance (fire and burglary): ticket,pert,250.0,700.0,2600.0,dist_agreed_v1.csv,,"GAP-05; Digit via Fino ₹550–2,600; ICICI Lombard from ₹250 (GAP-05)"
+shop_comm,Shop insurance (fire and burglary): our commission,pert,0.1,0.14,0.15,dist_agreed_v1.csv,,XO-19; draft cap: retail incl. shopkeepers 15% / 17.5% (XO-19); capped at the draft distributor cap of 15% for retail cover
+shop_renew,Shop insurance (fire and burglary): renews / continues a year,pert,0.5,0.65,0.8,dist_agreed_v1.csv,,judgement
+shop_renew_comm,Shop insurance (fire and burglary): renewal commission,fixed,0.05,0.05,0.05,dist_agreed_v1.csv,,"REG-054, XO-19, XO-20"
+sip_takeup,Equity/hybrid SIP trail: take-up a year (savers offered who don't hold it),pert,0.05,0.1,0.2,dist_agreed_v1.csv,,XO-32; 77% of gig workers hold no fund (XO-32)
+sip_ticket,Equity/hybrid SIP trail: SIP a month (Rs),pert,250.0,500.0,1000.0,dist_agreed_v1.csv,,"XO-07; all-India average SIP ₹3,224 a month (XO-07)"
+sip_comm,"Equity/hybrid SIP trail: trail a year, of the SIP balance",pert,0.005,0.0075,0.009,dist_agreed_v1.csv,,"XO-08, XO-36; Prudent earns 0.88–0.91% (XO-08); Groww sells direct plans and earns about nothing (XO-36)"
+sip_renew,Equity/hybrid SIP trail: SIP survives a year,pert,0.5,0.65,0.8,dist_agreed_v1.csv,,XO-06; SIP stoppage ratio 81% of new ones (XO-06)
+choti_takeup,Choti SIP incentive: take-up a year (savers offered who don't hold it),pert,0.045,0.09,0.18,dist_agreed_v1.csv,,XO-04; 3.22 lakh Choti SIPs by Jun 2026 (XO-04)
+choti_ticket,"Choti SIP incentive: incentive (Rs, once at month 24)",fixed,500.0,500.0,500.0,dist_agreed_v1.csv,,XO-01
+choti_renew,Choti SIP incentive: SIP survives to month 24,pert,0.15,0.25,0.4,dist_agreed_v1.csv,read from choti_survive24,"XO-04, XO-05; +28,000 / −20,000 a month on 3.22 lakh (XO-04)"
+nps_takeup,NPS: take-up a year (savers offered who don't hold it),pert,0.01,0.03,0.05,dist_agreed_v1.csv,,judgement
+nps_ticket,NPS: ticket,fixed,200.0,200.0,200.0,dist_agreed_v1.csv,,XO-16
+nps_comm,NPS: our commission,fixed,1.0,1.0,1.0,fallback (COHORT_INPUTS / addenda),,fallback: COHORT_INPUTS / addendum
+gold_takeup,Digital gold: take-up a year (savers offered who don't hold it),pert,0.03,0.08,0.15,dist_agreed_v1.csv,,"judgement; SEBI cautioned on digital gold (SAV-11), which also backs the founder's no-gold-at-launch choice"
+gold_ticket,Digital gold: bought a month (Rs),pert,100.0,300.0,600.0,dist_agreed_v1.csv,,judgement
+gold_comm,Digital gold: commission on purchases,fixed,0.024,0.024,0.024,dist_agreed_v1.csv,,"LEV-036, LEV-037"
+gold_renew,Digital gold: buying continues a year,pert,0.5,0.65,0.8,dist_agreed_v1.csv,,judgement
+fd_takeup,FD via partner banks: take-up a year (savers offered who don't hold it),pert,0.05,0.1,0.2,dist_agreed_v1.csv,,judgement
+fd_ticket,FD via partner banks: FD amount (Rs),pert,5000.0,10000.0,20000.0,dist_agreed_v1.csv,,judgement
+fd_comm,FD via partner banks: commission (one year of the FD),pert,0.001,0.005,0.01,dist_agreed_v1.csv,,"XO-37, BM-03; Stable Money 0.11% of FD assets (XO-37); FD platforms ~0.4–1% (BM-03)"
+recharge_takeup,Mobile recharge: take-up a year (savers offered who don't hold it),pert,0.1,0.25,0.5,dist_agreed_v1.csv,,judgement
+recharge_ticket,Mobile recharge: recharges a year (Rs),fixed,2600.0,2600.0,2600.0,dist_agreed_v1.csv,,XO-33
+recharge_comm,Mobile recharge: commission,pert,0.01,0.02,0.03,dist_agreed_v1.csv,,XO-25; Jio retailer margin 2–4% (XO-25); an app usually gets less than a retailer
+recharge_renew,Mobile recharge: renews / continues a year,fixed,1.0,1.0,1.0,fallback (COHORT_INPUTS / addenda),,fallback: COHORT_INPUTS / addendum
+bills_takeup,Bill payments: take-up a year (savers offered who don't hold it),pert,0.1,0.25,0.5,dist_agreed_v1.csv,,judgement
+bills_ticket,Bill payments: bills a year,pert,12.0,24.0,36.0,dist_agreed_v1.csv,,judgement
+bills_comm,Bill payments: Rs a bill,triangular,1.0,2.0,3.0,dist_agreed_v1.csv,,XO-26; agent rate cards ₹1–3 a bill (XO-26)
+bills_renew,Bill payments: renews / continues a year,fixed,1.0,1.0,1.0,fallback (COHORT_INPUTS / addenda),,fallback: COHORT_INPUTS / addendum
+loan_gold_takeup,Gold loan (other lenders): take-up a year (savers offered who don't hold it),pert,0.02,0.05,0.1,dist_agreed_v1.csv,,"XL-28; gold loans: 381 lakh a quarter, the most by count (XL-28)"
+loan_gold_ticket,Gold loan (other lenders): ticket,pert,30000.0,50000.0,80000.0,dist_agreed_v1.csv,,judgement
+loan_gold_comm,Gold loan (other lenders): our commission,pert,0.005,0.01,0.015,dist_agreed_v1.csv,,GAP-06; no gold-loan payout found; DSA 1–3% in general (GAP-06); gold loans are short and low-margin
+loan_cd_takeup,Consumer-durable loan: take-up a year (savers offered who don't hold it),pert,0.005,0.02,0.05,dist_agreed_v1.csv,,XL-54
+loan_cd_ticket,Consumer-durable loan: ticket,pert,10000.0,20000.0,30000.0,dist_agreed_v1.csv,,"XL-54; ₹10,000–30,000 (assumed) (XL-54)"
+loan_cd_comm,Consumer-durable loan: our commission,pert,0.01,0.02,0.03,dist_agreed_v1.csv,,XL-54; 1–3% (assumed) (XL-54)
+loan_vehicle_takeup,Two-wheeler / e-rickshaw loan: take-up a year (savers offered who don't hold it),pert,0.001,0.005,0.01,dist_agreed_v1.csv,,XL-54; 0.1–1% (assumed) (XL-54)
+loan_vehicle_ticket,Two-wheeler / e-rickshaw loan: ticket,pert,80000.0,150000.0,600000.0,dist_agreed_v1.csv,,"judgement; context: XL-54; ₹1.5–6 lakh for autos and e-rickshaws (context) (XL-54); judgement: the ₹80,000 low covers two-wheeler loans; XL-54's ₹1.5–6 lakh is for autos and e-rickshaws"
+loan_vehicle_comm,Two-wheeler / e-rickshaw loan: our commission,pert,0.005,0.01,0.02,dist_agreed_v1.csv,,XL-54; 0.5–2% (assumed) (XL-54)
+loan_home_takeup,Home loan (affordable housing): take-up a year (savers offered who don't hold it),pert,0.005,0.015,0.03,dist_agreed_v1.csv,,"XL-24, XL-25; operator (family income counts); judgement; Aavas: 61% of borrowers self-employed (XL-24); Home First serves incomes under ₹50,000 a month (XL-25); a ₹25 lakh loan over 20 years at ~9% has a ₹22,500 EMI, which needs ~₹45,000 a month of income at the 50% rule; his savers earn ₹20–40k (IV-04); family income counts (operator), so co-applicants widen eligibility"
+loan_home_ticket,Home loan (affordable housing): loan size (Rs),pert,1000000.0,2500000.0,5000000.0,dist_agreed_v1.csv,,"operator ('upto 20-50 lakhs'); XL-29, XL-26; average home loan ₹32 lakh (XL-29); PMAY-U 2.0 subsidy up to ₹1.8 lakh (XL-26)"
+loan_home_comm,"Home loan (affordable housing): our fee, share of the loan",pert,0.003,0.005,0.01,dist_agreed_v1.csv,,XL-15; home-loan DSA 0.3–1% (typical 0.4–0.6%) (XL-15)
+loan_home_approval,Home loan (affordable housing): approval share,pert,0.3,0.45,0.6,dist_agreed_v1.csv,,"judgement; secured, so above unsecured approval; early-months factors and approval_growth (cap 80%) apply; no collection fees, no ticket growth"
+loan_lap_takeup,Loan against property (shop or home): take-up a year (savers offered who don't hold it),pert,0.002,0.005,0.01,dist_agreed_v1.csv,,judgement
+loan_lap_ticket,Loan against property (shop or home): loan size (Rs),pert,500000.0,1500000.0,3000000.0,dist_agreed_v1.csv,,judgement
+loan_lap_comm,"Loan against property (shop or home): our fee, share of the loan",pert,0.005,0.01,0.015,dist_agreed_v1.csv,,XL-16; LAP DSA 0.5–1.5% (XL-16)
+loan_lap_approval,Loan against property (shop or home): approval share,pert,0.3,0.45,0.6,dist_agreed_v1.csv,,"judgement; secured, so above unsecured approval; early-months factors and approval_growth (cap 80%) apply; no collection fees, no ticket growth"

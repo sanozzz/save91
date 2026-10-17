@@ -1,0 +1,132 @@
+slide,number_as_shown,source_file,row_id_or_table_row,value_in_source,population_date,status,note
+S1 picture,₹100 a day,deck slide 'k-pipe' (step 2); 'money' notes,design amount,₹100 a day,[Name]'s design amount (founder's design),match,"A design input, not a market fact"
+S2 title,about 1.4 crore,janta_pipe/research_sizing.csv,SIZE-16,1.4 crore (range 1.0-1.8),Urban non-farm own-account workers and employers earning > Rs 30k/month gross; 2025 (modelled),match,Model estimate; range shown in picture
+S2 picture,about 34 crore self-employed,janta_pipe/research_sizing.csv,SIZE-03,33.97 crore,"Self-employed aged 15+, usual status, all-India, Jan-Dec 2025 (PLFS)",rounded-ok,+0.03 crore with 'about'; same figure as current deck
+S2 picture,≈1.4 crore,janta_pipe/research_sizing.csv,SIZE-16,1.4 crore,as above,match,
+S2 picture,range 1.0–1.8 crore,janta_pipe/research_sizing.csv,SIZE-16,1.0-1.8 crore if share is 17-30%,as above,match,
+S2 picture,"over ₹30k a month, gross",janta_pipe/research_sizing.csv,SIZE-16,> Rs 30k gross,threshold of the core,match,Gross for market size (founder's decision)
+S2 picture,a few lakh at most (skilled gig pros taking home > ₹30k),janta_pipe/research_gig30k.csv,GIG-24,0.1-3 lakh (judgement),"Gig/platform workers netting > Rs 30k a month, India, 2025-26",match,Labelled our judgement; take-home basis
+S2 notes,30 crore (Bachatt's headline),janta_pipe/research_sizing.csv,SIZE-20,30 crore (company framing),"Bachatt Series A release, 30 Mar 2026",match,Company claim
+S2 notes,about 34 crore self-employed,janta_pipe/research_sizing.csv,SIZE-03,33.97 crore,PLFS 2025,rounded-ok,
+S2 notes,9.2 crore unpaid family helpers,janta_pipe/research_sizing.csv,SIZE-04,9.16 crore,"Self-employed aged 15+, usual status, 2025",rounded-ok,
+S2 notes,13 crore farmers,janta_pipe/research_sizing.csv,SIZE-07,12.99 crore,"Own-account workers and employers in agriculture, 2025",rounded-ok,
+S2 notes,6.0 crore in towns and cities,janta_pipe/research_sizing.csv,SIZE-08,6.01 crore,"Urban non-farm own-account workers and employers, 2025",rounded-ok,
+S2 notes,"₹23,012 a month, gross",janta_pipe/research_sizing.csv,SIZE-10,"Rs 23,012 (urban person)","Urban self-employed, CWS, mean gross earnings, Jan-Dec 2025",match,
+S2 notes,roughly 23%,janta_pipe/research_sizing.csv,SIZE-15,22-23% (urban),"Urban self-employed earners above Rs 30k gross, 2025 (modelled)",match,Model share
+S2 notes,2017-18 (only published spread),janta_pipe/research_sizing.csv,SIZE-12,PLFS 2017-18 unit-level spread,"Self-employed reporting earnings, 2017-18",match,Date label
+S2 notes,range 1.0–1.8 crore,janta_pipe/research_sizing.csv,SIZE-16,1.0-1.8 crore,as above,match,
+S2 notes,1.43 crore gig workers (2022 projection for 2025-26),janta_pipe/research_gig30k.csv,GIG-02,1.43 crore (2025-26 projected),"Gig workers, platform + non-platform (NITI, Jun 2022 projection)",match,"Projection, not a count"
+S2 notes,₹27.8k gross,janta_pipe/research_gig30k.csv,GIG-19,"Rs 27,814 gross","Consistent full-time delivery riders, one platform, 2024",rounded-ok,
+S2 notes,₹18.8k take-home,janta_pipe/research_gig30k.csv,GIG-19,"Rs 18,761 net",as above,rounded-ok,Rounded as on current deck ('g-gross')
+S2 notes,−₹275 per rider,tables/lend_customer.csv,"Delivery riders, lend, savers safer, takeup 0.2, evidence (cac 450.12)",-275.16,"Value per rider won over 5 years, founder's model",match,Nearest rupee
+S2 notes,1 in 5 borrowing,tables/lend_customer.csv,takeup column,0.2,Model base,match,
+S3 picture,2 lakh+ daily agents in Maharashtra,janta_pipe/research_sizing.csv,SIZE-22 (deck slide 'size'),"2 lakh+ agents, ~1 crore families","Maharashtra credit co-ops, 2025-26",match,"Clue, not a national count"
+S3 picture,2025–26,janta_pipe/research_sizing.csv,SIZE-22,2025-26,as above,match,Date label
+S3 picture,27 lakh repaid,"deck slides 'why' and 'size' (Angel One, Jul 2025)",Sahara refund line,27.3 lakh by 23 Jul 2025,Depositors in the refund pool of Sahara's four co-op societies,rounded-ok,
+S3 picture,1.35 crore depositors,deck slides 'why' and 'size',Sahara refund line,1.35 crore,Eligible pool of the government refund portal,match,
+S3 picture,Jul 2025,deck slide 'why',Sahara refund line,23 Jul 2025,as above,match,Date label
+S3 notes,2 lakh+ agents,janta_pipe/research_sizing.csv,SIZE-22,2 lakh+,"Maharashtra, 2025-26",match,
+S3 notes,about 1 crore families,janta_pipe/research_sizing.csv,SIZE-22,~1 crore families,"Maharashtra, 2025-26",match,
+S3 notes,none of 22 platform workers (2022),janta_pipe/research_gig30k.csv,GIG-45,0 of 22 formal; 9 of 22 chit,"22 platform workers, Bengaluru diaries, 2022",match,Small sample
+S4 title,most (small businesses have no formal credit),research/nongig.csv; research/xs_bachatt.csv,NG-042; XB-09,~41% have formal credit (so ~59% do not),"Indian MSMEs / commercial entities incl. proprietors, Mar 2026",match,Complement of 41%; no number in title
+S4 picture,about 4 in 10,research/nongig.csv; research/xs_bachatt.csv,NG-042; XB-09,~41% (NG-042); 41% with an active formal loan (XB-09),"Indian MSMEs incl. sole proprietors, TransUnion CIBIL-SIDBI MSME Pulse, Jul 2026 (as of Mar 2026)",rounded-ok,NG-042 confirmed (newsroom read); XB-09 search summary
+S4 notes,4 in 10 (as of Mar 2026),research/nongig.csv; research/xs_bachatt.csv,NG-042; XB-09,41%,as above,rounded-ok,
+S4 notes,1 in 4 applicants approved (2019–22),tables/inputs_founder_*.csv,approval_rate,0.25,"Applicants to the founder's past lending business, all channels, 2019-2022",match,Different group from S4's claim; kept to notes
+S4 notes,most of those loans came through platforms,tables/deck_facts.csv,"platform-share row (founder data, 30 Sep 2026)",over 75%,The founder's past loans,match,
+S5 picture,"₹4,500 crore of shop loans (FY25)",research/xs_lending.csv,XL-10,"Rs 4,507 cr disbursed FY25","PhonePe merchant loans via 56 lending partners, per DRHP",rounded-ok,"Rounded down; 'arranged', not 'lent'"
+S5 picture,about 9 QR codes per merchant (FY25),janta_pipe/research_sizing.csv,SIZE-19,"56.86 crore QR codes / 6.5 crore merchants, 'about 9 per merchant'","UPI merchants and QR codes, FY25 (PIB)",match,Source's own wording
+S5 notes,₹11 crore in FY23,research/nongig.csv,NG-029,Rs 11 cr (FY23),PhonePe merchant loan disbursals,match,
+S5 notes,"₹4,507 crore in FY25",research/xs_lending.csv,XL-10,"Rs 4,507 cr",PhonePe merchant loan disbursals FY25,match,
+S5 notes,6.5 crore UPI merchants,janta_pipe/research_sizing.csv,SIZE-19,6.5 crore,"UPI merchants FY25 (businesses, not people)",match,
+S5 notes,56.86 crore QR codes,janta_pipe/research_sizing.csv,SIZE-19,56.86 crore,UPI QR codes FY25,match,
+S5 notes,about 1 in 4 registered PhonePe shops used it in a month,research/nongig.csv,NG-038,~24% (1.131 cr MAU / 4.719 cr registered),PhonePe merchants; MAU Mar 2025 vs registered Sep 2025 (derived),match,
+S5 notes,since Feb 2025 (Uber Auto),janta_pipe/research_gig30k.csv,GIG-28,2025-02-19,"Uber auto-rickshaw drivers, all India",match,Date label
+S5 notes,"no UPI fee up to ₹2,000",research/nongig.csv; deck slide 'qr',NG-030,"0.4% MDR only above Rs 2,000 (P2M); P2PM zero",All UPI P2M/P2PM merchants,match,
+S5 notes,15 Oct 2026,research/nongig.csv,NG-030,2026-10-15 (effective),as above,match,Date label
+S6 title,₹100 a day,deck slide 'k-pipe',design amount,₹100 a day,[Name]'s design,match,
+S6 picture,₹100 a day,deck slide 'k-pipe',design amount,₹100 a day,[Name]'s design,match,
+S6 picture,55–90% of AutoPay attempts failed (Aug 2025),research/tri_behaviour.csv,TB-13,55-90% failed,"All UPI AutoPay execution attempts at major remitter banks, Aug 2025, counted per attempt",match,"Attempts, not savers"
+S6 notes,"up to ₹50,000 a day per fund",research/regulation_rails.csv,REG-041,"lower of Rs 50,000 or 90% per day per scheme",Resident investors in liquid/overnight funds offering instant access,match,
+S6 notes,"about ₹2,500 a month",deck slide 'k-pipe' notes,Rs 100 x 25 days,"Rs 2,500",Design arithmetic,match,
+S6 notes,25 saving days,deck slide 'k-pipe' notes,Rs 100 x 25 days,25,Design assumption,match,
+S6 notes,55–90%,research/tri_behaviour.csv,TB-13,55-90%,as above,match,
+S6 notes,Sep 2025 (PhonePe lends against mutual funds),"deck slides 'b-copied', 'compare' (Business Standard, Sep 2025)",PhonePe x DSP Finance line,Sep 2025,PhonePe loans against mutual funds,match,Date label
+S6 notes,about 0.3% of fund investors,research/tri_behaviour.csv,TB-44,"~0.3% (Volt customers / unique MF investors, derived)","Indian MF investors, 2025-26; one platform",match,"Rough ratio, labelled"
+S7 picture,May 2025 (Bachatt launches),deck slide 'a1-facts',app live,May 2025,Bachatt (Trusave Fintech),match,Date label
+S7 picture,Dec 2025 (PhonePe Daily SIP),deck slide 'b-copied',PhonePe Wealth launch,11 Dec 2025,PhonePe Daily SIP,match,Date label
+S7 picture,≈1 lakh daily savers (Feb 2026),research/xs_bachatt.csv,XB-03,Derived ~100k (2M txns a month / ~20 debits),"Bachatt, Feb 2026",match,"Our estimate, labelled"
+S7 picture,5 lakh+ investors (Aug 2026),"deck slide 'b-copied' (Outlook Business, 3 Aug 2026)",PhonePe Daily SIP line,5 lakh+ unique investors,"Everyone onboarded since launch, by Aug 2026",match,Not like-for-like with ≈1 lakh; no bars
+S7 notes,app live May 2025,deck slide 'a1-facts',company row,May 2025,Bachatt,match,
+S7 notes,$16M raised,deck slide 'a1-facts',funding row,$4M seed + $12M Series A = $16M,"Bachatt, lifetime to Mar 2026",match,
+S7 notes,₹51 a day,deck slide 'a1-facts',savings products row,Rs 51 a day,Bachatt daily SIP minimum,match,
+S7 notes,up to ₹5 lakh,research/xs_bachatt.csv,XB-10,"up to Rs 5,00,000",Bachatt loans via partners,match,
+S7 notes,7 lending partners,deck slide 'a1-facts'; tables/deck_facts.csv,bachatt_lenders,7,Lending partners listed by Bachatt,match,
+S7 notes,2M fund purchases in Feb 2026,research/xs_bachatt.csv,XB-03,"2M+ MF transactions, Feb 2026",Bachatt,match,
+S7 notes,about 20 debits each,research/xs_bachatt.csv,XB-03 notes,~20 debits per daily saver,Our assumption,match,
+S7 notes,3M users (claim),research/xs_bachatt.csv,XB-03,3M+ users,"Bachatt, since May 2025",match,Company claim
+S7 notes,₹10 a day,deck slide 'b-copied',PhonePe Daily SIP line,from Rs 10 a day,PhonePe Daily SIP,match,
+S7 notes,seven months,"deck slides 'a1-facts', 'b-copied'",May 2025 to Dec 2025,7 months,Launch dates,match,
+S7 notes,Sep 2025 (loans against mutual funds),"deck slides 'b-copied', 'hold'",PhonePe x DSP Finance line,Sep 2025,PhonePe,match,Date label
+S7 notes,₹2 lakh loan,"deck slides 'model', 'b-copied'",worked example,Rs 2 lakh,Illustrative loan,match,
+S7 notes,"₹2,000–5,000 once","deck slides 'model', 'money'; research/xs_lending.csv",XL-14 (1-2.5% business-loan DSA payout),"Rs 2,000-5,000 on Rs 2 lakh","Indian DSA payouts, Aug 2026",match,
+S7 notes,"about ₹14,600",research/xs_lending.csv; deck slide 'model',XL-11,"7.3% (Rs 328 cr / Rs 4,507 cr) x Rs 2 lakh",PhonePe FY25 merchant-lending revenue / disbursals,match,"Rough ratio, labelled"
+S8 title,about ₹200,tables/lend_customer.csv,"Shopkeepers, lend, industry steady state, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",204.59,"Value per shop owner won, 5 years, after cost to win, 1 in 5 borrow",rounded-ok,Rounded down
+S8 picture,5 years,tables/lend_customer.csv,model horizon,5-year value,Founder's model,match,
+S8 picture,about ₹500 to win them,tables/lend_customer.csv,"cac (Shopkeepers, evidence)",499.24,Evidence cost to win a shop owner,rounded-ok,"A cost, so rounded up"
+S8 picture,1 in 5 savers borrow a year,tables/lend_customer.csv,takeup,0.2,Model base,match,
+S8 picture,−₹54,tables/lend_customer.csv,"Shopkeepers, referral, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",-54.01,as above,match,Toward zero by 0.01 (conservative for 'lend beats refer')
+S8 picture,about +₹200,tables/lend_customer.csv,"Shopkeepers, lend, industry steady state, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",204.59,as above,rounded-ok,Rounded down
+S8 picture,about +₹850,tables/lend_customer.csv,"Shopkeepers, lend, savers safer, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",858.60,as above,rounded-ok,Rounded down
+S8 notes,5 years,tables/lend_customer.csv,model horizon,5-year value,Founder's model,match,
+S8 notes,1 in 5 borrowing,tables/lend_customer.csv,takeup,0.2,Model base,match,
+S8 notes,₹499 cost to win,tables/lend_customer.csv,"cac (Shopkeepers, evidence)",499.24,Evidence cost to win,match,Nearest rupee
+S8 notes,−₹54,tables/lend_customer.csv,"Shopkeepers, referral, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",-54.01,as above,match,
+S8 notes,+₹205,tables/lend_customer.csv,"Shopkeepers, lend, industry steady state, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",204.59,as above,match,Nearest rupee
+S8 notes,+₹859,tables/lend_customer.csv,"Shopkeepers, lend, savers safer, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",858.60,as above,match,Nearest rupee
+S8 notes,₹100 a day,deck slide 'money',worked example,Rs 100 a day x 25 days,Design,match,
+S8 notes,about ₹30–75 a year per saver,"deck slides 'money', 'k-money'; research/xs_bachatt.csv","XB-04 (0.2-0.5% trail) x ~Rs 15,000 average balance",Rs 30-75,Year-one saver at Rs 100 a day,match,
+S8 notes,−₹580,tables/lend_customer.csv,"Shopkeepers, lend, industry today, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",-580.21,as above,match,Nearest rupee
+S8 notes,−₹580 to +₹859,tables/lend_customer.csv,"industry today vs savers safer, Shopkeepers, takeup 0.2, cac_case evidence (cac 499.24)",-580.21 / 858.60,as above,match,
+S8 notes,35% borrow,tables/lend_customer.csv,takeup,0.35,Founder's expectation,match,
+S8 notes,+₹738,tables/lend_customer.csv,"Shopkeepers, lend, industry steady state, takeup 0.35, evidence",737.61,as above at 35%,match,Nearest rupee
+S8 notes,"+₹1,882",tables/lend_customer.csv,"Shopkeepers, lend, savers safer, takeup 0.35, evidence",1882.12,as above at 35%,match,
+S8 notes,+₹285 (referring at 35%),tables/lend_customer.csv,"Shopkeepers, referral, takeup 0.35, evidence",285.06,as above at 35%,match,Why the title says 'far more' not 'loses money'
+S8 notes,"+₹21 (gig pros, normal losses)",tables/lend_customer.csv,"Drivers and home-service workers, lend, industry steady state, takeup 0.2, evidence (cac 450.12)",20.71,"Value per driver/home-service pro won, 5 years",match,Nearest rupee
+S8 notes,"+₹550 (gig pros, savers better)",tables/lend_customer.csv,"Drivers and home-service workers, lend, savers safer, takeup 0.2, evidence",550.29,as above,match,
+S8 notes,5 lakh shop owners a year,tables/lend_prize.csv,won_a_year = 500000,"500,000",Scenario input,match,
+S8 notes,about 1% of Udyam's micro enterprises,tables/lend_prize.csv,share_of_udyam_micro (won 500000),0.0093,Udyam micro enterprises (5.36 crore),rounded-ok,Rounded up: makes the share needed look larger (conservative)
+S8 notes,"nearly ₹1,750 crore lent a year",tables/lend_prize.csv,lent_a_year_cr (won 500000),1749.10,"Shop owners, 1 in 5 borrowing",rounded-ok,'nearly' keeps it on the safe side
+S8 notes,"nearly ₹1,000 crore book",tables/lend_prize.csv,avg_book_cr (won 500000),984.62,as above,rounded-ok,"'nearly'; draft B's '₹1,000 crore' rounded up"
+S8 notes,about ₹6 crore (typical future),tables/lend_prize.csv,value_a_year_median_cr (won 500000),6.28,"Median of 10,000 futures x savers won, less NBFC running cost",rounded-ok,Rounded down
+S8 notes,nearly ₹38 crore (savers repay better),tables/lend_prize.csv,value_a_year_savers_safer_cr (won 500000),37.93,"as above, savers-safer case",rounded-ok,'nearly'
+S8 notes,₹5 crore a year NBFC running cost,tables/deck_facts.csv; tables/lend_prize.csv,"nbfc_fixed (LEV-028, LEV-029)","Rs 3-8 crore a year, Rs 5 crore middle",Extra fixed cost of running an NBFC,match,"Consistent: lend_prize value = lmc p50 x won - 5 (checked, not re-published)"
+S8 notes,at least 10% of every loan,research/lend_self.csv,LS-01,10% minimum retention per lender,"Co-lending between regulated entities, from 1 Jan 2026",match,
+S9 title,1 in 7,tables/lend_breakeven.csv,"takeup, breakeven",0.14242,"Shop owners, one number moved at a time",rounded-ok,1/7 = 14.29% >= 14.24%: the stricter side
+S9 picture,at least 1 in 7 savers a year,tables/lend_breakeven.csv,"takeup, breakeven",0.14242,as above,rounded-ok,As title
+S9 picture,losses at most 7.5% of the loan book a year,tables/lend_breakeven.csv,"losses, breakeven",0.07564,"Bad-loan losses, share of loan balance a year (lmc_distributions credit_cost basis)",rounded-ok,Drafts' 7.6% rounded up; 7.5% is the safe side
+S9 picture,digital lenders today: about 7–9%,research/levers.csv,"LEV-021 (Kissht 8.5% H1 FY26 ann., 9.0% FY25); LEV-022 (KreditBee 7.7% FY25); LEV-029 (Groww 7.06% 9M FY26)",7.06-9.0%,"Credit cost, % of average book/assets a year, digital personal-loan NBFCs, FY25-26",rounded-ok,Same measure as the model's losses; low end rounded down
+S9 notes,14.24% break-even,tables/lend_breakeven.csv,"takeup, breakeven",0.142424,as above,match,
+S9 notes,20% assumed,tables/lend_breakeven.csv,"takeup, today",0.2,Model base,match,
+S9 notes,7.56% break-even,tables/lend_breakeven.csv,"losses, breakeven",0.075641,as above,match,
+S9 notes,6% assumed,tables/lend_breakeven.csv,"losses, today",0.06,Model base,match,
+S9 notes,under ₹704 cost to win,tables/lend_breakeven.csv,"cost_to_win, breakeven",703.83,as above,match,703.83 < 704
+S9 notes,₹499 today,tables/lend_breakeven.csv,"cost_to_win, today",499.24,as above,match,Nearest rupee
+S9 notes,at or above 24.43%,tables/lend_breakeven.csv,"rate, breakeven",0.244346,as above,match,Drafts' 24.4% would let a failing rate pass
+S9 notes,"10,000 simulated futures",deck slide 'k-true' notes; tables/lmc_summary.csv,lmc draws,"10,000 draws (p_pays_back has 4 decimals)","Shop owners, founder's Monte Carlo",match,
+S9 notes,just under 64%,tables/lmc_summary.csv,"shopkeepers, p_pays_back",0.6376,Share of futures where a shop owner pays back the cost to win,match,Drafts' '64%' rounded up
+S9 notes,about 7–9% a year,research/levers.csv,"LEV-021, LEV-022, LEV-029",7.06-9.0%,as above,rounded-ok,
+S9 notes,Groww 7.06%,research/levers.csv,LEV-029,7.06% (9M FY26),"Groww Creditserv, ~90% unsecured personal loans",match,
+S9 notes,KreditBee 7.7%,research/levers.csv,LEV-022,7.7% (FY25),"KrazyBee combined, % of average assets",match,
+S9 notes,Kissht 8.5–9.0%,research/levers.csv,LEV-021,8.5% (H1 FY26 annualised) / 9.0% (FY25),"Kissht group, % of average managed assets",match,
+S9 notes,FY25–26,research/levers.csv,"LEV-021, LEV-022, LEV-029",FY25 to 9M FY26,as above,match,Date label
+S9 notes,4.5–5% expected loss,research/xs_bachatt.csv,XB-07,ECL 4.5-5.0%,"Paytm-sourced merchant loans, lenders' books, Mar 2026 quarter",match,Labelled 'measured differently'
+S9 notes,6–7% of the amount lent,tables/inputs_founder_*.csv,first_loan_loss,0.065 (range 0.06-0.07),"The founder's past 3-month first loans, share of principal never repaid",match,Per-loan measure; never beside the yearly 7.5%
+S9 notes,2.05% vs 8.72%,research/market_benchmarks.csv,EVD-03,SHG-BLP 2.05% vs microfinance 8.72% gross NPA,"Bank loans to SHGs vs all microfinance lenders, 31 Mar 2024 (NABARD)",match,Correlation only
+S9 notes,over a third (35.6%),research/nongig.csv,NG-033,35.64%,"SBI MF Jan Nivesh Rs 250 daily SIP registrations in FY26, ceased by 1 Apr 2026",rounded-ok,'over a third' is the safe side
+S9 notes,₹250 daily SIPs,research/nongig.csv,NG-033,Rs 250,as above,match,
+S9 notes,1 Apr 2026,research/nongig.csv,NG-033,2026-04-01,as above,match,Date label
+S9 notes,about 24 in 100 still saving after a year,tables/lend_funnel.csv,saving_m12 (per 100 won),24.15,"Shop owners won, founder's model",match,
+S9 notes,7.5% (pilot reports losses against),tables/lend_breakeven.csv,"losses, breakeven",0.07564,as above,rounded-ok,
+Open Q2,"about ₹100 crore (co-lend, keep 10%)",tables/lend_prize.csv,equity_colend_cr (won 500000),98.46,Capital needed if co-lending and keeping 10%,rounded-ok,"A capital need, so rounded up"
+Open Q2,about ₹330 crore (whole book),tables/lend_prize.csv,equity_own_book_cr (won 500000),328.21,Capital needed to keep the whole book,rounded-ok,"A capital need, so rounded up"
+Open Q3,1 in 4 approved; 6–7% never repaid,tables/inputs_founder_*.csv,approval_rate; first_loan_loss,0.25; 0.06-0.07,"The founder's past lending business, 2019-22",match,

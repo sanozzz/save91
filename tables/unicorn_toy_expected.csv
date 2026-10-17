@@ -1,0 +1,118 @@
+cell,measure,expected
+'Company summary'!B2,"Revenue, year 1",4597688.469408347
+'Company summary'!B3,"Revenue, year 2",71899719.88680585
+'Company summary'!B4,"Revenue, year 3",644542269.4956942
+'Company summary'!B5,"Revenue, year 4",2445996853.6738796
+'Company summary'!B6,"Revenue, year 5",5671947898.544366
+'Company summary'!B7,"Revenue, year 6",8861762746.739237
+'Company summary'!B8,"Revenue, year 7",11246137784.883644
+'Company summary'!B9,"Revenue, year 8",12988762333.619339
+'Company summary'!B10,"EBITDA, year 1",-77430971.02201976
+'Company summary'!B11,"EBITDA, year 2",-447329922.70262694
+'Company summary'!B12,"EBITDA, year 3",-1811009650.733726
+'Company summary'!B13,"EBITDA, year 4",-2624965897.3224607
+'Company summary'!B14,"EBITDA, year 5",-2197235208.3581967
+'Company summary'!B15,"EBITDA, year 6",206453954.45472622
+'Company summary'!B16,"EBITDA, year 7",1636354412.3087041
+'Company summary'!B17,"EBITDA, year 8",2536614853.558713
+'Company summary'!B18,"PAT, year 1",-67655448.61339854
+'Company summary'!B19,"PAT, year 2",-383653860.5249121
+'Company summary'!B20,"PAT, year 3",-1617911138.4613466
+'Company summary'!B21,"PAT, year 4",-2334423016.904183
+'Company summary'!B22,"PAT, year 5",-1860672156.8303647
+'Company summary'!B23,"PAT, year 6",499320301.57587326
+'Company summary'!B24,"PAT, year 7",1977480558.3013372
+'Company summary'!B25,"PAT, year 8",3000076142.985058
+'Company summary'!B27,ARR at month 60 (12 x the month's revenue),7249914364.600951
+'Company summary'!B28,"AUM at month 60 (money in the fund, month end)",492700810984.52423
+'Company summary'!B29,"Revenue lens (arr_mult x ARR; 20x agreed, our judgement)",144998287292.019
+'Company summary'!B30,"AUM lens (aum_mult x AUM; 0.45x agreed, our judgement)",221715364943.03592
+'Company summary'!B31,"Revenue lens margin over the threshold (Rs 10,000 crore)",0.44998287292019024
+'Company summary'!B32,"AUM lens margin over the threshold (Rs 10,000 crore)",1.217153649430359
+'Company summary'!B33,Unicorn on paper at month 60 (both lenses clear),yes
+'Company summary'!B35,"Lowest month-end cash, months 1-96",83968060.2663473
+'Company summary'!B36,Month of the lowest cash,9.0
+'Company summary'!B37,Closing cash at month 60,5621383782.037287
+'Company summary'!B38,Closing cash at month 96,10026445637.479288
+'Company summary'!B39,EBITDA break-even month (stays positive from here),66.0
+'Company summary'!B40,Equity raised by month 60 (rounds table),13080000000.0
+'Company summary'!B41,Founders' share after the unicorn round (E),0.27119066759535476
+'Company summary'!B42,"Savers still saving, month 60",9839662.278315851
+'Company summary'!B43,"Agents working, month 60",7500.0
+'Company summary'!B44,"Cities, month 60",150.0
+'Company summary'!B45,"Central team, month 60",535.0
+'Company summary'!B46,"Money lent in year 5, personal loans incl. top-ups",79054495482.78273
+'Company summary'!B47,"Money lent in year 5, home loans and LAP (other lenders)",213872872941.1887
+'Funding & cap table'!E5,Seed: post-money,530000000.0
+'Funding & cap table'!F5,Seed: dilution,0.24528301886792453
+'Funding & cap table'!H5,Seed: founders % after,0.6547169811320755
+'Funding & cap table'!I5,Seed: ESOP % after,0.1
+'Funding & cap table'!J5,Seed: investors % after,0.24528301886792453
+'Funding & cap table'!K5,Seed: adds to 100%,1.0
+'Funding & cap table'!L5,Seed: lens value that month,
+'Funding & cap table'!E6,A: post-money,2120000000.0
+'Funding & cap table'!F6,A: dilution,0.25
+'Funding & cap table'!H6,A: founders % after,0.47285115303983233
+'Funding & cap table'!I6,A: ESOP % after,0.1
+'Funding & cap table'!J6,A: investors % after,0.4271488469601677
+'Funding & cap table'!K6,A: adds to 100%,1.0
+'Funding & cap table'!L6,A: lens value that month,369141028.11224025
+'Funding & cap table'!E7,B: post-money,8480000000.0
+'Funding & cap table'!F7,B: dilution,0.25
+'Funding & cap table'!H7,B: founders % after,0.3415036105287678
+'Funding & cap table'!I7,B: ESOP % after,0.1
+'Funding & cap table'!J7,B: investors % after,0.5584963894712323
+'Funding & cap table'!K7,B: adds to 100%,1.0
+'Funding & cap table'!L7,B: lens value that month,2937424922.7876654
+'Funding & cap table'!E8,C: post-money,33782360982.20424
+'Funding & cap table'!F8,C: dilution,0.1805676045914416
+'Funding & cap table'!H8,C: founders % after,0.2798391216162596
+'Funding & cap table'!I8,C: ESOP % after,0.08194323954085585
+'Funding & cap table'!J8,C: investors % after,0.6382176388428846
+'Funding & cap table'!K8,C: adds to 100%,1.0
+'Funding & cap table'!L8,C: lens value that month,27235477002.874348
+'Funding & cap table'!E9,D: post-money,123874937395.56003
+'Funding & cap table'!F9,D: dilution,0.02542887258898347
+'Funding & cap table'!H9,D: founders % after,0.2727231282472667
+'Funding & cap table'!I9,D: ESOP % after,0.07985951534304286
+'Funding & cap table'!J9,D: investors % after,0.6474173564096906
+'Funding & cap table'!K9,D: adds to 100%,1.0
+'Funding & cap table'!L9,D: lens value that month,118587443718.69537
+'Funding & cap table'!E10,E: post-money,186862406093.34003
+'Funding & cap table'!F10,E: dilution,0.005619107780703157
+'Funding & cap table'!H10,E: founders % after,0.27119066759535476
+'Funding & cap table'!I10,E: ESOP % after,0.07941077611901559
+'Funding & cap table'!J10,E: investors % after,0.6493985562856298
+'Funding & cap table'!K10,E: adds to 100%,1.0000000000000002
+'Funding & cap table'!L10,E: lens value that month,167818515459.83286
+'Funding & cap table'!E11,(spare): post-money,0.0
+'Funding & cap table'!F11,(spare): dilution,0.0
+'Funding & cap table'!H11,(spare): founders % after,0.27119066759535476
+'Funding & cap table'!I11,(spare): ESOP % after,0.07941077611901559
+'Funding & cap table'!J11,(spare): investors % after,0.6493985562856298
+'Funding & cap table'!K11,(spare): adds to 100%,1.0000000000000002
+'Funding & cap table'!L11,(spare): lens value that month,
+'Funding & cap table'!E12,(spare): post-money,0.0
+'Funding & cap table'!F12,(spare): dilution,0.0
+'Funding & cap table'!H12,(spare): founders % after,0.27119066759535476
+'Funding & cap table'!I12,(spare): ESOP % after,0.07941077611901559
+'Funding & cap table'!J12,(spare): investors % after,0.6493985562856298
+'Funding & cap table'!K12,(spare): adds to 100%,1.0000000000000002
+'Funding & cap table'!L12,(spare): lens value that month,
+'Funding & cap table'!B23,Revenue in the check month (₹),604159530.3834126
+'Funding & cap table'!B24,"ARR (12 x that month's revenue, ₹)",7249914364.600951
+'Funding & cap table'!B25,AUM: money in the fund at month end (₹),492700810984.52423
+'Funding & cap table'!B26,Revenue lens: arr_mult x ARR (₹; our judgement),144998287292.019
+'Funding & cap table'!B27,AUM lens: aum_mult x AUM (₹; our judgement),221715364943.03592
+'Funding & cap table'!B28,Unicorn threshold (₹),100000000000.0
+'Funding & cap table'!B29,Revenue lens margin over the threshold,0.44998287292019024
+'Funding & cap table'!B30,AUM lens margin over the threshold,1.217153649430359
+'Funding & cap table'!B31,ARR needed for the threshold on the revenue lens (₹),5000000000.0
+'Funding & cap table'!B32,AUM needed for the threshold on the AUM lens (₹),222222222222.22223
+'Funding & cap table'!B33,Revenue lens clears the threshold?,yes
+'Funding & cap table'!B34,AUM lens clears the threshold?,yes
+'Funding & cap table'!B35,UNICORN ON PAPER at the check month (both lenses clear)?,yes
+'Funding & cap table'!B36,Equity raised by the check month (₹),13080000000.0
+'Funding & cap table'!B37,"Equity raised, every round in the table (₹)",13080000000.0
+'Funding & cap table'!B38,Founders' share after the unicorn round,0.27119066759535476
+'Funding & cap table'!B39,Post-money of the unicorn round (₹),186862406093.34003

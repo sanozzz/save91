@@ -1,0 +1,22 @@
+Measure,Value,Unit,Source
+Savers in one mature agent's book (tenure 60),2237.726177660385,savers,"cohort_engine.run, likely values"
+Revenue a saver a year (month-60 run rate),890.085291062745,Rs,12 x income in month 60 / savers
+"AUM a saver, month end",65207.941405820864,Rs,fund at month end / savers
+"AUM a saver, average balance in the month",61049.56834642444,Rs,"the lead's ~Rs 61,000 is closer to this"
+Personal loans lent a saver a year (months 49-60),11802.408390807388,Rs,"first, repeat and top-ups"
+Home loans and LAP lent a saver a year (months 49-60),31512.883923021294,Rs,other lenders' books
+"Rs 1,000 crore ($100M at Rs 100): active savers needed",11234878.387957843,savers,target / revenue a saver
+"Rs 1,000 crore ($100M at Rs 100): mature agents needed",5020.6671844471475,agents,savers / savers an agent
+"Rs 1,000 crore ($100M at Rs 100): AUM (month end)",732603291623.4781,Rs,savers x AUM a saver
+"Rs 1,000 crore ($100M at Rs 100): personal loans lent a year",132598622955.73422,Rs,
+"Rs 1,000 crore ($100M at Rs 100): home loans and LAP lent a year",354043418528.97614,Rs,
+Rs 850 crore ($100M at Rs 85): active savers needed,9549646.629764166,savers,target / revenue a saver
+Rs 850 crore ($100M at Rs 85): mature agents needed,4267.567106780075,agents,savers / savers an agent
+Rs 850 crore ($100M at Rs 85): AUM (month end),622712797879.9564,Rs,savers x AUM a saver
+Rs 850 crore ($100M at Rs 85): personal loans lent a year,112708829512.37408,Rs,
+Rs 850 crore ($100M at Rs 85): home loans and LAP lent a year,300936905749.62964,Rs,
+"Company model, recommended path, month 94 (ARR first reaches Rs 1,000 crore): active savers",12349009.74271913,savers,arr100m_recommended_yearly.csv
+  agents then,7500.0,agents,
+  savers an agent then,1646.5346323625508,savers,"younger books, handovers"
+  revenue a saver a year then,819.6210550692217,Rs,
+  AUM then,714257542378.2156,Rs,

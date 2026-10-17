@@ -1,0 +1,14 @@
+metric,value
+target_cac,250.00000000000003
+target_savings,30.621873285527798
+target_loans,436.6018825086163
+target_other,73.67253145689155
+target_serve,111.15281584554407
+target_net,179.7434714054916
+target_payback,21
+target_loans_per_customer,0.23321337118817137
+one_loan,2818.509258730098
+loan_ticket_mid,150000.0
+loan_fee_mid,0.019999999999999997
+stayer_trail_5y,207.57414856525529
+target_takeup,0.2

@@ -1,0 +1,14 @@
+step,low,middle,high
+applies a year,0.1,0.2,0.35
+eligible,0.3,0.5,0.7
+approved (marketplace),0.25,0.35,0.5
+origination fee,0.01,0.02,0.03
+fees taken back,0.05,0.025,0.0
+loans going 90+ days bad,0.036,0.05,0.07
+recovered of what is owed,0.3,0.325,0.35
+our fee on what is recovered,0.05,0.1,0.15
+other products Rs a saver a year,8.0,63.0,259.0
+card fee Rs,500.0,1250.0,2000.0
+loans_per_100_proven,0.75,3.5,12.25
+origination,2375.0,4875.0,7500.0
+collections,51.34898976610933,154.52242290727344,349.45840257491074

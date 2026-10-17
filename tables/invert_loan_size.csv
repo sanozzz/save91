@@ -1,0 +1,5 @@
+takeup,takeup_label,mode,share_of_loan_earned,loan_size_needed,times_what_saving_supports
+0.03,evidence middle: 3 in 100 savers a year,refer,0.0195,615384.6153846153,29.393888922603086
+0.03,evidence middle: 3 in 100 savers a year,lend,0.03062929492236347,391781.7902898704,18.713484441728422
+0.2,our model: 20 in 100 savers a year,refer,0.0195,92307.69230769228,4.409083338390462
+0.2,our model: 20 in 100 savers a year,lend,0.03062929492236347,58767.26854348055,2.8070226662592628

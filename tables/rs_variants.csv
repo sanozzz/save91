@@ -1,0 +1,6 @@
+case,p_net_pos,net_p50,p_payback_le_36
+loans stop when they change jobs,0.20775,-280.01076171641375,0.21775
+account moves with the worker,0.286,-203.785959810686,0.2915
+"account moves, 1 in 5 borrow a year",0.593,89.19739868219085,0.60125
+"account moves, win via employer for Rs 250",0.59,57.36403373308721,0.59225
+"account moves, 1 in 5 borrow, win for Rs 250",0.93375,368.12724867152485,0.9345

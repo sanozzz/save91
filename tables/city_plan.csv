@@ -1,0 +1,501 @@
+City,Rank,Addressable (urban self-employed),Cap: 20% of addressable (sign-ups),Launch month,Agents in the launch month,Agents at launch +3 months,Agents at launch +6 months,Agents at launch +12 months,Agents at launch +24 months,Agents at launch +36 months,Agents at launch +48 months,Agents at launch +60 months,Agents at launch +72 months,Agents at launch +84 months,"Month it nears its cap (95%; AUTO run, information only)",Notes
+NCR,1,4410000.0,882000.0,1,6,22,44,117,206,442,442,442,442,442,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Mumbai MMR,2,2421675.3094361634,484335.0618872327,16,7,96,96,177,268,268,268,268,268,268,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Kolkata,3,1705441.8288033449,341088.365760669,19,68,68,92,156,188,188,188,188,188,188,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Bengaluru,4,1329821.1574450652,265964.23148901307,19,53,53,72,122,147,147,147,147,147,147,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Chennai,5,1096448.039324374,219289.6078648748,19,43,43,59,101,122,122,122,122,122,122,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Hyderabad,6,936513.9157579857,187302.78315159713,19,37,37,51,85,103,103,103,103,103,103,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Ahmedabad,7,819634.9046808588,163926.98093617178,19,32,32,44,75,91,91,91,91,91,91,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Pune,8,730248.3135942257,146049.66271884515,19,11,29,40,67,81,81,81,81,81,81,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Surat,9,659531.027535623,131906.20550712463,20,26,27,41,67,75,75,75,75,75,75,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Jaipur,10,602095.4977123645,120419.09954247292,20,24,24,37,61,68,68,68,68,68,68,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Lucknow,11,554459.8389627809,110891.96779255618,20,22,22,34,55,61,61,61,61,61,61,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Kanpur,12,514270.43690124556,102854.08738024911,20,20,21,32,51,57,57,57,57,57,57,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Nagpur,13,479877.3160588025,95975.4632117605,20,19,19,29,48,54,54,54,54,54,54,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Indore,14,450088.3472602492,90017.66945204984,20,18,18,28,45,51,51,51,51,51,51,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+Patna,15,424020.03387147444,84804.00677429489,20,16,17,26,42,47,47,47,47,47,47,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 16,16,401003.24507676484,80200.64901535297,20,16,16,24,40,45,45,45,45,45,45,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 17,17,380521.61059120944,76104.3221182419,20,15,15,23,37,42,42,42,42,42,42,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 18,18,362170.06920409994,72434.01384081999,20,14,14,22,37,41,41,41,41,41,41,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 19,19,345626.26124859723,69125.25224971944,20,13,14,21,34,38,38,38,38,38,38,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 20,20,330630.3403022021,66126.06806044042,20,13,13,20,33,37,37,37,37,37,37,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 21,21,316970.4423560043,63394.08847120087,20,12,13,19,32,36,36,36,36,36,36,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 22,22,304472.04129027616,60894.408258055235,20,12,12,18,30,34,34,34,34,34,34,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 23,23,292990.02706392115,58598.00541278423,20,11,12,18,29,33,33,33,33,33,33,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 24,24,282402.72549131396,56480.545098262795,20,11,11,17,28,32,32,32,32,32,32,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 25,25,272607.3249293115,54521.46498586231,20,10,11,17,27,30,30,30,30,30,30,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 26,26,263516.33738278825,52703.26747655765,20,10,10,16,26,30,30,30,30,30,30,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 27,27,255054.8303294563,51010.96606589126,21,10,12,18,27,29,29,29,29,29,29,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 28,28,247158.23982428014,49431.647964856034,21,9,12,17,26,27,27,27,27,27,27,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 29,29,239770.62694689404,47954.12538937881,21,9,11,16,26,27,27,27,27,27,27,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 30,30,232843.27590313726,46568.65518062745,21,9,11,16,24,26,26,26,26,26,26,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 31,31,226333.5579500341,45266.711590006824,21,9,11,15,24,25,25,25,25,25,25,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 32,32,220204.0039923311,44040.800798466225,21,8,10,15,23,25,25,25,25,25,25,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 33,33,214421.54234891006,42884.308469782016,21,8,10,15,23,24,24,24,24,24,24,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 34,34,208956.8682711144,41791.37365422288,21,8,10,14,22,24,24,24,24,24,24,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 35,35,203783.91931953462,40756.78386390692,21,8,10,14,21,23,23,23,23,23,23,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 36,36,198879.43637377676,39775.887274755354,21,7,9,14,21,22,22,22,22,22,22,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 37,37,194222.59435711673,38844.518871423345,21,7,9,13,21,22,22,22,22,22,22,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 38,38,189794.69005860793,37958.938011721584,21,7,9,13,20,21,21,21,21,21,21,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 39,39,185578.8769842551,37115.77539685102,21,7,9,13,20,21,21,21,21,21,21,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 40,40,181559.93915199983,36311.987830399965,21,7,9,12,20,21,21,21,21,21,21,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 41,41,177724.0972988695,35544.819459773906,21,7,8,12,19,20,20,20,20,20,20,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 42,42,174058.8421937856,34811.76843875712,21,6,8,12,19,20,20,20,20,20,20,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 43,43,170552.79072168213,34110.55814433643,21,6,8,12,18,19,19,19,19,19,19,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 44,44,167195.5611805646,33439.112236112924,21,6,8,11,18,19,19,19,19,19,19,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 45,45,163977.66485601442,32795.53297120288,21,6,8,11,17,18,18,18,18,18,18,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 46,46,160890.4114403019,32178.08228806038,21,6,7,11,17,18,18,18,18,18,18,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 47,47,157925.8262709755,31585.1652541951,21,6,7,11,17,18,18,18,18,18,18,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 48,48,155076.5776960984,31015.31553921968,21,6,7,10,16,17,17,17,17,17,17,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 49,49,152335.91314539692,30467.182629079383,21,6,7,10,16,17,17,17,17,17,17,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 50,50,149697.60271037533,29939.520542075068,21,5,7,10,16,17,17,17,17,17,17,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 51,51,147155.88922128492,29431.177844256985,21,5,7,10,15,16,16,16,16,16,16,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 52,52,144705.44396211975,28941.08879242395,21,5,7,10,16,16,16,16,16,16,16,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 53,53,142341.3272924213,28468.265458484264,21,5,7,9,15,16,16,16,16,16,16,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 54,54,140058.9535513094,28011.790710261877,21,5,6,9,15,16,16,16,16,16,16,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 55,55,137854.05970858262,27570.811941716525,21,5,6,9,15,15,15,15,15,15,15,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 56,56,135722.67730298438,27144.535460596875,21,5,6,9,14,15,15,15,15,15,15,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 57,57,133661.1072712631,26732.221454252624,21,5,6,9,14,15,15,15,15,15,15,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 58,58,131665.89732546997,26333.179465093996,21,5,6,9,14,15,15,15,15,15,15,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 59,59,129733.82158165178,25946.76431633036,21,5,6,9,14,14,14,14,14,14,14,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 60,60,127861.86218205439,25572.37243641088,21,5,6,8,13,14,14,14,14,14,14,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 61,61,126047.19268623673,25209.438537247348,21,5,6,9,14,15,15,15,15,15,15,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 62,62,124287.16303501965,24857.43260700393,21,4,6,8,13,14,14,14,14,14,14,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 63,63,122579.28591569826,24515.857183139655,21,4,6,8,13,14,14,14,14,14,14,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 64,64,120921.22437805228,24184.244875610457,21,4,6,8,13,14,14,14,14,14,14,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 65,65,119310.78056891542,23862.156113783087,21,4,5,8,13,13,13,13,13,13,13,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 66,66,117745.88546883814,23549.17709376763,21,4,5,8,13,13,13,13,13,13,13,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 67,67,116224.58952806472,23244.917905612947,21,4,5,8,12,13,13,13,13,13,13,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 68,68,114745.05411094388,22949.01082218878,21,4,5,8,12,13,13,13,13,13,13,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 69,69,113305.54366826198,22661.108733652396,21,4,5,8,12,13,13,13,13,13,13,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 70,70,111904.41856604269,22380.88371320854,21,4,5,7,12,13,13,13,13,13,13,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 71,71,110540.12850727917,22108.025701455834,21,4,5,7,12,13,13,13,13,13,13,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 72,72,109211.2064900126,21842.241298002522,21,4,5,7,12,12,12,12,12,12,12,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 73,73,107916.26325127184,21583.25265025437,21,4,5,7,12,12,12,12,12,12,12,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 74,74,106653.9821517608,21330.796430352162,21,4,5,7,12,12,12,12,12,12,12,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 75,75,105423.11446091447,21084.622892182895,21,4,5,7,11,11,11,11,11,11,11,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 76,76,104222.47500612699,20844.495001225398,21,4,5,7,10,11,11,11,11,11,11,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 77,77,103050.93815365607,20610.187630731216,21,4,5,7,11,12,12,12,12,12,12,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 78,78,101907.43409198675,20381.486818397352,21,4,5,7,11,11,11,11,11,11,11,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 79,79,100790.94539134963,20158.189078269927,21,4,5,7,11,12,12,12,12,12,12,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 80,80,99700.5038156758,19940.10076313516,22,3,5,7,11,11,11,11,11,11,11,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 81,81,98635.18736557708,19727.037473115415,22,3,5,7,11,11,11,11,11,11,11,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 82,82,97594.11753299381,19518.823506598765,22,3,5,7,11,11,11,11,11,11,11,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 83,83,96576.45674998952,19315.291349997904,22,3,5,7,11,11,11,11,11,11,11,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 84,84,95581.40601581315,19116.28120316263,22,3,5,7,11,11,11,11,11,11,11,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 85,85,94608.20268781962,18921.640537563926,22,3,5,7,10,10,10,10,10,10,10,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 86,86,93656.11842315891,18731.223684631783,22,3,5,7,11,11,11,11,11,11,11,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 87,87,92724.45725932778,18544.89145186556,22,3,5,7,11,11,11,11,11,11,11,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 88,88,91812.55382274302,18362.510764548606,22,3,5,7,11,11,11,11,11,11,11,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 89,89,90919.77165545404,18183.95433109081,22,3,5,7,10,10,10,10,10,10,10,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 90,90,90045.50165097693,18009.100330195386,22,3,5,7,10,10,10,10,10,10,10,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 91,91,89189.16059101198,17837.832118202397,22,3,5,7,10,10,10,10,10,10,10,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 92,92,88350.18977551126,17670.037955102252,22,3,5,6,10,10,10,10,10,10,10,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 93,93,87528.05373920046,17505.61074784009,22,3,5,6,9,9,9,9,9,9,9,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 94,94,86722.23904823724,17344.44780964745,22,3,5,6,10,10,10,10,10,10,10,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 95,95,85932.2531712105,17186.4506342421,22,3,5,6,10,10,10,10,10,10,10,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 96,96,85157.62341916106,17031.524683832213,22,3,4,6,9,9,9,9,9,9,9,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 97,97,84397.89594973583,16879.579189947166,22,3,4,6,10,10,10,10,10,10,10,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 98,98,83652.6348309795,16730.5269661959,22,3,4,6,9,9,9,9,9,9,9,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 99,99,82921.42116062564,16584.28423212513,22,3,4,6,9,9,9,9,9,9,9,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 100,100,82203.85223707484,16440.77044741497,22,3,4,6,9,9,9,9,9,9,9,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 101,101,81499.54077854435,16299.908155708872,22,3,4,6,9,9,9,9,9,9,9,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 102,102,80808.11418714488,16161.622837428977,22,3,4,6,9,9,9,9,9,9,9,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 103,103,80129.21385488856,16025.842770977712,22,3,4,6,9,9,9,9,9,9,9,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 104,104,79462.494508858,15892.4989017716,22,3,4,6,9,9,9,9,9,9,9,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 105,105,78807.62359297516,15761.524718595032,22,3,4,6,9,9,9,9,9,9,9,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 106,106,78164.28068399742,15632.856136799484,22,3,4,6,9,9,9,9,9,9,9,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 107,107,77532.15693954412,15506.431387908824,22,3,4,6,9,9,9,9,9,9,9,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 108,108,76910.95457611619,15382.190915223238,22,3,4,6,9,9,9,9,9,9,9,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 109,109,76300.38637521854,15260.07727504371,22,3,4,6,9,9,9,9,9,9,9,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 110,110,75700.17521583065,15140.03504316613,22,3,4,5,9,9,9,9,9,9,9,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 111,111,75110.05363159443,15022.010726318887,22,3,4,5,8,8,8,8,8,8,8,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 112,112,74529.76339120389,14905.952678240777,22,2,4,5,8,8,8,8,8,8,8,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 113,113,73959.05510058592,14791.811020117184,22,2,4,5,8,8,8,8,8,8,8,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 114,114,73397.68782555925,14679.53756511185,22,2,4,5,8,8,8,8,8,8,8,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 115,115,72845.42873374866,14569.085746749734,22,2,4,5,8,8,8,8,8,8,8,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 116,116,72302.05275461396,14460.410550922794,22,2,4,5,8,8,8,8,8,8,8,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 117,117,71767.34225653038,14353.468451306077,22,2,4,5,8,8,8,8,8,8,8,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 118,118,71241.08673992803,14248.217347985606,22,2,4,5,8,8,8,8,8,8,8,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 119,119,70723.082545563,14144.6165091126,22,2,4,5,8,8,8,8,8,8,8,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 120,120,70213.13257705458,14042.626515410917,22,2,4,5,8,8,8,8,8,8,8,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 121,121,69711.04603687824,13942.209207375648,22,2,4,5,8,8,8,8,8,8,8,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 122,122,69216.63817505715,13843.32763501143,22,2,4,5,8,8,8,8,8,8,8,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 123,123,68729.730049843,13745.9460099686,22,2,4,5,8,8,8,8,8,8,8,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 124,124,68250.14829972202,13650.029659944405,22,2,4,5,8,8,8,8,8,8,8,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 125,125,67777.72492612385,13555.54498522477,22,2,3,5,8,8,8,8,8,8,8,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 126,126,67312.29708625,13462.45941725,22,2,3,5,8,8,8,8,8,8,8,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 127,127,66853.70689547442,13370.741379094885,22,2,3,5,7,7,7,7,7,7,7,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 128,128,66401.8012388026,13280.36024776052,22,2,3,5,7,7,7,7,7,7,7,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 129,129,65956.43159090697,13191.286318181395,22,2,3,5,8,8,8,8,8,8,8,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 130,130,65517.45384428535,13103.490768857071,22,2,3,5,8,8,8,8,8,8,8,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 131,131,65084.7281451167,13016.945629023341,22,2,3,5,8,8,8,8,8,8,8,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 132,132,64658.118736413526,12931.623747282705,22,2,3,5,7,7,7,7,7,7,7,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 133,133,64237.49380809423,12847.498761618846,22,2,3,5,7,7,7,7,7,7,7,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 134,134,63822.72535362069,12764.54507072414,22,2,3,5,8,8,8,8,8,8,8,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 135,135,63413.689032866954,12682.737806573392,22,2,3,5,7,7,7,7,7,7,7,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 136,136,63010.26404090461,12602.052808180923,22,2,3,5,7,7,7,7,7,7,7,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 137,137,62612.332982407934,12522.466596481587,22,2,3,4,7,7,7,7,7,7,7,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 138,138,62219.78175139933,12443.956350279866,22,2,3,4,7,7,7,7,7,7,7,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 139,139,61832.49941607105,12366.49988321421,22,2,3,4,7,7,7,7,7,7,7,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 140,140,61450.37810843431,12290.075621686863,22,2,3,4,7,7,7,7,7,7,7,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 141,141,61073.312918560485,12214.662583712097,22,2,3,4,7,7,7,7,7,7,7,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 142,142,60701.20179319241,12140.240358638483,22,2,3,4,7,7,7,7,7,7,7,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 143,143,60333.94543851591,12066.789087703182,22,2,3,4,6,6,6,6,6,6,6,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 144,144,59971.44722689298,11994.289445378598,22,2,3,4,7,7,7,7,7,7,7,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 145,145,59613.61310736913,11922.722621473826,22,2,3,4,7,7,7,7,7,7,7,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 146,146,59260.35151977737,11852.070303955474,22,2,3,4,7,7,7,7,7,7,7,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 147,147,58911.57331227058,11782.314662454117,22,2,3,4,7,7,7,7,7,7,7,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 148,148,58567.19166212344,11713.438332424688,22,2,3,4,7,7,7,7,7,7,7,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 149,149,58227.12199965305,11645.42439993061,22,2,3,4,7,7,7,7,7,7,7,79,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 150,150,57891.28193511544,11578.256387023088,22,2,3,4,7,7,7,7,7,7,7,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 151,151,57559.59118844281,11511.918237688564,22,2,3,4,7,7,7,7,7,7,7,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 152,152,57231.97152169283,11446.394304338566,22,2,3,4,6,6,6,6,6,6,6,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 153,153,56908.34667408858,11381.669334817716,22,2,3,4,6,6,6,6,6,6,6,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 154,154,56588.64229953333,11317.728459906666,22,2,3,4,6,6,6,6,6,6,6,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 155,155,56272.785906490804,11254.557181298162,22,2,3,4,6,6,6,6,6,6,6,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 156,156,55960.706800126405,11192.141360025282,22,2,3,4,6,6,6,6,6,6,6,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 157,157,55652.336026610865,11130.467205322173,22,2,3,4,6,6,6,6,6,6,6,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 158,158,55347.606319492064,11069.521263898414,22,2,3,4,6,6,6,6,6,6,6,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 159,159,55046.45204804592,11009.290409609184,22,2,3,4,6,6,6,6,6,6,6,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 160,160,54748.8091675211,10949.76183350422,22,2,3,4,6,6,6,6,6,6,6,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 161,161,54454.61517119712,10890.923034239424,22,2,3,4,6,6,6,6,6,6,6,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 162,162,54163.80904417864,10832.761808835729,22,2,3,4,6,6,6,6,6,6,6,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 163,163,53876.33121885305,10775.26624377061,22,2,3,4,6,6,6,6,6,6,6,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 164,164,53592.12353194151,10718.424706388301,22,2,3,4,6,6,6,6,6,6,6,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 165,165,53311.129183077246,10662.22583661545,22,2,3,4,6,6,6,6,6,6,6,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 166,166,53033.29269484788,10606.658538969576,22,2,3,4,6,6,6,6,6,6,6,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 167,167,52758.559874241524,10551.711974848306,22,2,3,4,6,6,6,6,6,6,6,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 168,168,52486.87777543943,10497.375555087887,22,2,3,4,6,6,6,6,6,6,6,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 169,169,52218.19466390018,10443.638932780037,22,2,3,4,6,6,6,6,6,6,6,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 170,170,51952.45998168364,10390.491996336728,22,2,3,4,6,6,6,6,6,6,6,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 171,171,51689.624313964414,10337.924862792883,22,2,3,4,6,6,6,6,6,6,6,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 172,172,51429.639356687825,10285.927871337566,22,2,2,4,6,6,6,6,6,6,6,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 173,173,51172.45788532261,10234.491577064524,22,2,2,4,5,5,5,5,5,5,5,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 174,174,50918.03372466734,10183.606744933468,22,2,2,4,6,6,6,6,6,6,6,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 175,175,50666.32171966897,10133.264343933795,22,2,2,4,5,5,5,5,5,5,5,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 176,176,50417.27770721442,10083.455541442885,22,2,2,4,6,6,6,6,6,6,6,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 177,177,50170.85848885693,10034.171697771388,22,2,2,4,6,6,6,6,6,6,6,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 178,178,49927.02180444148,9985.404360888297,22,1,2,3,6,6,6,6,6,6,6,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 179,179,49685.72630659472,9937.145261318945,22,1,2,3,6,6,6,6,6,6,6,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 180,180,49446.93153604628,9889.386307209257,22,1,2,4,6,6,6,6,6,6,6,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 181,181,49210.59789775015,9842.119579550032,22,1,2,3,6,6,6,6,6,6,6,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 182,182,48976.68663777566,9795.337327555133,22,1,2,3,5,5,5,5,5,5,5,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 183,183,48745.159820939494,9749.0319641879,22,1,2,3,6,6,6,6,6,6,6,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 184,184,48515.980309150786,9703.196061830158,22,1,2,3,5,5,5,5,5,5,5,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 185,185,48289.11174044306,9657.822348088614,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 186,186,48064.51850866745,9612.90370173349,22,1,2,3,5,5,5,5,5,5,5,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 187,187,47842.165743823134,9568.433148764627,22,1,2,3,5,5,5,5,5,5,5,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 188,188,47622.019293001555,9524.403858600312,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 189,189,47404.04570192212,9480.809140384425,22,1,2,3,5,5,5,5,5,5,5,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 190,190,47188.21219703807,9437.642439407615,22,1,2,3,5,5,5,5,5,5,5,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 191,191,46974.48666819206,9394.897333638413,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 192,192,46762.837651801616,9352.567530360324,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 193,193,46553.234314555804,9310.64686291116,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 194,194,46345.64643760491,9269.129287520982,22,1,2,3,5,5,5,5,5,5,5,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 195,195,46140.04440122578,9228.008880245156,22,1,2,3,5,5,5,5,5,5,5,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 196,196,45936.39916994618,9187.279833989236,22,1,2,3,5,5,5,5,5,5,5,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 197,197,45734.682278112174,9146.936455622435,22,1,2,3,5,5,5,5,5,5,5,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 198,198,45534.86581588311,9106.973163176623,22,1,2,3,5,5,5,5,5,5,5,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 199,199,45336.92241563953,9067.384483127906,22,1,2,3,5,5,5,5,5,5,5,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 200,200,45140.82523878977,9028.165047757953,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 201,201,44946.547962961646,8989.30959259233,22,1,2,3,5,5,5,5,5,5,5,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 202,202,44754.06476956612,8950.812953913224,22,1,2,3,5,5,5,5,5,5,5,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 203,203,44563.35033172046,8912.670066344092,22,1,2,3,5,5,5,5,5,5,5,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 204,204,44374.379802518575,8874.875960503716,22,1,2,3,5,5,5,5,5,5,5,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 205,205,44187.12880363713,8837.425760727427,22,1,2,3,5,5,5,5,5,5,5,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 206,206,44001.573414266146,8800.31468285323,22,1,2,3,5,5,5,5,5,5,5,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 207,207,43817.69016035328,8763.538032070657,22,1,2,3,5,5,5,5,5,5,5,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 208,208,43635.45600415151,8727.091200830302,22,1,2,3,5,5,5,5,5,5,5,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 209,209,43454.84833406016,8690.969666812032,22,1,2,3,5,5,5,5,5,5,5,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 210,210,43275.844954749846,8655.16899094997,22,1,2,3,5,5,5,5,5,5,5,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 211,211,43098.42407756188,8619.684815512377,22,1,2,3,5,5,5,5,5,5,5,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 212,212,42922.564311173366,8584.512862234673,22,1,2,3,5,5,5,5,5,5,5,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 213,213,42748.2446525195,8549.6489305039,22,1,2,3,5,5,5,5,5,5,5,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 214,214,42575.44447796455,8515.08889559291,22,1,2,3,5,5,5,5,5,5,5,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 215,215,42404.14353471398,8480.828706942795,22,1,2,3,5,5,5,5,5,5,5,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 216,216,42234.3219324596,8446.86438649192,22,1,2,3,5,5,5,5,5,5,5,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 217,217,42065.96013525075,8413.19202705015,22,1,2,3,5,5,5,5,5,5,5,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 218,218,41899.03895358417,8379.807790716834,22,1,2,3,5,5,5,5,5,5,5,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 219,219,41733.53953670573,8346.707907341146,22,1,2,3,5,5,5,5,5,5,5,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 220,220,41569.443365117564,8313.888673023514,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 221,221,41406.732243283994,8281.3464486568,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 222,222,41245.388292530224,8249.077658506045,22,1,2,3,5,5,5,5,5,5,5,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 223,223,41085.39394412793,8217.078788825585,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 224,224,40926.731932561845,8185.3463865123695,22,1,2,3,4,4,4,4,4,4,4,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 225,225,40769.38528897196,8153.8770577943915,22,1,2,3,5,5,5,5,5,5,5,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 226,226,40613.337334765914,8122.667466953183,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 227,227,40458.571675396524,8091.714335079305,22,1,2,3,5,5,5,5,5,5,5,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 228,228,40305.072194299355,8061.014438859871,22,1,2,3,5,5,5,5,5,5,5,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 229,229,40152.82304698565,8030.56460939713,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 230,230,40001.8086552859,8000.361731057181,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 231,231,39852.0137017396,7970.4027403479195,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 232,232,39703.423124126886,7940.684624825378,22,1,2,3,4,4,4,4,4,4,4,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 233,233,39556.02211013787,7911.204422027575,22,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 234,234,39409.79609217557,7881.959218435115,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 235,235,39264.73074228861,7852.946148457722,22,1,2,3,4,4,4,4,4,4,4,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 236,236,39120.81196722987,7824.162393445975,22,1,2,3,4,4,4,4,4,4,4,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 237,237,38978.02590363751,7795.605180727502,22,1,2,3,5,5,5,5,5,5,5,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 238,238,38836.3589133346,7767.271782666921,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 239,239,38695.7975787444,7739.159515748881,22,1,2,3,4,4,4,4,4,4,4,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 240,240,38556.32869841746,7711.265739683493,22,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 241,241,38417.93928266768,7683.587856533536,22,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 242,242,38280.61654931422,7656.123309862844,22,1,2,3,4,4,4,4,4,4,4,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 243,243,38144.34791952615,7628.869583905231,22,1,2,3,4,4,4,4,4,4,4,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 244,244,38009.121013767006,7601.824202753402,22,1,2,3,4,4,4,4,4,4,4,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 245,245,37874.92364783641,7574.984729567283,22,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 246,246,37741.74382900624,7548.348765801249,22,1,2,3,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 247,247,37609.569752248375,7521.913950449675,22,1,2,3,4,4,4,4,4,4,4,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 248,248,37478.389796551775,7495.677959310356,22,1,2,3,4,4,4,4,4,4,4,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 249,249,37348.19252132637,7469.638504265274,22,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 250,250,37218.96666289119,7443.793332578238,23,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 251,251,37090.70113104473,7418.140226208946,23,1,2,3,4,4,4,4,4,4,4,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 252,252,36963.38500571506,7392.677001143013,23,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 253,253,36837.007533687654,7367.401506737531,23,1,2,3,4,4,4,4,4,4,4,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 254,254,36711.55812540876,7342.311625081752,23,1,2,3,4,4,4,4,4,4,4,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 255,255,36587.026351862274,7317.405270372456,23,1,2,3,4,4,4,4,4,4,4,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 256,256,36463.40194151834,7292.680388303669,23,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 257,257,36340.67477735143,7268.1349554702865,23,1,2,3,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 258,258,36218.83489392626,7243.766978785252,23,1,2,3,4,4,4,4,4,4,4,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 259,259,36097.87247454976,7219.574494909953,23,1,2,3,4,4,4,4,4,4,4,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 260,260,35977.77784848736,7195.555569697473,23,1,2,3,4,4,4,4,4,4,4,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 261,261,35858.54148824163,7171.708297648326,23,1,2,3,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 262,262,35740.15400689207,7148.030801378415,23,1,2,3,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 263,263,35622.606155494155,7124.521231098832,23,1,2,3,4,4,4,4,4,4,4,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 264,264,35505.88882053614,7101.177764107229,23,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 265,265,35389.99302145223,7077.998604290447,23,1,2,3,4,4,4,4,4,4,4,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 266,266,35274.90990819053,7054.981981638106,23,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 267,267,35160.63075883448,7032.126151766896,23,1,2,3,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 268,268,35047.14697727634,7009.429395455268,23,1,2,3,4,4,4,4,4,4,4,78,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 269,269,34934.450090941384,6986.890018188277,23,1,2,3,4,4,4,4,4,4,4,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 270,270,34822.53174856161,6964.506349712323,23,1,2,3,4,4,4,4,4,4,4,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 271,271,34711.38371799753,6942.2767435995065,23,1,2,3,4,4,4,4,4,4,4,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 272,272,34600.99788410703,6920.199576821407,23,1,2,3,4,4,4,4,4,4,4,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 273,273,34491.36624666003,6898.273249332006,23,1,2,2,4,4,4,4,4,4,4,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 274,274,34382.48091829769,6876.4961836595385,23,1,2,3,4,4,4,4,4,4,4,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 275,275,34274.33412253528,6854.866824507056,23,1,2,3,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 276,276,34166.918191807374,6833.383638361475,23,1,2,3,4,4,4,4,4,4,4,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 277,277,34060.22556555455,6812.045113110911,23,1,2,3,4,4,4,4,4,4,4,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 278,278,33954.2487883504,6790.84975767008,23,1,2,3,4,4,4,4,4,4,4,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 279,279,33848.980508067914,6769.796101613583,23,1,2,2,4,4,4,4,4,4,4,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 280,280,33744.41347408434,6748.882694816868,23,1,2,3,4,4,4,4,4,4,4,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 281,281,33640.54053552343,6728.1081071046865,23,1,2,2,4,4,4,4,4,4,4,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 282,282,33537.35463953437,6707.470927906875,23,1,2,2,4,4,4,4,4,4,4,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 283,283,33434.84882960627,6686.969765921254,23,1,2,3,4,4,4,4,4,4,4,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 284,284,33333.01624391752,6666.603248783504,23,1,2,2,4,4,4,4,4,4,4,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 285,285,33231.85011371911,6646.370022743823,23,1,2,2,4,4,4,4,4,4,4,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 286,286,33131.34376175116,6626.268752350232,23,1,2,2,4,4,4,4,4,4,4,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 287,287,33031.490600691744,6606.298120138349,23,1,2,2,4,4,4,4,4,4,4,80,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 288,288,32932.28413163732,6586.456826327465,23,1,2,2,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 289,289,32833.717942614065,6566.743588522813,23,1,2,2,4,4,4,4,4,4,4,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 290,290,32735.785707119245,6547.15714142385,23,1,2,2,4,4,4,4,4,4,4,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 291,291,32638.481182692045,6527.69623653841,23,1,2,2,4,4,4,4,4,4,4,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 292,292,32541.79820951308,6508.359641902616,23,1,2,2,4,4,4,4,4,4,4,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 293,293,32445.730709031963,6489.146141806393,23,1,2,2,4,4,4,4,4,4,4,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 294,294,32350.27268262224,6470.054536524448,23,1,2,2,4,4,4,4,4,4,4,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 295,295,32255.41821026309,6451.083642052618,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 296,296,32161.161449247138,6432.232289849428,23,1,2,2,4,4,4,4,4,4,4,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 297,297,32067.496632913786,6413.499326582758,23,1,2,2,4,4,4,4,4,4,4,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 298,298,31974.41806940749,6394.883613881499,23,1,2,2,4,4,4,4,4,4,4,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 299,299,31881.92014046041,6376.384028092082,23,1,2,2,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 300,300,31789.997300198836,6357.999460039768,23,1,2,2,4,4,4,4,4,4,4,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 301,301,31698.644073972875,6339.728814794576,23,1,2,2,4,4,4,4,4,4,4,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 302,302,31607.855057208915,6321.571011441783,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 303,303,31517.624914284235,6303.524982856848,23,1,2,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 304,304,31427.9483774234,6285.58967548468,23,1,2,2,4,4,4,4,4,4,4,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 305,305,31338.820245615832,6267.764049123167,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 306,306,31250.235383554173,6250.0470767108345,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 307,307,31162.18872059288,6232.437744118576,23,1,2,2,3,3,3,3,3,3,3,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 308,308,31074.6752497267,6214.93504994534,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 309,309,30987.690026588534,6197.538005317707,23,1,2,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 310,310,30901.22816846624,6180.245633693248,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 311,311,30815.284853337977,6163.056970667596,23,1,2,2,4,4,4,4,4,4,4,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 312,312,30729.855318925744,6145.971063785149,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 313,313,30644.93486176659,6128.986972353318,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 314,314,30560.51883630118,6112.103767260236,23,1,2,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 315,315,30476.60265397941,6095.320530795882,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 316,316,30393.18178238252,6078.636356476504,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 317,317,30310.25174436152,6062.050348872304,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 318,318,30227.808117191504,6045.5616234383015,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 319,319,30145.84653174147,6029.169306348294,23,1,2,2,3,3,3,3,3,3,3,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 320,320,30064.362671659434,6012.872534331887,23,1,2,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 321,321,29983.35227257235,5996.67045451447,23,1,2,2,3,3,3,3,3,3,3,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 322,322,29902.81112130067,5980.562224260135,23,1,2,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 323,323,29822.735055087145,5964.547011017429,23,1,1,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 324,324,29743.119960839584,5948.623992167917,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 325,325,29663.961774387277,5932.792354877456,23,1,1,2,3,3,3,3,3,3,3,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 326,326,29585.25647975083,5917.051295950167,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 327,327,29507.00010842506,5901.400021685013,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 328,328,29429.188738674726,5885.837747734946,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 329,329,29351.81849484282,5870.363698968565,23,1,1,2,3,3,3,3,3,3,3,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 330,330,29274.885546671172,5854.977109334235,23,1,1,2,3,3,3,3,3,3,3,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 331,331,29198.386108633058,5839.677221726612,23,1,1,2,3,3,3,3,3,3,3,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 332,332,29122.31643927763,5824.463287855527,23,1,1,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 333,333,29046.67284058588,5809.334568117177,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 334,334,28971.451657337915,5794.290331467583,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 335,335,28896.649276491327,5779.329855298266,23,1,1,2,3,3,3,3,3,3,3,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 336,336,28822.262126570382,5764.452425314077,23,1,1,2,3,3,3,3,3,3,3,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 337,337,28748.28667706588,5749.657335413176,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 338,338,28674.719437845422,5734.943887569085,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 339,339,28601.556958573834,5720.3113917147675,23,1,1,2,3,3,3,3,3,3,3,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 340,340,28528.795828143673,5705.759165628735,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 341,341,28456.43267411546,5691.286534823092,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 342,342,28384.464162167526,5676.892832433506,23,1,1,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 343,343,28312.886995555327,5662.5773991110655,23,1,1,2,3,3,3,3,3,3,3,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 344,344,28241.69791457988,5648.339582915976,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 345,345,28170.893696065323,5634.178739213065,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 346,346,28100.471152845283,5620.094230569057,23,1,1,2,3,3,3,3,3,3,3,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 347,347,28030.427133257934,5606.085426651587,23,1,1,2,3,3,3,3,3,3,3,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 348,348,27960.758520649608,5592.151704129922,23,1,1,2,3,3,3,3,3,3,3,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 349,349,27891.462232886668,5578.292446577334,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 350,350,27822.535221875634,5564.507044375127,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 351,351,27753.974473091333,5550.794894618267,23,1,1,2,3,3,3,3,3,3,3,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 352,352,27685.777005112803,5537.155401022561,23,1,1,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 353,353,27617.93986916709,5523.587973833419,23,1,1,2,3,3,3,3,3,3,3,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 354,354,27550.460148680406,5510.092029736082,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 355,355,27483.334958836866,5496.6669917673735,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 356,356,27416.561446144424,5483.312289228885,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 357,357,27350.13678800791,5470.0273576015825,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 358,358,27284.058192309138,5456.811638461828,23,1,1,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 359,359,27218.322896993817,5443.664579398764,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 360,360,27152.92816966523,5430.585633933046,23,1,1,2,3,3,3,3,3,3,3,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 361,361,27087.871307184483,5417.574261436897,23,1,1,2,3,3,3,3,3,3,3,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 362,362,27023.149635277252,5404.629927055451,23,1,1,2,3,3,3,3,3,3,3,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 363,363,26958.760508146886,5391.752101629378,23,1,1,2,3,3,3,3,3,3,3,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 364,364,26894.701308093736,5378.940261618747,23,1,1,2,3,3,3,3,3,3,3,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 365,365,26830.96944514059,5366.193889028118,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 366,366,26767.562356664148,5353.51247133283,23,1,1,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 367,367,26704.477507032352,5340.89550140647,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 368,368,26641.712387247517,5328.342477449503,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 369,369,26579.26451459512,5315.852902919025,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 370,370,26517.131432298167,5303.426286459634,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 371,371,26455.31070917702,5291.062141835405,23,1,1,2,3,3,3,3,3,3,3,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 372,372,26393.799939314606,5278.759987862922,23,1,1,2,3,3,3,3,3,3,3,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 373,373,26332.59674172686,5266.519348345372,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 374,374,26271.698760038344,5254.339752007669,23,1,1,2,3,3,3,3,3,3,3,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 375,375,26211.103662162976,5242.2207324325955,23,1,1,2,3,3,3,3,3,3,3,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 376,376,26150.80913998968,5230.161827997937,23,1,1,2,3,3,3,3,3,3,3,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 377,377,26090.812909072993,5218.1625818145985,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 378,378,26031.112708328405,5206.222541665681,23,1,1,2,3,3,3,3,3,3,3,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 379,379,25971.70629973248,5194.341259946496,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 380,380,25912.591468027553,5182.518293605511,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 381,381,25853.766020430998,5170.7532040862,23,1,1,2,3,3,3,3,3,3,3,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 382,382,25795.227786348965,5159.045557269794,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 383,383,25736.97461709449,5147.3949234188985,23,1,1,2,3,3,3,3,3,3,3,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 384,384,25679.00438560992,5135.800877121984,23,1,1,2,3,3,3,3,3,3,3,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 385,385,25621.31498619354,5124.2629972387085,23,1,1,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 386,386,25563.904334230418,5112.780866846084,23,1,1,2,3,3,3,3,3,3,3,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 387,387,25506.770365927237,5101.354073185448,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 388,388,25449.91103805122,5089.982207610245,23,1,1,2,3,3,3,3,3,3,3,80,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 389,389,25393.324327672963,5078.6648655345925,23,1,1,2,3,3,3,3,3,3,3,76,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 390,390,25337.008231913096,5067.401646382619,23,1,1,2,3,3,3,3,3,3,3,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 391,391,25280.960767692817,5056.192153538564,23,1,1,2,3,3,3,3,3,3,3,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 392,392,25225.1799714881,5045.035994297621,23,1,1,2,3,3,3,3,3,3,3,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 393,393,25169.66389908761,5033.932779817522,23,1,1,2,3,3,3,3,3,3,3,90,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 394,394,25114.410625354176,5022.882125070835,23,1,1,2,3,3,3,3,3,3,3,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 395,395,25059.41824398987,5011.883648797974,23,1,1,2,3,3,3,3,3,3,3,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 396,396,25004.684867304517,5000.936973460904,23,1,1,2,3,3,3,3,3,3,3,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 397,397,24950.208625987623,4990.041725197525,23,1,1,2,3,3,3,3,3,3,3,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 398,398,24895.987668883714,4979.1975337767435,23,1,1,2,3,3,3,3,3,3,3,80,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 399,399,24842.020162770925,4968.4040325541855,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 400,400,24788.30429214285,4957.6608584285705,23,1,1,2,3,3,3,3,3,3,3,79,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 401,401,24734.838258993608,4946.967651798722,23,1,1,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 402,402,24681.620282606003,4936.324056521201,23,1,1,2,3,3,3,3,3,3,3,88,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 403,403,24628.64859934281,4925.729719868563,23,1,1,2,3,3,3,3,3,3,3,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 404,404,24575.921462441074,4915.184292488215,23,1,1,2,3,3,3,3,3,3,3,78,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 405,405,24523.437141809354,4904.687428361871,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 406,406,24471.193923827956,4894.238784765591,23,1,1,2,3,3,3,3,3,3,3,80,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 407,407,24419.19011115204,4883.838022230408,23,1,1,2,3,3,3,3,3,3,3,76,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 408,408,24367.42402251746,4873.484804503492,23,1,1,2,3,3,3,3,3,3,3,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 409,409,24315.89399254955,4863.17879850991,23,1,1,2,3,3,3,3,3,3,3,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 410,410,24264.598371574502,4852.9196743149005,23,1,1,2,3,3,3,3,3,3,3,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 411,411,24213.53552543351,4842.7071050867025,23,1,1,2,3,3,3,3,3,3,3,94,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 412,412,24162.703835299555,4832.540767059912,23,1,1,2,3,3,3,3,3,3,3,81,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 413,413,24112.101697496757,4822.420339499352,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 414,414,24061.72752332233,4812.345504664466,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 415,415,24011.579738871023,4802.315947774205,23,1,1,2,3,3,3,3,3,3,3,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 416,416,23961.656784862058,4792.331356972411,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 417,417,23911.95711646848,4782.391423293696,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 418,418,23862.479203148905,4772.495840629781,23,1,1,2,3,3,3,3,3,3,3,82,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 419,419,23813.221528481663,4762.644305696333,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 420,420,23764.18259000119,4752.836518000238,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 421,421,23715.360899036765,4743.072179807353,23,1,1,2,3,3,3,3,3,3,3,86,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 422,422,23666.75498055344,4733.350996110688,23,1,1,2,3,3,3,3,3,3,3,83,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 423,423,23618.36337299518,4723.672674599036,23,1,1,2,3,3,3,3,3,3,3,77,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 424,424,23570.184628130246,4714.036925626049,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 425,425,23522.21731089859,4704.443462179718,23,1,1,2,3,3,3,3,3,3,3,80,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 426,426,23474.459999261446,4694.89199985229,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 427,427,23426.91128405294,4685.382256810589,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 428,428,23379.569768833786,4675.913953766757,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 429,429,23332.434069746894,4666.486813949379,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 430,430,23285.502815375046,4657.10056307501,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 431,431,23238.774646600432,4647.754929320086,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 432,432,23192.248216466134,4638.449643293227,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 433,433,23145.922190039484,4629.184438007897,23,1,1,2,3,3,3,3,3,3,3,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 434,434,23099.79524427725,4619.95904885545,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 435,435,23053.866067892668,4610.773213578534,23,1,1,1,2,2,2,2,2,2,2,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 436,436,23008.133361224216,4601.626672244844,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 437,437,22962.595836106215,4592.519167221243,23,1,1,2,3,3,3,3,3,3,3,95,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 438,438,22917.25221574109,4583.450443148218,23,1,1,1,2,2,2,2,2,2,2,89,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 439,439,22872.101234573416,4574.420246914683,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 440,440,22827.141638165565,4565.428327633113,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 441,441,22782.372183075073,4556.474436615014,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 442,442,22737.791636733586,4547.558327346717,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 443,443,22693.39877732743,4538.679755465487,23,1,1,2,3,3,3,3,3,3,3,87,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 444,444,22649.19239367978,4529.838478735956,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 445,445,22605.171285134318,4521.034257026864,23,1,1,2,2,2,2,2,2,2,2,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 446,446,22561.334261440516,4512.266852288103,23,1,1,2,3,3,3,3,3,3,3,84,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 447,447,22517.680142640307,4503.536028528061,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 448,448,22474.207758956378,4494.841551791275,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 449,449,22430.915950681767,4486.183190136354,23,1,1,2,3,3,3,3,3,3,3,85,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 450,450,22387.80356807105,4477.56071361421,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 451,451,22344.86947123284,4468.973894246568,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 452,452,22302.1125300237,4460.42250600474,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 453,453,22259.531623943494,4451.906324788699,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 454,454,22217.125642031984,4443.425128406397,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 455,455,22174.893482766856,4434.978696553371,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 456,456,22132.83405396299,4426.5668107925985,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 457,457,22090.946272673074,4418.189254534615,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 458,458,22049.229065089454,4409.845813017891,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 459,459,22007.68136644725,4401.53627328945,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 460,460,21966.302120928725,4393.260424185745,23,1,1,2,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 461,461,21925.090281568835,4385.018056313767,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 462,462,21884.04481016201,4376.808962032402,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 463,463,21843.164677170105,4368.632935434021,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 464,464,21802.448861631496,4360.489772326299,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 465,465,21761.89635107138,4352.379270214276,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 466,466,21721.506141413116,4344.301228282623,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 467,467,21681.277236890768,4336.255447378154,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 468,468,21641.208649962668,4328.241729992534,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 469,469,21601.29940122614,4320.2598802452285,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 470,470,21561.5485193332,4312.30970386664,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 471,471,21521.955040907374,4304.391008181475,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 472,472,21482.518010461536,4296.503602092307,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 473,473,21443.236480316726,4288.6472960633455,23,1,1,1,2,2,2,2,2,2,2,93,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 474,474,21404.109510522027,4280.821902104405,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 475,475,21365.13616877539,4273.027233755078,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 476,476,21326.31553034546,4265.263106069092,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 477,477,21287.64667799435,4257.529335598871,23,1,1,1,2,2,2,2,2,2,2,92,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 478,478,21249.12870190136,4249.825740380273,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 479,479,21210.76069958766,4242.152139917532,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 480,480,21172.54177584184,4234.508355168368,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 481,481,21134.47104264642,4226.894208529284,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 482,482,21096.54761910521,4219.309523821043,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 483,483,21058.770631371608,4211.754126274322,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 484,484,21021.139212577695,4204.227842515539,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 485,485,20983.65250276426,4196.730500552852,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 486,486,20946.309648811603,4189.2619297623205,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 487,487,20909.109804371245,4181.821960874249,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 488,488,20872.052129798365,4174.410425959673,23,1,1,1,2,2,2,2,2,2,2,91,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 489,489,20835.135792085144,4167.027158417029,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 490,490,20798.359964794854,4159.671992958971,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 491,491,20761.72382799672,4152.344765599344,23,1,1,1,2,2,2,2,2,2,2,96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 492,492,20725.22656820161,4145.045313640322,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 493,493,20688.867378298448,4137.77347565969,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 494,494,20652.645457491395,4130.529091498279,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 495,495,20616.560011237787,4123.312002247558,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 496,496,20580.610251186776,4116.122050237355,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 497,497,20544.79539511874,4108.959079023748,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 498,498,20509.114666885358,4101.822933377071,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 499,499,20473.56729635043,4094.713459270086,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents
+City 500,500,20438.15251933135,4087.6305038662704,23,1,1,1,2,2,2,2,2,2,2,not by m96,starting plan: the AUTO rollout of the re-plan under saturation; edit the launch month and agents

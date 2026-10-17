@@ -1,0 +1,8 @@
+key,value,unit,source_ids
+card_fee_typical_low,500.0,Rs a card,BM-08
+card_fee_typical_high,2000.0,Rs a card,BM-08
+card_fee_gromo_low,1000.0,Rs a card,XL-20
+card_fee_gromo_high,2400.0,Rs a card,XL-20
+phonepe_insurance_per_user,8.1,Rs a user a year,XO-10
+phonepe_deposit_min,100.0,Rs a day,QM-33
+dlg_cap,0.05,share of loans,SE-04

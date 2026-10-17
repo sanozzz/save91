@@ -1,0 +1,16 @@
+id,question,answer,used_as
+IV-01,Book size,200 to 400 customers,one agent's book
+IV-02,Customer types,"Shopkeepers (most), street vendors, homemakers, daily-wage workers, drivers, salaried, small workshop owners",who the customer is
+IV-03,Daily deposit,Rs 200 to 500,what a saver puts in
+IV-04,Monthly income of a typical customer,"Rs 20,000 to 40,000",income
+IV-05,Have a smartphone (of 10),9 or 10,digital readiness
+IV-06,Have UPI (of 10),9 or 10,digital readiness
+IV-07,"Of every Rs 100 collected, in cash",90 or more,cash habit
+IV-08,Why cash despite UPI,Habit,cash habit
+IV-09,What customers asked about last month,"A loan, insurance",cross-sell
+IV-10,What customers need most,A loan,cross-sell
+IV-11,How long most customers have saved with him,Over 5 years,retention
+IV-12,New customers last month / closed last month,6 to 10 / 6 to 10,retention
+IV-13,Pay,"Fixed salary Rs 15,000-25,000; under 2% on collections",cost of a collector
+IV-14,Operator's note after the call,Bank employees. They collect cash and have trust,the visit
+IV-15,Agent,"Arvinder Singh, Bareilly, co-operative bank (PNB named), over 10 years, consented to notes",source

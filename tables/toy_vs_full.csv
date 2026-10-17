@@ -1,0 +1,16 @@
+measure,toy,full_model,gap,gap_pct,why
+Cumulative P&L at month 12,-359583.6038189361,-361120.96696164063,1537.363142704533,0.00425719712604734,
+Cumulative P&L at month 36,-132027.49727630703,-132614.75275232966,587.255476022634,0.00442828164917208,lumped cross-sell grows 20% for each full year saved; the full model's builds up product by product (the % reads large because cumulative P&L is near 0 at month 36)
+Cumulative P&L at month 60,1644152.528021949,1642101.0482013293,2051.479820619803,0.0012493018154192677,
+Payback month (cumulative P&L stays at or above 0 from here),39.0,39.0,0.0,0.0,
+Peak cash need (lowest cumulative P&L),-440682.36103505315,-443976.68835667754,3294.3273216243833,0.007420045709647304,cross-sell timing (see month 36)
+"Savers still saving, year-5 average (months 49-60)",2154.827288630088,2154.8272886300883,-4.547473508864641e-13,-2.1103656580085618e-16,
+"Money lent in year 5 (first, repeat and top-up loans)",25413891.50795438,25432151.672068488,-18260.164114106447,-0.000717995250640202,calendar growth approximated with the pool adjustment
+Loans made in year 5 (first and repeat),96.97168458204436,97.16845871457528,-0.19677413253091913,-0.0020250823686411216,calendar growth approximated with the pool adjustment
+Money lent in 60 months,66871794.757563755,66958911.46034874,-87116.7027849853,-0.001301047177814016,
+Revenue per active saver a year (60-month average),680.3504449804452,680.0711073073078,0.27933767313743374,0.0004107477440755438,
+Collection fees,28441.75319862016,27288.03950056674,1153.7136980534196,0.04227909806526989,one fee paid 12 months after the loan (full model: 9 and 18 months)
+Income,4996551.9979829015,4994500.518162282,2051.4798206193373,0.00041074774407555284,
+Costs,3352399.4699609526,3352399.4699609526,0.0,0.0,
+"  of the costs: online leads, 60 months",625000.0,625000.0,0.0,0.0,
+"  of the costs: extra cash-collection capacity (helpers), 60 months",332696.021310933,332696.021310933,0.0,0.0,

@@ -1,0 +1,13 @@
+product,low,middle,high,source_ids
+"Accident, hospital cash, small health",0.6,7.2,45.0,"XO-19, XO-09, XO-10"
+Term life (small cover),0.4,7.5,36.0,"XO-20, XO-32"
+Two-wheeler insurance,0.9,7.1,33.2,"XO-18, XO-21, XO-22"
+Mobile insurance,0.2,2.3,9.4,"XO-34, XO-19"
+NPS / NPS Lite,0.3,6.0,10.0,"XO-16, XO-17"
+Mobile recharge,2.6,13.0,39.0,"XO-25, XO-33"
+Bill payments,1.2,12.0,54.0,XO-26
+Equity SIP trail,0.4,2.3,10.8,"XO-08, XO-06, XO-07"
+Choti SIP incentive,1.7,5.6,18.0,"XO-01, XO-04, XO-05"
+"Government schemes (PMJJBY, PMSBY, APY)",0.0,0.0,4.0,XO-12 to XO-15
+Total (FD excluded: already in the fund line),8.3,62.99999999999999,259.40000000000003,XO-39
+Model input (XO-39),8.0,63.0,259.0,XO-39

@@ -1,0 +1,16 @@
+key,value,from
+five_year_breakeven_m12,0.3364561115914917,"tables/npv_takes.csv (salary only, middle mix)"
+five_year_breakeven_m3,0.7616090664144443,same steady monthly drop-off: R12^(3/12)
+five_year_breakeven_m6,0.5800483700446815,R12^(6/12)
+three_year_breakeven_m12,0.42179407424124915,"tables/npv_takes.csv (salary only, middle mix)"
+three_year_breakeven_m3,0.8058887970262463,same steady monthly drop-off: R12^(3/12)
+three_year_breakeven_m6,0.6494567531724104,R12^(6/12)
+pilot_year1_result_r0.3,-99568.65920777302,tables/scn_retention.csv pay=none y1_result (middle cross-sell; support costs not counted)
+npv5_per_agent_r0.3,-42701.4146115323,"tables/npv_takes.csv (salary only, middle mix)"
+pilot_year1_result_r0.4,-91312.89948556456,tables/scn_retention.csv pay=none y1_result (middle cross-sell; support costs not counted)
+npv5_per_agent_r0.4,78159.44795370537,"tables/npv_takes.csv (salary only, middle mix)"
+pilot_year1_result_r0.55,-80625.81250222275,tables/scn_retention.csv pay=none y1_result (middle cross-sell; support costs not counted)
+npv5_per_agent_r0.55,287183.04969839734,"tables/npv_takes.csv (salary only, middle mix)"
+pilot_year1_result_r0.7,-71238.69007534598,tables/scn_retention.csv pay=none y1_result (middle cross-sell; support costs not counted)
+npv5_per_agent_r0.7,541422.1285120607,"tables/npv_takes.csv (salary only, middle mix)"
+pilot_salary_12m,240000,"operator: Rs 20,000 a month"

@@ -1,0 +1,17 @@
+@media print {
+  @page { size: A4 landscape; margin: 0; }
+  html, body { background: var(--paper); }
+  body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .wrap { max-width: none; padding: 0; gap: 0; }
+  .slide { width: 297mm; height: 209.5mm; border: 0; border-radius: 0; padding: 8mm 12mm 6mm; break-after: page; overflow: hidden; background: var(--sheet); gap: 12px; }
+  .sh h2 { font-size: 26px; } .pi { font-size: 14.5px; } .qb { padding: 10px 12px; }
+  .appendix { padding: 12mm 14mm; gap: 26px; }
+  .grid4, .moves, .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .chart { display: block; } .chart > * + * { margin-top: 12px; }
+  .quad li, .mv, .cc, .ev, tr, .answer, .qb, .st { break-inside: avoid; }
+  h2, .sub, .h3 { break-after: avoid; }
+  #apx, #lsh, #sw { break-before: page; }
+  .scroll { overflow: visible; }
+  .mx, .h2h, .wt { min-width: 0; }
+  .mx th, .mx td { padding: 7px 8px; }
+}

@@ -1,0 +1,82 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-09-30T12:29:40Z"
+ },
+ "lists": "css",
+ "title": "Save First, Lend Later",
+ "cover": "cover",
+ "order": [
+  "cover",
+  "bueno",
+  "customer",
+  "problem",
+  "funnel",
+  "flip",
+  "whynow",
+  "product",
+  "instrument",
+  "gtm",
+  "revenue",
+  "unit",
+  "wtbt",
+  "path",
+  "competition",
+  "premortem",
+  "pilot",
+  "a1_regmap",
+  "a2_outputs",
+  "a3_levers",
+  "a4_bueno",
+  "a5_marketing",
+  "a5b_marketing_ng",
+  "a6_comps",
+  "a7_qa1",
+  "a8_qa2",
+  "a9_qa3",
+  "a10_sources1",
+  "a11_sources2",
+  "a12_sources3",
+  "a13_sources4",
+  "a14_sources5",
+  "a15_sources6"
+ ],
+ "sections": {
+  "s1": {
+   "description": "The idea and what Bueno taught",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "Customer, problem and the flip",
+   "start": "customer"
+  },
+  "s3": {
+   "description": "Product, channels and money",
+   "start": "product"
+  },
+  "s4": {
+   "description": "Does it add up",
+   "start": "unit"
+  },
+  "s5": {
+   "description": "The next step",
+   "start": "pilot"
+  },
+  "s6": {
+   "description": "Appendix",
+   "start": "a1_regmap"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+  }
+ },
+ "designSystems": []
+}

@@ -1,0 +1,11 @@
+Check,Passes,Note
+120-month horizon: months 1-60 of the base = the 60-month base (revenue),True,largest gap 0
+120-month horizon: months 1-60 of the base = the 60-month base (ebitda),True,largest gap 0
+120-month horizon: months 1-60 of the base = the 60-month base (still_saving),True,largest gap 0
+120-month horizon: months 1-60 of the base = the 60-month base (cash),True,largest gap 0
+120-month horizon: months 1-60 of the base = the 60-month base (pat),True,largest gap 0
+Beyond month 60 the fee multiplier is held at 1.5x,True,
+Every path's sized funding keeps month-end cash >= Rs 5 crore through m120,True,"lowest Rs 50,767,777"
+"Funding search feasible for every path (ceiling Rs 5,000 crore a round)",True,
+Recommended path: the treasury's cash = cumulative PAT + depreciation - capex + equity - receivable,True,
+"Recommended path reaches Rs 1,000 crore ARR",True,month 94

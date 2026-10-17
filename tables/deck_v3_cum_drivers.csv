@@ -1,0 +1,106 @@
+key,input,swing_cum_pnl60_top_minus_bottom_decile
+ticket,Loan size (Rs),2007665.7600349442
+r12,Still saving at month 12,1780294.9398970967
+apply,"Proven savers with no loan running who apply, a year",1543501.5612153031
+signups_run,"Sign-ups a month in year 1, once up to speed",1519630.147865413
+takeup_growth,Every take-up rises each calendar year with the pool's history (cap 2x),991254.7307158078
+fee,"Origination fee at the start: a DSA's rate (ramps up, see the multipliers)",968391.4791344549
+approval_growth,First-loan and card approval rise each calendar year (cap 80% absolute),946015.6948201922
+eligible,Applicants eligible,892281.8196034448
+approved_first,"Approved, first loan",847557.4481705653
+loan_home_takeup,Home loan (affordable housing): take-up a year (savers offered who don't hold it),833995.2408158449
+loan_home_ticket,Home loan (affordable housing): loan size (Rs),817527.6566207602
+support_cost,Support cost per active saver a month (Rs),-758162.5483230157
+daily,Daily amount at sign-up (Rs),743162.1266504696
+trail,Fund commission a year (debt fund),739700.2963132993
+loan_home_comm,"Home loan (affordable housing): our fee, share of the loan",645588.3906347128
+lead_cost,Our cost per online lead the agent converts (Rs),-614449.9113504156
+churn_late,Monthly drop-off after month 12,-497292.10074002924
+rollover,Share of the balance left in the fund at each term end,491504.97491171304
+upi_12,Share of active savers on UPI by month 12,456202.79517935356
+loss,"Money lost on loans, after recoveries",-386950.325738746
+loan_lap_ticket,Loan against property (shop or home): loan size (Rs),378111.05709148105
+loan_home_approval,Home loan (affordable housing): approval share,368673.8653053052
+online_lead_share,Share of onboardings that start as bought online leads,-345331.5704671126
+days,Deposit days a month,281531.79818203417
+loan_lap_takeup,Loan against property (shop or home): take-up a year (savers offered who don't hold it),276483.482429588
+hlth_family_takeup,Family health cover: take-up a year (savers offered who don't hold it),231465.04446181026
+approved_repeat,"Approved, repeat loan",228391.206268335
+two_wheeler_comm,Two-wheeler insurance: our commission,228167.16089984705
+loan_gold_takeup,Gold loan (other lenders): take-up a year (savers offered who don't hold it),218692.81604383164
+kyc_cost,Onboarding and KYC cost per sign-up (Rs),-195911.59277574322
+early_takeup_mult,Take-up factor in a saver's months 1-6,187932.54726535128
+loan_cd_ticket,Consumer-durable loan: ticket,177557.22232569382
+ramp_months,Months for a new agent to reach full speed,-165105.69604402035
+loan_gold_ticket,Gold loan (other lenders): ticket,162709.98860050668
+fd_comm,FD via partner banks: commission (one year of the FD),161040.55303224712
+signup_decline_y5,"Sign-ups by month 49, as a share of the year-1 level (straight line from month 12)",155589.61745636794
+early_cured,Loans that fall 31-90 days behind and our agent brings back,-149676.426230344
+loan_lap_comm,"Loan against property (shop or home): our fee, share of the loan",146367.59887078637
+loan_cd_takeup,Consumer-durable loan: take-up a year (savers offered who don't hold it),131327.26915891306
+shop_renew,Shop insurance (fire and burglary): renews / continues a year,130263.18917115638
+hlth_small_comm,Small health / hospital cash: our commission,129922.35634881514
+amount_growth,Growth in his daily amount per year saved,124707.20481672394
+card_fee,Fee per card (Rs),122551.0346673925
+withdraw_m,"Share of the balance withdrawn mid-term, each month",-121445.18667968083
+bills_comm,Bill payments: Rs a bill,118538.41666574217
+loan_vehicle_ticket,Two-wheeler / e-rickshaw loan: ticket,108248.0102920807
+hlth_small_takeup,Small health / hospital cash: take-up a year (savers offered who don't hold it),108056.37382230302
+hlth_family_ticket,Family health cover: ticket,102866.70371065149
+r3,Still saving at month 3,102005.27892688871
+card_share,Savers reaching month 7 who get a card,101965.54490583227
+fd_ticket,FD via partner banks: FD amount (Rs),100224.38977836492
+ins_partner_share,Share of insurance commission that reaches us through a broker partner,97926.70484207105
+hlth_family_comm,Family health cover: our commission,-97014.09698467329
+recharge_comm,Mobile recharge: commission,92538.6143862193
+loan_gold_comm,Gold loan (other lenders): our commission,87714.87478590012
+fee_b3,Our fee per 90+ account recovered (Rs),-82187.3797026733
+shop_takeup,Shop insurance (fire and burglary): take-up a year (savers offered who don't hold it),80501.85267070285
+cash_cover,"Cash cover: fidelity and cash-in-transit insurance, per agent a month (Rs)",-80435.63199777575
+accident_renew,Personal accident: renews / continues a year,-80329.7467319183
+sip_comm,"Equity/hybrid SIP trail: trail a year, of the SIP balance",-79738.89828736824
+topup_size,"Top-up size, share of his original ticket",71820.5527205693
+bills_takeup,Bill payments: take-up a year (savers offered who don't hold it),69425.00624826457
+loan_cd_comm,Consumer-durable loan: our commission,-69137.05430100067
+early_approval_mult,"Approval factor in a saver's months 1-6 (first loans, cards)",68674.62003630213
+tenure,Loan tenure (months),-68007.3322419324
+device_comm,Mobile / device insurance: our commission,66736.42388091888
+hlth_small_renew,Small health / hospital cash: renews / continues a year,-64855.7569019089
+accident_takeup,Personal accident: take-up a year (savers offered who don't hold it),64211.39030152792
+recovered,Recovered after 90 days,-62169.91578286933
+two_wheeler_renew,Two-wheeler insurance: renews / continues a year,-61836.06993874605
+loan_lap_approval,Loan against property (shop or home): approval share,60809.73906322685
+shop_comm,Shop insurance (fire and burglary): our commission,60060.69087605341
+fd_takeup,FD via partner banks: take-up a year (savers offered who don't hold it),58981.93683180818
+topup_share,"Borrowers with 12+ EMIs paid who take a top-up, a year",-58063.38927233871
+gold_takeup,Digital gold: take-up a year (savers offered who don't hold it),55905.03791072895
+shop_ticket,Shop insurance (fire and burglary): ticket,55103.35267360578
+accident_comm,Personal accident: our commission,-54575.80516198464
+life_term_takeup,Term life (small cover): take-up a year (savers offered who don't hold it),52258.12233242369
+capacity,Cash visits one agent can make a day,49500.87756484933
+ticket_growth,Next loan bigger for each year repaid (cap Rs 5 lakh),-49215.317858647555
+gold_ticket,Digital gold: bought a month (Rs),-42977.71267118794
+loan_vehicle_takeup,Two-wheeler / e-rickshaw loan: take-up a year (savers offered who don't hold it),40591.770167065784
+accident_ticket,Personal accident: ticket,40220.26631662622
+nps_takeup,NPS: take-up a year (savers offered who don't hold it),38802.11973629519
+sip_ticket,Equity/hybrid SIP trail: SIP a month (Rs),-36763.01469523809
+recharge_takeup,Mobile recharge: take-up a year (savers offered who don't hold it),36584.20854490856
+bills_ticket,Bill payments: bills a year,-35004.539279821794
+sip_renew,Equity/hybrid SIP trail: SIP survives a year,-34958.868088589516
+life_term_renew,Term life (small cover): renews / continues a year,33898.37579797418
+fund_return,"Saver's net return on the fund, a year",-23816.37307246006
+hlth_family_renew,Family health cover: renews / continues a year,-21647.010435697157
+taken_back,Fees taken back,-18462.811529574683
+fee_early,Our fee per early account brought back (Rs),-17861.09187894524
+device_takeup,Mobile / device insurance: take-up a year (savers offered who don't hold it),-15646.677792036673
+life_term_ticket,Term life (small cover): ticket,-14634.761562171392
+device_ticket,Mobile / device insurance: ticket,-14602.53933514352
+sip_takeup,Equity/hybrid SIP trail: take-up a year (savers offered who don't hold it),13197.126479283907
+gold_renew,Digital gold: buying continues a year,-13010.948473894969
+life_term_comm,Term life (small cover): our commission,-12774.039659155766
+two_wheeler_ticket,Two-wheeler insurance: ticket,12000.33495387272
+choti_takeup,Choti SIP incentive: take-up a year (savers offered who don't hold it),9968.526748648146
+loan_vehicle_comm,Two-wheeler / e-rickshaw loan: our commission,9708.494611481205
+choti_renew,Choti SIP incentive: SIP survives to month 24,9595.365851425799
+two_wheeler_takeup,Two-wheeler insurance: take-up a year (savers offered who don't hold it),-325.2875224510208
+hlth_small_ticket,Small health / hospital cash: ticket,-27.73311370657757

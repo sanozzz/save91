@@ -1,0 +1,92 @@
+design,metric,value
+daily,net,-670.6724373139015
+daily,ltv60,-195.99273455158047
+daily,cac,474.67970276232097
+daily,rev_pa_y2,126.4838727068984
+daily,rev_pa_y2::Savings: liquid fund,1.9407628849120078
+daily,rev_pa_y2::Savings: FDs,4.784369654755192
+daily,rev_pa_y2::Savings: gold,73.3323724181812
+daily,rev_pa_y2::Loans (partner),4.939416941042624
+daily,rev_pa_y2::Cards,25.289377373942326
+daily,rev_pa_y2::SIPs,4.323647701620182
+daily,rev_pa_y2::Insurance,11.873925732444855
+daily,cost_pa_y2,429.78128190570135
+daily,cost_pa_y2::pay,248.11598148502742
+daily,cost_pa_y2::service,149.02847998913015
+daily,cost_pa_y2::fraud,9.073141988191654
+daily,cost_pa_y2::loans,12.81232936606179
+daily,cost_pa_y2::cards,3.9111808324056425
+daily,cost_pa_y2::ins,6.8401682448846755
+daily,saved_pm_y2,902.1485006854016
+daily,still_m1,0.703073658058443
+daily,still_m3,0.4952425454423832
+daily,still_m6,0.3547073749215964
+daily,still_m12,0.21571386651775246
+daily,still_m24,0.12942831991065148
+daily,borrow_60,0.035083800441577835
+daily,reach3,0.004763389687938439
+daily,reach5,0.0007225416106151806
+daily,sec_start,1188.0291652981791
+daily,sec_m12,2520.0162078928074
+daily,rev60_gold,0.6105994523873897
+daily,rev60_loans,0.04226661196958099
+daily,rev60_ins,0.07655951662323099
+daily,pv_active_years,0.6359721607943085
+daily,pv_active_months,7.631665929531702
+daily,rev_per_active_year,113.57930829806205
+daily,cost_per_active_year,421.757474944212
+daily,rev_needed_per_active_year,1168.141879836183
+daily,rev_needed_multiple,10.284812412932387
+daily,debit_amount_gig,36.05551275463989
+daily,gold_per_debit,0.244235131193566
+daily,cost_per_debit_pct,0.8100749759319206
+daily,cost_per_debit_flat,5.9
+daily,whatif_free_debits,-513.718152259717
+daily,whatif_free_debits_rev_pa_y2,126.4838727068984
+daily,whatif_free_acquisition,-39.03844949739607
+daily,whatif_free_acquisition_rev_pa_y2,126.4838727068984
+daily,whatif_free_support_tech,45.68083054563966
+daily,whatif_free_support_tech_rev_pa_y2,126.4838727068984
+daily,active_months_5y,10.012673139495897
+weekly,net,-655.9795724830706
+weekly,ltv60,-181.29986972074957
+weekly,cac,474.67970276232097
+weekly,rev_pa_y2,126.4838727068984
+weekly,rev_pa_y2::Savings: liquid fund,1.9407628849120078
+weekly,rev_pa_y2::Savings: FDs,4.784369654755192
+weekly,rev_pa_y2::Savings: gold,73.3323724181812
+weekly,rev_pa_y2::Loans (partner),4.939416941042624
+weekly,rev_pa_y2::Cards,25.289377373942326
+weekly,rev_pa_y2::SIPs,4.323647701620182
+weekly,rev_pa_y2::Insurance,11.873925732444855
+weekly,cost_pa_y2,406.67828190570134
+weekly,cost_pa_y2::pay,225.0129814850274
+weekly,cost_pa_y2::service,149.02847998913015
+weekly,cost_pa_y2::fraud,9.073141988191654
+weekly,cost_pa_y2::loans,12.81232936606179
+weekly,cost_pa_y2::cards,3.9111808324056425
+weekly,cost_pa_y2::ins,6.8401682448846755
+weekly,saved_pm_y2,902.1485006854015
+weekly,still_m1,0.703073658058443
+weekly,still_m3,0.4952425454423832
+weekly,still_m6,0.3547073749215964
+weekly,still_m12,0.21571386651775246
+weekly,still_m24,0.12942831991065148
+weekly,borrow_60,0.035083800441577835
+weekly,reach3,0.004763389687938439
+weekly,reach5,0.0007225416106151806
+weekly,sec_start,1188.0291652981791
+weekly,sec_m12,2520.0162078928074
+weekly,rev60_gold,0.6105994523873898
+weekly,rev60_loans,0.04226661196958098
+weekly,rev60_ins,0.07655951662323099
+weekly,pv_active_years,0.6359721607943085
+weekly,pv_active_months,7.631665929531702
+weekly,rev_per_active_year,113.57930829806203
+weekly,cost_per_active_year,398.654474944212
+weekly,rev_needed_per_active_year,1145.0388798361832
+weekly,rev_needed_multiple,10.081403884159071
+corner,net,-225.53361165495852
+corner,ltv60,-5.4433463076903355
+corner,cac,220.09026534726817
+corner,rev_pa_y2,221.10645228014846

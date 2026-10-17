@@ -1,0 +1,12 @@
+Check,Passes,Note
+"City curve: the 4,000 shares add to 1 and NCR is 6.3%",True,"q = 0.8648; top 50 36.2%, top 150 48.8%, top 500 65.0%"
+"City layer with an unlimited pool: sign-ups = the model without it, every month",True,
+Run 1: no city's cumulative sign-ups exceed its cap,True,most-penetrated city at 19.89%
+"Run 1: every book is in a city and city agents add to the company's agents, every month",True,
+"Run 1: city sign-ups add to the company's sign-ups, every month",True,
+"Run 1: city savers, AUM and revenue add to the company's",True,
+"Run 1: city CM2 adds to the company's CM2, every month",True,
+"PLANNED mode from city_plan.csv reproduces AUTO within 1% (sign-ups, savers, AUM, ARR, revenue, agents, year-5 EBITDA)",True,"Cumulative sign-ups to m60 -0.42%; Active savers at m60 -0.30%; AUM at m60 -0.44%; ARR at m60 -0.43%; Revenue, years 1-5 -0.40%; Agents at m60 +0.00%; Revenue, years 1-8 -0.26%; Active savers at m96 -0.00%; Year-5 EBITDA (gap as a share of year-5 revenue) -0.50%"
+PLANNED: city agents add to the company's agents and follow the plan,True,
+PLANNED: no city's cumulative sign-ups exceed its cap,True,
+PLANNED: city CM2 adds to the company's CM2,True,

@@ -1,0 +1,34 @@
+Measure,Value,Unit,How it is worked out
+Savers still saving,40389.623140594325,savers,month 18
+Money in the fund (AUM),1241429150.2923472,Rs,end of month 18
+Money lent in month 18,14652497.737557864,Rs,"personal loans: first, repeat and top-ups"
+"Money lent, months 1-18",73012066.42128849,Rs,"personal loans: first, repeat and top-ups"
+Revenue in month 18,1149786.3930385807,Rs a month,commissions earned
+Revenue run-rate,13797436.716462968,Rs a year,month 18 x 12
+CM1 in month 18,1011542.5488795021,Rs a month,
+CM2 in month 18,-1192296.6336227648,Rs a month,
+CM3 in month 18,-4105426.6144577153,Rs a month,
+EBITDA in month 18,-8900634.581874013,Rs a month,includes the Series A costs (Rs 15 lakh + 10% contingency)
+EBITDA in month 18 before the Series A costs,-7250634.581874013,Rs a month,
+Burn in month 18,9119846.814488128,Rs a month,cash used by operations and investing in month 18 (negative = cash made)
+"Average burn, months 1-18",4645413.867667755,Rs a month,"cash used, months 1-18, over 18"
+"Cash at the end of month 18, seed only",18032550.381980397,Rs,no Series A
+"Cash at the end of month 18, with the Series A",516382550.3819804,Rs,with Rs 50 crore landing at the end of month 18
+"Lowest cash, seed only, through m18",18032550.381980397,Rs,in month 18
+"Lowest cash, with the Series A, through m60",25502397.196468525,Rs,in month 17
+Month the seed alone runs out,21.0,company month,first month-end below 0 with no Series A
+The Series A must close by month,20.0,company month,"the latest month-end it can land (Rs 50 crore, its Rs 15 lakh cost booked that month) without cash going below 0 before"
+Series A slips to month 21: lowest cash through m60,3922735.5517131723,Rs,in month 20
+Series A slips to month 21: cash goes below 0,no,,
+Series A slips to month 24: lowest cash through m60,-16743329.090756921,Rs,in month 23
+Series A slips to month 24: cash goes below 0,yes,,
+Smallest Series A at month 18 that keeps cash at or above Rs 5 crore through m60,189443146.80993557,Rs,searched; the floor applies from month 18 (months 1-17 are seed only)
+"Headroom over the minimum A, likely values",310556853.19006443,Rs,Rs 50 crore less the smallest A above (company_mc.py adds the Monte Carlo p50 and p90 lines)
+Agents working,80.0,agents,month 18
+Cities,3.0,cities,month 18
+"Headcount, all",106.0,people,"agents, field managers, central team"
+"Sign-ups, months 1-18",51811.421760250305,sign-ups,
+"Cost to win a saver, per sign-up",423.04244636187786,Rs a sign-up,"months 1-18: the acquisition block (the acquisition share of agent cost, online leads, KYC, kit, city launch, brand) over sign-ups"
+"Cost to win a saver, per saver still saving",542.6747987879542,Rs a saver,the same cost over savers still saving in month 18
+"Contribution per agent in month 18, CM2",-14903.70792028456,Rs a month,CM2 (after serving the book) per agent working
+"Contribution per agent in month 18, CM3",-51317.83268072144,Rs a month,CM3 (after acquisition) per agent working

@@ -1,0 +1,8 @@
+﻿id,name,sub,x,y,savings,high_threat,anchor,dx,dy
+online,Online business lenders,pulling back: Lendingkart -74%,0.8,8.2,none,0,start,12,4
+gold,Gold-loan lenders,"Rs 19.4 lakh cr book, secured",3.0,9.1,none,0,start,12,4
+consumer,"Jar, PhonePe Daily SIP",save from Rs 10 a day,4.4,1.9,full,0,start,12,4
+bachatt,Bachatt,$16M raised; refers loans,5.0,4.36,full,1,end,-14,4
+tide,"Tide, Khatabook",books; refer loans,6.6,4.0,half,0,start,12,4
+phonepe,"PhonePe, Paytm, BharatPe",loans repaid from daily sales,7.5,7.23,half,1,end,-14,0
+coop,Cash co-op,savings and loans,9.55,7.87,full,0,end,26,24

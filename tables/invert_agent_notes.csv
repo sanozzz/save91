@@ -1,0 +1,9 @@
+key,value,from
+signups_to_keep_book,1242.0171918231147,BOOK / still saving at 12 months (tables/lend_funnel.csv)
+signups_per_working_day,5.175071632596311,over 240 working days
+monthly_saving_middle_customer,7000.0,DAILY x 240 / 12
+loss_9pct_net_per_loan,-471.97119177513105,tables/lend_loan.csv
+loss_6pct_net_per_loan,4594.394238354521,tables/lend_loan.csv
+loss_3pct_net_per_loan,8816.365430129232,tables/lend_loan.csv
+loans_needed_6pct,73.3502574042702,gap_mid / net
+loans_needed_3pct,38.22436838295395,gap_mid / net

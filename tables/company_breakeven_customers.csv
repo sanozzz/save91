@@ -1,0 +1,11 @@
+Plan,Measure,Value,Unit,How it is worked out
+"Base: 80 agents by m18, then replace leavers",Month EBITDA first turns positive,not within 60,company month,first month with EBITDA > 0
+"Base: 80 agents by m18, then replace leavers",Month EBITDA turns positive and stays positive,not within 60,company month,
+"Base: 80 agents by m18, then replace leavers","Central costs a month, months 49-60",3847995.388364975,Rs a month,"central team, app, licences, HQ, travel, tools, contingency"
+"Base: 80 agents by m18, then replace leavers",Mature CM3 per active saver a month (months 49-60),17.5031397489173,Rs a saver a month,"after direct, servicing and acquisition costs"
+"Base: 80 agents by m18, then replace leavers",Rule of thumb: break-even savers = central costs a month / mature CM3 per saver a month,219846.0072629542,savers,with acquisition running at the plan's pace
+"Base: 80 agents by m18, then replace leavers",Mature CM2 per active saver a month (months 49-60),34.81750401026449,Rs a saver a month,after direct and servicing costs only
+"Base: 80 agents by m18, then replace leavers",Rule of thumb if acquisition stopped: central costs / mature CM2 per saver,110518.99031103877,savers,a floor: the book needed to carry the central team with no growth spend
+"Base: 80 agents by m18, then replace leavers",Active savers the plan has at m60,155543.6367746883,savers,
+"Base: 80 agents by m18, then replace leavers",Agents the plan has at m60,80.0,agents,
+"Base: 80 agents by m18, then replace leavers",Money in the fund (AUM) at m60,9475333714.694845,Rs,

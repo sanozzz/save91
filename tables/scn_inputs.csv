@@ -1,0 +1,10 @@
+input,low,middle,high,basis
+still saving after 12 months,30% / 40% (bear),55% (our middle),"70% (best, janta-like)","operator, 16 Oct 2026; steady monthly drop-off"
+agent pay,,"Rs 20,000 a month + 1% of savings",,"operator, 16 Oct 2026"
+daily,200.0,350.0,500.0,"Rs a day per saver: Arvinder's customers Rs 200-500 (interview, 15 Oct 2026)"
+signups,750.0,1000.0,1250.0,"sign-ups per agent a year: operator 1,000; +/-25% is our range"
+trail,0.002,0.0035,0.005,fund commission a year on the balance (XB-04)
+other,8.0,63.0,259.0,"other products, Rs per saver a year (XO-39)"
+card_fee,500.0,1250.0,2000.0,"Rs per card, 5% of sign-ups (BM-08, unverified)"
+loan_rate,0.0045,0.025,0.098,loans per proven saver a year: eligible x apply x approved (tables/agent3_funnel_inputs.csv)
+clawback,0.05,0.025,0.0,share of loan fees taken back (XL-13)

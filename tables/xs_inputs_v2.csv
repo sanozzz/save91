@@ -1,0 +1,31 @@
+key,name in plain words,low,middle,high,unit,source_ids,status,note
+agent_pay,Agent's salary,15000,20000.0,25000,Rs a month,operator; IV-13,operator,"₹20,000 is yours; ₹15,000–25,000 is the janta agent's pay. Stress pays: + 0.5% of balance, + 1% of collections"
+signups,Sign-ups per agent a year,750,1000,1250,sign-ups a year,operator,operator,"1,000 is yours; ±25% is our range"
+r12,Still saving after a year,0.3,0.55,0.7,share,operator (30–70),judgement,55 is ours: between the bear case (30–40) and one janta agent's book (72); same drop-off every month
+daily,Daily amount a saver puts in,200,350,500,Rs a day,operator; IV-03,operator,₹350 is yours; ₹200–500 from the interview
+days,Deposit days a month,20,20,20,days,none,judgement,240 deposit days a year; no source
+balance,Money held in his fund,3500,42000,80500,Rs per saver,derived,derived,"Yearly terms: builds by ₹7,000 a month, paid out at each term's end; ₹42,000 on average"
+trail,"Fund commission a year, on the balance",0.002,0.0035,0.005,share a year,XB-04,unverified,Debt-fund distributor commission (AMC and adviser blogs)
+proven_after,Months of saving before he is offered products,6,6,6,months,operator,operator,"From month 7 he is a proven saver: loans, cards, insurance and more"
+visit_every,Days between visits to a cash saver,2,2.5,3,days,operator,operator,Every 2–3 days
+capacity,Cash visits one agent can make a day,400,400,400,visits a day,IV-01; agent_3yr.py,judgement,"Top of a 200–400 janta book; 400 a day at every 2.5 days = 1,000 savers on cash"
+apply,Proven savers who apply for a loan in a year,0.1,0.2,0.35,share a year,"XL-42, LS-06, XL-04",judgement,Kissht 17.5% ever borrowed; Brazil 20% in year one; founder 35%
+eligible,Applicants who can carry a ₹2.5 lakh EMI,0.3,0.5,0.7,share,"XB-09, IV-04, XL-34",judgement,"₹10,073 EMI needs ₹20,145+ income at the 50% rule; customers earn ₹20–40k"
+approved,Eligible applicants a lender approves,0.25,0.35,0.5,share,XL-41; founder,judgement,"Several lenders; one lender gave the founder 25%; Kissht approves 11% new, 74% repeat"
+loans_per_100,Loans per 100 proven savers a year,0.75,3.4999999999999996,12.25,loans,derived,derived,Apply × eligible × approved
+ticket,Loan size,100000,250000.0,300000,Rs,"operator; XB-08, XL-12",operator,₹2.5 lakh is yours; range is our judgement (Paytm average ₹2.05 lakh)
+fee,"Origination fee, paid by the lender",0.02,0.026250000000000002,0.03,share of the loan,"operator; XL-13, LEV-009, BM-07",operator,1.5 × a DSA's 1.75% (the middle of blog-reported 1–2.5%); range 2% and 1.5 × 2%
+taken_back,Fees taken back (loan closed or bad in 6 months),0.05,0.025,0.0,share of fees,"XL-13, XL-47",unverified,DSA platform blogs
+fee_per_loan,What one loan earns us,4750.0,6398.437500000001,7500.0,Rs a loan,derived,derived,Loan size × fee × (1 − taken back)
+npa,Loans that go 90+ days bad,0.036,0.05,0.07,share of loans,MAC-03,judgement,"CRIF: 3.6% peak for loans over ₹50,000; 5% is ours"
+owed,Owed when a loan goes bad,0.5,0.5,0.5,share of the loan,none,judgement,Half the loan
+recovered,Recovered of what is owed,0.3,0.325,0.35,share,XB-07,evidence,Paytm's results: 30–35%
+rec_fee,Our fee on what is recovered,0.05,0.1,0.15,share,NABARD tender (no id),unverified,"Paid about 18 months after the loan, so not in the pilot year"
+coll_per_loan,"Recovery fees, per loan made",51.34898976610933,154.52242290727344,349.45840257491074,Rs a loan,derived,derived,An average over all loans; small: about 2% of the origination fee
+card_share,"Proven savers who get a card (once, month 7)",0.005,0.05,0.05,share,operator; XL-54,operator,"5% is yours and the top of XL-54's 0.5–5% band for FD-secured cards, which is itself assumed"
+card_fee,Fee per approved card,500,1250.0,2000,Rs a card,"BM-08, XL-20",unverified,"Affiliate guides for unsecured cards, which need income proof"
+card_fee_fd,Fee per FD-secured card (one-way test only),300,750,1500,Rs a card,XL-54,judgement,Assumed in XL-54; no published payout (TB-35)
+other,"Insurance and other products, from month 7",8,63.0,259,Rs a saver a year,"XO-39, XO-10",judgement,Proven savers only; take-ups are ours; PhonePe earns ₹8 a user on insurance
+discount,Discount rate,0.2,0.2,0.2,a year,tables/inputs.csv,judgement,Applied monthly
+online_cac,Online cost to win a saver,186,499.2394,1340,Rs a saver,"TB-18..22, NG-043",judgement,App signals × 1.1 for shopkeepers: no firm publishes it
+online_r12,Online: still saving after a year,0.2415425502763293,0.2415425502763293,0.2415425502763293,share,tables/story_unit.csv,derived,Our evidence curve

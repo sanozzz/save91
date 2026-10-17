@@ -1,0 +1,43 @@
+{'case': 'best_case_flat_failed_free', 'design': 'daily', 'breakeven_amount': 700, 'debits_gig': 17.0, 'debits_ng': 18.75, 'monthly_gig': 11900.0, 'monthly_ng': 13121.76, 'share_income_gig': 0.63, 'share_income_ng': 0.57, 'best_net_at_or_below_1000': 2320.86, 'amount_of_best_at_or_below_1000': 1000}
+{'case': 'best_case_percent', 'design': 'daily', 'breakeven_amount': '', 'debits_gig': 17.0, 'debits_ng': 18.75, 'monthly_gig': '', 'monthly_ng': '', 'share_income_gig': '', 'share_income_ng': '', 'best_net_at_or_below_1000': -234.74, 'amount_of_best_at_or_below_1000': 50}
+{'case': 'evidence_flat_failed_billed', 'design': 'daily', 'breakeven_amount': 4650, 'debits_gig': 17.0, 'debits_ng': 18.75, 'monthly_gig': 79050.0, 'monthly_ng': 87165.96, 'share_income_gig': 4.21, 'share_income_ng': 3.79, 'best_net_at_or_below_1000': -929.77, 'amount_of_best_at_or_below_1000': 1000}
+{'case': 'evidence_flat_failed_free', 'design': 'daily', 'breakeven_amount': 3050, 'debits_gig': 17.0, 'debits_ng': 18.75, 'monthly_gig': 51850.0, 'monthly_ng': 57173.37, 'share_income_gig': 2.76, 'share_income_ng': 2.48, 'best_net_at_or_below_1000': -387.38, 'amount_of_best_at_or_below_1000': 1000}
+{'case': 'evidence_flat_failed_free', 'design': 'weekly', 'breakeven_amount': 5150, 'debits_gig': 3.76, 'debits_ng': 3.76, 'monthly_gig': 19388.99, 'monthly_ng': 19388.99, 'share_income_gig': 1.03, 'share_income_ng': 0.84, 'best_net_at_or_below_1000': -521.92, 'amount_of_best_at_or_below_1000': 1000}
+{'case': 'evidence_percent', 'design': 'daily', 'breakeven_amount': '', 'debits_gig': 17.0, 'debits_ng': 18.75, 'monthly_gig': '', 'monthly_ng': '', 'share_income_gig': '', 'share_income_ng': '', 'best_net_at_or_below_1000': -680.25, 'amount_of_best_at_or_below_1000': 50}
+{'case': 'plan', 'design': 'daily', 'breakeven_amount': 450, 'debits_gig': 20.0, 'debits_ng': 22.0, 'monthly_gig': 9000.0, 'monthly_ng': 9900.0, 'share_income_gig': 0.48, 'share_income_ng': 0.43, 'best_net_at_or_below_1000': 785.41, 'amount_of_best_at_or_below_1000': 1000}
+Rs    50: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,119
+Rs   100: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,170
+Rs   150: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,215
+Rs   200: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,251
+Rs   250: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,296
+Rs   300: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,337
+Rs   350: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,381
+Rs   400: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,420
+Rs   450: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,446
+Rs   500: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,480
+Rs   550: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,495
+Rs   600: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,515
+Rs   650: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,534
+Rs   700: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -1,540
+Rs   750: P(profit) 0.1%  flat 0.3%  percent 0.0%  P50 -1,542
+Rs   800: P(profit) 0.7%  flat 1.4%  percent 0.0%  P50 -1,547
+Rs   850: P(profit) 1.2%  flat 2.4%  percent 0.0%  P50 -1,536
+Rs   900: P(profit) 1.5%  flat 2.9%  percent 0.0%  P50 -1,548
+Rs   950: P(profit) 2.1%  flat 4.1%  percent 0.0%  P50 -1,547
+Rs  1000: P(profit) 3.1%  flat 6.1%  percent 0.0%  P50 -1,551
+Rs  1250: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -2,897
+Rs  1500: P(profit) 0.0%  flat 0.0%  percent 0.0%  P50 -3,056
+Rs  1750: P(profit) 0.1%  flat 0.2%  percent 0.0%  P50 -3,124
+Rs  2000: P(profit) 1.5%  flat 2.9%  percent 0.0%  P50 -3,178
+Rs  2250: P(profit) 3.7%  flat 7.3%  percent 0.0%  P50 -3,207
+Rs  2500: P(profit) 5.8%  flat 11.3%  percent 0.0%  P50 -3,233
+Rs  2750: P(profit) 10.0%  flat 19.6%  percent 0.0%  P50 -3,209
+Rs  3000: P(profit) 13.3%  flat 26.2%  percent 0.0%  P50 -3,155
+Rs  3250: P(profit) 16.6%  flat 32.5%  percent 0.0%  P50 -3,136
+Rs  3500: P(profit) 19.8%  flat 38.8%  percent 0.0%  P50 -3,064
+Rs  3750: P(profit) 23.1%  flat 45.4%  percent 0.0%  P50 -2,994
+Rs  4000: P(profit) 25.3%  flat 49.8%  percent 0.0%  P50 -2,911
+Rs  4250: P(profit) 27.5%  flat 54.1%  percent 0.0%  P50 -2,905
+Rs  4500: P(profit) 30.2%  flat 59.4%  percent 0.0%  P50 -2,813
+Rs  4750: P(profit) 32.5%  flat 63.9%  percent 0.0%  P50 -2,711
+Rs  5000: P(profit) 34.4%  flat 67.7%  percent 0.0%  P50 -2,599

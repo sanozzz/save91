@@ -1,0 +1,6 @@
+City,Rank,Addressable (urban self-employed),Cap: 20% of addressable (sign-ups),Launch month,Agents in the launch month,Agents at launch +3 months,Agents at launch +6 months,Agents at launch +12 months,Agents at launch +24 months,Agents at launch +36 months,Agents at launch +48 months,Agents at launch +60 months,Agents at launch +72 months,Agents at launch +84 months,"Month it nears its cap (95%; AUTO run, information only)",Notes
+NCR,1,4410000.0,882000.0,1,6,22,44,87,87,87,87,87,87,87,not by m60,real-world default: AUTO rollout of the profitable plan; edit freely
+Mumbai MMR,2,2421675.3094361634,484335.0618872327,11,2,46,49,49,49,49,49,49,49,49,not by m60,real-world default: AUTO rollout of the profitable plan; edit freely
+Kolkata,3,1705441.8288033449,341088.365760669,15,14,35,35,35,35,35,35,35,35,35,not by m60,real-world default: AUTO rollout of the profitable plan; edit freely
+Bengaluru,4,1329821.1574450652,265964.23148901307,17,12,27,27,27,27,27,27,27,27,27,not by m60,real-world default: AUTO rollout of the profitable plan; edit freely
+Chennai,5,1096448.039324374,219289.6078648748,18,2,2,2,2,2,2,2,2,2,2,not by m60,real-world default: AUTO rollout of the profitable plan; edit freely

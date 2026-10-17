@@ -1,0 +1,94 @@
+Group,Input,Value,Unit,Source,Confidence
+Cities,"Addressable pool: urban self-employed (own-account workers, employers, helpers), likely",70000000.0,people,"NG-002 (40.4% of urban workers self-employed, 34.0% own-account or employer); urban workers about 19 crore (lead's estimate)",Our judgement
+Cities,"Addressable pool, range for the Monte Carlo (low / likely / high)",6.5 / 7.0 / 7.7 crore (pert),people,as above,Our judgement
+Cities,Urban towns on the rank-size curve,4000,towns,"lead's estimate (about 4,000 urban centres)",Our judgement
+Cities,"Cities a fleet serves (Class I, population >= 1 lakh)",500,cities,lead's estimate (about 500),Our judgement
+Cities,NCR's share of urban India (rank 1 on the curve),0.063,share,lead's estimate: NCR about 3.3 crore of about 52 crore urban,Our judgement
+Cities,"Rank-size exponent q (fitted so the 4,000 shares add to 1)",0.8648,,"fitted (estimate, not census)",Our judgement
+Cities,City cap: most of a city's pool we can ever sign,0.2,share of the city's pool,operator tap: 20%,Your number
+Cities,Saturation curve: sign-ups x (1 - (penetration / cap)^2) (soft),soft,,lead's decision after sat_sensitivity.csv,Our judgement
+Cities,"Pool refill (new shops, migrants, people entering self-employment)",0.03,a year,lead's decision after sat_sensitivity.csv,Our judgement
+Cities,Most new cities a month,4,cities a month,lead's decision (operational pace),Our judgement
+Cities,Open the next city when the best city's headroom a head is below,"25,000",sign-ups a head,searched (share_compare.py),Our judgement
+Cities,"City launch cost, once per city",300000.0,Rs,"operator tap, 17 Oct",Your number
+Cities,City office,50000.0,Rs a month per city,operator tap,Your number
+Cities,"City manager, one per city",80000.0,"Rs a month (+10% statutory, +7% a year)",operator tap,Your number
+Cities,"Team lead, one per 10 agents",40000.0,"Rs a month (+10% statutory, +7% a year)",operator tap,Your number
+Fleet,"Agents by month 18 (ramp: m3 25, m6 50, m9 100, m12 150, m15 225, m18 300)",300,agents,searched (share_compare.py),Our judgement
+Fleet,Hires a month after month 18,150,agents a month,searched (share_compare.py),Our judgement
+Fleet,Agent cap (then replace leavers only),5000,agents,searched (share_compare.py): sized to the city pool,Our judgement
+Fleet,Agents who leave a year (replaced the next month; the new agent inherits the book),0.3,share of agents,operator tap,Your number
+Fleet,Savers who stop when their agent is replaced,0.1,share of the book,operator tap,Your number
+Fleet,Agent statutory on top of salary,3000.0,Rs a month (rises with pay),operator tap,Your number
+Fleet,"Hiring and kit, per hire incl. replacements",12000.0,Rs,operator tap,Your number
+Fleet,"Pay rise, agents and staff",0.07,a year,operator tap; lead fix (agents too),Your number
+Fleet,"Acquisition share of agent cost: tenure months 1-12, then a straight line to month 60",50% -> 20%,share,operator tap (split by time),Your number
+Central team,Founders (Founders),150000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Tech lead (Technology),250000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Engineers (Technology),120000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Product and design (Technology),150000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Compliance and operations head (Compliance and operations),150000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Operations executives (Compliance and operations),40000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Growth and marketing (Growth and marketing),120000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Finance and admin (Finance and admin),70000.0,"Rs a month each, year-1 terms (+10% statutory, +7% a year)","operator tap, 17 Oct",Your number
+Central team,Risk and fraud lead (Risk and cash reconciliation): from the month the fleet reaches 100 agents,150000.0,"Rs a month each, year-1 terms",operator tap ('Add as proposed'),Your number
+Central team,"Cash reconciliation executives (Risk and cash reconciliation): 1 per 50 agents, rounded up from the first agent",35000.0,"Rs a month each, year-1 terms",operator tap ('Add as proposed'),Your number
+Central team,"HR and recruiting executives (HR and recruiting): 1 per 100 agents, rounded up from the first agent",50000.0,"Rs a month each, year-1 terms",operator tap ('Add as proposed'),Your number
+Central team,"Customer support lead (Customer support): from the month the company has 50,000 savers",60000.0,"Rs a month each, year-1 terms",operator tap ('Add as proposed'),Your number
+Central team,Engineers and ops executives after m18,+1 each per 50 agents beyond 60,,operator tap,Your number
+Costs and finance,Statutory on central and field-management pay,0.1,share of pay,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"Laptop per central hire (capitalised, 36 months)",60000.0,Rs,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Tools per central person,1000.0,Rs a month,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"App: cloud, SMS and KYC tools",150000.0,Rs a month,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"App integrations, months 1-3 (capitalised, 36 months)",1500000.0,Rs,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"Licences and setup, one-time",750000.0,Rs,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"Licences and compliance, yearly",1000000.0,Rs a year,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Head office,150000.0,Rs a month,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Travel,100000.0,Rs a month,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Brand marketing,200000.0,Rs a month,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Bureau pull per personal-loan application,25.0,Rs,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Fraud provision on cash collected,0.0005,share,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"Cash cover: the larger of Rs 1,000 or this share of the agent's cash",0.00015,share a month,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Contingency on every expensed line,0.1,share,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Income tax on profit after past losses,0.25,share,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Interest on cash,0.055,a year,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Commissions arrive after,2,months,"operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,Depreciation of laptops and integrations,36,"months, straight line","operator taps (brief, addendum, fix round 1)",Your number
+Costs and finance,"Fund-raising cost, seed / each later round","500,000 / 1,500,000",Rs,"operator taps (brief, addendum, fix round 1)",Your number
+NBFC,NBFC-ICC acquired or built,24,company month,LEV-031,"Industry guide, not verified"
+NBFC,Licence cost,10000000.0,"Rs, once",LEV-031,"Industry guide, not verified"
+NBFC,Net owned funds held as capital from the licence month,100000000.0,Rs,RBI minimum for an NBFC-ICC (Rs 10 crore),Published
+NBFC,"NBFC opex: credit, risk, compliance, treasury",1500000.0,Rs a month,judgement,Our judgement
+NBFC,NBFC opex that scales with the book (pro rata),500000.0,Rs a month per Rs 500 crore of book,judgement,Our judgement
+NBFC,On-book lending starts,30,company month,operator tap: test NBFC from year 3,Your number
+NBFC,Yield on the outstanding book = the agreed EMI rate (rate),0.26,a year,agreed input; LEV-012 25-28%,"Industry guide, not verified"
+NBFC,"Processing fee at disbursal, paid by the borrower",0.02,share of the loan,judgement,Our judgement
+NBFC,Cost of borrowings,0.135,a year,LEV-014/015,"Industry guide, not verified"
+NBFC,Borrowings at most this multiple of NBFC equity,3.0,x equity,LEV-023 (AUM/TNW 3.25x),"Industry guide, not verified"
+NBFC,"Lifetime credit loss after recoveries: the agreed `loss` (likely), before the on-book multiple",0.03,share of money lent,agreed input (likely 3%; Paytm worst 5%),Our judgement
+NBFC,"On-book share of personal-loan volume: the best-quality part by credit score, flat from m30",0.3,share,operator: '30% on book',Your number
+NBFC,On-book loss as a multiple of the agreed loss,0.6,x the agreed loss,judgement: the top 30% by score,Our judgement
+NBFC,NBFC equity = the larger of NOF and the book / (1 + leverage),"max(Rs 10 crore, 25% of the book)",,LEV-023; RBI minimum NOF,"Industry guide, not verified"
+NBFC,Capital floor: regulatory minimum / operating floor,15% / 20% (25% held),share of the book,brief,Published
+NBFC,DSA origination fee on on-book loans,0,,brief: we are the lender,Your number
+NBFC,Collection fees on on-book loans,internal (dropped); partners' 70% unchanged,,brief,Your number
+Rounds,Seed pre-money (fixed),400000000.0,Rs,brief,Your number
+Rounds,Step-up into round A (x the previous post-money),3.0,x,lead decision (unicorn fix 1),Our judgement
+Rounds,Step-up into round B (x the previous post-money),3.0,x,lead decision (unicorn fix 1),Our judgement
+Rounds,Step-up into round C (x the previous post-money),2.5,x,lead decision (unicorn fix 1),Our judgement
+Rounds,Step-up into round D (x the previous post-money),2.0,x,lead decision (unicorn fix 1),Our judgement
+Rounds,Step-up into round E (x the previous post-money),1.5,x,lead decision (unicorn fix 1),Our judgement
+Rounds,Step-up for later rounds / extensions,1.5 / 1,x,lead decision,Our judgement
+Rounds,Pre-money = the higher of the step-up and the lens; never below the previous post,rule,,lead decision,Our judgement
+Rounds,Lens pricing: round A / later rounds,25 x ARR or 0.45 x AUM / 20 x ARR or 0.45 x AUM,,brief,Our judgement
+Rounds,Dilution cap per round,0.25,share of post-money,brief,Your number
+Rounds,Cadence,"seed m0; A m12; B m24; C m36; D m48; unicorn round E in m54-m60 once a lens reaches Rs 10,000 crore",,lead decision,Our judgement
+Rounds,A round comes earlier when cash would fall to this many months of forward burn,6,months,brief,Our judgement
+Rounds,Round size: months of forward burn + buffer (18 if 24 would dilute more than 25%),24 (or 18) + Rs 10 crore,,brief,Our judgement
+Rounds,"ESOP pool: 10% of the post-money at the seed, topped up to 10% at A and B",0.1,share,brief,Your number
+Lenses,Unicorn threshold ($1B at Rs 100 per $),100000000000.0,Rs,operator convention,Your number
+Lenses,"Lens 1: x ARR, ARR = 12 x (fee revenue + net interest income + processing fees) in the month",20.0,x,judgement: a fintech growing > 100% a year,Our judgement
+Lenses,Lens 2: x AUM (month-end fund),0.45,x,"SAV-03: Stable Money Rs 2,507 crore post-money against about Rs 5,000 crore invested (SAV-02); a rough proxy",Our judgement
+Lenses,Lens 3 (cross-check): x NBFC book equity + 20 x fee ARR,3,x,judgement: fintech NBFC P/B,Our judgement
+Model,Horizon,96,months,the unicorn plan's horizon,Our judgement
+Model,Monte Carlo draws (fleet path and funding plan fixed),1000,draws,brief,Our judgement

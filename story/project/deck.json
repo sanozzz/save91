@@ -1,0 +1,95 @@
+{
+ "v": 4,
+ "createdOnFiles": {
+  "v": 1,
+  "at": "2026-09-30T16:32:54Z"
+ },
+ "lists": "css",
+ "title": "Save First, Lend Later: The Story",
+ "cover": "cover",
+ "order": [
+  "cover",
+  "idea",
+  "whysave",
+  "catch1",
+  "catch2",
+  "crux",
+  "segments",
+  "dies",
+  "test",
+  "ap_divider",
+  "ap_maths",
+  "full_customer",
+  "full_problem",
+  "full_funnel",
+  "full_flip",
+  "full_whynow",
+  "full_product",
+  "full_instrument",
+  "full_gtm",
+  "full_revenue",
+  "full_unit",
+  "full_wtbt",
+  "full_path",
+  "full_competition",
+  "full_premortem",
+  "full_pilot",
+  "full_a1_regmap",
+  "full_a2_outputs",
+  "full_a3_levers",
+  "full_a4_lendfirst",
+  "full_a5_marketing",
+  "full_a5b_marketing_ng",
+  "full_a6_comps",
+  "full_a7_qa1",
+  "full_a8_qa2",
+  "full_a9_qa3",
+  "full_a10_sources1",
+  "full_a11_sources2",
+  "full_a12_sources3",
+  "full_a13_sources4",
+  "full_a14_sources5",
+  "full_a15_sources6"
+ ],
+ "sections": {
+  "s1": {
+   "description": "The story in nine slides",
+   "start": "cover"
+  },
+  "s2": {
+   "description": "Appendix: the per-saver maths",
+   "start": "ap_divider"
+  },
+  "s3": {
+   "description": "Full deck: customer, problem and the flip",
+   "start": "full_customer"
+  },
+  "s4": {
+   "description": "Full deck: product, channels and money",
+   "start": "full_product"
+  },
+  "s5": {
+   "description": "Full deck: does it add up",
+   "start": "full_unit"
+  },
+  "s6": {
+   "description": "Full deck: the next step",
+   "start": "full_pilot"
+  },
+  "s7": {
+   "description": "Full deck: appendix",
+   "start": "full_a1_regmap"
+  }
+ },
+ "faces": {
+  "source-serif-4": {
+   "family": "Source Serif 4",
+   "href": "https://fonts.googleapis.com/css2?family=Source+Serif+4:wght@400;600;700&display=swap"
+  },
+  "ibm-plex-sans": {
+   "family": "IBM Plex Sans",
+   "href": "https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&display=swap"
+  }
+ },
+ "designSystems": []
+}
