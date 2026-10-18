@@ -1,6 +1,8 @@
 # Working the investment-committee review
 
-18 October 2026. The agreed base numbers are unchanged. This pass fixes labels the review showed were wrong, and writes the customer problem that was missing. The findings that change a headline need a decision before the base moves.
+18 October 2026. The 17 Oct base in `tables/base_*.csv` is unchanged. The refresh the committee's anchors support has been run beside it: `story/REFRESH.md`, `tables/refresh_*.csv`, produced by `model/refresh_case.py`. It does not close a finding in `INVESTMENT_REVIEW.md`.
+
+The refresh changes six inputs: personal-loan ticket ₹58,522, home-loan ticket ₹11.8 lakh, apply rate 3.6% a year, NBFC borrowings 1.16× equity, UPI 100% by month 12, and a bought-lead cost of ₹300. Sign-ups, the 55% still saving, the ₹350 a day, the debt fund and the 5,000-agent path are the published ones. Year-5 revenue is ₹181 crore against ₹468 crore. Year-5 EBITDA is −₹265 crore. Lenses 1 and 2 do not both clear by month 96. Lens 2 still does, because the savings book was not changed. The run that reproduces the old base matches it.
 
 The review itself stays in `INVESTMENT_REVIEW.md`. Do not edit it to mark findings closed.
 

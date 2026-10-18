@@ -1,0 +1,7 @@
+Run,Round,Month,Amount (Rs),Pre-money (Rs),Post-money (Rs),Dilution (new investors' share of post-money),Founders % after,ESOP % after,Investors % after,Priced on,Why this month,Capped at 25% dilution,Basis
+Refresh,Seed,0,130000000.0,400000000.0,530000000.0,0.24528301886792453,0.6547169811320755,0.1,0.24528301886792453,fixed Rs 40 crore,start,yes,valuations are our judgement (step-ups and lenses)
+Refresh,A,8,530000000.0,1590000000.0,2120000000.0,0.25,0.47285115303983233,0.1,0.4271488469601677,step-up 3x,cash would fall to 6 months of forward burn,yes,valuations are our judgement (step-ups and lenses)
+Refresh,B,18,2120000000.0,6360000000.0,8480000000.0,0.25,0.3415036105287678,0.1,0.5584963894712323,step-up 3x,cash would fall to 6 months of forward burn,yes,valuations are our judgement (step-ups and lenses)
+Refresh,C,32,5700000000.0,22266013013.400723,27966013013.400723,0.20381882813501806,0.2718987448269167,0.0796181171864982,0.6484831379865852,AUM lens,cash would fall to 6 months of forward burn,no,valuations are our judgement (step-ups and lenses)
+Refresh,D,48,5300000000.0,76203878484.54268,81503878484.54268,0.06502758026423433,0.25421782737393983,0.07444074368066596,0.6713414289453943,AUM lens,cadence (m48),no,valuations are our judgement (step-ups and lenses)
+Refresh,E,59,4750000000.0,122255817726.81403,127005817726.81403,0.03739986155765807,0.24471011582466587,0.07165667017275994,0.6836332140025743,step-up 1.5x,"unicorn round: the lens value first reaches Rs 10,000 crore",no,valuations are our judgement (step-ups and lenses)

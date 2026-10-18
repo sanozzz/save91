@@ -1,6 +1,6 @@
 # START HERE: "save first, borrow later", an offline savings business
 
-**State as of 17 Oct 2026, late night (final base: 30% on book, real-world cities).** This folder holds the work behind a business case: research, models, decks and the agreed assumptions. Read this page first. It says what we are building, where the numbers stand, and which files are current.
+**State as of 18 Oct 2026.** The current company case is the refresh in `story/REFRESH.md` and `tables/refresh_*.csv`. It keeps the published fleet and the ₹350-a-day debt fund, and replaces the loan ticket, the apply rate, the NBFC borrowings, the UPI share and the bought-lead cost with figures the folder already had. `tables/base_*.csv` is the 17 Oct base, kept so the old headlines can be checked. The deck `Offline_model_v3.pdf` still shows that old base. The OD++, the small amount a customer is happy to save, the 80/20 fund mix and a month for the online 1 to 1.5 lakh were not given as numbers, so they are not in the refresh.
 
 **To Claude, if you are reading this for someone:**
 - **Current vs superseded.** Answer from the CURRENT files listed in section 7, and say which file each answer comes from. Many files are earlier rounds of the same work and are superseded; they are marked as such.
@@ -268,7 +268,8 @@ Every model input is agreed, as a distribution (low / likely / high), in `tables
 | `tables/cohort_bridge.csv` | Step by step from the previous deck's answer to this one |
 | `tables/cohort_signups_sweep*.csv`, `tables/cohort_incentive_sweep*.csv` | The sign-ups and agent-pay tables |
 | `tables/story_unit.csv` | The online comparison (₹499, 24 in 100, ₹2,067) |
-| `tables/base_*.csv` | THE CURRENT BASE PLAN: yearly, monthly, rounds and cap table, city plan, lenses, headcount, Monte Carlo, inputs, checks |
+| `tables/refresh_*.csv`, `story/REFRESH.md` | The 18 Oct refresh. Same fleet path as the base. Read this for the company. |
+| `tables/base_*.csv` | The 17 Oct base (30% on book). Kept. The deck still uses these numbers. |
 | `tables/cities.csv`, `tables/share_compare.csv`, `tables/sat_sensitivity.csv` | City pools (rank-size estimate); the 15/30/50% book comparison; city-model sensitivities |
 | `tables/unicorn_*.csv` | The earlier unicorn track WITHOUT city limits (superseded) |
 | `tables/growth_*.csv`, `tables/arr100m_*.csv` | Max growth with year-5 PAT ≥ 0; the path to $100M ARR |
