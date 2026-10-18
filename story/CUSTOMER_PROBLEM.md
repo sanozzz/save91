@@ -2,6 +2,8 @@
 
 This is the page the deck does not have. The published deck opens on our cost of winning him online (₹499, and 24 in 100 still saving). That is our problem. His is below. The words are the ones to put on the page, before Part 1.
 
+The proposition, as Bachatt states it, is in `story/BACHATT_PROPOSITION.md`. The film the operator named is an 18-second advertisement: FD-like returns from ₹51 a day, no lock-in, withdraw whenever, ICICI and SBI funds, an SMS at each step. The illustration in that film is ₹300 a day. The site read the same day adds a loan of up to ₹5 lakh and a card, and says the app does not hold the money.
+
 ## What is wrong for him
 
 1. **He is sold on "believe me".** An investment person he knows picks the product. Nothing is written down. He cannot see the rule that chose it.

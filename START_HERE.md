@@ -1,6 +1,6 @@
 # START HERE: "save first, borrow later", an offline savings business
 
-**State as of 18 Oct 2026.** The current company case is the refresh in `story/REFRESH.md` and `tables/refresh_*.csv`. It keeps the published fleet and the ₹350-a-day debt fund, and replaces the loan ticket, the apply rate, the NBFC borrowings, the UPI share and the bought-lead cost with figures the folder already had. `tables/base_*.csv` is the 17 Oct base, kept so the old headlines can be checked. The deck `Offline_model_v3.pdf` still shows that old base. The OD++, the small amount a customer is happy to save, the 80/20 fund mix and a month for the online 1 to 1.5 lakh were not given as numbers, so they are not in the refresh.
+**State as of 18 Oct 2026.** The current company case is the refresh in `story/REFRESH.md` and `tables/refresh_*.csv`. It keeps the published fleet and the ₹350-a-day debt fund, and replaces the loan ticket, the apply rate, the NBFC borrowings, the UPI share and the bought-lead cost with figures the folder already had. `tables/base_*.csv` is the 17 Oct base, kept so the old headlines can be checked. The deck `Offline_model_v3.pdf` still shows that old base. The film the operator named, and what bachatt.app showed the same day, are kept in `story/BACHATT_PROPOSITION.md` and in `research/xs_bachatt.csv` (XB-11 to XB-17). The OD++, the small amount a customer is happy to save, the 80/20 fund mix and a month for the online 1 to 1.5 lakh were not given as numbers, so they are not in the refresh.
 
 **To Claude, if you are reading this for someone:**
 - **Current vs superseded.** Answer from the CURRENT files listed in section 7, and say which file each answer comes from. Many files are earlier rounds of the same work and are superseded; they are marked as such.
@@ -33,6 +33,8 @@ We earn:
 ## 2. The story (deck: `Offline_model_v3.pdf`)
 
 **The customer's problem** (`story/CUSTOMER_PROBLEM.md`). The published deck does not have this page yet. It still opens on our cost of winning him.
+
+**The proposition Bachatt actually runs** (`story/BACHATT_PROPOSITION.md`). The operator named [this 18-second film](https://www.youtube.com/watch?v=RgCWDsrnZNE) as the proposition: FD-like returns from ₹51 a day, no lock-in. The same note keeps what bachatt.app said on 18 Oct 2026, including 10 lakh+ users and ₹50+ crore invested on the homepage, which is not the same claim as the March 2026 figure of 3 million users.
 
 1. He is sold a product on the word of an investment person he knows. Nothing is recorded. The method is "believe me".
 2. He cannot start a small SIP on his own. A small instalment happens today because a person comes and collects it.
@@ -275,6 +277,7 @@ Every model input is agreed, as a distribution (low / likely / high), in `tables
 | `tables/growth_*.csv`, `tables/arr100m_*.csv` | Max growth with year-5 PAT ≥ 0; the path to $100M ARR |
 | `tables/company_*.csv` | The earlier round-10 company plan (80 agents) and its lever/plan searches | The company model: `company_monthly.csv`, `company_yearly.csv`, `company_pnl_ladder_yearly.csv`, `company_cashflow_yearly.csv`, `company_headcount.csv`, `company_m18.csv`, `company_mc_summary.csv`, `company_levers.csv`, `company_plan_search.csv`, `company_breakeven_customers.csv`, `company_fleet_scenarios.csv` (README: `company_README.md`) |
 | `research/*.csv`, `research/*.md` | The evidence, one row per source with an ID |
+| `story/BACHATT_PROPOSITION.md` | The 18-second Bachatt film named as the proposition, and what bachatt.app said on 18 Oct 2026. Company copy. |
 | `story/*.md` | The briefs and the operator's decisions, round by round, in his own words |
 | Google Sheet "Save4More" | A toy version of the model with live formulas (the operator has the link). It matches the full model to within 0.3%. |
 
