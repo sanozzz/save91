@@ -4,14 +4,18 @@
 tables/base_inputs.csv (every input beyond dist_agreed_v1.csv). The text below is the earlier "NB2 modified" 15% base
 (operator: "Its NB2 modified as base case. We do top 15% on our book"), superseded; its code stays as main_15pct_superseded().
 
-The lead's reading (the operator can correct it): we keep the best-quality 15% of personal-loan volume (the top by credit score)
+Executed base, from main(): a flat 30% of personal-loan volume from m30, on-book loss 0.6 x the agreed loss. The 15% and 0.5x
+sentences below describe the superseded case only. Borrowings at 3x equity are a choice at the top of the folder's range
+(LEV-063 Moneyview is 3.2x). LEV-023's gearing is 1.16x; its 3.25x figure is AUM/TNW, not debt/equity.
+
+The lead's reading of the superseded 15% case (the operator can correct it): we keep the best-quality 15% of personal-loan volume (the top by credit score)
 on our own book; partners take the other 85% and still pay us DSA fees on them.
   book        a FLAT 15% of personal-loan volume (first, repeat and top-ups) on our book from m30 (no ramp: a clean step).
   credit      on-book lifetime loss = 0.5 x the agreed `loss` distribution (likely 1.5% instead of 3%; judgement: the best 15%
               by score); partner loans' collection fees stay as before (only the on-book loans' fees become internal).
   the rest    as NB2 (nbfc.py, realworld.py): NBFC-ICC licence Rs 1 crore at m24 (LEV-031), NOF Rs 10 crore, opex Rs 15 lakh a
               month + Rs 5 lakh per Rs 500 crore of book; yield 26% (the agreed EMI rate); cost of funds 13.5% (LEV-014/015);
-              borrowings <= 3 x NBFC equity (LEV-023); capital >= 15% (20% operating floor; 25% held); processing fee 2%; no DSA
+              borrowings <= 3 x NBFC equity (our choice; LEV-023 gearing is 1.16x); capital >= 15% (20% operating floor; 25% held); processing fee 2%; no DSA
               fee on on-book loans; the three lenses; the locked real-world city setting (soft curve, 3% pool refill, at most 4
               new cities a month, 20% cap, 7.0 crore pool on the rank-size estimate, about 500 Class I cities); pay Rs 20,000 +
               0.25% of balance capped at Rs 10,000 (both rising 7% a year); central team as built; unicorn_plan's rounds
@@ -358,7 +362,8 @@ def checks(of, ct, sat, x, cfg=None):
     add("Book: credit cost = on-book loss x on-book loans; processing fees = 2% of them",
         np.allclose(of["nbfc_credit_cost"], of["_nbfc_loss"] * of["nbfc_disbursed"]) and np.allclose(of["nbfc_processing"], 0.02 * of["nbfc_disbursed"]))
     t = np.arange(1, C.M + 1)
-    add("DSA fees: origination on the partners' 85% only after m30", True, "applied in nbfc.apply_nbfc (rev_orig x (1 - share))")
+    add(f"DSA fees: origination on the partners' {1 - cfg['share_full']:.0%} only after m30", True,
+        "applied in nbfc.apply_nbfc (rev_orig x (1 - share)); this check records the rule")
     prev = np.concatenate([[0.0], of["cash"][0, :-1]])
     add("Cash roll: closing = previous + net change, every month", np.allclose(prev + of["net_change"][0], of["cash"][0], rtol=1e-12, atol=1e-3))
     add("Cash: net change = operations + investing + equity + borrowings",

@@ -8,7 +8,7 @@ Book: capital >= 20% of the book and borrowings <= 3 x equity while lending,True
 Book: on-book share 0 before m30 and a flat 30% from m30,True,
 Book: on-book loss = 0.6 x the agreed loss,True,1.80% vs agreed 3.00%
 Book: credit cost = on-book loss x on-book loans; processing fees = 2% of them,True,
-DSA fees: origination on the partners' 85% only after m30,True,applied in nbfc.apply_nbfc (rev_orig x (1 - share))
+DSA fees: origination on the partners' 70% only after m30,True,applied in nbfc.apply_nbfc (rev_orig x (1 - share)); this check records the rule
 "Cash roll: closing = previous + net change, every month",True,
 Cash: net change = operations + investing + equity + borrowings,True,
 Cash stays at or above 0 through m96,True,"lowest Rs 89,511,276"

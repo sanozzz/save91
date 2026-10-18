@@ -32,6 +32,12 @@ We earn:
 
 ## 2. The story (deck: `Offline_model_v3.pdf`)
 
+**The customer's problem** (`story/CUSTOMER_PROBLEM.md`). The published deck does not have this page yet. It still opens on our cost of winning him.
+
+1. He is sold a product on the word of an investment person he knows. Nothing is recorded. The method is "believe me".
+2. He cannot start a small SIP on his own. A small instalment happens today because a person comes and collects it.
+3. Once the money is in, he is forgotten. Nobody comes back to ask what else he needs.
+
 1. **The problem with online** (pages 1–3). It costs about ₹499 to win a daily saver online, and only 24 in 100 still save after a year, so each saver kept costs about ₹2,067. The app never earns it back.
 2. **Our approach** (pages 4–8):
    - the 7% hook;
@@ -235,10 +241,7 @@ Every model input is agreed, as a distribution (low / likely / high), in `tables
 ## 6. Open questions and risks (not resolved)
 
 - **The cash route needs a legal opinion.** The operator's design: the agent collects cash, we deposit it into the fund's collection account with a reconciliation, and the saver gets a message next day. By our reading, SEBI and AMFI rules limit distributors handling investor money. They also want fund payments to come from the investor's own account. And they cap cash investments in funds at about ₹50,000 per investor a year, while a ₹350-a-day saver puts in about ₹84,000.
-- **Not in the numbers:**
-  - the customer app's build and running cost;
-  - team leads at scale;
-  - office and licences.
+- **In the company numbers.** An earlier line on this page said team leads, offices and licences were left out. They are in: one team lead per 10 agents, a city office, a city manager, and the partner and NBFC licence costs. What is still thin, not absent: the customer app is a flat ₹1.5 lakh a month for cloud, SMS and KYC; customer support stays at one person; NBFC operating cost is about ₹3 crore in year 5 on a book of about ₹1,600 crore. A full app build, NISM and an EUIN as a hiring limit for every seller, and a credit and collections operation sized to the book are still not costed.
 - **Revenue per saver (₹732 a year) is above Paytm's per user.** This is driven mostly by loan size and home loans, and it is the number most open to challenge.
 - **Untested inputs.**
   - Sign-ups per agent rests on one practitioner's statement (PR-01: 100+ a month). Their agents onboard and guide the first investment, while ours also collect cash daily. A janta agent adds 6–10 a month, but he isn't selling.

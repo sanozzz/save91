@@ -377,7 +377,7 @@
     "B97": 3.0,
     "C97": "x equity",
     "E97": "nb_leverage",
-    "D97": "LEV-023 (AUM/TNW 3.25x)",
+    "D97": "3x is our choice. LEV-063 Moneyview is 3.2x. LEV-023 gearing is 1.16x; its 3.25x is AUM/TNW not debt/equity",
     "A98": "Capital floor: regulatory minimum (information; equity = book / (1 + leverage) = 25% holds above it)",
     "B98": 0.15,
     "C98": "share of the book",

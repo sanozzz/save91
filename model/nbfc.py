@@ -4,8 +4,9 @@
 Inputs (NBFC_INPUTS below; every one labelled with its basis):
   licence     acquire or build an NBFC-ICC at m24 for Rs 1 crore (LEV-031); net owned funds >= Rs 10 crore held as capital from
               m24; NBFC opex from m24: Rs 15 lakh a month + Rs 5 lakh a month per Rs 500 crore of book (pro rata; judgement).
-  share       on-book share of personal-loan volume (first, repeat and top-ups): 10% at m30, a straight line to 50% at m54, flat
-              after (NB3: 80%); housing and other lenders' loans stay with partners.
+  share       module default: on-book share of personal-loan volume (first, repeat and top-ups) ramps from 10% at m30 to 50% at m54.
+              base_plan.py overrides this to a flat 30% from m30, and loss_mult to 0.6. Housing and other lenders' loans stay
+              with partners.
   economics   yield 26% a year on the outstanding book (the agreed EMI rate; LEV-012 25-28%); processing fee 2% of the loan at
               disbursal (paid by the borrower); NO DSA origination fee on on-book loans; cost of funds 13.5% a year on
               borrowings (LEV-014/015); our collection fees on on-book loans are internal and dropped (the agent's effort and
@@ -15,7 +16,8 @@ Inputs (NBFC_INPUTS below; every one labelled with its basis):
               interest is earned on the net book (defaulted principal stops earning; an approximation).
   book        each month's on-book disbursals amortise on the standard EMI schedule at the agreed rate over the agreed tenure
               (36 months), as cohort_engine's EMI mechanics; no prepayment.
-  funding     NBFC equity = the larger of the Rs 10 crore NOF and 25% of the net book (borrowings <= 3 x equity, LEV-023 3.25x;
+  funding     NBFC equity = the larger of the Rs 10 crore NOF and 25% of the net book (borrowings <= 3 x equity: our choice.
+              LEV-023 states gearing of 1.16x; its 3.25x is AUM/TNW, not debt/equity. LEV-063 Moneyview is 3.2x.
               capital 25% >= the 20% operating floor >= the 15% minimum); borrowings fill the rest. The equity is company cash:
               the rounds fund it (its growth is an investing outflow of free cash); NOF not yet lent is held, not free.
 P&L: revenue = fee revenue (distribution commissions, DSA fees on the off-book share) + net interest income (interest - cost of
@@ -42,12 +44,13 @@ NBFC_INPUTS = (  # key, value, unit, plain words, basis
     ("yield", None, "a year", "Yield on the outstanding book = the agreed EMI rate (rate)", "agreed input; LEV-012 25-28%"),
     ("processing_fee", 0.02, "share of the loan", "Processing fee at disbursal, paid by the borrower", "judgement"),
     ("cost_of_funds", 0.135, "a year", "Cost of borrowings", "LEV-014/015"),
-    ("leverage", 3.0, "x equity", "Borrowings at most this multiple of NBFC equity", "LEV-023 (AUM/TNW 3.25x)"),
+    ("leverage", 3.0, "x equity", "Borrowings at most this multiple of NBFC equity",
+     "3x is our choice (LEV-063 Moneyview 3.2x is the only row near it). LEV-023 gearing is 1.16x; AUM/TNW 3.25x is not debt/equity"),
     ("capital_floor", 0.20, "share of the book", "Operating capital floor (regulatory minimum 15%)", "brief"),
     ("loss", None, "share of money lent", "Lifetime credit loss after recoveries = the agreed `loss`", "agreed input (likely 3%; Paytm worst 5%)"),
 )
 DEFAULT = {**{k: v for k, v, *_ in NBFC_INPUTS},
-           "loss_mult": 1.0}       # on-book loss as a multiple of the agreed loss (base_plan.py: 0.5, the best 15% by score)
+           "loss_mult": 1.0}       # module default. The executed base passes 0.6 (base_plan.py). The old 0.5x was the superseded 15% case.
 
 
 def shift(a, k):

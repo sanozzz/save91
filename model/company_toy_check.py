@@ -187,7 +187,7 @@ def company_inputs():
     I["nb_yield"] = (base_input("Yield on the outstanding book"), "Yield on the outstanding book (the agreed EMI rate)", "a year", "pct", "LEV-012 25-28%; industry guide")
     I["nb_proc"] = (base_input("Processing fee at disbursal"), "Processing fee at disbursal, paid by the borrower", "share of the loan", "pct", "Our judgement")
     I["nb_cof"] = (base_input("Cost of borrowings"), "Cost of funds on borrowings", "a year", "pct", "LEV-014/015; industry guide, not verified")
-    I["nb_leverage"] = (base_input("Borrowings at most"), "Borrowings at most this multiple of NBFC equity", "x equity", "mult", "LEV-023 (AUM/TNW 3.25x)")
+    I["nb_leverage"] = (base_input("Borrowings at most"), "Borrowings at most this multiple of NBFC equity", "x equity", "mult", "3x is our choice. LEV-063 Moneyview is 3.2x. LEV-023 gearing is 1.16x; its 3.25x is AUM/TNW not debt/equity")
     I["nb_floor_min"] = (0.15, "Capital floor: regulatory minimum (information; equity = book / (1 + leverage) = 25% holds above it)", "share of the book", "pct",
                          "published")
     I["nb_floor_op"] = (0.20, "Capital floor: operating floor (information)", "share of the book", "pct", "brief")

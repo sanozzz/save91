@@ -64,7 +64,7 @@ NBFC,On-book lending starts,30,company month,operator tap: test NBFC from year 3
 NBFC,Yield on the outstanding book = the agreed EMI rate (rate),0.26,a year,agreed input; LEV-012 25-28%,"Industry guide, not verified"
 NBFC,"Processing fee at disbursal, paid by the borrower",0.02,share of the loan,judgement,Our judgement
 NBFC,Cost of borrowings,0.135,a year,LEV-014/015,"Industry guide, not verified"
-NBFC,Borrowings at most this multiple of NBFC equity,3.0,x equity,LEV-023 (AUM/TNW 3.25x),"Industry guide, not verified"
+NBFC,Borrowings at most this multiple of NBFC equity,3.0,x equity,3x is our choice. LEV-063 Moneyview is 3.2x. LEV-023 gearing is 1.16x; its 3.25x is AUM/TNW not debt/equity,"Industry guide, not verified"
 NBFC,"Lifetime credit loss after recoveries: the agreed `loss` (likely), before the on-book multiple",0.03,share of money lent,agreed input (likely 3%; Paytm worst 5%),Our judgement
 NBFC,"On-book share of personal-loan volume: the best-quality part by credit score, flat from m30",0.3,share,operator: '30% on book',Your number
 NBFC,On-book loss as a multiple of the agreed loss,0.6,x the agreed loss,judgement: the top 30% by score,Our judgement

@@ -11,6 +11,6 @@ share_full,0.5,share of personal-loan volume,On-book share from then on (NB3: 0.
 yield,0.26,a year,Yield on the outstanding book = the agreed EMI rate (rate),agreed input; LEV-012 25-28%
 processing_fee,0.02,share of the loan,"Processing fee at disbursal, paid by the borrower",judgement
 cost_of_funds,0.135,a year,Cost of borrowings,LEV-014/015
-leverage,3.0,x equity,Borrowings at most this multiple of NBFC equity,LEV-023 (AUM/TNW 3.25x)
+leverage,3.0,x equity,Borrowings at most this multiple of NBFC equity,3x is our choice. LEV-063 Moneyview is 3.2x. LEV-023 gearing is 1.16x; its 3.25x is AUM/TNW not debt/equity
 capital_floor,0.2,share of the book,Operating capital floor (regulatory minimum 15%),brief
 loss,0.03,share of money lent,Lifetime credit loss after recoveries = the agreed `loss`,agreed input (likely 3%; Paytm worst 5%)

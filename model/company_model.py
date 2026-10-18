@@ -103,6 +103,11 @@ YEARS = 5
 YEAR_CAP_AFTER_60 = 5            # 120-month runs: pool-history multipliers held at their month-60 (year-5) values
 
 
+def total_col():
+    """Name of the column that sums the whole horizon. A 96-month run is eight years; calling it "Five years" was wrong."""
+    return {5: "Five years", 8: "Eight years", 10: "Ten years"}.get(YEARS, f"{YEARS} years")
+
+
 def set_horizon(months):
     """60 (the default) or 120 (BRIEF_growth_and_100m Part B). Beyond month 60: the take-up and approval growth held at year 5,
     the fee multiplier held at 1.5x, the agent pay rate 0.10% (cohort_engine's agreed rule after company month 60)."""
@@ -969,7 +974,7 @@ def roll_total(a, k, how):
 
 def year_row(a, k, nm, u, how, label="Line"):
     vals = roll(a, k, how)
-    return {label: nm, "Unit": u, **{f"Year {y + 1}": vals[y] for y in range(YEARS)}, "Five years": roll_total(a, k, how),
+    return {label: nm, "Unit": u, **{f"Year {y + 1}": vals[y] for y in range(YEARS)}, total_col(): roll_total(a, k, how),
             "How the year is formed": {"sum": "sum of the months", "end": "at year end", "start": "at year start"}.get(how, "ratio of the year's sums")}
 
 
@@ -999,9 +1004,9 @@ def cashflow_rows(o):
     low = [float(c[12 * y:12 * y + 12].min()) for y in range(YEARS)]
     lowm = [float(12 * y + c[12 * y:12 * y + 12].argmin() + 1) for y in range(YEARS)]
     rows.append({"Line": "Lowest month-end cash in the year, with the Series A", "Unit": R_, **{f"Year {y + 1}": low[y] for y in range(YEARS)},
-                 "Five years": float(c.min()), "How the year is formed": "lowest month end"})
+                 total_col(): float(c.min()), "How the year is formed": "lowest month end"})
     rows.append({"Line": "Month of that lowest cash", "Unit": "company month", **{f"Year {y + 1}": lowm[y] for y in range(YEARS)},
-                 "Five years": float(c.argmin() + 1), "How the year is formed": "lowest month end"})
+                 total_col(): float(c.argmin() + 1), "How the year is formed": "lowest month end"})
     return rows
 
 
@@ -1327,14 +1332,14 @@ def checks(x, dists, o, h, fleet, scen_outs=None, target=None, opts=None):
         (o["income_before_ramp"] + (o["rev_orig_loans"] + o["rev_orig_topups"]) * (1 - 1 / o["fee_multiplier"]))[0], o["revenue"][0], 1e-10)
     a = table_arrays(o)
     sums = [k for k, _nm, _u, how in LINES if how == "sum"]
-    add(f"Yearly = monthly: the five year columns add to the 60 months, all {len(sums)} summed lines",
+    add(f"Yearly = monthly: the {YEARS} year columns add to the {M} months, all {len(sums)} summed lines",
         [a[k][0].sum() for k in sums], [sum(roll(a, k, "sum")) for k in sums], 1e-12)
     lad = {r["Line"]: r for r in ladder_rows(o)}
-    add("Yearly ladder: revenue, CM1, CM2, CM3, EBITDA, interest, PAT (five years) = the monthly table",
+    add(f"Yearly ladder: revenue, CM1, CM2, CM3, EBITDA, interest, PAT ({total_col()}) = the monthly table",
         [o[k][0].sum() for k in ("revenue", "cm1", "cm2", "cm3", "ebitda", "interest", "pat")],
-        [lad[nm]["Five years"] for nm in ("Revenue, total", "CM1 (transaction margin)", "CM2 (after serving the book)",
-                                          "CM3 (after acquiring customers)", "EBITDA", "Interest on cash (other income)",
-                                          "PAT (net profit after tax)")], 1e-12)
+        [lad[nm][total_col()] for nm in ("Revenue, total", "CM1 (transaction margin)", "CM2 (after serving the book)",
+                                         "CM3 (after acquiring customers)", "EBITDA", "Interest on cash (other income)",
+                                         "PAT (net profit after tax)")], 1e-12)
     cf = {r["Line"]: r for r in cashflow_rows(o)}
     add("Yearly cash flow: opening + net change = closing, each year",
         [cf["Opening cash"][f"Year {y}"] + cf["Net change in cash"][f"Year {y}"] for y in range(1, 6)],
