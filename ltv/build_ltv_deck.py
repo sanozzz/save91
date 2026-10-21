@@ -143,16 +143,11 @@ SHORT_SRC = {   # one line each for the story pages; the full text is on the wor
     "topup_share": "Our judgement; lenders top up good payers", "support_cost": "Founder's figure", "tech": "Our judgement",
     "early_takeup_mult": "Founder's judgement", "early_approval_mult": "New vs repeat approval gap (XL-41)",
     "takeup_growth": "Our judgement; no data", "approval_growth": "Our judgement (lenders see repayments)", "year_cap": "Model rule"}
-DECK_WORDS = [("Operator, 21 Oct", "Founder's judgement, 21 Oct"), ("operator:", "founder:"), ("the operator's", "the founder's"), ("by the operator", "by the founder"),
-              ("the earlier street model", "an earlier version of our plan"), ("the earlier model", "an earlier version of our plan"), ("earlier model", "an earlier version of our plan"),
-              ("Engine rule", "Model rule"), ("Engine cap", "Model cap"), ("Engine convention", "Model convention"),
-              ("Company model", "Our business-plan model"), ("the pool's history", "the business's track record"), ("Rs. ", "₹"), ("Rs ", "₹")]
+DECK_WORDS = lb.PLAIN   # the same investor wording as the workbook
 
 
 def deck_words(t):
-    for a_, b_ in DECK_WORDS:
-        t = t.replace(a_, b_)
-    return t
+    return lb.plain(t)
 
 
 def tidy(t):

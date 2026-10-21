@@ -1,10 +1,10 @@
 key,label,rank corr online LTV/CAC,rank corr online payback,rank corr doorstep LTV/CAC
 on_apply,Reachable users who apply for a loan a year (all loan types),0.406,-0.505,0.247
-cac,"Cost to win a saver after the seed (Rs, all-in)",-0.395,0.381,-0.005
-on_daily,Daily amount (Rs),0.336,-0.198,0.519
+cac,"Cost to win a saver after the seed (₹, all-in)",-0.395,0.381,-0.005
+on_daily,Daily amount (₹),0.336,-0.198,0.519
 on_fee,"Our payout on personal + business loans, at the start",0.319,-0.344,0.156
 on_r12,Online: still saving at 12 months,0.314,-0.215,0.049
-on_ticket,"Personal + business loan size, blended (Rs)",0.307,-0.338,0.153
+on_ticket,"Personal + business loan size, blended (₹)",0.307,-0.338,0.153
 churn_late,Both: share who stop each month after month 12,-0.222,0.014,-0.232
 on_reach,"KYC'd users reached by loan offers, per online saver won",0.2,-0.234,-0.008
 loan_vehicle_ticket,Two-wheeler / e-rickshaw loan: loan size,0.146,-0.173,0.099

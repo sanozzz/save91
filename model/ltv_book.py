@@ -65,6 +65,28 @@ CLEAN = [("37% is the 5-year break-even on the last deck's inputs", "37% was the
          ("a janta book", "an agent's existing book"), ("janta book", "agent's existing book"), ("(judgement)", "(our judgement)")]
 
 
+PLAIN = [("Bachatt conversation", "Conversation with a daily-savings app"), ("Bachatt minimum", "a daily-savings app's minimum"),
+         ("Bachatt film", "that app's film"), ("Bachatt's partners", "a daily-savings app's partners"), ("Bachatt homepage", "A daily-savings app's homepage"),
+         ("Bachatt acts", "The app acts"), ("Bachatt", "a daily-savings app"),
+         ("Operator, 21 Oct", "Founder's judgement, 21 Oct"), ("operator:", "founder:"), ("the operator's", "the founder's"), ("by the operator", "by the founder"),
+         ("the operator named", "the founder named"),
+         ("the earlier street model 0%; earlier model 0–20%", "earlier versions of our plan: 0% and 0–20%"),
+         ("37% was the earlier street model's 5-year break-even", "37% was the 5-year break-even in an earlier version of our plan"),
+         ("half the earlier model's provisional 0–20% range", "half the provisional 0–20% range in an earlier version of our plan"),
+         ("the earlier street model", "an earlier version of our plan"), ("the earlier model", "an earlier version of our plan"), ("earlier model", "an earlier version of our plan"),
+         ("Engine rule", "Model rule"), ("Engine cap", "Model cap"), ("Engine convention", "Model convention"),
+         ("Company model", "Our business-plan model"), ("the company model", "our business-plan model"), ("the pool's history", "the business's track record")]
+
+
+def plain(text):
+    """Investor wording: no internal shorthand, the competitor unnamed, ₹ not Rs (the deck applies the same list)."""
+    text = str(text)
+    for a, b in PLAIN:
+        text = text.replace(a, b)
+    text = re.sub(r"\bRs\.?\s?(?=\d)", "₹", text)          # Rs 250 → ₹250
+    return re.sub(r"\bRs\b\.?", "₹", text)                   # Rs premium a year → ₹ premium a year
+
+
 def clean(text):
     for a, b in CLEAN:
         text = text.replace(a, b)
@@ -889,7 +911,7 @@ def sources_tab(all_text):
     data = [[r_[0], fx(cut(r_[1], 260)), cut(r_[2], 80), fx(cut(r_[3], 140)), r_[4], r_[5], fx(cut(r_[6], 160))] for r_ in (found[i] for i in ids if i in found)]
     missing = [i for i in ids if i not in found]
     c = {"A1": "Sources: every ID quoted on Inputs, and the loan-marketplace research of 21 Oct 2026",
-         "A2": "'Our judgement' and 'operator' inputs have no outside source; they say so on Inputs.",
+         "A2": "Inputs marked 'our judgement' or 'founder's judgement' have no outside source; they say so on Inputs.",
          "A4": "ID", "B4": "What it says", "C4": "Value", "D4": "Source", "E4": "Link", "F4": "As of", "G4": "Note"}
     txt = json.dumps(data, ensure_ascii=False)
     for bad in ("Bueno", "BetterPlace", "Arvinder", "Saket"):
@@ -926,7 +948,7 @@ def readme_tab(checks, oat_n):
         "LTV = revenue less serving cost (support + tech per saver still saving) over 5 years, undiscounted (8 years alongside). LTV/CAC = LTV ÷ cost to win. Pays back = the first month cumulative revenue less serving reaches the cost to win.",
         "A saver who joins in the business's month 1: their take-up and approval factors grow with the business's years (held after year 5); a saver who joins later starts higher, so this is the cautious case.",
         "Loans: offers reach every KYC'd user who came with the saver (online 2.5 per saver won, doorstep 1); a KYC'd user who never saves stays reachable for as long as the saver keeps saving.",
-        "Not in this view: the team, office and brand (company costs, in the company model), the 10% contingency, the 2-month wait for fees to arrive, tax.",
+        "Not in this view: the team, office and brand (company costs, in our business-plan model), the 10% contingency, the 2-month wait for fees to arrive, tax.",
         "",
         "CHECKS",
         f"The sheet's formulas were replayed by a formula interpreter and match the plan's model at the base and at {len(checks) // 2 - 1} Monte Carlo futures: "
@@ -1048,6 +1070,13 @@ def main():
     src, missing = sources_tab(text)
     print("source IDs not found in research/:", missing)
     rd = readme_tab(chk, len(drawn_keys()))
+    bad = re.compile(r"operator|Bachatt|Engine (rule|cap|convention)|pool's history|street model|earlier model|\bRs\b", re.I)
+    for sh in sheets + [mc, proj, mov, src, rd]:            # investor wording on every text cell; formulas must not need it
+        for c, v in sh["cells"].items():
+            if isinstance(v, str):
+                if not v.startswith("="):
+                    sh["cells"][c] = v = plain(v)
+                assert not bad.search(v), (sh["title"], c, v[:80])
     # tables
     def wcsv(name, recs):
         with (T / name).open("w", newline="") as f:
