@@ -1,0 +1,11 @@
+team,role,start_month,pay_rs_month,cost_24_usd
+plan,Piyush (CEO),1,95000.0,24000.0
+plan,Sandeep (CPTO),1,95000.0,24000.0
+plan,Engineer (full-stack + mobile),1,110000.0,27789.473684210527
+plan,Ops + support executive,4,30000.0,6631.578947368421
+plan,Junior engineer,7,50000.0,9473.684210526315
+growth_hire,Piyush (CEO),1,95000.0,24000.0
+growth_hire,Sandeep (CPTO),1,95000.0,24000.0
+growth_hire,Engineer (full-stack + mobile),1,110000.0,27789.473684210527
+growth_hire,Ops + support executive,4,30000.0,6631.578947368421
+growth_hire,Growth executive (performance ads),4,40000.0,8842.105263157895

@@ -1,0 +1,23 @@
+input,value,unit,source
+Planning rate,95.0,Rs per $,operator 21 Oct
+Raise,$500k,,operator 21 Oct
+Sign-ups target,"1,00,000 (online + doorstep)",,operator 21 Oct
+Customers won,months 4-18,,JUDGEMENT
+Salary cap,"$100k over 24 months, founders included",,operator 21 Oct
+Piyush (CEO) / Sandeep (CPTO),"$1,000 each",a month,operator 21 Oct
+"Engineer (full-stack + mobile), month 1",110000,"Rs a month, all-in","JUDGEMENT (agreed base 120,000)"
+"Ops + support executive, month 4",30000,"Rs a month, all-in","JUDGEMENT (agreed base 40,000)"
+"Junior engineer, month 7",50000,"Rs a month, all-in",JUDGEMENT
+Design while building (months 1-3),100000,Rs a month,JUDGEMENT
+"Company setup, one-time",125000,Rs,"operator 21 Oct (read as incl. ARN, NISM)"
+"Licences and compliance a year (CA, legal, renewals)",1000000,Rs,base_inputs
+App integrations / running,"1,500,000 / 150,000 a month",Rs,base_inputs
+Office (co-working),75000,Rs a month,JUDGEMENT
+Online cost per registration,100,Rs,TB-19; = online_cac 499 at 20%
+Registrations that finish KYC / KYC'd who start saving,0.5 / 0.4,share,JUDGEMENT
+KYC cost,40,Rs a KYC,dist_agreed kyc_cost
+Support,5,Rs per active saver a month,dist_agreed
+"Still saving at 12 months, online / doorstep",0.24 / 0.55,share,dist_agreed online_r12 / r12
+Doorstep agent all-in,26000,Rs a month,base_inputs + our incentive estimate
+Agent sign-ups at full speed,100,a month,dist_agreed signups_run
+Doorstep share of savers,0.2,share,operator 19 Oct
