@@ -15,7 +15,8 @@ NAVY, INK, MUTED, RULE, PAPER = "#1e3a5f", "#1f2328", "#6b7280", "#e5e7eb", "#f7
 ACQ, RET, SER = "#2563eb", "#7c3aed", "#059669"
 GREEN, RED, AMBER, BLUE = "#15803d", "#b91c1c", "#b45309", "#1f64a8"
 LGREEN, LRED, LAMBER, LBLUE = "#e7f5ec", "#fdeceb", "#fff4e0", "#e8f0f9"
-PER_USER = 50e7 / 3_000_000        # BAC-04 / BAC-02
+PER_USER = 50e7 / 1_000_000        # XB-12: homepage 18 Oct, 10 lakh+ users and Rs 50+ crore (the Mar release said 3M users)
+PER_USER_LOW = 50e7 / 3_000_000    # BAC-02 / XB-03: the 30 Mar release, 3M users
 AVG_BAL = 350 * 20 * 12 / 2        # illustrative committed saver (our estimate)
 
 
@@ -61,7 +62,7 @@ def arrow(x1, y1, x2, y2, col=MUTED, w=2.5):
 # ---------- the slide ----------
 BACHATT = {
     "ACQUISITION": (ACQ, [("✓", "Savings product through debt funds", "stake"), ("✓", "Online acquisition", "stake"),
-                          ("✗", "Offline acquisition", "test"), ("✓", "Low-ticket entry (~₹250)", "stake"),
+                          ("✗", "Offline acquisition†", "test"), ("✓", "Low-ticket entry (~₹250)", "stake"),
                           ("✓", "→ Digital loans through DSA", "stake")]),
     "RETENTION": (RET, [("✓", "Financial products (MF, Insta Fund, Gold/Silver)", "stake"),
                         ("✗", "Wallet-like: save in / withdraw out", "contest"),
@@ -154,7 +155,7 @@ def building():
     # ground floor
     s.append(box(40, 150, 740, 150, "#fff", GREEN, 12))
     s.append(T(56, 174, "THE GROUND FLOOR: Bachatt's ✓ squares, which anyone can build", 12.5, 800, GREEN))
-    blocks = [("Debt-fund savings", "ARN ₹40k (REG-036)"), ("Online acquisition", "≈₹500 per saver*"),
+    blocks = [("Debt-fund savings", "ARN ₹40k (REG-036)"), ("Online acquisition", "≈₹300 per saver*"),
               ("Low ticket, daily SIP", "UPI auto-debit"), ("Fund shelf", "MF, Insta, gold funds"),
               ("Instant withdraw", "≤ ₹50k a day (REG-041)"), ("DSA loans", "1–3% fee (XL-13)")]
     for i, (h, c) in enumerate(blocks):
@@ -170,12 +171,12 @@ def building():
         s.append(T(x + 56, 272, c, 8.6, 600, GREEN, "middle"))
     s.append(box(560, 316, 220, 34, NAVY, None, 17))
     s.append(T(670, 338, "≈ 6–9 months to match", 12.5, 800, "#fff", "middle"))
-    s.append(T(40, 338, "* online cost per activated saver is our estimate; Bachatt's 'loans on book' is unverified (XL-12)", 9.5, 400, MUTED))
+    s.append(T(40, 338, "* Bachatt's growth head: ~₹300 to win a customer, online or street (PR-02); Bachatt's 'loans on book' is unverified (XL-12)", 9.5, 400, MUTED))
     return svg(820, 360, "".join(s))
 
 
 def value():
-    rows = [("Bachatt: trail on ~" + inr(PER_USER) + " per user", PER_USER * 0.0035, "a year", NAVY),
+    rows = [("Bachatt: trail on " + inr(PER_USER_LOW) + "–" + inr(PER_USER) + " a user", PER_USER * 0.0035, "a year", NAVY),
             ("Committed ₹350-a-day saver", AVG_BAL * 0.0035, "a year", NAVY),
             ("One personal loan via DSA", 58522 * 0.02, "once", AMBER),
             ("Same loan, we share the risk", 58522 * 0.0475, "once", AMBER)]
@@ -242,7 +243,7 @@ def test_arm():
 
 # ---------- deeper findings ----------
 LOAN = 58522                           # XL-29 average personal loan
-CAC = 500                              # our estimate: online cost per activated saver
+CAC = 300                              # PR-02: Bachatt growth head, ~Rs 300 a customer online and on the street (was our Rs 500)
 DSA_FEE, SHARE_FEE, LSP_NET = 0.02, 0.0475, 0.085   # XL-13; SE-05/XB-07; LEV-061 (net of DLG, before own costs)
 JAR_ACTIVE = 0.07                      # LEV-040, derived
 TRAIL = 0.0035                         # XB-04 mid
@@ -252,13 +253,13 @@ PIGMY_PAY = 0.025                      # NG-041 cap on agent commission
 
 def findings():
     need_dsa = CAC / (LOAN * DSA_FEE)
-    rows = [("₹167", NAVY, LBLUE, "invested per Bachatt user (₹50 Cr ÷ 3M users, company claims)",
-             f"At a 0.35% trail that earns {inr(PER_USER * TRAIL, 1)} a year. Savings is the hook; credit is the business.", "BAC-02/04, XB-04"),
+    rows = [("₹167–500", NAVY, LBLUE, "invested per Bachatt user (₹50 Cr ÷ 30 lakh or 10 lakh users; two company claims)",
+             f"At a 0.35% trail that earns {inr(PER_USER_LOW * TRAIL, 1)}–{inr(PER_USER * TRAIL, 1)} a year. Savings is the hook; credit is the business.", "BAC-02, XB-03, XB-12, XB-04"),
             ("36%", RED, LRED, "of SBI's ₹250 daily SIPs started in FY26 had stopped by year-end",
              "Small savers are easy to sign and hard to keep: Chhoti SIPs close ~7 for every 10 opened.", "NG-033, NG-034"),
-            (f"{need_dsa:.0%}", AMBER, LAMBER, f"of savers must take a DSA loan just to repay a {inr(CAC)} acquisition",
-             "Paytm's merchants sit at ≈5%. Sharing loan risk cuts the bar to 18%; an LSP's to ~10%.",
-             "XL-13, XL-29, SE-05, LEV-061, XB-06 (derived); ₹500 per saver is our estimate"),
+            (f"{need_dsa:.0%}", AMBER, LAMBER, f"of savers must take a DSA loan to repay a {inr(CAC)} acquisition (Bachatt's own cost)",
+             f"Paytm's merchants sit at ≈5%. Sharing loan risk cuts the bar to {CAC / (LOAN * SHARE_FEE):.0%}; an LSP's to ~{CAC / (LOAN * LSP_NET):.0%}.",
+             "XL-13, XL-29, SE-05, LEV-061, XB-06 (derived); ₹300 a customer: Bachatt's growth head (PR-02)"),
             ("2% vs 9%", GREEN, LGREEN, "bad loans: SHGs that save before borrowing vs microfinance",
              "Saving may predict repayment, but it's correlational; a US trial found no average effect.", "EVD-03 (2.05% vs 8.72%), EVD-01"),
             ("₹10/day", BLUE, LBLUE, "PhonePe Daily Savings, built with Jar (October 2024)",
@@ -296,15 +297,15 @@ def leak():
         s.append(T(cx, 193, b, 10, 500, INK, "middle"))
         s.append(T(cx, 208, c, 8.8, 500, MUTED, "middle"))
     # what it implies for Bachatt
-    active = 3_000_000 * JAR_ACTIVE
+    lo_act, hi_act = 1_000_000 * JAR_ACTIVE, 3_000_000 * JAR_ACTIVE
     s.append(box(20, 232, 300, 64, PAPER, NAVY))
-    s.append(T(170, 258, "3M users × ₹167", 15, 800, NAVY, "middle"))
+    s.append(T(170, 258, "10–30 lakh users × ₹167–500", 14, 800, NAVY, "middle"))
     s.append(T(170, 282, "what Bachatt reports", 10, 500, MUTED, "middle"))
     s.append(arrow(326, 264, 486, 264, NAVY, 3))
     s.append(T(406, 254, "if Bachatt looks", 9.5, 700, NAVY, "middle"))
     s.append(T(406, 286, "like Jar (~7% active)", 9.5, 700, NAVY, "middle"))
     s.append(box(492, 232, 310, 64, LBLUE, NAVY))
-    s.append(T(647, 258, f"≈{active / 1e5:.0f} lakh savers × ≈{inr(round(50e7 / active, -2))}", 15, 800, NAVY, "middle"))
+    s.append(T(647, 258, f"≈{lo_act / 1e5:.1f}–{hi_act / 1e5:.1f} lakh savers × ≈{inr(round(50e7 / hi_act, -2))}–{inr(round(50e7 / lo_act, -2))}", 14, 800, NAVY, "middle"))
     s.append(T(647, 282, "a small, deeper core (our read; NG-032: no active count)", 10, 500, MUTED, "middle"))
     return svg(820, 304, "".join(s))
 
@@ -317,7 +318,7 @@ def payback():
             ("LSP with first-loss", LOAN * LSP_NET, BLUE)]
     # trail-only row
     s.append(T(0, top + 17, "Savings trail alone", 11.5, 800))
-    s.append(T(x0, top + 17, f"{CAC / (AVG_BAL * TRAIL):.1f} years for a committed saver; never at Bachatt's ₹167", 11, 700, MUTED))
+    s.append(T(x0, top + 17, f"{CAC / (AVG_BAL * TRAIL):.1f} years for a committed saver; centuries at Bachatt's ₹167–500", 11, 700, MUTED))
     for i, (lab, fee, col) in enumerate(rows, start=1):
         y = top + i * gap
         p = CAC / fee
@@ -327,7 +328,7 @@ def payback():
     xb = X(0.05)
     s.append(f'<line x1="{xb}" y1="{top + gap - 6}" x2="{xb}" y2="{top + gap * 4 - 6}" stroke="{RED}" stroke-width="2" stroke-dasharray="5 4"/>')
     s.append(T(xb - 4, top + gap * 4 + 10, "Paytm today ≈5% (XB-06, derived)", 10, 800, RED, "start"))
-    s.append(T(0, top + gap * 4 + 30, "And it must happen early: a third of small-ticket savers stop within the year (NG-033). Sources: XL-29, XL-13, SE-05, LEV-061; ₹500 is our estimate.", 9, 400, MUTED))
+    s.append(T(0, top + gap * 4 + 30, "And it must happen early: a third of small-ticket savers stop within the year (NG-033). Sources: XL-29, XL-13, SE-05, LEV-061; ₹300 is Bachatt's own cost (PR-02).", 9, 400, MUTED))
     return svg(820, top + gap * 4 + 38, "".join(s))
 
 
@@ -374,7 +375,7 @@ def compmap():
 
     s.append(pill(72, 60, "Jar", "35M registered · profitable"))
     s.append(pill(72, 108, "PhonePe / Paytm", "₹10-a-day auto-save"))
-    s.append(pill(72, 156, "Bachatt", "3M users · $16M raised"))
+    s.append(pill(72, 156, "Bachatt", "10–30 lakh users · $16M"))
     s.append(pill(482, 60, "Moneyview", "LSP + own NBFC"))
     s.append(pill(482, 150, "Kissht", "53M registered"))
     s.append(pill(650, 105, "Paisabazaar", "marketplace ≤ 4.6%", w=140))
@@ -390,11 +391,10 @@ def compmap():
     s.append(box(262, 104, 150, 40, NAVY, None, 8))
     s.append(T(337, 121, "★ Challenger", 11, 800, "#fff", "middle"))
     s.append(T(337, 137, "online-first", 9, 600, "#fff", "middle"))
-    s.append(f'<line x1="337" y1="146" x2="337" y2="258" stroke="{AMBER}" stroke-width="2.5" stroke-dasharray="6 4"/>')
-    s.append(f'<polygon points="337,266 331,254 343,254" fill="{AMBER}"/>')
-    s.append(T(345, 228, "~20% test arm", 9.5, 800, AMBER))
-    s.append(T(300, 290, "no app plays", 10, 700, MUTED, "middle"))
-    s.append(T(300, 304, "in this lane", 10, 700, MUTED, "middle"))
+    s.append(f'<line x1="337" y1="146" x2="337" y2="232" stroke="{AMBER}" stroke-width="2.5" stroke-dasharray="6 4"/>')
+    s.append(f'<polygon points="337,240 331,228 343,228" fill="{AMBER}"/>')
+    s.append(T(345, 200, "~20% test arm", 9.5, 800, AMBER))
+    s.append(pill(245, 300, "Bachatt street team", "40–50 people, NCR (PR-02)"))
     return svg(820, 410, "".join(s))
 
 
@@ -402,7 +402,7 @@ def moves():
     s = [T(0, 16, "IF THEY MOVE, WHAT CHANGES FOR US (OUR READ)", 12, 800, NAVY)]
     ms = [("Bachatt buys an NBFC", "as Amazon Pay and CRED did", "(LEV-030)", "a licence is no edge;", "the credit signal is"),
           ("PhonePe pushes ₹10/day", "already live with Jar", "(SAV-08)", "the ground floor goes free;", "win on depth, not reach"),
-          ("Bachatt adds agents", "it has $16M to try", "(QM-45)", "our test arm has to", "learn faster")]
+          ("Bachatt grows its street team", "40–50 people, ~5,000 a", "month (PR-02)", "our pilot must beat", "₹300 a saver")]
     for i, (h, a, b, c, d) in enumerate(ms):
         x = 4 + i * 274
         s.append(box(x, 30, 262, 52, LRED, RED))
@@ -515,7 +515,7 @@ P1 = f"""
 <h1>Bachatt today: entry is clear, the future is contested</h1>
 <div class="sub">Memo for Piyush · From Sandeep · 19 October 2026 · Should we launch a challenger, and where do we fight?</div>
 {slide()}
-<div class="small">* Bachatt's site says partner NBFCs disburse its loans (XL-12), so "loans on book" needs verifying.</div>
+<div class="small">* Bachatt's site says partner NBFCs disburse its loans (XL-12, XB-15), so "loans on book" needs verifying. † Since this slide: Bachatt's growth head says a 40–50 person NCR street team signs ~5,000 customers a month (PR-02).</div>
 <div class="card">{thesis()}</div>
 <div class="card">{mix()}</div>
 <div class="rec"><b>Recommendation:</b> launch <b>online-first</b> and match the ✓ squares in 6–9 months. Compete where Bachatt is thin:
@@ -534,13 +534,13 @@ P3 = f"""
 <div class="card">{building()}</div>
 <div class="take">Copying Bachatt's ✓ squares gets us parity at best. The market will be won on the contested floors.</div></div>
 <div class="blk"><div class="card">{value()}</div>
-<div class="take">Savings trail is under ₹1 a user a year at Bachatt's visible balances (~{inr(PER_USER)} a user). One loan is worth more than years of trail.</div></div>
+<div class="take">Savings trail is under ₹2 a user a year at Bachatt's visible balances ({inr(PER_USER_LOW)}–{inr(PER_USER)} a user). One loan is worth more than years of trail.</div></div>
 """
 
 P4 = f"""
 <div class="blk"><h2>2 · Savings is the hook, not the business</h2>
 <div class="card">{leak()}</div>
-<div class="take">Small-ticket savers leave apps and SIPs fast; the one doorstep collector we spoke to keeps most for 5+ years. Bachatt's 3M is sign-ups: it publishes no active count.</div></div>
+<div class="take">Small-ticket savers leave apps and SIPs fast; the one doorstep collector we spoke to keeps most for 5+ years. Bachatt's 10–30 lakh are sign-ups: it publishes no active count.</div></div>
 <div class="blk"><div class="card">{payback()}</div>
 <div class="take">Savings can't repay what a saver costs to win. Whoever wins has to climb the credit ladder, with savers who stay long enough to borrow.</div></div>
 """
@@ -557,14 +557,14 @@ P6 = f"""
 <div class="blk"><h2>4 · Who else is here, and what they might do</h2>
 <div class="card">{compmap()}</div></div>
 <div class="blk"><div class="card">{moves()}</div>
-<div class="take">We can't out-reach PhonePe or out-spend Jar. Our room is depth: committed savers in one segment, and the assisted lane no app plays in.</div></div>
+<div class="take">We can't out-reach PhonePe or out-spend Jar. Our room is depth: committed savers in one segment, and credit priced from their savings record.</div></div>
 """
 
 P7 = f"""
 <div class="blk"><h2>5 · Offline is a 20% test, not the bet</h2>
 <div class="card">{test_arm()}</div></div>
 <div class="blk"><div class="card">{offline_cost()}</div>
-<div class="take">Offline is Bachatt's empty square. We test it on ~20% of savers and grow it only where it pays for itself, mostly through credit.</div></div>
+<div class="take">Bachatt already runs a street team in NCR. Our test asks whether a visit keeps savers saving, not only signs them up, and grows only where it pays.</div></div>
 """
 
 P8 = f"""
@@ -594,7 +594,8 @@ P9 = f"""
 """
 
 SOURCES = [
-    ("BAC-02/04/05, XB-03, XB-10, XL-12", "Bachatt claims: ~3M users, ₹50 crore+ invested, product shelf, loans up to ₹5 lakh via partner NBFCs on behaviour data", "bachatt.app; press release"),
+    ("BAC-02/04/05, XB-03, XB-10, XB-12–17, XL-12", "Bachatt claims: 3M users (Mar release) or 10 lakh+ (homepage, 18 Oct), ₹50 crore+ invested; an LSP with partner NBFCs; regular plans", "bachatt.app; press release"),
+    ("PR-02, PR-03", "Bachatt growth head: mostly online; NCR street team of 40–50 signs ~5,000 a month; ~₹300 to win a customer either way; customers stay for the loan", "Conversation, 18 Oct 2026"),
     ("QM-45", "About $16M raised ($4M seed + $12M Series A, Accel)", "Entrackr"),
     ("NG-032, NG-033, NG-034", "Bachatt discloses no retention; SBI ₹250 daily SIP: 35.6% of FY26 starts stopped by year-end; Chhoti SIP ~20k closures vs ~28k additions a month", "Bachatt; SBI MF RHP via Business Standard; SEBI"),
     ("LEV-040, NG-038, JAR-06/07/11, SAV-08", "Jar ~22 saves a month and 1M+ a day → ~7% of registered active (derived); PhonePe merchants ~24% monthly active; Jar 35M registered, profitable, P2P test; PhonePe Daily Savings with Jar from ₹10 a day", "Deccan Chronicle; TechCrunch; Inc42; Medianama; PhonePe DRHP"),

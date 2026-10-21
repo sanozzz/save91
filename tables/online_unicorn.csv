@@ -1,0 +1,6 @@
+case,online savers won a month (m30 on),growth a year,savers won by m60,active savers m60,AUM m60 Rs cr,Y5 revenue Rs cr,Y5 EBITDA Rs cr,Y8 revenue Rs cr,Y8 EBITDA Rs cr,EBITDA positive from month,money needed $M,20x ARR m60 Rs cr,0.45x AUM m60 Rs cr,$1B on both at m60,online sign-ups stop at the pool cap in month
+Today's evidence,250000,1.0,10142568,4533219,12952,468.2,243.8,675.6,617.7,39,16.6,11050,5829,False,75
+Rs 300 a day,250000,1.0,10142568,4533219,38857,602.9,378.6,1056.1,998.2,37,14.5,14521,17486,True,75
+Credit-hungry,250000,1.0,10142568,4984560,14815,698.8,469.2,1000.3,933.7,36,12.8,16489,6667,False,75
+Credit-hungry + Rs 200 a day,250000,1.0,10142568,4984560,29630,775.5,545.9,1220.9,1154.3,35,12.1,18475,13333,True,75
+Credit-hungry + Rs 300 a day,250000,1.0,10142568,4984560,44445,852.3,622.6,1441.5,1374.9,34,11.5,20460,20000,True,75

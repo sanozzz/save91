@@ -1,0 +1,13 @@
+case,saver,sheet LTV/CAC 5y,python LTV/CAC 5y,sheet payback,python payback,worst monthly line gap (share of the line's peak)
+base (21 Oct inputs),on,4.100698,4.100698,19,19,6.18e-15
+base (21 Oct inputs),door,3.834014,3.834014,23,23,4.73e-15
+future 187,on,1.913554,1.913554,37,37,6.40e-15
+future 187,door,2.813544,2.813544,30,30,3.65e-15
+future 790,on,3.089291,3.089291,24,24,3.71e-15
+future 790,door,2.88137,2.88137,29,29,3.95e-15
+future 645,on,3.794385,3.794385,21,21,7.54e-15
+future 645,door,4.296098,4.296098,23,23,5.86e-15
+future 160,on,4.678809,4.678809,17,17,5.16e-15
+future 160,door,3.93698,3.93698,22,22,4.16e-15
+future 763,on,7.592272,7.592272,13,13,1.22e-14
+future 763,door,6.260887,6.260887,18,18,1.15e-14

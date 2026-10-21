@@ -147,22 +147,21 @@ def items(rows, col, total, note):
 
 def p_funds():
     spare_2x = RAISE - TP - SENS.acq_usd.max()
-    months_more = RES / (P.tp_month_after_18 / FX)
     body = funds_bar() + '<div class="fcols">' + \
         items(TP_ITEMS, NAVY, f"Product and team · {k(TP)}", f"24 months. Salaries {k(P.salaries_24_usd)}, founders at $1,000 a month each.") + \
-        items(ACQ_ITEMS, TEAL, f"Customer acquisition · {k(ACQ)}", f"{ppl(P.customers)} sign-ups in months 4–18; {rs(round(P.acq_per_saver, -1))} per saver won.") + \
+        items(ACQ_ITEMS, TEAL, f"Customer acquisition · {k(ACQ)}", f"{ppl(P.customers)} sign-ups in months 4–18; {rs(round(P.acq_per_saver, -1))} per saver won, online and doorstep blended (₹600 online).") + \
         f"""<div class="fcol"><div class="ftot" style="color:{SLATE}">Contingency · {k(RES)}</div>
 <div class="rbox"><b>Covers the downside.</b> If a sign-up costs ₹200, not ₹100, acquisition costs {k(SENS.acq_usd.max())}
 and the plan still fits in $500k, with about {k(spare_2x)} to spare.</div>
-<div class="rbox"><b>Or extends the plan.</b> Unspent, it adds about {months_more:.0f} months at the planned burn, so the next round
-is raised on results, not need.</div></div>""" + "</div>"
+<div class="rbox"><b>Or buys time.</b> If the next round is late, it keeps the lean team and the savers served while the round closes.
+The company plan raises in month 19 and scales from there; it does not count this reserve.</div></div>""" + "</div>"
     return page(2, "Use of funds", "THE $500K", f"The money builds the product first; {RES / RAISE:.0%} is held as contingency",
                 "", body, f"All figures over 24 months, at a planning rate of ₹{FX:.0f} per $. Revenue is not included, so every number is a cost.")
 
 
 # ---------- page 3: product ----------
-PHASES = [("1", "Save", "Months 1–3 · live in month 4", NAVY, ["Sign-up with e-KYC and a bank check", "Daily saving from ₹100 into debt and liquid funds",
-                                                               "One UPI Autopay mandate", "Instant withdrawal from liquid funds"]),
+PHASES = [("1", "Save", "Months 1–3 · live in month 4", NAVY, ["Sign-up with e-KYC and a bank check", "Daily saving from ₹100 into equity and debt funds (80/20)",
+                                                               "One UPI Autopay mandate", "Withdraw any day; money back in 1–3 working days"]),
           ("2", "Habit", "Months 4–9", NAVY2, ["Goals, streaks and nudges", "Referrals (no cashback, by rule)", "Doorstep agent app for the pilot",
                                                 "Savings analytics"]),
           ("3", "Offers", "Months 7–12", NAVY3, ["Loan offers from partner lenders", "Insurance through a partner", "Credit cards from issuers",
@@ -173,7 +172,7 @@ PHASES = [("1", "Save", "Months 1–3 · live in month 4", NAVY, ["Sign-up with 
 
 def phones():
     scr = [("Sign up", "mobile + PAN"), ("KYC", "Aadhaar + bank"), ("Daily amount", "from ₹100"), ("Autopay", "one UPI mandate"),
-           ("Home", "saved · streak"), ("Withdraw", "instant")]
+           ("Home", "saved · streak"), ("Withdraw", "any day")]
     s = []
     for i, (a, b) in enumerate(scr):
         x = 10 + i * 192
@@ -216,11 +215,11 @@ def flow():
     s.append(T(420, 126, "sends orders", 12, 700, NAVY))
     s.append(A(730, 146, 676, 96, NAVY, 2.2))
     s.append(T(742, 112, "trail fee from the fund house:", 12, 700, NAVY))
-    s.append(T(742, 128, "~0.05–0.1% a year on liquid funds", 12, 500, NAVY))
+    s.append(T(742, 128, "0.75% a year on equity, 0.35% on debt", 12, 500, NAVY))
     # withdraw loop
     s.append(f'<path d="M730 228 L730 276 L95 276 L95 238" fill="none" stroke="{BLUE}" stroke-width="2.4"/>')
     s.append(f'<polygon points="95,228 89,241 101,241" fill="{BLUE}"/>')
-    s.append(T(412, 268, "withdraw: instant from liquid funds, up to ₹50,000 a day where offered", 12.5, 700, BLUE, "middle"))
+    s.append(T(412, 268, "withdraw any day: back to the saver's bank in 1–3 working days", 12.5, 700, BLUE, "middle"))
     # lender
     s.append(R(630, 306, 200, 64, "#f1f5f9", SLATE, 14, 1.8))
     s.append(T(730, 334, "Partner lender", 15, 700, SLATE, "middle"))
@@ -239,11 +238,11 @@ def flow():
 
 def p_flow():
     chips = [("In the saver's name", "Units sit with the fund house, registered to the saver."), ("Never through us", "We hold no customer money, ever."),
-             ("Paid by partners", "Fund houses and lenders pay us; the saver pays no fee.")]
+             ("Paid by partners", "Fund houses and lenders pay us; we charge the saver nothing (the trail comes from the fund's own expense ratio).")]
     c = "".join(f'<div class="chip"><b>{a}</b><span>{b}</span></div>' for a, b in chips)
     return page(4, "How it works", "THE MONEY FLOW", "Money moves from the saver's bank to the fund and back, never through us",
                 "", flow() + f'<div class="chips3">{c}</div>',
-                "Sources: SEBI (payments from the investor's own account; instant access in liquid funds), BSE StAR MF (no transaction fee for distributors), "
+                "Sources: SEBI (payments come from the investor's own account), BSE StAR MF (no transaction fee for distributors), "
                 "fund-house disclosures (distributor trail).")
 
 
@@ -251,10 +250,10 @@ def p_flow():
 REG = [("Before launch · months 0–3", NAVY, NAVY_L, [("Company setup, ₹1.25 lakh", "includes AMFI distributor registration (₹40,000 + GST)"),
                                                    ("NISM exam for both founders", "₹1,500 + GST each; renewed every 3 years"),
                                                    ("BSE StAR MF access", "orders and SIP mandates; no transaction fee to distributors"),
-                                                   ("3–5 fund houses", "empanelled for debt and liquid funds"),
-                                                   ("KYC and UPI Autopay partners", "e-KYC ₹3–7; daily mandates allowed"),
+                                                   ("3–5 fund houses", "empanelled for equity and debt funds"),
+                                                   ("KYC and UPI Autopay partners", "e-KYC ₹3–7 a check (₹40 budgeted per KYC with KRA, PAN and bank checks); daily mandates allowed"),
                                                    ("Data protection", "consent flows and data kept in India")]),
-       ("After launch · months 4–12", NAVY3, "#eef4fb", [("Loans as a marketing partner", "from month 7: ads and referrals to the lender's own app"),
+       ("After launch · months 4–12", NAVY3, "#eef4fb", [("Loans as a DSA / lending service provider", "from month 7: partner lenders pay us per loan; RBI digital-lending rules apply (the borrower pays us nothing)"),
                                       ("Insurance through a partner", "from month 7; our own licence later"),
                                       ("Credit cards with issuers", "the issuer decides every card"),
                                       ("Two legal opinions first", "the marketing-partner model; any cash at the doorstep")]),
@@ -309,10 +308,10 @@ def p_team():
         return f'<div class="hcard"><div><b>{role}</b><span>{note}</span></div><em style="background:{col}">{when} · {pay}</em></div>'
     left = founder("Piyush", "CEO · $1,000 a month", ["Growth: ads, referrals, brand", "Partnerships: fund houses, lenders, insurers",
                                                      "Fund-raising and investors", "Compliance and finance, with the CA and lawyer",
-                                                     "Runs the doorstep pilot (3 agents)"], NAVY)
+                                                     f"Runs the doorstep pilot ({int(P.agents)} agents)"], NAVY)
     right = founder("Sandeep", "CPTO · $1,000 a month", ["Product: roadmap, design, app", "Engineering: integrations, security",
                                                          "Data: the savings-record score, AI coach", "Product operations: KYC, mandates, support"], NAVY2)
-    hires_ceo = hire("3 doorstep agents (pilot)", "m4–18", "₹26k each", "in the customer budget, not salaries", AMBER) + \
+    hires_ceo = hire(f"{int(P.agents)} doorstep agents (pilot)", "m4–18", "₹26k each", "in the customer budget, not salaries", AMBER) + \
         hire("CA and lawyer", "m1", "retainer", "in the compliance budget", SLATE)
     hires_cpto = hire("Engineer, full-stack + mobile", "m1", "₹1.1L", "builds the app with Sandeep", NAVY3) + \
         hire("Ops + support executive", "m4", "₹30k", "KYC, failed debits, withdrawals", NAVY4) + \
@@ -329,7 +328,7 @@ def funnel():
     kyc = on_reg * 0.5
     on_sav = P.savers_won - P.doorstep_signups
     rows = [("Online sign-ups", on_reg, TEAL, "₹100 each"), ("Finish KYC", kyc, "#7fd1c6", "1 in 2"), ("Start saving, online", on_sav, "#0b7f70", "2 in 5 of KYC'd"),
-            ("Doorstep savers", P.doorstep_signups, AMBER, "3 agents; saving starts at sign-up"), ("Savers won", P.savers_won, "#0b5d52", f"{P.doorstep_signups / P.savers_won:.0%} from the doorstep"),
+            ("Doorstep savers", P.doorstep_signups, AMBER, f"{int(P.agents)} agents; saving starts at sign-up"), ("Savers won", P.savers_won, "#0b5d52", f"{P.doorstep_signups / P.savers_won:.0%} from the doorstep"),
             ("Still saving at month 18", P.active_savers_m18, "#0b6b5e", "")]
     s = []
     for i, (lab, v, col, note) in enumerate(rows):
@@ -370,7 +369,7 @@ def p_customers():
 <div class="kpi"><b>{k(ACQ)}</b><span>for 1 lakh sign-ups</span></div></div>{sens()}</div></div>"""
     return page(7, "Customers", "1 LAKH SIGN-UPS", f"1 lakh sign-ups for {k(ACQ)}, and the plan holds even if they cost twice as much",
                 "", body, "Install costs, vendor benchmarks: fintech median ₹75, wealth apps ₹100–300. Retention: of SBI MF's ₹250 daily SIPs started in FY26, "
-                          "36% had stopped by year-end; we plan on 24% still saving at a year online and 55% at the doorstep.")
+                          "36% had stopped by year-end (about 38% still saving at a year): our online plan; 55% at the doorstep.")
 
 
 # ---------- page 8: milestones ----------
@@ -401,9 +400,15 @@ def gantt():
 
 
 def p_milestones():
-    gates = [("Cost to win a saver", f"about {rs(round(P.acq_per_saver, -1))}, and falling"), ("Still saving at 12 months", "online ≥ 24%, doorstep ≥ 55%"),
-             ("Credit take-up", "5%+ of savers take a partner product"), ("Saving predicts repayment", "streak vs early overdue, first partner loans"),
-             ("Doorstep channel", "pays back through credit")]
+    # aligned with the online-first business case (online/Online_business_case.pdf): plan value -> the value that brings profit into year 5
+    LV = pd.read_csv(TAB / "online_levers.csv").set_index("case")          # same numbers as the business case
+    mo = lambda k: int(LV.loc[k]["EBITDA positive from month"])
+    b = mo("Today's evidence")
+    gates = [("Cost to win a saver", f"₹600 an online saver in the seed ({rs(round(P.acq_per_saver, -1))} blended with doorstep); ₹450 planned after; ₹300 (a competitor's figure) brings profit {b - mo('Cost to win Rs 300')} months sooner"),
+             ("Still saving at 12 months", f"38% online is the plan; 45% brings profit {b - mo('45% still saving at a year')} months sooner"),
+             ("Daily amount", f"₹100 is the plan; ₹200 brings profit {b - mo('Rs 200 a day')} months sooner"),
+             ("Who borrows", f"35% of KYC'd users apply a year is the plan; at 10% profit comes {mo('10% apply for a loan a year') - b} months later"),
+             ("Doorstep arm", "must clearly beat online's 38% still saving (55% is the plan) to stay")]
     g = "".join(f'<div class="gate"><span>{i + 1}</span><b>{a}</b><em>{b}</em></div>' for i, (a, b) in enumerate(gates))
     body = gantt() + f'<div class="sub-h" style="margin-top:6px">WHAT WE WILL PROVE BEFORE THE NEXT ROUND</div><div class="gates">{g}</div>'
     return page(8, "Milestones", "24 MONTHS", "Build, launch, prove, then raise on 12 months of data", "", body)
@@ -420,7 +425,7 @@ ASSUME = [("Planning rate", f"₹{FX:.0f} per $", "Founders' planning rate"),
           ("Online sign-up", "₹100 each", "Our estimate; app installs cost ₹75 (fintech median) to ₹100–300 (wealth apps)"),
           ("Sign-up to saver", "1 in 2 finish KYC; 2 in 5 of them start saving", "Our estimate; the first thing the launch measures"),
           ("KYC", "₹40 per sign-up", "e-KYC ₹3–7, KRA upload ₹30, PAN and bank checks"),
-          ("Still saving at 12 months", "24% online · 55% doorstep", "₹250 daily SIPs: 36% stop within a year (SBI MF)"),
+          ("Still saving at 12 months", "38% online · 55% doorstep", "SBI MF's ₹250 daily SIP (36% stopped by ~6 months on average); savings apps' 24% is the downside"),
           ("Doorstep agent", "₹26,000 a month all-in; 100 sign-ups a month, saving from sign-up", "Our estimate, from field-sales practice"),
           ("Customer support", "₹5 per active saver a month", "Our estimate"),
           ("Revenue", "not counted", "Fund-house trail and partner fees are upside")]
