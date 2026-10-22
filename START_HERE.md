@@ -1,3 +1,5 @@
+> **Superseded on 21–22 Oct.** This file describes the earlier offline street-agent plan. The current plan is online-first (₹100 a day by UPI into mutual funds, a loan marketplace, 10% doorstep in NCR): start at [`final/README.md`](final/README.md).
+
 # START HERE: "save first, borrow later", an offline savings business
 
 **State as of 18 Oct 2026.** The current company case is the refresh in `story/REFRESH.md` and `tables/refresh_*.csv`. It keeps the published fleet and the ₹350-a-day debt fund, and replaces the loan ticket, the apply rate, the NBFC borrowings, the UPI share and the bought-lead cost with figures the folder already had. `tables/base_*.csv` is the 17 Oct base, kept so the old headlines can be checked. The deck `Offline_model_v3.pdf` still shows that old base. The film the operator named, and what bachatt.app showed the same day, are kept in `story/BACHATT_PROPOSITION.md` and in `research/xs_bachatt.csv` (XB-11 to XB-17). The OD++, the small amount a customer is happy to save, the 80/20 fund mix and a month for the online 1 to 1.5 lakh were not given as numbers, so they are not in the refresh.

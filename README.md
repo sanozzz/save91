@@ -1,6 +1,12 @@
-# save91: a "save first, borrow later" street-savings business
+# save91: daily savings in mutual funds, online-first, with a loan marketplace
 
-**Start with [`START_HERE.md`](START_HERE.md).** It describes:
+**Start with [`final/`](final/README.md).** It holds the current documents (the online business case, the full online plan, the
+LTV/CAC deck, the $0.5M seed plan, the Bachatt memo), links to the two live Google Sheets, the headline numbers read from the
+model, and the open items. `python final/make_final.py --check` says whether it is up to date.
+
+---
+
+**Everything below describes the earlier offline street-agent plan (16–18 Oct), kept for history.** [`START_HERE.md`](START_HERE.md) describes:
 - what we are building and the current base plan;
 - the year-by-year financials;
 - every decision taken so far;
