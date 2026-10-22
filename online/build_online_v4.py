@@ -551,13 +551,14 @@ def a_sheet(n):
     body = f'<div class="kpis" style="grid-template-columns:repeat(3,1fr)">{chips}</div>' + \
         '<div class="sub-h" style="margin-top:14px">THE LIVE SHEET NEXT TO THE MODEL</div>' + \
         table(["Measure", "Profitable path: sheet", "Profitable path: model", "Grow fast: sheet", "Grow fast: model"], rows, [32, 17, 17, 17, 17], 12) + \
-        (f'<div class="rbox" style="margin-top:12px">The {len(miss)} checks outside target are small EBITDA figures, where a 1% test is tight; '
-         f'each gap is under ₹0.1 Cr: {note}.</div>' if len(miss) else "")
+        (f'<div class="rbox" style="margin-top:12px">The {len(miss)} checks outside target are small figures, where a 1% test is tight: year-4 EBITDA '
+         f'(near zero) in both plans, year-2 revenue and year-5 EBITDA in two assumption changes. The largest gap is ₹{miss["gap"].abs().max():.2f} Cr. '
+         f'The sheet\'s costs equal the model\'s exactly; every gap comes from its simpler timing of revenue.</div>' if len(miss) else "")
     nlev = c.loc[c["case"].str.startswith("lever"), "case"].nunique()
-    return page(n, "Appendix", "A11 · SPREADSHEET CHECK", "The spreadsheet and the model gave the same answers on 21 Oct, before the 22 Oct fixes", body,
+    return page(n, "Appendix", "A11 · SPREADSHEET CHECK", "The spreadsheet and the model give the same answers, after the 22 Oct fixes", body,
                 f"Both plans: revenue and EBITDA in every year 1–8, profit month, money needed, active savers, money saved. Each of the {nlev} assumption changes: years 5 and 8 and the profit month. "
-                "The live Google Sheet was read back after it was built. The 22 Oct fixes (payments, tech per KYC'd user, the insurance fee, the contingency on the cost to win) "
-                "are in the model and this deck; the sheet is being refreshed to match.")
+                "The live Google Sheet was read back after the 22 Oct refresh (payments, tech per KYC'd user, the insurance fee, the contingency on the cost to win); "
+                "the older offline tabs are hidden.")
 
 
 def a_changes(n):

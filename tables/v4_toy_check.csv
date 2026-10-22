@@ -1,121 +1,121 @@
 case,measure,sheet,python,gap,gap_pct,target,ok
-20000,"Revenue, year 1 (Rs crore)",0.143612,0.144041,-0.000429,-0.002979,within 1%,True
-20000,"EBITDA, year 1 (Rs crore)",-1.856394,-1.855965,-0.000429,-0.000231,near zero: absolute gap <= Rs 0.10 crore,True
-20000,"Revenue, year 2 (Rs crore)",1.045292,1.055149,-0.009857,-0.009341,within 1%,True
-20000,"EBITDA, year 2 (Rs crore)",-3.979667,-3.96981,-0.009857,-0.002483,within 1%,True
-20000,"Revenue, year 3 (Rs crore)",7.460575,7.51552,-0.054946,-0.007311,within 1%,True
-20000,"EBITDA, year 3 (Rs crore)",-8.929022,-8.874076,-0.054946,-0.006192,within 1%,True
-20000,"Revenue, year 4 (Rs crore)",21.686808,21.862813,-0.176005,-0.00805,within 1%,True
-20000,"EBITDA, year 4 (Rs crore)",2.239989,2.415995,-0.176005,-0.07285,within 1%,False
-20000,"Revenue, year 5 (Rs crore)",38.80912,38.883387,-0.074268,-0.00191,within 1%,True
-20000,"EBITDA, year 5 (Rs crore)",18.111964,18.186232,-0.074268,-0.004084,within 1%,True
-20000,"Revenue, year 6 (Rs crore)",52.842988,52.684843,0.158145,0.003002,within 1%,True
-20000,"EBITDA, year 6 (Rs crore)",30.833441,30.675297,0.158145,0.005155,within 1%,True
-20000,"Revenue, year 7 (Rs crore)",65.399648,65.292904,0.106743,0.001635,within 1%,True
-20000,"EBITDA, year 7 (Rs crore)",42.245163,42.13842,0.106743,0.002533,within 1%,True
-20000,"Revenue, year 8 (Rs crore)",77.005885,76.933411,0.072475,0.000942,within 1%,True
-20000,"EBITDA, year 8 (Rs crore)",52.568319,52.495845,0.072475,0.001381,within 1%,True
-20000,EBITDA positive from month,41.0,40.0,1.0,0.025,equal or +/-1 month,True
-20000,Money needed (Rs crore),23.519576,23.405167,0.114409,0.004888,within 2%,True
+20000,"Revenue, year 1 (Rs crore)",0.124094,0.124498,-0.000405,-0.003249,within 1%,True
+20000,"EBITDA, year 1 (Rs crore)",-1.978635,-1.978231,-0.000405,-0.000204,near zero: absolute gap <= Rs 0.10 crore,True
+20000,"Revenue, year 2 (Rs crore)",0.929348,0.938849,-0.009502,-0.01012,within 1%,False
+20000,"EBITDA, year 2 (Rs crore)",-4.576949,-4.567447,-0.009502,-0.00208,within 1%,True
+20000,"Revenue, year 3 (Rs crore)",6.720173,6.773364,-0.053191,-0.007853,within 1%,True
+20000,"EBITDA, year 3 (Rs crore)",-12.55649,-12.503299,-0.053191,-0.004254,within 1%,True
+20000,"Revenue, year 4 (Rs crore)",19.871726,20.043021,-0.171295,-0.008546,within 1%,True
+20000,"EBITDA, year 4 (Rs crore)",-5.136722,-4.965427,-0.171295,-0.034498,within 1%,False
+20000,"Revenue, year 5 (Rs crore)",35.920096,35.990641,-0.070545,-0.00196,within 1%,True
+20000,"EBITDA, year 5 (Rs crore)",7.727802,7.798348,-0.070545,-0.009046,within 1%,True
+20000,"Revenue, year 6 (Rs crore)",49.028514,48.873145,0.155369,0.003179,within 1%,True
+20000,"EBITDA, year 6 (Rs crore)",17.913832,17.758463,0.155369,0.008749,within 1%,True
+20000,"Revenue, year 7 (Rs crore)",60.812255,60.704864,0.107391,0.001769,within 1%,True
+20000,"EBITDA, year 7 (Rs crore)",27.209683,27.102292,0.107391,0.003962,within 1%,True
+20000,"Revenue, year 8 (Rs crore)",71.793,71.718728,0.074272,0.001036,within 1%,True
+20000,"EBITDA, year 8 (Rs crore)",35.787149,35.712877,0.074272,0.00208,within 1%,True
+20000,EBITDA positive from month,49.0,49.0,0.0,0.0,equal or +/-1 month,True
+20000,Money needed (Rs crore),33.735376,33.500983,0.234393,0.006997,within 2%,True
 20000,"Active savers, month 60",370958.682192,370958.682192,-0.0,-0.0,within 1%,True
 20000,AUM month 60 (Rs crore),1103.663236,1103.663236,-0.0,-0.0,within 1%,True
-20000,Lens 1: 20x revenue run-rate m60 (Rs crore),914.188846,912.623412,1.565434,0.001715,within 1%,True
-150000,"Revenue, year 1 (Rs crore)",0.143612,0.144041,-0.000429,-0.002979,within 1%,True
-150000,"EBITDA, year 1 (Rs crore)",-1.856394,-1.855965,-0.000429,-0.000231,near zero: absolute gap <= Rs 0.10 crore,True
-150000,"Revenue, year 2 (Rs crore)",2.587666,2.598852,-0.011186,-0.004304,within 1%,True
-150000,"EBITDA, year 2 (Rs crore)",-15.562667,-15.551481,-0.011186,-0.000719,within 1%,True
-150000,"Revenue, year 3 (Rs crore)",47.81426,48.061529,-0.247269,-0.005145,within 1%,True
-150000,"EBITDA, year 3 (Rs crore)",-55.15405,-54.90678,-0.247269,-0.004503,within 1%,True
-150000,"Revenue, year 4 (Rs crore)",153.605012,154.808027,-1.203014,-0.007771,within 1%,True
-150000,"EBITDA, year 4 (Rs crore)",27.707831,28.910846,-1.203014,-0.041611,within 1%,False
-150000,"Revenue, year 5 (Rs crore)",280.863642,281.51719,-0.653548,-0.002322,within 1%,True
-150000,"EBITDA, year 5 (Rs crore)",145.061546,145.715095,-0.653548,-0.004485,within 1%,True
-150000,"Revenue, year 6 (Rs crore)",386.239904,385.199262,1.040641,0.002702,within 1%,True
-150000,"EBITDA, year 6 (Rs crore)",241.556904,240.516262,1.040641,0.004327,within 1%,True
-150000,"Revenue, year 7 (Rs crore)",480.829355,480.126649,0.702705,0.001464,within 1%,True
-150000,"EBITDA, year 7 (Rs crore)",328.075342,327.372637,0.702705,0.002147,within 1%,True
-150000,"Revenue, year 8 (Rs crore)",568.338172,567.862697,0.475475,0.000837,within 1%,True
-150000,"EBITDA, year 8 (Rs crore)",408.258201,407.782726,0.475475,0.001166,within 1%,True
-150000,EBITDA positive from month,39.0,39.0,0.0,0.0,equal or +/-1 month,True
-150000,Money needed (Rs crore),99.540557,99.137672,0.402885,0.004064,within 2%,True
+20000,Lens 1: 20x revenue run-rate m60 (Rs crore),847.668524,846.109391,1.559133,0.001843,within 1%,True
+150000,"Revenue, year 1 (Rs crore)",0.124094,0.124498,-0.000405,-0.003249,within 1%,True
+150000,"EBITDA, year 1 (Rs crore)",-1.978635,-1.978231,-0.000405,-0.000204,near zero: absolute gap <= Rs 0.10 crore,True
+150000,"Revenue, year 2 (Rs crore)",2.262756,2.273506,-0.010749,-0.004728,within 1%,True
+150000,"EBITDA, year 2 (Rs crore)",-17.53333,-17.522581,-0.010749,-0.000613,within 1%,True
+150000,"Revenue, year 3 (Rs crore)",42.98033,43.219316,-0.238986,-0.00553,within 1%,True
+150000,"EBITDA, year 3 (Rs crore)",-79.786645,-79.547659,-0.238986,-0.003004,within 1%,True
+150000,"Revenue, year 4 (Rs crore)",140.708004,141.880583,-1.172579,-0.008265,within 1%,True
+150000,"EBITDA, year 4 (Rs crore)",-25.42675,-24.254171,-1.172579,-0.048345,within 1%,False
+150000,"Revenue, year 5 (Rs crore)",259.890953,260.518948,-0.627995,-0.002411,within 1%,True
+150000,"EBITDA, year 5 (Rs crore)",69.168405,69.7964,-0.627995,-0.008998,within 1%,True
+150000,"Revenue, year 6 (Rs crore)",358.251875,357.231617,1.020259,0.002856,within 1%,True
+150000,"EBITDA, year 6 (Rs crore)",146.423109,145.40285,1.020259,0.007017,within 1%,True
+150000,"Revenue, year 7 (Rs crore)",446.966249,446.260435,0.705814,0.001582,within 1%,True
+150000,"EBITDA, year 7 (Rs crore)",216.868945,216.16313,0.705814,0.003265,within 1%,True
+150000,"Revenue, year 8 (Rs crore)",529.714675,529.228124,0.486551,0.000919,within 1%,True
+150000,"EBITDA, year 8 (Rs crore)",283.78533,283.298779,0.486551,0.001717,within 1%,True
+150000,EBITDA positive from month,48.0,48.0,0.0,0.0,equal or +/-1 month,True
+150000,Money needed (Rs crore),159.903044,158.60207,1.300973,0.008203,within 2%,True
 150000,"Active savers, month 60",2723328.240965,2723328.240965,-0.0,-0.0,within 1%,True
 150000,AUM month 60 (Rs crore),7800.288795,7800.288795,-0.0,-0.0,within 1%,True
-150000,Lens 1: 20x revenue run-rate m60 (Rs crore),6651.038283,6642.231486,8.806796,0.001326,within 1%,True
-lever: Today's evidence,"Revenue, year 5 (Rs crore)",38.80912,38.883387,-0.074268,-0.00191,within 1%,True
-lever: Today's evidence,"EBITDA, year 5 (Rs crore)",18.111964,18.186232,-0.074268,-0.004084,within 1%,True
-lever: Today's evidence,"Revenue, year 8 (Rs crore)",77.005885,76.933411,0.072475,0.000942,within 1%,True
-lever: Today's evidence,"EBITDA, year 8 (Rs crore)",52.568319,52.495845,0.072475,0.001381,within 1%,True
-lever: Today's evidence,EBITDA positive from month,41.0,40.0,1.0,0.025,equal or +/-1 month,True
-lever: Today's evidence,Money needed (Rs crore),23.519576,23.405167,0.114409,0.004888,within 2%,True
-lever: 24% still saving at a year (savings apps),"Revenue, year 5 (Rs crore)",26.490268,26.539189,-0.04892,-0.001843,within 1%,True
-lever: 24% still saving at a year (savings apps),"EBITDA, year 5 (Rs crore)",6.895867,6.944787,-0.04892,-0.007044,within 1%,True
-lever: 24% still saving at a year (savings apps),"Revenue, year 8 (Rs crore)",52.092195,52.044453,0.047742,0.000917,within 1%,True
-lever: 24% still saving at a year (savings apps),"EBITDA, year 8 (Rs crore)",30.134164,30.086422,0.047742,0.001587,within 1%,True
-lever: 24% still saving at a year (savings apps),EBITDA positive from month,49.0,48.0,1.0,0.020833,equal or +/-1 month,True
-lever: 24% still saving at a year (savings apps),Money needed (Rs crore),28.484409,28.324866,0.159543,0.005633,within 2%,True
-lever: 45% still saving at a year,"Revenue, year 5 (Rs crore)",43.75005,43.835991,-0.085941,-0.001961,within 1%,True
-lever: 45% still saving at a year,"EBITDA, year 5 (Rs crore)",22.621546,22.707487,-0.085941,-0.003785,within 1%,True
-lever: 45% still saving at a year,"Revenue, year 8 (Rs crore)",88.286285,88.20131,0.084975,0.000963,within 1%,True
-lever: 45% still saving at a year,"EBITDA, year 8 (Rs crore)",63.027069,62.942094,0.084975,0.00135,within 1%,True
-lever: 45% still saving at a year,EBITDA positive from month,39.0,39.0,0.0,0.0,equal or +/-1 month,True
-lever: 45% still saving at a year,Money needed (Rs crore),22.718679,22.618831,0.099848,0.004414,within 2%,True
-lever: Rs 200 a day,"Revenue, year 5 (Rs crore)",44.620672,44.69494,-0.074268,-0.001662,within 1%,True
-lever: Rs 200 a day,"EBITDA, year 5 (Rs crore)",23.923517,23.997785,-0.074268,-0.003095,within 1%,True
-lever: Rs 200 a day,"Revenue, year 8 (Rs crore)",94.801214,94.728739,0.072475,0.000765,within 1%,True
-lever: Rs 200 a day,"EBITDA, year 8 (Rs crore)",70.363648,70.291173,0.072475,0.001031,within 1%,True
-lever: Rs 200 a day,EBITDA positive from month,39.0,39.0,0.0,0.0,equal or +/-1 month,True
-lever: Rs 200 a day,Money needed (Rs crore),22.031906,21.943726,0.08818,0.004018,within 2%,True
-lever: Rs 300 a day,"Revenue, year 5 (Rs crore)",50.432224,50.506492,-0.074268,-0.00147,within 1%,True
-lever: Rs 300 a day,"EBITDA, year 5 (Rs crore)",29.735069,29.809337,-0.074268,-0.002491,within 1%,True
-lever: Rs 300 a day,"Revenue, year 8 (Rs crore)",112.596543,112.524068,0.072475,0.000644,within 1%,True
-lever: Rs 300 a day,"EBITDA, year 8 (Rs crore)",88.158976,88.086502,0.072475,0.000823,within 1%,True
-lever: Rs 300 a day,EBITDA positive from month,37.0,37.0,0.0,0.0,equal or +/-1 month,True
-lever: Rs 300 a day,Money needed (Rs crore),20.823802,20.75857,0.065232,0.003142,within 2%,True
-lever: 10% apply for a loan a year,"Revenue, year 5 (Rs crore)",18.617844,18.616287,0.001557,8.4e-05,within 1%,True
-lever: 10% apply for a loan a year,"EBITDA, year 5 (Rs crore)",-2.079311,-2.080868,0.001557,0.000748,within 1%,True
-lever: 10% apply for a loan a year,"Revenue, year 8 (Rs crore)",40.623652,40.611151,0.012501,0.000308,within 1%,True
-lever: 10% apply for a loan a year,"EBITDA, year 8 (Rs crore)",16.186086,16.173585,0.012501,0.000773,within 1%,True
-lever: 10% apply for a loan a year,EBITDA positive from month,59.0,59.0,0.0,0.0,equal or +/-1 month,True
-lever: 10% apply for a loan a year,Money needed (Rs crore),38.994037,38.964456,0.029581,0.000759,within 2%,True
-lever: 50% apply for a loan a year,"Revenue, year 5 (Rs crore)",51.304219,51.477018,-0.172799,-0.003357,within 1%,True
-lever: 50% apply for a loan a year,"EBITDA, year 5 (Rs crore)",30.607064,30.779863,-0.172799,-0.005614,within 1%,True
-lever: 50% apply for a loan a year,"Revenue, year 8 (Rs crore)",99.481446,99.380305,0.101142,0.001018,within 1%,True
-lever: 50% apply for a loan a year,"EBITDA, year 8 (Rs crore)",75.04388,74.942738,0.101142,0.00135,within 1%,True
-lever: 50% apply for a loan a year,EBITDA positive from month,37.0,37.0,0.0,0.0,equal or +/-1 month,True
-lever: 50% apply for a loan a year,Money needed (Rs crore),20.016572,19.876271,0.140301,0.007059,within 2%,True
-lever: Loan offers to savers only,"Revenue, year 5 (Rs crore)",22.210925,22.242556,-0.031631,-0.001422,within 1%,True
-lever: Loan offers to savers only,"EBITDA, year 5 (Rs crore)",1.513769,1.545401,-0.031631,-0.020468,near zero: absolute gap <= Rs 0.10 crore,True
-lever: Loan offers to savers only,"Revenue, year 8 (Rs crore)",47.440347,47.407005,0.033343,0.000703,within 1%,True
-lever: Loan offers to savers only,"EBITDA, year 8 (Rs crore)",23.002781,22.969438,0.033343,0.001452,within 1%,True
-lever: Loan offers to savers only,EBITDA positive from month,53.0,52.0,1.0,0.019231,equal or +/-1 month,True
-lever: Loan offers to savers only,Money needed (Rs crore),34.352823,34.211755,0.141067,0.004123,within 2%,True
-lever: Credit-hungry: 45% stay + 50% apply,"Revenue, year 5 (Rs crore)",57.779518,57.979871,-0.200353,-0.003456,within 1%,True
-lever: Credit-hungry: 45% stay + 50% apply,"EBITDA, year 5 (Rs crore)",36.651014,36.851367,-0.200353,-0.005437,within 1%,True
-lever: Credit-hungry: 45% stay + 50% apply,"Revenue, year 8 (Rs crore)",114.002842,113.884237,0.118605,0.001041,within 1%,True
-lever: Credit-hungry: 45% stay + 50% apply,"EBITDA, year 8 (Rs crore)",88.743626,88.625021,0.118605,0.001338,within 1%,True
-lever: Credit-hungry: 45% stay + 50% apply,EBITDA positive from month,37.0,36.0,1.0,0.027778,equal or +/-1 month,True
-lever: Credit-hungry: 45% stay + 50% apply,Money needed (Rs crore),19.378944,19.220353,0.158591,0.008251,within 2%,True
-lever: Cost to win Rs 300,"Revenue, year 5 (Rs crore)",38.80912,38.883387,-0.074268,-0.00191,within 1%,True
-lever: Cost to win Rs 300,"EBITDA, year 5 (Rs crore)",22.071964,22.146232,-0.074268,-0.003354,within 1%,True
-lever: Cost to win Rs 300,"Revenue, year 8 (Rs crore)",77.005885,76.933411,0.072475,0.000942,within 1%,True
-lever: Cost to win Rs 300,"EBITDA, year 8 (Rs crore)",56.528319,56.455845,0.072475,0.001284,within 1%,True
-lever: Cost to win Rs 300,EBITDA positive from month,37.0,37.0,0.0,0.0,equal or +/-1 month,True
-lever: Cost to win Rs 300,Money needed (Rs crore),18.006307,17.941075,0.065232,0.003636,within 2%,True
-lever: Cost to win Rs 600 (our funnel),"Revenue, year 5 (Rs crore)",38.80912,38.883387,-0.074268,-0.00191,within 1%,True
-lever: Cost to win Rs 600 (our funnel),"EBITDA, year 5 (Rs crore)",13.932295,14.006563,-0.074268,-0.005302,within 1%,True
-lever: Cost to win Rs 600 (our funnel),"Revenue, year 8 (Rs crore)",77.005885,76.933411,0.072475,0.000942,within 1%,True
-lever: Cost to win Rs 600 (our funnel),"EBITDA, year 8 (Rs crore)",48.342185,48.269711,0.072475,0.001501,within 1%,True
-lever: Cost to win Rs 600 (our funnel),EBITDA positive from month,45.0,45.0,0.0,0.0,equal or +/-1 month,True
-lever: Cost to win Rs 600 (our funnel),Money needed (Rs crore),30.725849,30.552759,0.17309,0.005665,within 2%,True
-lever: Debt-only funds,"Revenue, year 5 (Rs crore)",36.057666,36.129816,-0.07215,-0.001997,within 1%,True
-lever: Debt-only funds,"EBITDA, year 5 (Rs crore)",15.360511,15.432661,-0.07215,-0.004675,within 1%,True
-lever: Debt-only funds,"Revenue, year 8 (Rs crore)",68.487954,68.414272,0.073682,0.001077,within 1%,True
-lever: Debt-only funds,"EBITDA, year 8 (Rs crore)",44.050388,43.976706,0.073682,0.001675,within 1%,True
-lever: Debt-only funds,EBITDA positive from month,42.0,42.0,0.0,0.0,equal or +/-1 month,True
-lever: Debt-only funds,Money needed (Rs crore),24.398722,24.269942,0.128779,0.005306,within 2%,True
-lever: Online only after m18,"Revenue, year 5 (Rs crore)",36.02206,36.091032,-0.068972,-0.001911,within 1%,True
-lever: Online only after m18,"EBITDA, year 5 (Rs crore)",17.032671,17.101643,-0.068972,-0.004033,within 1%,True
-lever: Online only after m18,"Revenue, year 8 (Rs crore)",70.604281,70.535788,0.068494,0.000971,within 1%,True
-lever: Online only after m18,"EBITDA, year 8 (Rs crore)",48.565485,48.496991,0.068494,0.001412,within 1%,True
-lever: Online only after m18,EBITDA positive from month,40.0,40.0,0.0,0.0,equal or +/-1 month,True
-lever: Online only after m18,Money needed (Rs crore),21.976457,21.879039,0.097418,0.004453,within 2%,True
+150000,Lens 1: 20x revenue run-rate m60 (Rs crore),6165.306395,6156.555626,8.750769,0.001421,within 1%,True
+lever: The plan,"Revenue, year 5 (Rs crore)",35.920096,35.990641,-0.070545,-0.00196,within 1%,True
+lever: The plan,"EBITDA, year 5 (Rs crore)",7.727802,7.798348,-0.070545,-0.009046,within 1%,True
+lever: The plan,"Revenue, year 8 (Rs crore)",71.793,71.718728,0.074272,0.001036,within 1%,True
+lever: The plan,"EBITDA, year 8 (Rs crore)",35.787149,35.712877,0.074272,0.00208,within 1%,True
+lever: The plan,EBITDA positive from month,49.0,49.0,0.0,0.0,equal or +/-1 month,True
+lever: The plan,Money needed (Rs crore),33.735376,33.500983,0.234393,0.006997,within 2%,True
+lever: 24% still saving at a year (savings apps),"Revenue, year 5 (Rs crore)",24.490807,24.537244,-0.046436,-0.001892,within 1%,True
+lever: 24% still saving at a year (savings apps),"EBITDA, year 5 (Rs crore)",-0.440826,-0.39439,-0.046436,-0.117743,near zero: absolute gap <= Rs 0.10 crore,True
+lever: 24% still saving at a year (savings apps),"Revenue, year 8 (Rs crore)",48.524337,48.475402,0.048935,0.001009,within 1%,True
+lever: 24% still saving at a year (savings apps),"EBITDA, year 8 (Rs crore)",18.4921,18.443165,0.048935,0.002653,within 1%,True
+lever: 24% still saving at a year (savings apps),EBITDA positive from month,56.0,56.0,0.0,0.0,equal or +/-1 month,True
+lever: 24% still saving at a year (savings apps),Money needed (Rs crore),39.270052,39.059592,0.21046,0.005388,within 2%,True
+lever: 45% still saving at a year,"Revenue, year 5 (Rs crore)",40.511729,40.593386,-0.081658,-0.002012,within 1%,True
+lever: 45% still saving at a year,"EBITDA, year 5 (Rs crore)",11.15245,11.234107,-0.081658,-0.007269,within 1%,True
+lever: 45% still saving at a year,"Revenue, year 8 (Rs crore)",82.342353,82.255275,0.087078,0.001059,within 1%,True
+lever: 45% still saving at a year,"EBITDA, year 8 (Rs crore)",44.103893,44.016815,0.087078,0.001978,within 1%,True
+lever: 45% still saving at a year,EBITDA positive from month,47.0,47.0,0.0,0.0,equal or +/-1 month,True
+lever: 45% still saving at a year,Money needed (Rs crore),32.134204,31.886103,0.248101,0.007781,within 2%,True
+lever: Rs 200 a day,"Revenue, year 5 (Rs crore)",41.731648,41.802193,-0.070545,-0.001688,within 1%,True
+lever: Rs 200 a day,"EBITDA, year 5 (Rs crore)",13.539355,13.6099,-0.070545,-0.005183,within 1%,True
+lever: Rs 200 a day,"Revenue, year 8 (Rs crore)",89.588328,89.514056,0.074272,0.00083,within 1%,True
+lever: Rs 200 a day,"EBITDA, year 8 (Rs crore)",53.582477,53.508205,0.074272,0.001388,within 1%,True
+lever: Rs 200 a day,EBITDA positive from month,46.0,45.0,1.0,0.022222,equal or +/-1 month,True
+lever: Rs 200 a day,Money needed (Rs crore),30.185314,30.002132,0.183182,0.006106,within 2%,True
+lever: Rs 300 a day,"Revenue, year 5 (Rs crore)",47.5432,47.613745,-0.070545,-0.001482,within 1%,True
+lever: Rs 300 a day,"EBITDA, year 5 (Rs crore)",19.350907,19.421452,-0.070545,-0.003632,within 1%,True
+lever: Rs 300 a day,"Revenue, year 8 (Rs crore)",107.383657,107.309385,0.074272,0.000692,within 1%,True
+lever: Rs 300 a day,"EBITDA, year 8 (Rs crore)",71.377806,71.303534,0.074272,0.001042,within 1%,True
+lever: Rs 300 a day,EBITDA positive from month,42.0,42.0,0.0,0.0,equal or +/-1 month,True
+lever: Rs 300 a day,Money needed (Rs crore),27.639824,27.500602,0.139222,0.005063,within 2%,True
+lever: 10% apply for a loan a year,"Revenue, year 5 (Rs crore)",16.133358,16.130249,0.003109,0.000193,within 1%,True
+lever: 10% apply for a loan a year,"EBITDA, year 5 (Rs crore)",-12.058936,-12.062044,0.003109,0.000258,within 1%,True
+lever: 10% apply for a loan a year,"Revenue, year 8 (Rs crore)",35.984263,35.970908,0.013355,0.000371,within 1%,True
+lever: 10% apply for a loan a year,"EBITDA, year 8 (Rs crore)",-0.021588,-0.034943,0.013355,0.382191,near zero: absolute gap <= Rs 0.10 crore,True
+lever: 10% apply for a loan a year,EBITDA positive from month,92.0,92.0,0.0,0.0,equal or +/-1 month,True
+lever: 10% apply for a loan a year,Money needed (Rs crore),75.470052,75.503713,-0.033661,-0.000446,within 2%,True
+lever: 50% apply for a loan a year,"Revenue, year 5 (Rs crore)",48.190921,48.357713,-0.166792,-0.003449,within 1%,True
+lever: 50% apply for a loan a year,"EBITDA, year 5 (Rs crore)",19.998628,20.16542,-0.166792,-0.008271,within 1%,True
+lever: 50% apply for a loan a year,"Revenue, year 8 (Rs crore)",93.994125,93.890411,0.103714,0.001105,within 1%,True
+lever: 50% apply for a loan a year,"EBITDA, year 8 (Rs crore)",57.988274,57.88456,0.103714,0.001792,within 1%,True
+lever: 50% apply for a loan a year,EBITDA positive from month,41.0,41.0,0.0,0.0,equal or +/-1 month,True
+lever: 50% apply for a loan a year,Money needed (Rs crore),26.181261,25.916869,0.264392,0.010202,within 2%,True
+lever: Loan offers to savers only,"Revenue, year 5 (Rs crore)",20.331278,20.360931,-0.029653,-0.001456,within 1%,True
+lever: Loan offers to savers only,"EBITDA, year 5 (Rs crore)",-5.535301,-5.505648,-0.029653,-0.005386,within 1%,True
+lever: Loan offers to savers only,"Revenue, year 8 (Rs crore)",43.811795,43.777467,0.034328,0.000784,within 1%,True
+lever: Loan offers to savers only,"EBITDA, year 8 (Rs crore)",11.376728,11.3424,0.034328,0.003027,within 1%,True
+lever: Loan offers to savers only,EBITDA positive from month,66.0,67.0,-1.0,-0.014925,equal or +/-1 month,True
+lever: Loan offers to savers only,Money needed (Rs crore),49.323752,49.229647,0.094105,0.001912,within 2%,True
+lever: Credit-hungry: 45% stay + 50% apply,"Revenue, year 5 (Rs crore)",54.292681,54.486081,-0.193399,-0.00355,within 1%,True
+lever: Credit-hungry: 45% stay + 50% apply,"EBITDA, year 5 (Rs crore)",24.933402,25.126802,-0.193399,-0.007697,within 1%,True
+lever: Credit-hungry: 45% stay + 50% apply,"Revenue, year 8 (Rs crore)",107.751595,107.629978,0.121617,0.00113,within 1%,True
+lever: Credit-hungry: 45% stay + 50% apply,"EBITDA, year 8 (Rs crore)",69.513135,69.391518,0.121617,0.001753,within 1%,True
+lever: Credit-hungry: 45% stay + 50% apply,EBITDA positive from month,40.0,39.0,1.0,0.025641,equal or +/-1 month,True
+lever: Credit-hungry: 45% stay + 50% apply,Money needed (Rs crore),25.309167,25.068604,0.240563,0.009596,within 2%,True
+lever: Cost to win Rs 300,"Revenue, year 5 (Rs crore)",35.920096,35.990641,-0.070545,-0.00196,within 1%,True
+lever: Cost to win Rs 300,"EBITDA, year 5 (Rs crore)",11.687802,11.758348,-0.070545,-0.006,within 1%,True
+lever: Cost to win Rs 300,"Revenue, year 8 (Rs crore)",71.793,71.718728,0.074272,0.001036,within 1%,True
+lever: Cost to win Rs 300,"EBITDA, year 8 (Rs crore)",39.747149,39.672877,0.074272,0.001872,within 1%,True
+lever: Cost to win Rs 300,EBITDA positive from month,45.0,45.0,0.0,0.0,equal or +/-1 month,True
+lever: Cost to win Rs 300,Money needed (Rs crore),25.263525,25.095825,0.1677,0.006682,within 2%,True
+lever: Cost to win Rs 600 (our funnel),"Revenue, year 5 (Rs crore)",35.920096,35.990641,-0.070545,-0.00196,within 1%,True
+lever: Cost to win Rs 600 (our funnel),"EBITDA, year 5 (Rs crore)",3.548133,3.618678,-0.070545,-0.019495,within 1%,False
+lever: Cost to win Rs 600 (our funnel),"Revenue, year 8 (Rs crore)",71.793,71.718728,0.074272,0.001036,within 1%,True
+lever: Cost to win Rs 600 (our funnel),"EBITDA, year 8 (Rs crore)",31.561015,31.486743,0.074272,0.002359,within 1%,True
+lever: Cost to win Rs 600 (our funnel),EBITDA positive from month,51.0,51.0,0.0,0.0,equal or +/-1 month,True
+lever: Cost to win Rs 600 (our funnel),Money needed (Rs crore),43.233037,42.955012,0.278024,0.006472,within 2%,True
+lever: Debt-only funds,"Revenue, year 5 (Rs crore)",33.168642,33.237069,-0.068427,-0.002059,within 1%,True
+lever: Debt-only funds,"EBITDA, year 5 (Rs crore)",4.976349,5.044776,-0.068427,-0.013564,within 1%,False
+lever: Debt-only funds,"Revenue, year 8 (Rs crore)",63.275068,63.199589,0.075479,0.001194,within 1%,True
+lever: Debt-only funds,"EBITDA, year 8 (Rs crore)",27.269217,27.193738,0.075479,0.002776,within 1%,True
+lever: Debt-only funds,EBITDA positive from month,49.0,49.0,0.0,0.0,equal or +/-1 month,True
+lever: Debt-only funds,Money needed (Rs crore),35.589002,35.355055,0.233946,0.006617,within 2%,True
+lever: Online only after m18,"Revenue, year 5 (Rs crore)",33.368514,33.434012,-0.065498,-0.001959,within 1%,True
+lever: Online only after m18,"EBITDA, year 5 (Rs crore)",7.516305,7.581803,-0.065498,-0.008639,within 1%,True
+lever: Online only after m18,"Revenue, year 8 (Rs crore)",65.881858,65.81167,0.070188,0.001066,within 1%,True
+lever: Online only after m18,"EBITDA, year 8 (Rs crore)",33.320452,33.250264,0.070188,0.002111,within 1%,True
+lever: Online only after m18,EBITDA positive from month,49.0,49.0,0.0,0.0,equal or +/-1 month,True
+lever: Online only after m18,Money needed (Rs crore),31.264715,31.041089,0.223626,0.007204,within 2%,True

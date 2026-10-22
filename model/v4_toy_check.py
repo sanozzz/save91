@@ -53,7 +53,7 @@ OUT = T / "v4_toy_check.csv"
 M = op.M                      # 96 months / ages
 CR = op.CR
 PFX = "v_"                    # every v4 named range starts with this (no clash with the old tabs' 430 names)
-RUN_DATE = "21 Oct 2026"
+RUN_DATE = "22 Oct 2026"
 LEVELS = (20000, 150000)
 LAG_HOLD = 6                  # months: holdings' calendar factor lag (sheet-only calibration; see main() sweep)
 LATER_LAG = {"ins": 12, "bonus": 24}   # renewals 12 months after take-up (the first renewal); Choti paid at month 24
@@ -176,7 +176,7 @@ def input_sections():
              "pct", X_ON["card_share"], "Agreed"),
             ("card_fee", "Fee per card", "₹ a card", "inr", X_ON["card_fee"], "Agreed"),
             ("ins_share", "Share of insurance commission that reaches us through a broker partner", "share", "pct",
-             X_ON["ins_partner_share"], "Agreed (round 6)"),
+             X_ON["ins_partner_share"], "Founder 22 Oct: a fixed referral fee through the broker, to be agreed; not counted (0)"),
         ]),
         ("Running cost", [
             ("support", "Support cost per active saver a month", "₹ a month", "inr", X_ON["support_cost"], "Agreed"),
@@ -213,7 +213,8 @@ def input_sections():
         ("Other costs", [
             ("tech_build", "Tech build, spread over months 1-3", "₹", "inr", 1_500_000.0, "base_inputs"),
             ("tech_base", "Tech a month", "₹ a month", "inr", 150000.0, "base_inputs"),
-            ("tech_per_saver", "Tech per active saver a month", "₹ a month", "inr1", 1.0, "JUDGEMENT"),
+            ("tech_per_saver", "Tech a month per KYC'd user reached (savers and the KYC'd users who came with them)", "₹ a month", "inr1",
+             op.TECH_PER_SAVER, "The 2 Oct costing (critical review 22 Oct; was ₹1 per active saver)"),
             ("office_seed", "Office a month in the seed", "₹ a month", "inr", 75000.0, "Seed plan"),
             ("office_base", "Office a month after the seed", "₹ a month", "inr", 150000.0, "online_plan.py"),
             ("office_per_head", "Office per head a month after the seed", "₹ a month", "inr", 10000.0, "online_plan.py"),
@@ -241,9 +242,13 @@ def input_sections():
 
 
 # inputs placed after the product table (added 21 Oct), so no earlier row or named range moves
-EXTRA_INPUTS = ("Loan marketplace (added 21 Oct 2026)", [
+EXTRA_INPUTS = ("Loan marketplace and payments (added 21-22 Oct 2026)", [
     ("loan_reach", "KYC'd users who see loan offers per online saver won (5 sign-ups a saver, half complete KYC; doorstep counts 1)",
-     "people", "mult", op.LOAN_REACH, "Operator 21 Oct: offers to anyone KYC'd from day 1, reachable as long as savers keep saving"),
+     "people", "mult", op.LOAN_REACH, "Operator 21 Oct: offers to anyone KYC'd who opts in, from day 1, reachable as long as savers keep saving"),
+    ("debit_cost", "Payment cost per debit", "₹ a debit", "inr1", op.DEBIT_COST,
+     "The 2 Oct costing ₹2 base (₹0 to us through BSE StAR MF once confirmed; ₹5 list through a gateway)"),
+    ("debits_month", "Debits a month per active saver (weekly until a daily SIP on one mandate is confirmed)", "debits a month", "f3",
+     op.DEBITS_A_MONTH, "Founder 22 Oct: weekly (52 / 12) until BSE StAR MF and the fund houses confirm daily in writing"),
 ])
 
 
@@ -322,7 +327,7 @@ def product_rows():
         kind2 = "flow_year" if kind == "flow_year" else kind
         row = {"p": p, "name": nm, "kind": kind2, "takeup": g("takeup"), "ticket": g("ticket"), "comm": g("comm"),
                "renew": g("renew"), "rcomm": g("renew_comm"), "appr": g("approval"), "ins": 1.0 if p in INS else 0.0,
-               "loan": 1.0 if p in op.LOAN_XS else 0.0}
+               "loan": 1.0 if p in op.LOAN_REACH_XS else 0.0}    # reach applies to gold, property and home loans only
         if kind == "ins" and row["rcomm"] is None:          # two-wheeler renews at its first-year rate (engine)
             row["rcomm_same"] = True
             row["rcomm"] = row["comm"]
@@ -437,7 +442,8 @@ def per_saver(v, prods):
         ps[f"{sv}_loanfee"], ps[f"{sv}_cards"], ps[f"{sv}_ins"] = s * ps["loanfee_pa"], s * ps["cardfee_pa"], s * ps["ins_pa"]
         ps[f"{sv}_oth"] = s * (ps["oth_pa"] + ps["house_pa"])
         ps[f"{sv}_rev"] = ps[f"{sv}_trail"] + ps[f"{sv}_loanfee"] + ps[f"{sv}_cards"] + ps[f"{sv}_ins"] + ps[f"{sv}_oth"]
-        ps[f"{sv}_supp"] = s * v["support"]
+        reach_tech = v["loan_reach"] if sv == "on" else 1.0
+        ps[f"{sv}_supp"] = s * (v["support"] + v["tech_per_saver"] * reach_tech + v["debit_cost"] * v["debits_month"])
         ps[f"{sv}_cum"] = np.cumsum(ps[f"{sv}_rev"] - ps[f"{sv}_supp"])
     ps["_d"] = d
     return ps
@@ -518,6 +524,7 @@ def monthly(v, ps):
             Aon[i, a] = m["on_won"][i - a] * ps["s_on"][a]
     xs_on = (Aon @ ps["prodmoney"]) * Flater + (Aon @ ps["prodnow"]) * (Fnow - Flater)
     m["r_reach"] = (v["loan_reach"] - 1) * ((Aon @ ps["loanfee_pa"]) * m["f_ta"] * m["feemult"] + xs_on @ ps["pr_loan"])
+    m["active_on"] = Aon @ np.ones(M)
     m["revenue"] = m["r_fund"] + m["r_loan"] + m["r_cards"] + m["r_ins"] + m["r_oth"] + m["r_reach"]
     m["mkt"] = m["on_won"] * np.where(t <= v["seed_end"], v["seed_cac"], v["cac_rs"])
     m["hires"] = np.array([max(0.0, ag[i] - (ag[i - 1] if i else 0.0)) for i in range(M)]) + ag * v["agent_churn"] / 12
@@ -541,13 +548,13 @@ def monthly(v, ps):
     m["team"] = (m["seed_pay"] + np.where(post, 2 * v["pay_founder"] + v["pay_compliance"], 0.0) + m["eng"] * v["pay_engineer"]
                  + m["product"] * v["pay_product"] + m["ops"] * v["pay_ops"] + m["growth_hc"] * v["pay_growth"]
                  + m["finance"] * v["pay_finance"] + m["risk"] * v["pay_risk"]) * m["rf"]
-    m["tech"] = np.where(t <= 3, v["tech_build"] / 3, 0.0) + v["tech_base"] + act * v["tech_per_saver"]
+    m["tech"] = np.where(t <= 3, v["tech_build"] / 3, 0.0) + v["tech_base"] + (act + (v["loan_reach"] - 1) * m["active_on"]) * v["tech_per_saver"]
     m["office"] = np.where(post, v["office_base"] + m["heads"] * v["office_per_head"], v["office_seed"])
     m["compliance"] = np.where(t == 1, v["comp_setup"], 0.0) + np.where(post, v["comp_year"], v["comp_seed_year"]) / 12
     m["brand"] = np.where(post, v["brand"], 0.0)
     m["design"] = np.where(t <= 3, v["design"], 0.0)
     m["raise"] = np.where(t == 1, v["raise_seed"], 0.0) + np.where(t == v["seed_end"] + 1, v["raise_round"], 0.0)
-    m["support"] = act * v["support"]
+    m["support"] = act * (v["support"] + v["debit_cost"] * v["debits_month"])
     m["other"] = m["tech"] + m["office"] + m["compliance"] + m["brand"] + m["design"] + m["raise"] + m["support"]
     m["contingency"] = v["contingency"] * (m["mkt"] + m["door_cost"] + m["team"] + m["tech"] + m["office"] + m["compliance"]
                                            + m["brand"] + m["design"] + m["raise"] + m["support"])
@@ -624,7 +631,7 @@ def check_per_active_exact(v):
 
 
 LEVER_MAP = {  # online_plan.LEVERS / main() cases -> the v4 Inputs cells that reproduce them (all at 80,000 a month)
-    "Today's evidence": {},
+    "The plan": {},
     "24% still saving at a year (savings apps)": {"on_r12": 0.2415, "on_r3": 0.52},
     "45% still saving at a year": {"on_r12": 0.45},
     "Rs 200 a day": {"daily": 200.0},

@@ -83,7 +83,8 @@ def inputs_sheet():
            "Renewal commission", "Approval share (home loan, LAP)", "Insurance group (1 = yes; partner share applies)",
            "Home loan / LAP (formula)", "Money booked at take-up, ₹ a take-up (formula)",
            "Calendar lag of its later money, months (formula)", "Take-up chance a month, his months 1-6 (formula)",
-           "Take-up chance a month, from his month 7 (formula)", "Kind", "Loan product (1 = yes)"]
+           "Take-up chance a month, from his month 7 (formula)", "Kind",
+           "Loan offered to the KYC'd users who never save (1 = yes: gold, property, home; 22 Oct)"]
     for j, h in enumerate(hdr):
         cells[f"{col(j + 1)}{r}"] = h
     fm["bold_rows"].append(r)
@@ -141,7 +142,7 @@ def inputs_sheet():
         "bonus = Choti SIP ₹500 at month 24 if the SIP survives; flow = digital gold, buys a month x commission while he holds it; "
         "flow_year = recharge and bills, a year's spend / 12 x commission while he holds it; trail = the SIP cross-sell trail "
         "(0 while the core balance is the equity SIP).",
-        "Insurance money reaches us through a broker partner (ins_share, 75%). A saver who stops saving lapses his policies and "
+        "Insurance money would reach us through a broker partner (ins_share; 0 since 22 Oct: a fixed referral fee, not counted). A saver who stops saving lapses his policies and "
         "holdings (the engine's conservative rule).",
         "Calendar lag (Monthly only): money booked at take-up takes this month's calendar factor; insurance renewals take the factor "
         "of 12 months earlier, the Choti bonus 24, holdings lag_hold (6). See README, 'How the sheet works'.",
@@ -186,8 +187,9 @@ def per_saver_columns():
              f"=ARRAYFORMULA({s}*({P}oth_pa+{P}house_pa))", "inr2"),
             (f"{sv}_rev", f"{nm}: revenue (₹)", "spill",
              f"=ARRAYFORMULA({P}{sv}_trail+{P}{sv}_loanfee+{P}{sv}_cards+{P}{sv}_ins+{P}{sv}_oth)", "inr2"),
-            (f"{sv}_supp", f"{nm}: support cost (₹)", "spill", f"=ARRAYFORMULA({s}*{P}support)", "inr2"),
-            (f"{sv}_cum", f"{nm}: revenue less support, cumulative (₹; compare with the cost to win him)", "spill",
+            (f"{sv}_supp", f"{nm}: serving: support, tech for every KYC'd user reached, payments (₹)", "spill",
+             f"=ARRAYFORMULA({s}*({P}support+{P}tech_per_saver*{P + 'loan_reach' if sv == 'on' else '1'}+{P}debit_cost*{P}debits_month))", "inr2"),
+            (f"{sv}_cum", f"{nm}: revenue less serving, cumulative (₹; compare with the cost to win them)", "spill",
              f"=ARRAYFORMULA(SCAN(0,{P}{sv}_rev-{P}{sv}_supp,LAMBDA(acc,x,acc+x)))", "inr2"),
         ]
     cols += [
@@ -359,7 +361,8 @@ def monthly_columns():
         ("team", "Team (₹)",
          n("=ARRAYFORMULA(({p}seed_pay+IF({p}month>{p}seed_end,2*{p}pay_founder+{p}pay_compliance,0)+{p}eng*{p}pay_engineer"
            "+{p}product*{p}pay_product+{p}ops*{p}pay_ops+{p}growth_hc*{p}pay_growth+{p}finance*{p}pay_finance+{p}risk*{p}pay_risk)*{p}rf)"), "inr"),
-        ("tech", "Other: tech (₹)", n("=ARRAYFORMULA(IF({p}month<=3,{p}tech_build/3,0)+{p}tech_base+{p}active*{p}tech_per_saver)"), "inr"),
+        ("tech", "Other: tech (₹; per KYC'd user reached: active savers + (loan_reach - 1) x online active savers)",
+         n("=ARRAYFORMULA(IF({p}month<=3,{p}tech_build/3,0)+{p}tech_base+({p}active+({p}loan_reach-1)*{p}active_on)*{p}tech_per_saver)"), "inr"),
         ("office", "Other: office (₹)", n("=ARRAYFORMULA(IF({p}month>{p}seed_end,{p}office_base+{p}heads*{p}office_per_head,{p}office_seed))"), "inr"),
         ("compliance", "Other: compliance (₹)",
          n("=ARRAYFORMULA(IF({p}month=1,{p}comp_setup,0)+IF({p}month>{p}seed_end,{p}comp_year,{p}comp_seed_year)/12)"), "inr"),
@@ -367,7 +370,8 @@ def monthly_columns():
         ("design", "Other: design (₹)", n("=ARRAYFORMULA(IF({p}month<=3,{p}design,0))"), "inr"),
         ("raise", "Other: fund-raising (₹)",
          n("=ARRAYFORMULA(IF({p}month=1,{p}raise_seed,0)+IF({p}month={p}seed_end+1,{p}raise_round,0))"), "inr"),
-        ("support", "Other: support (₹)", n("=ARRAYFORMULA({p}active*{p}support)"), "inr"),
+        ("support", "Other: support and payments (₹; support + debit_cost x debits_month per active saver)",
+         n("=ARRAYFORMULA({p}active*({p}support+{p}debit_cost*{p}debits_month))"), "inr"),
         ("other", "Other costs (₹)",
          n("=ARRAYFORMULA({p}c_tech+{p}c_office+{p}c_compliance+{p}c_brand+{p}c_design+{p}c_raise+{p}c_support)"), "inr"),
         ("contingency", "Contingency (10%): contingency x every expensed line (acquisition, team, other costs) (₹)",
@@ -389,6 +393,8 @@ def monthly_columns():
         ("r_reach", "Revenue: loans to KYC'd users who came with online savers and never save: (loan_reach - 1) x the online savers' loan money (₹)",
          f"=ARRAYFORMULA(({P}loan_reach-1)*(MMULT({AON},{P}loanfee_pa)*{P}f_ta*{P}feemult"
          f"+MMULT(MMULT({AON},{P}prodmoney)*{flater}+MMULT({AON},{P}prodnow)*{fdiff},{P}pr_loan)))", "inr"),
+        ("active_on", "Online active savers (the online cohorts x still saving; the base of the KYC'd users who see loan offers)",
+         f"=MMULT({AON},SEQUENCE({M},1,1,0))", "num0"),
     ]
 
 
@@ -477,7 +483,7 @@ def summary_sheet(recon):
              "A2": "Plan level now (online savers won a month from month 30; change it on v4 Inputs)", "B2": f"={P}level",
              "A3": "Growth a year after month 30, now", "B3": f"={P}growth",
              "A4": ("Column E picks the Python value at your plan level when growth is 1.0. The gap (F, G) is meaningful only while every "
-                    "other blue input is at its 21 Oct value; the sheet's own error at those values is in the reconciliation below.")}
+                    "other blue input is at its 22 Oct value; the sheet's own error at those values is in the reconciliation below.")}
     fm = {"number": {"B2": "#,##0", "B3": "0.00"}, "bold_rows": [1, 6], "freeze_rows": 0, "wrap_rows": [4, 6],
           "col_widths": {"A": 470, "B": 150, "C": 160, "D": 160, "E": 160, "F": 90, "G": 110, "H": 430}}
     hdr = ["Measure", "Sheet, live (current scenario)", "Python model, 20,000 a month (fixed)", "Python model, 1,50,000 a month (fixed)",
@@ -516,7 +522,7 @@ def summary_sheet(recon):
     yes_row = r
     # the reconciliation (values)
     r += 2
-    cells[f"A{r}"] = (f"Reconciliation at the 21 Oct inputs (model/v4_toy_check.py, tables/v4_toy_check.csv): the sheet's formulas "
+    cells[f"A{r}"] = (f"Reconciliation at the 22 Oct inputs (model/v4_toy_check.py, tables/v4_toy_check.csv): the sheet's formulas "
                       "(numpy twin, replayed formula by formula) vs the Python model. Values, fixed.")
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
@@ -570,7 +576,7 @@ def text(s):
 
 LVS = f"{op.LEVER_LEVEL:,}"
 LEVER_TRY = {
-    "Today's evidence": f"Plan level {LVS}; every other input as on v4 Inputs",
+    "The plan": f"Plan level {LVS}; every other input as on v4 Inputs",
     "24% still saving at a year (savings apps)": f"Plan level {LVS}; online still saving at month 12 24.15%, at month 3 52%",
     "45% still saving at a year": f"Plan level {LVS}; online still saving at month 12 45%",
     "Rs 200 a day": f"Plan level {LVS}; daily amount ₹200",
@@ -639,7 +645,8 @@ def mc_sheet():
     plans = [s for s in summ if s.get("online savers a month")]
     savers = [s for s in summ if not s.get("online savers a month")]
     cells = {"A1": (f"Monte Carlo of the Python model (model/online_mc.py, run {RUN_DATE}): 1,000 Latin-hypercube draws, seed 20261021; "
-                    "each draw runs both plans. Online ranges agreed 21 Oct; every other input keeps its agreed 16 Oct distribution "
+                    "each draw runs both plans. Online ranges agreed 21 Oct, widened and linked 22 Oct (apply rate with 12-month retention, cost to "
+                    "win with reach; a stress test, not odds); every other input keeps its agreed 16 Oct distribution "
                     "(tables/dist_agreed_v1.csv) and the bad-year copula. Pasted values, not live.")}
     fm = {"number": {}, "bold_rows": [1, 3], "freeze_rows": 0, "wrap_rows": [1, 3], "col_widths": {"A": 420, "B": 160, "C": 160, "D": 160,
                                                                                                  "E": 160, "F": 480}}
@@ -700,33 +707,39 @@ def readme_sheet(recon, counts, n_names):
     pct = lambda lv, ms: f"{g(lv, ms)['gap_pct']:+.2%}"
     yr_rev = max(abs(r["gap_pct"]) for r in recon if not str(r["case"]).startswith("lever") and r["measure"].startswith("Revenue, year"))
     L = [
-        ("v4: the online-first plan, live (21 Oct 2026)", "bold"),
-        ("The eight 'v4' tabs mirror the plan of record from 21 Oct 2026, model/online_plan.py (company() and saver_inputs()): savers "
-         "won online (₹100 a day, 80% equity SIP / 20% debt), 1 in 10 from doorstep agents, 96 months, 8 years. Built "
+        ("v4: the online-first plan, live (corrected 22 Oct 2026)", "bold"),
+        ("The 'v4' tabs mirror the plan of record, model/online_plan.py (company() and saver_inputs()): savers won online pan-India "
+         "(₹100 a day, 80% equity SIP / 20% debt), 1 in 10 from doorstep agents in NCR, 96 months, 8 years. Built "
          f"{RUN_DATE}.", ""),
-        ("LOAN MARKETPLACE (operator 21 Oct): loan offers go to anyone KYC'd from day 1 (2.5 KYC'd users per online saver won: 5 sign-ups, "
+        ("22 OCT CORRECTIONS (critical review, founder's choices): a 10% contingency on the cost to win a saver; tech ₹4 a month per "
+         "KYC'd user reached (savers and the KYC'd users who came with them), not ₹1 per saver; payments ₹2 a debit, weekly debits "
+         "until BSE StAR MF confirms a daily SIP on one mandate; insurance a fixed referral fee, not counted (0); Choti, gold and other "
+         "products not counted; 70% of gold-loan applications approved; the non-savers see gold, property and home loans only. "
+         "Each is an input on v4 Inputs. Every figure here is a plan with targets, not evidence.", ""),
+        ("LOAN MARKETPLACE (operator 21 Oct): loan offers go to anyone KYC'd who opts in, from day 1 (2.5 KYC'd users per online saver won: 5 sign-ups, "
          "half finish KYC), reachable as long as savers keep saving; 35% apply for a loan a year (70% personal or business, 15% gold, "
-         "3% property, 2% home); 30% of first applications approved, 70% of repeats; DSA payouts (2% on personal and business loans, "
+         "3% property, 2% home; 35% is a target, inside which the opt-in sits); 30% of first applications approved, 70% of repeats; DSA payouts (2% on personal and business loans, "
          "rising to 3% by year 5). v4 Monthly 'loans to KYC'd users who never save' adds the non-savers' loans to revenue; the input "
          "is at the end of v4 Inputs. v4 LTV shows one saver's waterfall live.", ""),
-        ("The OLDER tabs in this file (README, Inputs, Per saver, Monthly, Summary, Assumptions, Monte Carlo, Sign-ups, Agent pay, "
-         "Sensitivity and the Company / City tabs) are the SUPERSEDED street-fleet model of 16-18 Oct. Keep them for reference; do "
-         "not use them for the plan. No v4 formula reads them, and no v4 name clashes with theirs (every v4 name starts with v_).", ""),
+        ("The OLDER tabs (Inputs, Per saver, Monthly, Summary, Assumptions, Monte Carlo, Sign-ups, Agent pay, Sensitivity and the "
+         "Company / City tabs) are the SUPERSEDED street-fleet model of 16-18 Oct. They are HIDDEN since 22 Oct (View > Hidden sheets "
+         "to see them); do not use them for the plan. No v4 formula reads them, and no v4 name clashes with theirs (every v4 name "
+         "starts with v_).", ""),
         ("", ""),
         ("How to use it", "bold"),
         ("1. Change the BLUE cells on 'v4 Inputs'. The three scenario cells are at the top: online savers won a month from month 30 "
          "(20,000 = the profitable path; 1,50,000 = grow fast), growth a year after month 30 (1.0 = flat; 1.2 = +20% a year), and "
          "doorstep after the 18-month test (1 = yes, 0 = online only). Per saver, Monthly, Yearly and Summary recalculate.", ""),
         ("2. Grey cells are worked out from the blue ones; do not type there, or anywhere on Per saver, Monthly or Yearly.", ""),
-        ("3. 'v4 Summary' puts the live answer next to the Python model's 21 Oct run at 20,000 and 1,50,000 a month (fixed values). "
+        ("3. 'v4 Summary' puts the live answer next to the Python model's 22 Oct run at 20,000 and 1,50,000 a month (fixed values). "
          "Column E picks the Python value at your plan level (growth 1.0); the gap is meaningful while the other inputs are at their "
-         "21 Oct values.", ""),
+         "22 Oct values.", ""),
         ("4. To try a lever (v4 Levers), type the inputs in its last column into v4 Inputs; the sheet reproduces each lever.", ""),
         ("", ""),
         ("Tabs", "bold"),
         ("v4 Inputs: every input with its value, unit and source (blue), the worked-out values (grey) and the 19 cross-sell products.", ""),
         ("v4 Per saver: one saver's months 1-96. For the online and the doorstep saver: still saving, deposits, balance, fund trail, "
-         "loan fees, cards, insurance, other products, support and cumulative revenue less support. To the right, the machinery "
+         "loan fees, cards, insurance, other products, serving (support, tech, payments) and cumulative revenue less serving. To the right, the machinery "
          "shared by both savers (per active saver): the fund balance, the loan states, top-ups, cards and every product's take-ups "
          "and money.", ""),
         ("v4 Monthly: months 1-96: savers won (online path, pool cap, doorstep agents and their ramp), active savers, AUM, revenue "
@@ -735,7 +748,7 @@ def readme_sheet(recon, counts, n_names):
         ("v4 Yearly: years 1-8 (SUMIFS on Monthly), ₹ crore.", ""),
         ("v4 Summary: the headline measures, live, next to the Python run; the reconciliation table.", ""),
         ("v4 Levers, v4 Monte Carlo: pasted values from the Python model (tables/online_levers.csv, online_frontier.csv, "
-         "online_mc_summary.csv, online_mc_drivers.csv, online_mc_inputs.csv), run 21 Oct 2026. They do not move.", ""),
+         f"online_mc_summary.csv, online_mc_drivers.csv, online_mc_inputs.csv), run {RUN_DATE}. They do not move.", ""),
         ("", ""),
         ("How the sheet works", "bold"),
         ("Per active saver: every line except 'still saving' is the same for the online and the doorstep saver (take-ups, loan states "
@@ -763,7 +776,7 @@ def readme_sheet(recon, counts, n_names):
          "booked when earned but its cash 2 months later (comm_lag), so cash flow = PAT - revenue + cash received; money needed = "
          "the deepest cumulative cash hole + ₹5 crore. Both are blue inputs on v4 Inputs.", ""),
         ("", ""),
-        ("Reconciliation at the 21 Oct inputs (full table on v4 Summary and tables/v4_toy_check.csv)", "bold"),
+        ("Reconciliation at the 22 Oct inputs (full table on v4 Summary and tables/v4_toy_check.csv)", "bold"),
         (f"Revenue within {yr_rev:.2%} in every year at both levels. EBITDA year 5: "
          f"{g(20000, 'EBITDA, year 5 (Rs crore)')['sheet']:.3f} vs {g(20000, 'EBITDA, year 5 (Rs crore)')['python']:.3f} ₹ crore at "
          f"20,000 a month ({pct(20000, 'EBITDA, year 5 (Rs crore)')}); "

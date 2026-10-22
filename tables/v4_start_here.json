@@ -1,0 +1,62 @@
+{
+ "title": "Start here",
+ "sheetId": 200,
+ "index": 0,
+ "cells": {
+  "A1": "Save4More: the online-first plan (start here)",
+  "A2": "Updated 22 Oct 2026. Savers put away ₹100 a day by UPI into mutual funds in their own name (80% equity, 20% debt); we earn fund fees and, as a loan marketplace, referral fees from lenders. 9 in 10 savers come online, pan-India; 1 in 10 through doorstep agents in NCR. The app never holds anyone's money.",
+  "A4": "Where to look",
+  "A5": "v4 README: what the model does, the 22 Oct corrections and how to use it.",
+  "A6": "v4 Inputs: every input with its source; change the blue cells. v4 Per saver, v4 Monthly, v4 Yearly: the live workings.",
+  "A7": "v4 Summary: the headline numbers, live, next to the Python model.   v4 LTV: one saver's value against the cost to win them, live.",
+  "A8": "v4 Levers, v4 Monte Carlo: what moves the answer (fixed values from the Python model).",
+  "A10": "The plan at 20,000 online savers a month from month 30 (live from the tabs above)",
+  "A11": "=\"One online saver: \"&TEXT('v4 LTV'!B17,\"0.0\")&\"x LTV/CAC over 5 years, pays back in month \"&'v4 LTV'!B18&\". One doorstep saver: \"&TEXT('v4 LTV'!C17,\"0.0\")&\"x, month \"&'v4 LTV'!C18&\".\"",
+  "A12": "=\"The company: EBITDA positive from month \"&'v4 Summary'!B11&\"; year-5 EBITDA ₹\"&TEXT('v4 Summary'!B8,\"0.0\")&\" crore; money needed $\"&TEXT('v4 Summary'!B13,\"0.0\")&\" million.\"",
+  "A13": "Monte Carlo (a stress test, not odds): the online saver's median is 2.0x and 18% of draws reach 3x; the company is profitable by month 60 in 71% of draws.",
+  "A14": "Every figure is a plan with targets, not evidence. The biggest target: 35% of the users who see loan offers apply for a loan each year.",
+  "A16": "Related",
+  "A17": "LTV/CAC workbook (one saver, every line, live): SaveMore || LTVCAC, https://docs.google.com/spreadsheets/d/1VdZy4vSSaTQmrp--txW31fjN8nHlF2iLQnLsUeAKTP4",
+  "A18": "The older tabs (the street-agent model of 16-18 Oct, superseded) are hidden: View > Hidden sheets. Nothing in the v4 tabs reads them.",
+  "A19": "Built from the Python model: model/online_plan.py, model/v4_gsheet.py and model/v4_toy_check.py, which checks every formula here."
+ },
+ "bold_rows": [
+  1,
+  4,
+  10,
+  16
+ ],
+ "col_widths": {
+  "A": 1000
+ },
+ "_sheet_changes_22_oct": {
+  "hidden": [
+   0,
+   105,
+   101,
+   102,
+   103,
+   104,
+   106,
+   107,
+   108,
+   109,
+   110,
+   116,
+   117,
+   111,
+   112,
+   113,
+   115,
+   114
+  ],
+  "renamed": {
+   "0": "README -> Old README (street-agent model)"
+  },
+  "named_ranges_added": {
+   "v_debit_cost": "'v4 Inputs'!B181",
+   "v_debits_month": "'v4 Inputs'!B182",
+   "v_active_on": "'v4 Monthly'!BV2:BV97"
+  }
+ }
+}

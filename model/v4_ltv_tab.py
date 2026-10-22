@@ -49,10 +49,11 @@ def cells():
     c = {}
     c["A1"] = "v4 LTV: one saver won -- the cost to win them, what each product line brings in, serving cost, LTV/CAC and the month they pay back (LIVE)"
     c["A2"] = ("Every number on this tab recalculates from the blue cells on v4 Inputs, through v4 Per saver and v4 Monthly. A saver who joins in month 1, "
-               "each month at that month's calendar take-up and approval factors (as v4 Monthly). Revenue is undiscounted; serving = support + tech per active saver; "
-               "the company's fixed costs (team, office, brand) and the 10% contingency are not in this view. Columns G-I: the Python model of 21 Oct (fixed values).")
+               "each month at that month's calendar take-up and approval factors (as v4 Monthly). Revenue is undiscounted; serving = support, tech for every KYC'd user "
+               "reached and payments (debit cost x debits a month); the cost to win includes the 10% contingency; the company's fixed costs (team, office, brand) "
+               "are not in this view. Columns G-I: the Python model of 22 Oct (fixed values).")
     head = ["Line (₹ per saver won)", "Online saver, 5 years", "Doorstep saver, 5 years", "Online saver, 8 years", "Doorstep saver, 8 years", None,
-            "Python model: online, 5 years (21 Oct, fixed)", "Python model: doorstep, 5 years (21 Oct, fixed)", "Gap, online (sheet - Python)"]
+            "Python model: online, 5 years (22 Oct, fixed)", "Python model: doorstep, 5 years (22 Oct, fixed)", "Gap, online (sheet - Python)"]
     for j, h in enumerate(head):
         if h:
             c[f"{col(j)}4"] = h
@@ -62,7 +63,7 @@ def cells():
     def sm(letter, last):
         return f"SUM({letter}{R0}:{letter}{last})"
     lines = [("Cost to win", None), ("Fund fees", ["fund"]), ("Loans (all referrals: personal, home, property, gold, durables, vehicles)", ["pl", "ol"]),
-             ("Insurance", ["ins"]), ("Cards", ["cards"]), ("Other products (recharge, bills, gold, FD, NPS, SIP)", ["oth"]), ("Serving (support + tech)", ["serve"])]
+             ("Insurance", ["ins"]), ("Cards", ["cards"]), ("Other products (recharge, bills, FD, NPS)", ["oth"]), ("Serving (support, tech, payments)", ["serve"])]
     for i, (lab, keys) in enumerate(lines):
         r = 5 + i
         c[f"A{r}"] = lab
@@ -88,9 +89,10 @@ def cells():
         c[f"{x}17"] = f"=IFERROR({x}16/-{x}5,0)"
     c["B18"] = f'=IFERROR(MATCH(TRUE,ARRAYFORMULA(K{R0}:K{R1}>=0),0),"after month 96")'
     c["C18"] = f'=IFERROR(MATCH(TRUE,ARRAYFORMULA(U{R0}:U{R1}>=0),0),"after month 96")'
-    c["A20"] = "Cost to win used: online = cost to win after the seed (v4 Inputs); doorstep = all-in at scale from v4 Monthly, months 31-96 (agents, leads, offices, kits, churn, KYC)"
-    c["B20"] = "=v_cac_rs"
-    c["C20"] = "=IFERROR(SUMPRODUCT((v_month>=31)*v_door_cost)/SUMPRODUCT((v_month>=31)*v_door_won),v_door_cac)"
+    c["A20"] = ("Cost to win used, with the 10% contingency: online = cost to win after the seed (v4 Inputs); doorstep = all-in at scale from v4 Monthly, "
+                "months 31-96 (agents, leads, offices, kits, churn, KYC)")
+    c["B20"] = "=v_cac_rs*(1+v_contingency)"
+    c["C20"] = "=IFERROR(SUMPRODUCT((v_month>=31)*v_door_cost)/SUMPRODUCT((v_month>=31)*v_door_won),v_door_cac)*(1+v_contingency)"
     # Python, fixed
     W = {}
     with (T / "online_ltv_waterfall.csv").open() as f:
@@ -99,7 +101,7 @@ def cells():
     lv = {}
     with (T / "online_ltv_levers.csv").open() as f:
         for row in csv.DictReader(f):
-            if row["case"] == "Today's evidence":
+            if row["case"] == "The plan":
                 lv = row
     py_lines = ["Cost to win", "Fund fees", "Loans (all referrals)", "Insurance", "Cards", "Other products", "Serving (support + tech)", "Net over 60 months"]
     for i, ln in enumerate(py_lines):
@@ -115,7 +117,8 @@ def cells():
     c["G18"] = int(float(lv["pays back in month"]))
     for r in (14, 15, 16, 17, 18):
         c[f"I{r}"] = f"=IFERROR(B{r}-G{r},\"\")"
-    c["A21"] = "Loans count every KYC'd user who came with the saver (v_loan_reach, end of v4 Inputs; online 2.5, doorstep 1) and the loan-fee ramp (v4 Monthly)."
+    c["A21"] = ("Loans count every KYC'd user who came with the saver and opted in (v_loan_reach, end of v4 Inputs; online 2.5, doorstep 1): personal and "
+                "business loans and the gold, property and home loans (v4 Inputs column P); the saver alone takes the durable and vehicle loans. Plus the loan-fee ramp (v4 Monthly).")
     c["A22"] = "How to read it: change a blue cell on v4 Inputs (daily amount, still saving at month 12, cost to win, loan apply rate, equity share ...) and the waterfall and the payback curve on the right move."
     # monthly block
     c["A30"] = "Month by month, a saver who joins in month 1 (₹ per saver won; the 5-year totals above sum ages 1-60, the 8-year totals ages 1-96)"
@@ -127,17 +130,18 @@ def cells():
         c[f"{col(j)}31"] = h
     rng = lambda x: f"{x}{R0}:{x}{R1}"
     xs_tot, xs_loan, xs_ins = "MMULT(v_l_xs1,SEQUENCE(19,1,1,0))", "MMULT(v_l_xs1,v_l_loan)", "MMULT(v_l_xs1,v_pr_ins)"
+    xs_reach = "MMULT(v_l_xs1,v_pr_loan)"          # the loans the KYC'd non-savers see too
     for sv, s, L, rch in (("on", "v_s_on", "B", "*v_loan_reach"), ("door", "v_s_door", "L", "")):
         k = ci(L)
         c[f"{col(k)}{R0}"] = f"=ARRAYFORMULA({s})"
         c[f"{col(k + 1)}{R0}"] = f"=ARRAYFORMULA(v_{sv}_trail)"
         c[f"{col(k + 2)}{R0}"] = f"=ARRAYFORMULA(v_{sv}_loanfee*v_f_ta*v_feemult{rch})"
-        c[f"{col(k + 3)}{R0}"] = f"=ARRAYFORMULA({s}*{xs_loan}{rch})"
+        c[f"{col(k + 3)}{R0}"] = f"=ARRAYFORMULA({s}*({xs_reach}{rch}+{xs_loan}-{xs_reach}))" if rch else f"=ARRAYFORMULA({s}*{xs_loan})"
         c[f"{col(k + 4)}{R0}"] = f"=ARRAYFORMULA({s}*{xs_ins})"
         c[f"{col(k + 5)}{R0}"] = f"=ARRAYFORMULA(v_{sv}_cards*v_f_ta)"
         c[f"{col(k + 6)}{R0}"] = f"=ARRAYFORMULA({s}*({xs_tot}-{xs_loan}-{xs_ins}))"
         c[f"{col(k + 7)}{R0}"] = "=ARRAYFORMULA(" + "+".join(rng(col(k + j)) for j in range(1, 7)) + ")"
-        c[f"{col(k + 8)}{R0}"] = f"=ARRAYFORMULA({s}*(v_support+v_tech_per_saver))"
+        c[f"{col(k + 8)}{R0}"] = f"=ARRAYFORMULA({s}*(v_support+v_tech_per_saver{rch}+v_debit_cost*v_debits_month))"
         cac = "B20" if sv == "on" else "C20"
         c[f"{col(k + 9)}{R0}"] = f"=ARRAYFORMULA(SCAN(-{cac},{rng(col(k + 7))}-{rng(col(k + 8))},LAMBDA(acc,x,acc+x)))"
     c[f"A{R0}"] = "=SEQUENCE(96)"
@@ -228,7 +232,7 @@ def finish():
 
 
 def twin():
-    """The values the live tab must show at the 21 Oct inputs (numpy twin of every v4 formula)."""
+    """The values the live tab must show at the 22 Oct inputs (numpy twin of every v4 formula)."""
     v = vt.base_inputs()
     ps, m = vt.sheet(v)
     t = np.arange(1, 97)
@@ -237,14 +241,14 @@ def twin():
     Fn = np.where(ps["pr_house"][None, :] == 1, m["f_ta"][:, None], m["f_t"][:, None])
     xs1 = ps["prodmoney"] * Fl + ps["prodnow"] * (Fn - Fl)
     flag = np.array(LOAN_FLAG, float)
-    door_cac = float(m["door_cost"][30:].sum() / m["door_won"][30:].sum())
+    door_cac = float(m["door_cost"][30:].sum() / m["door_won"][30:].sum()) * (1 + v["contingency"])
     out = {}
-    for sv, cac, rch in (("on", v["cac_rs"], v["loan_reach"]), ("door", door_cac, 1.0)):
+    for sv, cac, rch in (("on", v["cac_rs"] * (1 + v["contingency"]), v["loan_reach"]), ("door", door_cac, 1.0)):
         s = ps[f"s_{sv}"]
         fund, pl, cards = ps[f"{sv}_trail"], ps[f"{sv}_loanfee"] * m["f_ta"] * m["feemult"] * rch, ps[f"{sv}_cards"] * m["f_ta"]
-        ins, ol = s * (xs1 @ ps["pr_ins"]), s * (xs1 @ flag) * rch
+        ins, ol = s * (xs1 @ ps["pr_ins"]), s * ((xs1 @ ps["pr_loan"]) * rch + xs1 @ flag - xs1 @ ps["pr_loan"])
         oth = s * (xs1.sum(1)) - ins - s * (xs1 @ flag)          # other products: the unscaled loan money comes out
-        rev, serve = fund + pl + ol + ins + cards + oth, s * (v["support"] + v["tech_per_saver"])
+        rev, serve = fund + pl + ol + ins + cards + oth, s * (v["support"] + v["tech_per_saver"] * rch + v["debit_cost"] * v["debits_month"])
         cum = np.cumsum(rev - serve) - cac
         out[sv] = {"cost to win": cac, "revenue 60": rev[:60].sum(), "net 60": cum[59], "LTV/CAC 60": (cum[59] + cac) / cac,
                    "LTV/CAC 96": (cum[-1] + cac) / cac, "pays back": int(np.argmax(cum >= 0)) + 1}
