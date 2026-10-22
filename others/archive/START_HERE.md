@@ -1,4 +1,4 @@
-> **Superseded on 21–22 Oct.** This file describes the earlier offline street-agent plan. The current plan is online-first (₹100 a day by UPI into mutual funds, a loan marketplace, 10% doorstep in NCR): start at [`final/README.md`](final/README.md).
+> **Superseded on 21–22 Oct.** This file describes the earlier offline street-agent plan. The current plan is online-first (₹100 a day by UPI into mutual funds, a loan marketplace, 10% doorstep in NCR): start at [`final/README.md`](../../final/README.md).
 
 # START HERE: "save first, borrow later", an offline savings business
 

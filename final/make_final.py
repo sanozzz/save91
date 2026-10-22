@@ -1,6 +1,6 @@
-"""Builds final/: the current documents under plain names, and final/README.md with the headline numbers read from tables/.
+"""Builds final/: the current documents under plain names, and final/README.md with the headline numbers read from others/tables/.
 
-The PDFs are copies of what the builders write (online/, ltv/, seed/, memo/), so after rebuilding any of them run:
+The PDFs are copies of what the builders write (others/online/, ltv/, seed/, memo/), so after rebuilding any of them run:
     python final/make_final.py            copy the documents and rewrite the README
     python final/make_final.py --check    exit 1 if a copy differs from its source or the README is out of date
 """
@@ -13,7 +13,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "final"
-T = ROOT / "tables"
+SRC = ROOT / "others"                  # everything behind final/: models, tables, research, deck builders, reviews, archive
+T = SRC / "tables"
 
 DOCS = [  # (name in final/, source, what it is)
     ("1_Online_business_case.pdf", "online/Online_business_case.pdf",
@@ -36,7 +37,7 @@ SHEETS = [  # (name, link, what it holds)
      "One saver, live: every input, the waterfall, the 1,000 simulated futures, and a Projector tab that answers questions about them."),
 ]
 OPEN = [  # edited by hand as items close
-    "BSE StAR MF and the fund houses to confirm a daily SIP on one mandate (questions: `outreach/2026-10-22_daily_sip_questions.md`). "
+    "BSE StAR MF and the fund houses to confirm a daily SIP on one mandate (questions: `others/outreach/2026-10-22_daily_sip_questions.md`). "
     "Until then the plan pays ₹2 a debit, weekly; at no debit cost the online saver's LTV/CAC rises (see the LTV/CAC deck, 'The tests that matter').",
     "Insurance: a fixed referral fee through a broker, to be agreed. The plan counts it as 0.",
     "Loan sizes (home ₹30 lakh, property ₹25 lakh, personal and business ₹3 lakh) are the founders' numbers of 22 Oct, above what the "
@@ -44,11 +45,12 @@ OPEN = [  # edited by hand as items close
     "Founder bios: later, when a pitch deck is built.",
 ]
 BACKGROUND = [  # linked, not copied: useful, but not the current numbers
-    ("reviews/2026-10-21/CRITICAL_REVIEW.pdf", "The four-angle critical review (investment, analyst, story, regulation). Its numbers are from "
-     "before the 22 Oct fixes and the loan-size change; what was fixed is in INVESTMENT_REVIEW_v4_status.md."),
-    ("INVESTMENT_REVIEW_v4_status.md", "Each point of the earlier investment review, with its status in the current plan."),
-    ("tables/online_inputs_audit.csv", "Every input against its source, with a verdict (matches, partly, judgement, target)."),
-    ("research/", "The evidence: one row per source, with IDs the decks cite."),
+    ("others/reviews/2026-10-21/CRITICAL_REVIEW.pdf", "The four-angle critical review (investment, analyst, story, regulation). Its numbers "
+     "are from before the 22 Oct fixes and the loan-size change; what was fixed is in INVESTMENT_REVIEW_v4_status.md."),
+    ("others/reviews/INVESTMENT_REVIEW_v4_status.md", "Each point of the earlier investment review, with its status in the current plan."),
+    ("others/tables/online_inputs_audit.csv", "Every input against its source, with a verdict (matches, partly, judgement, target)."),
+    ("others/research/", "The evidence: one row per source, with IDs the decks cite."),
+    ("others/README.md", "The map of everything behind final/."),
 ]
 
 
@@ -104,21 +106,22 @@ def readme():
           for r in rows("online_inputs_audit.csv") if r["verdict"] == "target"]
     L += ["", "## Documents", "", "| File | What it is | Pages | Built from |", "|---|---|---|---|"]
     for name, src, what in DOCS:
-        L.append(f"| [`{name}`]({name}) | {what} | {pages(ROOT / src) or ''} | `{src}` |")
+        L.append(f"| [`{name}`]({name}) | {what} | {pages(SRC / src) or ''} | `others/{src}` |")
     L += ["", "## Live Google Sheets", ""]
     L += [f"- **[{n}]({u})**: {w}" for n, u, w in SHEETS]
     L += ["", "Both sheets are checked against the Python model: the company sheet's formulas are replayed in "
-          "`model/v4_toy_check.py` (`tables/v4_toy_check.csv`), the workbook's in `model/ltv_book.py` (`tables/ltv_book_check.csv`).",
+          "`others/model/v4_toy_check.py` (`others/tables/v4_toy_check.csv`), the workbook's in `others/model/ltv_book.py` "
+          "(`others/tables/ltv_book_check.csv`).",
           "", "## Open items", ""]
     L += [f"- {s}" for s in OPEN]
     L += ["", "## Background (linked, not copied)", ""]
     L += [f"- [`{p}`](../{p}): {w}" for p, w in BACKGROUND]
-    L += ["", "Superseded: the PDFs in the repo root and `START_HERE.md` describe the earlier offline street-agent plan (16–18 Oct).",
-          "", "## Refreshing this folder", "", "After changing an input, rebuild in this order, then run this script:", "", "```",
-          "cd model && PYTHONPATH=. python online_plan.py && PYTHONPATH=. python online_mc.py && PYTHONPATH=. python ltv_book.py <payload_dir>",
+    L += ["", "Superseded: [`others/archive/`](../others/archive/README.md) holds the earlier offline street-agent plan (16–18 Oct).",
+          "", "## Refreshing this folder", "", "After changing an input, rebuild in this order (from the repo root), then run this script:", "", "```",
+          "cd others/model && PYTHONPATH=. python online_plan.py && PYTHONPATH=. python online_mc.py && PYTHONPATH=. python ltv_book.py <payload_dir>",
           "cd .. && for b in ltv/build_ltv_deck.py online/build_online_v4.py online/build_online_case.py seed/build_seed_plan.py; do PYTHONPATH=model python $b; done",
-          "python final/make_final.py", "```", "",
-          "The sheets are pushed separately (`model/v4_gsheet.py`, `model/v4_toy_check.py`, `model/v4_ltv_tab.py`, `model/ltv_book.py`).", ""]
+          "cd .. && python final/make_final.py", "```", "",
+          "The sheets are pushed separately (`others/model/v4_gsheet.py`, `v4_toy_check.py`, `v4_ltv_tab.py`, `ltv_book.py`).", ""]
     return "\n".join(L)
 
 
@@ -130,7 +133,7 @@ def main():
     check = "--check" in sys.argv[1:]
     stale = []
     for name, src, _what in DOCS:
-        s, d = ROOT / src, OUT / name
+        s, d = SRC / src, OUT / name
         if check:
             if not d.exists() or d.read_bytes() != s.read_bytes():
                 stale.append(name)
