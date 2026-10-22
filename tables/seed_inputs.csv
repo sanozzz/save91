@@ -17,6 +17,8 @@ Online cost per registration,100,Rs,TB-19; = online_cac 499 at 20%
 Registrations that finish KYC / KYC'd who start saving,0.5 / 0.4,share,JUDGEMENT
 KYC cost,40,Rs a KYC,dist_agreed kyc_cost
 Support,5,Rs per active saver a month,dist_agreed
+Payments: weekly debits at Rs 2,8.67,Rs per active saver a month,critical review 22 Oct (tri_costs base)
+Tech per KYC'd user (2.5 per online saver),4.0,Rs a month,the 2 Oct costing
 "Still saving at 12 months, online / doorstep",0.38 / 0.55,share,SBI MF Rs 250 daily SIP (operator 21 Oct) / agreed street r12
 Doorstep agent all-in,26000,Rs a month,base_inputs + our incentive estimate
 Agent sign-ups at full speed,100,a month,dist_agreed signups_run

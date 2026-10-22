@@ -1,13 +1,15 @@
 """Monte Carlo around the online-first model (21 Oct 2026). Operator: "ranges + Monte Carlo"; online ranges agreed the same
-day ("OK as proposed"); every other engine input keeps its agreed 16 Oct distribution (tables/dist_agreed_v1.csv) and the
-bad-year copula (approvals and losses, rho -0.5), sampled by model/cohort_mc.py's Latin hypercube.
+day ("OK as proposed"); every other engine input keeps its agreed 16 Oct distribution (tables/dist_agreed_v1.csv), sampled by
+model/cohort_mc.py's Latin hypercube. The agreed bad-year copula (approvals and losses, rho -0.5) is still sampled, but online
+it moves nothing: first approval is drawn from ONLINE below and losses fall on the lender (critical review AN-04, 22 Oct).
+Instead LINKS (below) ties the inputs that move together. The plan is each range's most likely value and the low ends reach
+the folder's evidence (22 Oct); the ranges are still ours, so read the results as a stress test, not odds.
 
-Agreed online ranges (PERT low / likely / high):
-  daily amount Rs 50 / 100 / 300; online still saving at 12 months 24% / 38% / 45%, at month 3 52% / 80% / 85%;
-  cost to win a saver after the seed Rs 300 / 450 / 600 (operator 21 Oct, after the input audit; seed fixed at Rs 600); apply 1% / 3.6% / 18%;
-  personal-loan ticket Rs 25,557 / 58,522 / 2,05,000; equity share 50% / 80% / 90%; equity return 6% / 10% / 12%.
-Fixed: doorstep share 10% of savers; home-loan ticket Rs 11.8 lakh (refresh); the online design switches (UPI, no term
-payout, no collection fees, KYC inside the CAC). Doorstep savers draw the agreed street r3 / r12; agents draw signups_run.
+Online ranges (PERT low / likely / high): the ONLINE dict below (daily amount, retention, cost to win, apply rate, loan size,
+first approval, payout, loan reach, equity share and return).
+Fixed: doorstep share 10% of savers; the online design switches (UPI, no term payout, no collection fees, KYC inside the CAC);
+insurance (fixed referral fee, not counted), Choti SIP and digital gold off. Doorstep savers draw the agreed street r3 / r12;
+agents draw signups_run.
 
 Each draw runs both plans: the PROFITABLE PATH (20,000 online savers a month from month 30) and GROW FAST (1.5 lakh).
 Writes tables/online_mc_draws.csv, online_mc_summary.csv, online_mc_drivers.csv, online_mc_inputs.csv."""
@@ -30,23 +32,30 @@ ONLINE = {   # key: (shape, low, likely, high, label, basis)
     "on_daily": (P_, 50, 100, 300, "Daily amount (Rs)", "PhonePe daily SIP ~Rs 50 / Bachatt minimum Rs 100 / Bachatt film Rs 300"),
     "on_r12": (P_, 0.24, 0.38, 0.45, "Online: still saving at 12 months", "savings apps 24% / SBI MF Rs 250 daily SIP ~38% / credit hook 45%"),
     "on_r3": (P_, 0.52, 0.80, 0.85, "Online: still saving at month 3", "app curve 52% / SBI steady drop ~80%"),
-    "cac": (P_, 300, 450, 600, "Cost to win a saver after the seed (Rs, all-in)", "a competitor's figure (PR-02) / midpoint (operator 21 Oct) / our seed funnel"),
-    "on_apply": (P_, 0.10, 0.35, 0.50, "Reachable users who apply for a loan a year (all loan types)",
-                 "payments-app merchants ~1-2% / founders' 35% / credit-hungry; fintech borrowers ~49% re-borrow in 6 months (XF-15..17)"),
-    "on_ticket": (P_, 50000, 100000, 200000, "Personal + business loan size, blended (Rs)",
-                  "personal Rs 18.8k-70k (XF-11) / blend of Rs 50k personal and Rs 1.5 lakh business / merchant loans Rs 2 lakh (XF-09)"),
-    "on_approved": (P_, 0.20, 0.30, 0.45, "First loan applications approved", "founders' past data ~25% / 30% / PSU banks approve ~80% of pre-qualified (XF-18, XF-24)"),
+    # critical review 22 Oct: the plan stays the most likely value; the low (or high) ends now reach the folder's own evidence
+    "cac": (P_, 300, 450, 800, "Cost to win a saver after the seed (Rs, all-in)", "a competitor's figure (PR-02) / midpoint (operator 21 Oct) / costs rise with scale (Groww Rs 796-1,374, TB-18)"),
+    "on_apply": (P_, 0.02, 0.35, 0.50, "Reachable users who apply for a loan a year (all loan types)",
+                 "payments-app merchants ~1-2% (XF-16) / founders' 35% / credit-hungry; fintech borrowers ~49% re-borrow in 6 months (XF-15..17)"),
+    "on_ticket": (P_, 25000, 100000, 200000, "Personal + business loan size, blended (Rs)",
+                  "the founders' own 2019-22 book Rs 10-25k (XF-24) / blend of Rs 50k personal and Rs 1.5 lakh business / merchant loans Rs 2 lakh (XF-09)"),
+    "on_approved": (P_, 0.11, 0.30, 0.45, "First loan applications approved", "a digital lender's 11% of new applicants (XL-41) / 30% / PSU banks approve ~80% of pre-qualified (XF-18, XF-24)"),
     "on_fee": (P_, 0.01, 0.02, 0.03, "Our payout on personal + business loans, at the start", "DSA payout 1-2.5%, up to 3% (XF-01/02); rises 1.5x by year 5"),
     "on_reach": (P_, 1.0, 2.5, 2.5, "KYC'd users reached by loan offers, per online saver won", "savers only / every KYC'd user (5 sign-ups, half KYC) staying as long as savers"),
     "eq_share": (P_, 0.50, 0.80, 0.90, "Equity share of the savings", "Bachatt conversation: about 80% choose equity SIPs"),
     "eq_return": (P_, 0.06, 0.10, 0.12, "Equity return a year, net", "our estimate"),
 }
+# critical review 22 Oct: inputs that move together are drawn together (Gaussian copula on the online draws):
+# credit-hungry savers stay (Saket, PR-03); more sign-ups per saver raise both the cost to win and the loan reach;
+# a wider funnel brings smaller loans and lower approval.
+LINKS = {("on_apply", "on_r12"): 0.5, ("cac", "on_reach"): 0.5, ("on_apply", "on_ticket"): -0.3, ("on_apply", "on_approved"): -0.3}
 NAMES = {r["key"]: r["name"] for r in csv.DictReader((op.TAB / "dist_agreed_v1.csv").open())}
 FIXED_DESIGN = {"rollover", "upi_12", "upi_ramp", "fee_early", "fee_b3", "kyc_cost", "marketplace_from", "term", "r3", "r12",
                 "daily", "apply", "ticket", "trail", "fund_return", "sip_takeup", "signups_run", "loan_home_ticket",
                 # the loan marketplace baseline (21 Oct) replaces the agreed loan funnel; drawn below from ONLINE instead
                 "eligible", "approved_first", "fee", "tenure", "loan_gold_takeup", "loan_gold_ticket", "loan_gold_comm",
-                "loan_lap_takeup", "loan_lap_ticket", "loan_lap_comm", "loan_home_takeup", "loan_home_comm"}
+                "loan_lap_takeup", "loan_lap_ticket", "loan_lap_comm", "loan_home_takeup", "loan_home_comm",
+                # critical review 22 Oct: insurance earns a fixed referral fee (not counted); Choti SIP and digital gold off
+                "ins_partner_share", "choti_takeup", "gold_takeup"}
 OUT = ("profit_month_p", "money_p", "y5_ebitda_p", "y8_ebitda_p", "profit_month_f", "money_f", "y5_ebitda_f", "y8_ebitda_f",
        "online_rev60", "door_rev60")
 
@@ -60,6 +69,12 @@ def sample():
     cov = np.array([[1, r * r, r], [r * r, 1, r], [r, r, 1]])
     cols = [keys.index(k) for k in MC.COPULA_KEYS]
     U[:, cols] = stats.norm.cdf(stats.norm.ppf(U[:, cols]) @ np.linalg.cholesky(cov).T)
+    lk = sorted({k for pair in LINKS for k in pair})
+    C = np.eye(len(lk))
+    for (a, b), rho in LINKS.items():
+        C[lk.index(a), lk.index(b)] = C[lk.index(b), lk.index(a)] = rho
+    cols = [keys.index(k) for k in lk]
+    U[:, cols] = stats.norm.cdf(stats.norm.ppf(U[:, cols]) @ np.linalg.cholesky(C).T)
     x = {k: MC.ppf(*allspec[k], U[:, i]) for i, k in enumerate(keys)}
     rng = np.random.default_rng(SEED + 7)
     for a, b in (("r3", "r12"), ("on_r3", "on_r12")):             # still saving at 12 months below month 3

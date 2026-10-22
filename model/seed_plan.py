@@ -52,6 +52,8 @@ KYC_RATE = 0.50                # JUDGEMENT: registrations that complete KYC
 SAVE_RATE = 0.40               # JUDGEMENT: KYC'd who start a SIP -> 20% of registrations become savers
 KYC_COST = 40                  # Rs per KYC (dist_agreed kyc_cost likely)
 SUPPORT = 5                    # Rs per active saver a month (dist_agreed support_cost likely)
+DEBITS = 2.0 * 52 / 12         # critical review 22 Oct: weekly debits at Rs 2 until a daily SIP on one mandate is confirmed
+TECH_USER, REACH = 4.0, 2.5    # Rs 4 a month of tech for each KYC'd user an online saver brings (2.5), as in online_plan.py
 R12_ONLINE, R12_OFFLINE = 0.38, 0.55   # still saving at month 12: online = SBI MF's Rs 250 daily SIP (operator 21 Oct;
                                        # was the savings-app 24%); doorstep = agreed street r12
 
@@ -102,7 +104,7 @@ def run(registrations, agents, months, team="plan", costs="agreed"):
             "App and tech": (c["tech_oneoff"] / 3 if m <= 3 else 0) + c["tech_month"](m),
             "Licences and compliance": (SETUP if m == 1 else 0) + c["lic_year"] / 12,
             "Office and fund-raising": c["office"] + (RAISE_COST if m == 1 else 0),
-            "Support": (act_on + act_off) * SUPPORT,
+            "Support": (act_on + act_off) * (SUPPORT + DEBITS) + act_on * REACH * TECH_USER,   # support, payments, per-user tech
         })
     df = pd.DataFrame(rows)
     df["acquisition"] = df[ACQ_COLS].sum(axis=1)
@@ -183,6 +185,8 @@ def main():
               ("Registrations that finish KYC / KYC'd who start saving", f"{KYC_RATE} / {SAVE_RATE}", "share", "JUDGEMENT"),
               ("KYC cost", KYC_COST, "Rs a KYC", "dist_agreed kyc_cost"),
               ("Support", SUPPORT, "Rs per active saver a month", "dist_agreed"),
+              ("Payments: weekly debits at Rs 2", round(DEBITS, 2), "Rs per active saver a month", "critical review 22 Oct (tri_costs base)"),
+              ("Tech per KYC'd user (2.5 per online saver)", TECH_USER, "Rs a month", "the 2 Oct costing"),
               ("Still saving at 12 months, online / doorstep", f"{R12_ONLINE} / {R12_OFFLINE}", "share", "SBI MF Rs 250 daily SIP (operator 21 Oct) / agreed street r12"),
               ("Doorstep agent all-in", AGENT_MONTH + CASH_COVER, "Rs a month", "base_inputs + our incentive estimate"),
               ("Agent sign-ups at full speed", AGENT_SIGNUPS, "a month", "dist_agreed signups_run"),

@@ -135,14 +135,17 @@ PRODUCT_LABEL = {p: neutral(nm) for p, _k, nm, _d in ce.PRODUCTS}
 def inputs_list():
     L = []
     a = L.append
-    a((G1, "cac_on", "Online saver: cost to win after the seed, all-in", op.CAC, "₹ a saver won", "cac",
+    a((G1, "cac_on", "Online saver: cost to win after the seed, all-in (before our 10% contingency)", op.CAC, "₹ a saver won", "cac",
        "Operator, 21 Oct: ₹450 base, range ₹300–600.",
        "₹300 is a competitor's figure per 'customer' (PR-02; the customer is not defined). ₹600 is our own seed funnel: ₹100 a sign-up + "
        "₹40 KYC for 1 in 2 sign-ups, and 1 in 5 sign-ups start saving. The seed (months 4–18) is budgeted at ₹600; this is a saver won after it.", "rs"))
-    a((G1, "cac_door", "Doorstep saver: cost to win, all-in at scale", round(DOOR_CAC, 2), "₹ a saver won", None,
-       "Company model (online_plan.py), months 31–96: agent pay ₹26,000 a month (salary, statutory, incentive, cash cover), a ₹12,000 kit, "
+    a((G1, "cac_door", "Doorstep saver: cost to win, all-in at scale (before our 10% contingency)", round(DOOR_CAC, 2), "₹ a saver won", None,
+       "Company model (online_plan.py), months 31–96: agent pay ₹26,000 a month (salary, statutory, incentive, fidelity cover), a ₹15,500 kit with NISM V-A, "
        "30% of agents leaving a year, field leads, city offices and ₹40 KYC, divided by doorstep savers won.",
        "Worked out, not assumed. In the Monte Carlo it moves with each future's agent output (sign-ups a month per agent).", "rs"))
+    a((G1, "contingency", "Our 10% contingency on the cost to win", op.CONTINGENCY, "share", None,
+       "Our business plan's convention: 10% on every cost line, the cost to win included.",
+       "So the LTV/CAC divides by what the plan actually spends: ₹450 × 1.1 = ₹495 online (critical review, 22 Oct).", P))
     a((G2, "r3_on", "Online: still saving at month 3", 0.80, "share of savers won", "on_r3", om.ONLINE["on_r3"][5],
        "SBI MF's ₹250 daily SIP: 35.64% had stopped at an average age of about 6 months (NG-033, XO-05), a steady ~7% a month, which is ~80% at month 3.", P))
     a((G2, "r12_on", "Online: still saving at month 12", 0.38, "share of savers won", "on_r12", om.ONLINE["on_r12"][5],
@@ -185,6 +188,9 @@ def inputs_list():
         key = {"pb": "apply", "gold": "loan_gold_takeup", "lap": "loan_lap_takeup", "home": "loan_home_takeup"}[k]
         a((G5, f"mix_{k}", f"Share of applications: {lab}", op.LOAN_MIX[key], "share of applications", None,
            "Operator, 21 Oct (research/xs_funnel_2026-10-21.csv).", "The other 10% are loans against the saver's own savings: tiny money, not counted.", P))
+    a((G5, "gold_approval", "Gold-loan applications approved", op.GOLD_APPROVAL, "share", None,
+       "Our assumption: gold loans are secured, so most are approved (the lender's call).",
+       "A gold loan is a once-only referral in the model, so approval scales its take-up (critical review, 22 Oct).", P))
     a((G6, "eligible", "Applicants who can carry the loan", 1.0, "share", None, "Operator, 21 Oct.",
        "1 = eligibility is inside the approval share below (lenders' approval rates already reflect who qualifies).", P))
     a((G6, "approved_first", "First applications a lender approves", 0.30, "share", "on_approved", om.ONLINE["on_approved"][5],
@@ -244,8 +250,10 @@ def inputs_list():
     a((G9, "card_share", "Savers who get a card (once)", X0["card_share"], "share", "card_share", ag("card_share"),
        ag("card_share", "why_this_shape"), P))
     a((G9, "card_fee", "Our fee per approved card", X0["card_fee"], "₹ a card", "card_fee", ag("card_fee"), ag("card_fee", "why_this_shape"), "rs"))
-    a((G10, "ins_partner_share", "Share of insurance commission that reaches us", X0["ins_partner_share"], "share", "ins_partner_share",
-       ag("ins_partner_share"), ag("ins_partner_share", "why_this_shape"), P))
+    a((G10, "ins_partner_share", "Share of insurance commission that reaches us", op.OFF_PRODUCTS["ins_partner_share"], "share", None,
+       "Founder's decision, 22 Oct: a fixed referral fee through the broker partner, to be agreed; not counted.",
+       "A share of a broker's commission is likely not payable to an unlicensed company (to verify with counsel); our own corporate-agent "
+       "registration can come later. Set a share here to see what a licence would add.", P))
     words = {"takeup": ("take-up a year", "share of savers without it, a year", "pct2"), "ticket": ("premium or ticket", "₹", "rs"),
              "comm": ("our commission", "share", "pct2"), "renew": ("renews a year", "share renewing", P),
              "renew_comm": ("commission on a renewal", "share of the renewal premium", "pct2")}
@@ -272,15 +280,28 @@ def inputs_list():
                 why = "Share of Choti SIPs still running at month 24, when the ₹500 incentive is paid."
             if p == "nps" and par == "comm":
                 why = "₹200 once per new account (the ticket × 1)."
-            a((grp, k, f"{PRODUCT_LABEL[p]}: {w}", X0[k], neutral(unit), mck, ag(k) or "Engine default (cohort_engine.PRODUCTS).", neutral(why), fm))
+            val, src = X0[k], ag(k) or "Engine default (cohort_engine.PRODUCTS)."
+            if k in op.OFF_PRODUCTS:                       # critical review, 22 Oct
+                val, mck, src = op.OFF_PRODUCTS[k], None, "Off (critical review, 22 Oct)."
+                why = {"choti_takeup": "The Choti SIP incentive is for a first-time investor's monthly SIP only; our daily SIP disqualifies it.",
+                       "gold_takeup": "No digital gold at launch (unregulated; the folder's own row advises against it); a gold fund later."}[k]
+            a((grp, k, f"{PRODUCT_LABEL[p]}: {w}", val, neutral(unit), mck, src, neutral(why), fm))
     a((G12, "support_cost", "Support cost per saver still saving", X0["support_cost"], "₹ a month", "support_cost", ag("support_cost"),
        ag("support_cost", "why_this_shape"), "rs2"))
-    a((G12, "tech", "Tech cost per saver still saving", op.TECH_PER_SAVER, "₹ a month", None, "Our judgement (cloud, SMS, KYC calls).",
-       "A serving cost; the team, office and brand are company costs, not in this view.", "rs2"))
+    a((G12, "tech", "Tech cost per KYC'd user reached, a month", op.TECH_PER_SAVER, "₹ a month", None,
+       "The 2 Oct costing: ₹4 a month (cloud, SMS, KYC calls); was ₹1, our judgement.",
+       "Charged for every KYC'd user who came with the saver (reach), savers or not, while the saver keeps saving.", "rs2"))
+    a((G12, "debit_cost", "Payment cost per debit", op.DEBIT_COST, "₹ a debit", None,
+       "The 2 Oct costing: ₹2 base (₹5 list price through a payment gateway, TC-02/06; ₹0 to us through BSE StAR MF, XB-01).",
+       "Until BSE StAR MF and the fund houses confirm a daily SIP on one mandate in writing, we assume weekly debits at ₹2.", "rs2"))
+    a((G12, "debits_month", "Debits a month per saver still saving", op.DEBITS_A_MONTH, "debits a month", None,
+       "Founder's decision, 22 Oct: weekly until daily is confirmed.", "52 weeks ÷ 12. The monthly amount is unchanged.", "n2"))
     return L
 
 
 DERIVED = [   # (after key, key, label, formula, format)
+    ("contingency", "cac_all_on", "Online: cost to win with the contingency", "=i_cac_on*(1+i_contingency)", "rs"),
+    ("contingency", "cac_all_door", "Doorstep: cost to win with the contingency", "=i_cac_door*(1+i_contingency)", "rs"),
     ("r12_on", "h1_on", "Online: drop-off a month, months 1–3", "=1-i_r3_on^(1/3)", "pct2"),
     ("r12_on", "h2_on", "Online: drop-off a month, months 4–12", "=1-(i_r12_on/i_r3_on)^(1/9)", "pct2"),
     ("r12_door", "h1_door", "Doorstep: drop-off a month, months 1–3", "=1-i_r3_door^(1/3)", "pct2"),
@@ -290,7 +311,7 @@ DERIVED = [   # (after key, key, label, formula, format)
     ("debt_trail", "rm", "Blended fund return, a month", "=(1+d_fund_return)^(1/12)-1", "pct3"),
     ("debt_trail", "trail", "Blended trail we earn on the balance", "=i_eq_share*i_eq_trail+(1-i_eq_share)*i_debt_trail", "pct3"),
     ("mix_home", "apply_pb", "Apply for a personal or business loan, a year", "=i_loan_apply*i_mix_pb", "pct2"),
-    ("mix_home", "takeup_loan_gold", "Apply for a gold loan, a year", "=i_loan_apply*i_mix_gold", "pct2"),
+    ("mix_home", "takeup_loan_gold", "Approved gold loans, a year (applications × approval)", "=i_loan_apply*i_mix_gold*i_gold_approval", "pct2"),
     ("mix_home", "takeup_loan_lap", "Apply for a loan against property, a year", "=i_loan_apply*i_mix_lap", "pct2"),
     ("mix_home", "takeup_loan_home", "Apply for a home loan, a year", "=i_loan_apply*i_mix_home", "pct2"),
     ("topup_lag", "hz0", "Chance a reachable user applies in a month (full rate)", "=1-(1-d_apply_pb)^(1/12)", "pct3"),
@@ -450,7 +471,9 @@ def products_tab():
     loans = [p for p, *_ in ce.PRODUCTS if p.startswith("loan_")]
     oth = [p for p, *_ in ce.PRODUCTS if p not in INS and not p.startswith("loan_")]
     t.add("ins", "TOTALS", "Insurance (₹)", "=" + "+".join(revs[p] for p in INS), fm="rs3")
-    t.add("oloans", "TOTALS", "Other loans: gold, property, home, durables, vehicles (₹)", "=" + "+".join(revs[p] for p in loans), fm="rs3")
+    reach_l = [p for p in loans if p in op.LOAN_REACH_XS]
+    t.add("oloans", "TOTALS", "Other loans in the 35% funnel: gold, property, home (₹)", "=" + "+".join(revs[p] for p in reach_l), fm="rs3")
+    t.add("oloans_s", "TOTALS", "Other loans, savers only: durables, vehicles (₹)", "=" + "+".join(revs[p] for p in loans if p not in reach_l), fm="rs3")
     t.add("other", "TOTALS", "Other products: SIP, Choti, NPS, gold, FD, recharge, bills (₹)", "=" + "+".join(revs[p] for p in oth), fm="rs3")
     return t
 
@@ -469,15 +492,16 @@ def saver_tab():
         t.add(f"{sv}.bal", band, "Average balance (₹)", f"=[{sv}.s]*[Engine!bavg]", fm="rs")
         t.add(f"{sv}.fund", band, "Fund fees (₹)", f"=[{sv}.s]*[Engine!fund]", fm="rs2")
         t.add(f"{sv}.pb", band, "Personal + business loan payouts (₹)", f"=[{sv}.s]*[Engine!orig]*[Engine!ramp]*i_reach_{sv}", fm="rs2")
-        t.add(f"{sv}.ol", band, "Other loan referrals (₹)", f"=[{sv}.s]*[Products!oloans]*i_reach_{sv}", fm="rs2")
+        t.add(f"{sv}.ol", band, "Other loan referrals (₹)", f"=[{sv}.s]*([Products!oloans]*i_reach_{sv}+[Products!oloans_s])", fm="rs2")
         t.add(f"{sv}.ins", band, "Insurance (₹)", f"=[{sv}.s]*[Products!ins]", fm="rs2")
         t.add(f"{sv}.cards", band, "Cards (₹)", f"=[{sv}.s]*[Engine!cardfee]", fm="rs2")
         t.add(f"{sv}.oth", band, "Other products (₹)", f"=[{sv}.s]*[Products!other]", fm="rs2")
         t.add(f"{sv}.rev", band, "Revenue (₹)", f"=[{sv}.fund]+[{sv}.pb]+[{sv}.ol]+[{sv}.ins]+[{sv}.cards]+[{sv}.oth]", fm="rs2")
-        t.add(f"{sv}.serve", band, "Serving: support + tech (₹)", f"=[{sv}.s]*(i_support_cost+i_tech)", fm="rs2")
+        t.add(f"{sv}.serve", band, "Serving: support, tech for every KYC'd user reached, payments (₹)",
+              f"=[{sv}.s]*(i_support_cost+i_tech*i_reach_{sv}+i_debit_cost*i_debits_month)", fm="rs2")
         t.add(f"{sv}.net", band, "Revenue less serving (₹)", f"=[{sv}.rev]-[{sv}.serve]", fm="rs2")
         t.add(f"{sv}.cum", band, ("Online" if sv == "on" else "Doorstep") + ": cumulative ₹ after the cost to win",
-              f"=-i_cac_{sv}+[{sv}.net]", f"=[{sv}.cum@p]+[{sv}.net]", fm="rs")
+              f"=-d_cac_all_{sv}+[{sv}.net]", f"=[{sv}.cum@p]+[{sv}.net]", fm="rs")
     return t
 
 
@@ -508,7 +532,7 @@ def shift(f, k):
 # ------------------------------------------------------------------------------------------------------------ answer tab
 LINES = [("Cost to win", None), ("Fund fees (our trail on the savings)", "fund"), ("Personal + business loan payouts", "pb"),
          ("Other loan referrals (gold, property, home, durables, vehicles)", "ol"), ("Insurance", "ins"), ("Cards", "cards"),
-         ("Other products (recharge, bills, digital gold, FD, NPS, Choti)", "oth"), ("Serving (support + tech)", "serve")]
+         ("Other products (recharge, bills, FD, NPS)", "oth"), ("Serving (support, tech, payments)", "serve")]
 
 
 def answer_tab(sv_tab, py):
@@ -528,7 +552,7 @@ def answer_tab(sv_tab, py):
         c[f"A{r}"] = lab
         for x, sv, last in (("B", "on", R60), ("C", "door", R60), ("D", "on", R1), ("E", "door", R1)):
             if k is None:
-                c[f"{x}{r}"] = f"=-i_cac_{sv}"
+                c[f"{x}{r}"] = f"=-d_cac_all_{sv}"
             else:
                 cc = col[f"{sv}.{k}"]
                 c[f"{x}{r}"] = f"={'-' if k == 'serve' else ''}SUM(Saver!{cc}{R0}:{cc}{last})"
@@ -627,8 +651,9 @@ def reset():
 def evaluate(pp, door_cac=True):
     apply_params(pp)
     dc = op.unit_rows_door_cac() if door_cac else DOOR_CAC
-    on = py_view(op.saver_inputs(), pp["cac"], pp["on_reach"])
-    dr = py_view(op.saver_inputs(doorstep=True), dc, 1.0)
+    k = 1 + op.CONTINGENCY                                   # the plan spends the cost to win plus its 10% contingency
+    on = py_view(op.saver_inputs(), pp["cac"] * k, pp["on_reach"])
+    dr = py_view(op.saver_inputs(doorstep=True), dc * k, 1.0)
     reset()
     return on, dr, dc
 

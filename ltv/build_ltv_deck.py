@@ -32,7 +32,9 @@ ON, DR, _ = lb.evaluate(BASE, door_cac=False)
 P = op.profiles(op.saver_inputs())
 X = op.saver_inputs()
 REACH = op.LOAN_REACH
-CAC, DCAC = op.CAC, lb.DOOR_CAC
+CAC_IN = op.CAC                                   # the input: ₹450 after the seed
+CAC, DCAC = -ON["cac"], -DR["cac"]                 # what the plan spends: the input plus its 10% contingency (₹495, ₹446)
+SERVE_M = X["support_cost"] + op.TECH_PER_SAVER * op.LOAN_REACH + op.DEBIT_COST * op.DEBITS_A_MONTH   # ₹ a month per saver still saving
 OAT = pd.read_csv(TAB / "ltv_one_at_a_time.csv").set_index("key")
 MC = pd.read_csv(TAB / "ltv_mc_draws.csv")
 DRV = pd.read_csv(TAB / "ltv_drivers.csv").set_index("key")
@@ -57,7 +59,32 @@ def pass_line(k, lo, hi, target=3.0):
 
 
 AP2 = at(on_apply=0.02)
-VAL_SHOW = {"nps_comm": "₹200 once", "recharge_renew": "100%", "bills_renew": "100%", "bills_ticket": "24 bills a year"}
+
+
+def _lever(name, key, val):
+    """The online saver with one model constant changed (a module value, or one key of a module dict), then restored."""
+    obj = getattr(op, name)
+    old = obj[key] if key else obj
+    if key:
+        obj[key] = val
+    else:
+        setattr(op, name, val)
+    op._CACHE.clear()
+    try:
+        return at()
+    finally:
+        if key:
+            obj[key] = old
+        else:
+            setattr(op, name, old)
+        op._CACHE.clear()
+
+
+DEB0 = _lever("DEBIT_COST", None, 0.0)                       # daily debits at no cost to us (BSE StAR MF, once confirmed)
+INS_LIC = _lever("OFF_PRODUCTS", "ins_partner_share", 0.75)  # insurance with our own corporate-agent registration
+CHK = pd.read_csv(TAB / "ltv_book_check.csv")
+FUT = CHK[(CHK["saver"] == "on") & CHK["case"].str.startswith("future")]["sheet LTV/CAC 5y"]
+VAL_SHOW = {"nps_comm": "₹200 once", "recharge_renew": "100%", "bills_renew": "100%", "bills_ticket": "24 bills a year", "debits_month": "4.33"}
 LINES = [("fund", "Fund fees", NAVY), ("pb", "Personal + business loans", NAVY3), ("ol", "Other lenders' loans", NAVY4),
          ("ins", "Insurance", TEAL), ("cards", "Cards", "#7cc4b8"), ("oth", "Other products", "#9fb3c8")]
 
@@ -122,6 +149,11 @@ def x(v):
     return f"{v:.1f}×"
 
 
+def ends(k, f):
+    """'low / high' for an input's tested range, in the given format."""
+    return f"{f(float(OAT.loc[k, 'low']))} / {f(float(OAT.loc[k, 'high']))}"
+
+
 def eff(k):
     r = OAT.loc[k]
     return float(r["on_lo"]), float(r["on_hi"]), int(r["pay_lo"]), int(r["pay_hi"]), float(r["door_lo"]), float(r["door_hi"])
@@ -140,9 +172,11 @@ SHORT_SRC = {   # one line each for the story pages; the full text is on the wor
     "mix_gold": "Founder's judgement (XF rows)", "mix_lap": "Founder's judgement (XF rows)", "mix_home": "Founder's judgement (XF rows)",
     "approved_first": "Founders' past data ~25% (XF-24)", "approved_repeat": "Listed lender: 74% of repeat (XL-41)",
     "ticket": "Digital loans ₹19k–70k (XF-11)", "fee": "DSA rate cards 1–2.5% (XF-01)", "tenure": "Research: 12–24 months",
-    "topup_share": "Our judgement; lenders top up good payers", "support_cost": "Founder's figure", "tech": "Our judgement",
+    "topup_share": "Our judgement; lenders top up good payers", "support_cost": "Founder's figure",
     "early_takeup_mult": "Founder's judgement", "early_approval_mult": "New vs repeat approval gap (XL-41)",
-    "takeup_growth": "Our judgement; no data", "approval_growth": "Our judgement (lenders see repayments)", "year_cap": "Model rule"}
+    "takeup_growth": "Our judgement; no data", "approval_growth": "Our judgement (lenders see repayments)", "year_cap": "Model rule",
+    "tech": "The 2 Oct costing: ₹4 a month", "debit_cost": "₹2 base; ₹0 via BSE StAR MF if confirmed", "debits_month": "Weekly until daily is confirmed",
+    "gold_approval": "Our assumption (secured loans)", "contingency": "Our plan's 10% on every cost"}
 DECK_WORDS = lb.PLAIN   # the same investor wording as the workbook
 
 
@@ -232,10 +266,14 @@ SH24 = float((MC["on_pay"] <= 24).mean())
 
 def cover():
     c600 = eff("cac")[1]
-    tiles = [(x(ON["ltvcac"]), f"one online saver: {rs(CAC)} to win, {rs(ON['ltv'])} back over five years after serving costs; paid back in month {ON['pay']}. At the seed's ₹600: {x(c600)}"),
+    big = [k for k in OAT.index if abs(OAT.loc[k, "on_hi"] - OAT.loc[k, "on_lo"]) >= 1.5]
+    names = {"on_ticket": "loan size", "on_apply": "how many apply for a loan", "cac": "the cost to win", "on_daily": "the daily amount",
+             "on_fee": "the loan payout", "on_r12": "how many keep saving", "on_approved": "loan approvals", "on_reach": "how many see loan offers"}
+    words = [names.get(k, lb.label_of(k).lower()) for k in big]
+    tiles = [(x(ON["ltvcac"]), f"one online saver: {rs(CAC)} to win (₹450 + our 10% contingency), {rs(ON['ltv'])} back over five years after serving; paid back in month {ON['pay']}"),
              (x(DR["ltvcac"]), f"one doorstep saver: {rs(DCAC)} to win all-in, {rs(DR['ltv'])} back; paid back in month {DR['pay']}"),
              (f"{x(MC_P50)} median", f"across 1,000 simulated futures (our own ranges, not observed odds): {SH3:.0%} at 3× or better, 1 in 10 below {x(MC_P10)}"),
-             ("6 numbers", "decide it: loan size, how many apply for a loan, the cost to win, the daily amount, the loan payout and how many keep saving. Each is shown with its source, range and effect.")]
+             (f"{len(big)} numbers", f"decide it: {', '.join(words[:-1])} and {words[-1]}. The loan numbers are our targets; each is shown with its evidence, range and effect.")]
     t = "".join(f'<div class="ctile"><div class="cbig" style="font-size:34px">{a}</div><div class="csub">{b}</div></div>' for a, b in tiles)
     return f"""<section class="page cover">
 <div class="cleft">
@@ -254,15 +292,15 @@ def flow_svg():
     W, H = 1152, 284
     s = []
     box = lambda x_, y_, w, h, t1, t2, col: (R(x_, y_, w, h, "#fff", col, 12, 2) + T(x_ + 14, y_ + 26, t1, 14, 700, col) + T(x_ + 14, y_ + 46, t2, 11.5, 500, SLATE))
-    s.append(box(0, 110, 200, 70, "A saver won", "₹450 online, ₹404 doorstep", TEAL))
+    s.append(box(0, 110, 200, 70, "A saver won", f"{rs(CAC)} online, {rs(DCAC)} doorstep", TEAL))
     s.append(box(250, 10, 250, 70, "Keeps saving (or stops)", "80% at month 3, 38% at a year online", NAVY))
     s.append(box(250, 110, 250, 70, "Saves ₹100 a day", "~₹2,000 a month into funds, 80/20", NAVY))
     s.append(box(250, 210, 250, 70, "Comes with 2.5 KYC'd users", "5 sign-ups per saver, half finish KYC", NAVY))
     s.append(box(560, 10, 270, 70, "Products, insurance, cards", "commission on what savers buy", NAVY4))
     s.append(box(560, 110, 270, 70, "Fund balance → our trail", "0.67% a year on the balance", NAVY4))
     s.append(box(560, 210, 270, 70, "35% apply for a loan a year", "30% approved first time, 70% repeat", NAVY4))
-    s.append(box(890, 60, 262, 70, "Revenue less serving = LTV", "support ₹5 + tech ₹1 a saver a month", INK))
-    s.append(box(890, 170, 262, 70, "LTV ÷ cost to win = LTV/CAC", "pays back when it reaches ₹450", INK))
+    s.append(box(890, 60, 262, 70, "Revenue less serving = LTV", f"support, tech, debits: ~{rs(SERVE_M)} a month", INK))
+    s.append(box(890, 170, 262, 70, "LTV ÷ cost to win = LTV/CAC", f"pays back when it reaches {rs(CAC)}", INK))
     for (x1_, y1_, x2_, y2_) in ((200, 145, 250, 45), (200, 145, 250, 145), (200, 145, 250, 245), (500, 45, 560, 45), (500, 145, 560, 145),
                                  (500, 245, 560, 245), (830, 45, 890, 95), (830, 145, 890, 95), (830, 245, 890, 95), (1021, 130, 1021, 170)):
         s.append(A(x1_, y1_, x2_, y2_, MUTE, 1.8))
@@ -273,14 +311,14 @@ def p_how(n):
     body = flow_svg() + chips([
         ("Saver won, not sign-up", "A saver is someone who starts saving. Online, 1 in 5 sign-ups does; the cost to win is everything spent to get one saver."),
         ("Undiscounted, 5 years (8 alongside)", "LTV = what a saver brings in less what it costs to serve them while they save. No discounting: the cumulative rupees."),
-        ("The cautious saver", "The answer is for a saver who joins early, before take-up and approvals have grown with the business's track record (they grow to year 5), at the post-seed ₹450 to win. Later savers are worth more.")])
+        ("The cautious saver", "The answer is for a saver who joins early, before take-up and approvals have grown with the business's track record (they grow to year 5), at the post-seed ₹450 to win (₹495 with our 10% contingency). Later savers are worth more.")])
     gl = ('<div style="margin-top:8px;font-size:11px;color:#475569;line-height:1.4"><b style="color:#12355b">Words used here.</b> '
           "<b>KYC'd</b>: finished the identity check. <b>Trail</b>: the yearly share of a fund's fee paid to its distributor. <b>SIP</b>: a regular instalment into a mutual fund. "
           "<b>NBFC</b>: a non-bank lender. <b>DSA</b>: an agent paid by a lender for referred loans. <b>EMI</b>: a loan instalment. <b>LAP</b>: a loan against property. "
-          "<b>Doorstep</b>: a field agent signs the saver in person. <b>The seed</b>: the first 18 months. <b>Futures</b>: simulated draws of all inputs together.</div>")
+          "<b>Doorstep</b>: a field agent signs the saver in person. <b>The seed</b>: the seed round, an 18-month plan plus 6 months to raise the next round. <b>Futures</b>: simulated draws of all inputs together.</div>")
     body += gl
     return page(n, "How we count", "THE DEFINITION", "One saver's value is three streams (the fund, loans, other products) for as long as they keep saving, less serving, against the cost to win them",
-                body, "Not in this view: the team, office and brand, the 10% contingency, the two-month wait for fees, tax. The app never holds the money; loans are made by banks and NBFCs.")
+                body, "Not in this view: the team, office and brand, the two-month wait for fees, tax. Fees are quoted before GST and TDS. The app never holds the money; loans are made by banks and NBFCs.")
 
 
 def waterfall():
@@ -337,7 +375,7 @@ def p_answer(n):
         ("Cross-sell is {:.0%} of revenue".format(xs), f"Everything except the fund trail is earned on what users borrow or buy through us. About {rs(round(gap, -1))} of the {rs(ON['ltv'])} comes from loans to KYC'd sign-ups who never save; with offers to savers only, LTV/CAC is {x(only)}.")])
     return page(n, "The answer", "LTV / CAC", f"An online saver costs {rs(CAC)} and returns {rs(ON['ltv'])} over five years: {ON['ltvcac']:.1f}×, paid back in month {ON['pay']}; "
                 f"a doorstep saver {DR['ltvcac']:.1f}×, month {DR['pay']}", body,
-                f"{rs(ON['rev'])} revenue − {rs(-ON['serve'])} serving = {rs(ON['ltv'])} returned; less {rs(CAC)} to win = {rs(ON['net'])} net. Live in the workbook, tab LTV-CAC. Rounded; rows may not add exactly.")
+                f"{rs(ON['rev'])} revenue − {rs(-ON['serve'])} serving = {rs(ON['ltv'])} returned; less {rs(CAC)} to win (₹450 + our 10% contingency) = {rs(ON['net'])} net. Live in the workbook, tab LTV-CAC. Rounded; rows may not add exactly.")
 
 
 def payback_svg():
@@ -396,10 +434,10 @@ def p_payback(n):
     m = ON["_m"]
     peak = int(np.argmax(sum(m[k] for k, _l, _c in LINES))) + 1
     body = two(payback_svg(), stack_svg(), 560) + chips([
-        ("Why month 19", f"Loans start in month 1 for every KYC'd user, at half the full take-up and 60% of the approvals for six months; a first loan pays {pct(X['fee'])} of ₹1 lakh. The fund trail builds slowly with the balance."),
+        (f"Why month {ON['pay']}", f"Loans start in month 1 for every KYC'd user, at half the full take-up and 60% of the approvals for six months; a first loan pays {pct(X['fee'])} of ₹1 lakh. The fund trail builds slowly with the balance."),
         (f"A jump in month {peak}", "The first six months run at half the take-up and 60% of the approvals; from month 7 every user applies at the full rate, so first loans peak, then thin as users borrow once and savers stop."),
         ("Then a long tail", f"After year 1, 1.5% of savers stop each month; the fund balance, repeat borrowing and loan offers to KYC'd users who never saved keep paying: {rs(ON['ltv96'] - ON['ltv'])} more in years 6–8.")])
-    return page(n, "The answer", "WHEN IT PAYS BACK", f"The online saver earns back the {rs(CAC)} in month {ON['pay']}; the doorstep saver in month {DR['pay']}; by year 8 each has returned about six and a half times its cost",
+    return page(n, "The answer", "WHEN IT PAYS BACK", f"The online saver earns back the {rs(CAC)} in month {ON['pay']}; the doorstep saver in month {DR['pay']}; by year 8 they have returned {ON['ltvcac96']:.1f} and {DR['ltvcac96']:.1f} times their cost",
                 body, "Left: cumulative revenue less serving, minus the cost to win (Saver tab, the last column of each saver). Right: the online saver's monthly revenue lines, stacked.")
 
 
@@ -416,14 +454,15 @@ def p_cac(n):
         T(276, 188, "₹600 in the seed", 18, 800, TEAL), T(400, 66, "1 in 5 sign-ups", 12, 700, SLATE), T(400, 82, "starts saving", 12, 700, SLATE),
         T(400, 118, "₹450 after the seed needs", 12, 700, NAVY), T(400, 134, "₹70 a sign-up, or", 12, 600, SLATE), T(400, 150, "1 in 3.75 saving", 12, 600, SLATE)]))
     left = funnel + inputs_table(["cac_on", "cac_door"])
-    right = mini_tornado([("Cost to win ₹300 / ₹600", lo, hi)], 520, "ONLINE LTV/CAC AT ₹300 AND ₹600 TO WIN") + \
-        f'<div style="font-size:13px;line-height:1.45;margin-top:10px">Paid back in month <b>{plo}</b> at ₹300 and month <b>{phi}</b> at ₹600 (plan: month {ON["pay"]}).<br>' \
-        f'The doorstep cost is worked out, not assumed: agents\' pay, kit, leads, offices and churn divided by the savers they sign, {rs(DCAC)} a saver at scale.</div>'
+    c_lo, c_hi = (f"₹{OAT.loc['cac', e]:,.0f}" for e in ("low", "high"))
+    right = mini_tornado([(f"Cost to win {c_lo} / {c_hi}", lo, hi)], 520, f"ONLINE LTV/CAC AT {c_lo} AND {c_hi} TO WIN") + \
+        f'<div style="font-size:13px;line-height:1.45;margin-top:10px">Paid back in month <b>{plo}</b> at {c_lo} and month <b>{phi}</b> at {c_hi} (plan: month {ON["pay"]}).<br>' \
+        f'The doorstep cost is worked out, not assumed: agents\' pay, kit, leads, offices and churn divided by the savers they sign, {rs(DCAC / 1.1)} a saver at scale ({rs(DCAC)} with our contingency).</div>'
     body = two(left, right, 600) + chips([
         ("₹450 after the seed", "₹600 is the seed funnel's budget (₹100 a sign-up, 1 in 5 saving), not yet a measurement. ₹450 is the founder's judgement for after the seed, once the brand is known and referrals start."),
         ("₹300 is not our number", "A competitor quoted about ₹300 per 'customer', without saying whether a customer is a sign-up or a saver. We use it only as the good end."),
         ("The seed will measure it", "Cost per sign-up, share finishing KYC and share starting to save are the first three numbers we plan to report from the seed, every month.")])
-    return page(n, "Assumption 1", "COST TO WIN A SAVER", f"We assume ₹450 to win an online saver after the seed (the seed is budgeted at ₹600); at ₹300 LTV/CAC is {x(lo)}, at ₹600 {x(hi)}",
+    return page(n, "Assumption 1", "COST TO WIN A SAVER", f"We assume ₹450 to win an online saver after the seed, ₹495 with our 10% contingency; at ₹300 LTV/CAC is {x(lo)}, at {c_hi} {x(hi)}",
                 body, "All-in: marketing, onboarding and KYC per saver won. Doorstep, at scale: agent salary, statutory costs, incentive and cash cover ₹26,000 a month; kit ₹12,000; 30% of agents leave a year.")
 
 
@@ -454,15 +493,16 @@ def p_retention(n):
     a = eff("on_r12")
     c = eff("churn_late")
     d = eff("r12")
+    app24 = at(on_r12=0.2415, on_r3=0.52)["ltvcac"]          # the savings-app curve: 52% at month 3, 24% at a year
     right = retention_svg()
     left = inputs_table(["r3_on", "r12_on", "r3_door", "r12_door", "churn_late"]) + \
-        mini_tornado([("Online: at a year 24% / 45%", a[0], a[1]), ("Stop a month after 12: 1% / 3%", c[0], c[1])], 520, "ONLINE LTV/CAC AT EACH END") + \
+        mini_tornado([("At a year 24% / 45% (month 3 held)", a[0], a[1]), ("Stop a month after 12: 1% / 3%", c[0], c[1])], 520, "ONLINE LTV/CAC AT EACH END") + \
         f'<div style="font-size:12.5px;margin-top:4px">Doorstep at 25% / 72% still saving at a year: <b>{x(d[4])}</b> / <b>{x(d[5])}</b> (plan {x(DR["ltvcac"])}).</div>'
     body = two(left, right, 540) + chips([
         ("38% is an extrapolation", "SBI MF's ₹250 daily SIP lost 36% of a year's sign-ups within that year, at an average age of about six months; we extend the same monthly drop to month 12. Nobody has observed our product yet."),
         ("Why the doorstep keeps more", "An agent visits every few days; an existing agent's book keeps about 72% a year. We plan 55% for new doorstep savers, between an app and an existing book."),
         ("After a year, few leave", "Savers who last a year rarely stop: a US micro-investing app loses about 1% a month after month 12; an agent's book about 2.7%. We plan 1.5%.")])
-    return page(n, "Assumption 2", "WHO KEEPS SAVING", f"We assume 38 in 100 online savers are still saving after a year (doorstep 55); at 24 LTV/CAC falls to {x(a[0])}, at 45 it rises to {x(a[1])}",
+    return page(n, "Assumption 2", "WHO KEEPS SAVING", f"We assume 38 in 100 online savers are still saving after a year (doorstep 55); on the savings-app curve (24) LTV/CAC is {x(app24)}, at 45 it is {x(a[1])}",
                 body, "Monthly drop-off: steady within months 1–3 and within months 4–12 (so 80% at month 3 and 38% at month 12 online), then 1.5% a month for both.")
 
 
@@ -513,7 +553,7 @@ def p_fund(n):
         T(16, 152, f"{rs(ON['fund'])} over 5 years per online saver won", 15, 700, TEAL),
         T(16, 176, f"{rs(DR['fund'])} per doorstep saver (more keep saving)", 13, 600, AMBER)]))
     body = two(left + tor, calc, 600) + chips([
-        ("Our own distributor licence (to be registered)", "The one stream we plan to earn on our own registration, paid while the money stays invested, even after a saver stops adding."),
+        ("Our own distributor licence (to be registered)", "The one stream we plan to earn on our own registration. It is paid on the balance of savers still saving: we assume a saver who stops takes the money out, a cautious choice."),
         ("Equity trail ~0.75%", "A listed distributor earns ~0.9% of assets, gross; we use 0.75%. Apps selling direct plans earn nothing."),
         ("Returns matter little", "The fund's return only grows the balance the trail is paid on: 6% or 12% a year moves LTV/CAC by less than 0.1×.")])
     return page(n, "Assumption 4", "THE FUND TRAIL", f"80% equity and 20% debt funds pay us {pct(trail, 2)} a year of the balance: {rs(ON['fund'])} from an online saver over five years, {ON['fund'] / ON['rev']:.0%} of revenue",
@@ -539,17 +579,18 @@ def funnel_svg():
 def p_loans_reach(n):
     rch, ap = eff("on_reach"), eff("on_apply")
     left = funnel_svg() + inputs_table(["reach_on", "loan_apply", "mix_pb", "mix_gold", "mix_lap", "mix_home"])
-    right = mini_tornado([("Users reached: savers only / 2.5", rch[0], rch[1]), ("Apply a year: 10% / 50%", ap[0], ap[1])], 520, "ONLINE LTV/CAC AT EACH END") + \
-        f'<div style="font-size:13px;line-height:1.45;margin-top:8px">Paid back in month <b>{rch[2]}</b> if offers go to savers only, month <b>{ap[2]}</b> if only 10% apply, '\
+    right = mini_tornado([("Users reached: savers only / 2.5", rch[0], rch[1]), ("Apply a year: " + ends("on_apply", lambda v: f"{v:.0%}"), ap[0], ap[1])], 520, "ONLINE LTV/CAC AT EACH END") + \
+        f'<div style="font-size:13px;line-height:1.45;margin-top:8px">Paid back in month <b>{rch[2]}</b> if offers go to savers only, month <b>{ap[2]}</b> if only {OAT.loc["on_apply", "low"]:.0%} apply, '\
         f'month <b>{ap[3]}</b> if half do (plan: month {ON["pay"]}).<br>The apply rate is the plan\'s most fragile number: across the 1,000 futures it moves LTV/CAC more than any other input '\
         f'(rank correlation {DRV.loc["on_apply", "rank corr online LTV/CAC"]:.2f}). The nearest observed rate is 1–2% a year, among merchants on a payments app; at 2%, LTV/CAC would be <b>{x(AP2["ltvcac"])}</b>, '\
-        f'paid back in month <b>{AP2["pay"]}</b>.<br>Rules on digital lending and on referral payouts could also change what lenders pay.</div>'
+        f'paid back in month <b>{AP2["pay"]}</b>.<br>Only a user who opts in (a separate consent, under data-protection rules) can see offers and apply: the 35% counts all KYC\'d users, so at least 35% must opt in, and saving improves the offer. The seed measures both. '\
+        f'Rules on digital lending and on referral payouts could also change what lenders pay.</div>'
     body = two(left, right, 600) + chips([
-        ("Anyone KYC'd, from day 1", "Every sign-up who finishes KYC sees loan offers, saver or not: 2.5 per saver won. One who never saves stays reachable as long as savers do."),
+        ("Anyone KYC'd who opts in", "Every sign-up who finishes KYC and opts in sees loan offers from day 1, saver or not: up to 2.5 per saver won. One who never saves stays reachable as long as savers do."),
         ("35% apply a year", "The founders' judgement for a credit-hungry segment; about half of fintech borrowers take a new loan within six months. Payments-app merchants: 1–2% a year."),
-        ("Split by loan type", "70% personal or business, 15% gold, 3% against property, 2% home; the 10% against the saver's own savings is not counted.")])
+        ("Split by loan type", "70% personal or business, 15% gold (70% of them approved: secured), 3% against property, 2% home; the 10% against the saver's own savings is not counted.")])
     return page(n, "Assumption 5", "LOANS: WHO SEES THE OFFERS, WHO APPLIES", f"We assume loan offers reach 2.5 KYC'd users per online saver and 35% apply a year; offers to savers only give {x(rch[0])}, "
-                f"10% applying gives {x(ap[0])}", body, "Doorstep savers: 1 user reached per saver won. Applications use the same monthly chance for every reachable user while they remain.")
+                f"{OAT.loc['on_apply', 'low']:.0%} applying gives {x(ap[0])}", body, "Doorstep savers: 1 user reached per saver won. Applications use the same monthly chance for every reachable user while they remain.")
 
 
 def p_loans_pb(n):
@@ -566,15 +607,17 @@ def p_loans_pb(n):
         T(0, 92, f"× {pct(X['fee'])} payout rising to {pct(X['fee'] * 1.5)} by month 60, less {pct(X['taken_back'], 1)} of payouts taken back", 12.5, 600, SLATE),
         T(0, 122, f"= {rs(ON['pb'])} per saver won", 19, 800, NAVY), T(250, 122, f"{ON['pb'] / ON['rev']:.0%} of 5-year revenue", 13, 600, SLATE)]))
     left = calc + inputs_table(["approved_first", "approved_repeat", "ticket", "fee", "tenure", "topup_share"])
-    right = mini_tornado([("Loan size ₹50k / ₹2 lakh", t[0], t[1]), ("Payout 1% / 3%", f_[0], f_[1]), ("First approval 20% / 45%", a1[0], a1[1]),
+    right = mini_tornado([("Loan size " + ends("on_ticket", lambda v: short_rs(v, "rs")), t[0], t[1]), ("Payout 1% / 3%", f_[0], f_[1]),
+                          ("First approval " + ends("on_approved", lambda v: f"{v:.0%}"), a1[0], a1[1]),
                           ("Repeat approval 50% / 85%", a2[0], a2[1]), ("Top-ups a year 5% / 30%", ts[0], ts[1]), ("Next loan bigger 0% / 20%", tg[0], tg[1]),
                           ("Taken back 0% / 5%", tb[0], tb[1])], 520, "ONLINE LTV/CAC AT EACH END")
     body = two(left, right, 600) + chips([
         ("30% first, 70% repeat", "A digital lender approves 11% of new and 74% of repeat applicants; the founders' past lending about 25%. Our 30% sits above both; it rises 10% a year (cap 80%)."),
-        ("₹1 lakh, blended", f"Digital personal loans average ₹19,000–70,000; merchant loans ₹50,000–5 lakh (one app's average ₹2 lakh). ₹1 lakh sits above the personal-loan average: at ₹50,000 LTV/CAC is {x(t[0])}."),
+        ("₹1 lakh, blended", f"Digital personal loans average ₹19,000–70,000; merchant loans ₹50,000–5 lakh (one app's average ₹2 lakh). ₹1 lakh sits above the personal-loan average and the founders' own ₹10–25k: at {short_rs(OAT.loc['on_ticket', 'low'], 'rs')} LTV/CAC is {x(t[0])}."),
         ("A DSA's payout", "Platforms pay DSAs 1–2.5% of a personal loan, up to 3%; we start at 2%, rising to 3% by year 5. Paid by the lender, who takes back 2.5% of payouts (loans cancelled or repaid early).")])
     return page(n, "Assumption 6", "PERSONAL AND BUSINESS LOANS", f"Personal and business loans bring {rs(ON['pb'])} per online saver: {n1 + n2 + n3} loans per 100 savers won over five years, "
-                f"at a 2% payout on ₹1 lakh", body, "Tenure 18 months; a borrower can borrow again once repaid; top-ups after 12 EMIs paid. We earn a referral payout only: the lender carries the credit risk.")
+                f"at a 2% payout on ₹1 lakh", body, "Tenure 18 months; repeat loans once repaid; top-ups after 12 EMIs. We earn a referral payout only and the lender carries the credit risk. From the first loan we are each lender's "
+                "lending service provider under RBI's digital-lending rules: fees from the lender only, a key-facts statement for every loan, a grievance officer.")
 
 
 def p_loans_other(n):
@@ -583,24 +626,25 @@ def p_loans_other(n):
     for nm, q in names.items():
         r = FUN.loc[f"type: {nm}"]
         tk = X[f"{q}_takeup"]
-        appr = f"{pct(X[f'{q}_approval'])} approved" if q in ("loan_lap", "loan_home") else "lender's call"
+        appr = f"{pct(X[f'{q}_approval'])} approved" if q in ("loan_lap", "loan_home") else ("70% (in the rate)" if q == "loan_gold" else "lender's call")
         rows.append([nm, pct(tk, 2), appr, rs(r["average loan Rs"]), pct(r["payout at the start"], 1), f"{r['per 100 savers won']:.1f}", f"<b>{rs(r['our fees Rs per saver won'])}</b>"])
     rows.append(["<b>All other lenders' loans</b>", "", "", "", "", "", f"<b>{rs(ON['ol'])}</b>"])
-    tb = table(["Loan", "Apply a year", "Approval", "Loan size", "Our fee", "Loans per 100 savers, 5 y", "₹ per saver won, 5 y"], rows, [20, 12, 14, 13, 10, 15, 16], 11.5, compact=True)
+    tb = table(["Loan", "Loans a year (share)", "Approval", "Loan size", "Our fee", "Loans per 100 savers, 5 y", "₹ per saver won, 5 y"], rows, [20, 12, 14, 13, 10, 15, 16], 11.5, compact=True)
+    cdv = float(FUN.loc["type: Consumer durable", "our fees Rs per saver won"] + FUN.loc["type: Two-wheeler / e-rickshaw", "our fees Rs per saver won"])
     cd, vt = eff("loan_cd_takeup"), eff("loan_vehicle_ticket")
     lap, hom = eff("loan_lap_approval"), eff("loan_home_approval")
     right = mini_tornado([("Vehicle loan size ₹80k / ₹6 lakh", vt[0], vt[1]), ("Durables take-up 0.5% / 5%", cd[0], cd[1]), ("Property approval 30% / 60%", lap[0], lap[1]),
                           ("Home approval 30% / 60%", hom[0], hom[1])], 1100, "ONLINE LTV/CAC AT EACH END")
     body = tb + '<div style="height:10px"></div>' + right + chips([
-        ("Gold: the most common", "Gold loans average ₹1.96 lakh across India; we plan ₹1 lakh for this segment at a 0.5% payout (DSA rates 0.25–1.5%)."),
+        ("Gold: the most common", "Gold loans average ₹1.96 lakh across India; we plan ₹1 lakh for this segment at a 0.5% payout (DSA rates 0.25–1.5%), with 70% of applications approved."),
         ("Property and home: rare but large", "Micro-LAP averages ₹3.9 lakh, affordable housing ₹6–8 lakh; DSA payouts 0.5–1.5% and 0.25–0.75%. Secured, so approval is higher: 45%."),
-        ("Durables and vehicles: small", "We have no outside data on take-up or payout for these two; both are our assumptions and together worth about ₹64 a saver.")])
+        ("Durables and vehicles: small", f"No outside data on take-up or payout for these two; both are our assumptions, counted for savers only (outside the 35% funnel), together {rs(cdv)} a saver.")])
     return page(n, "Assumption 7", "OTHER LENDERS' LOANS", f"Gold, property, home, durable and vehicle loans from other lenders add {rs(ON['ol'])} per online saver; gold loans are a third of it", body,
-                "Apply a year for gold, property and home = 35% × that type's share of applications (our assumption). Each type: a monthly chance among users who have not yet bought one; "
-                "one referral fee, on disbursal; every KYC'd user reached. Rounded; rows may not add exactly.")
+                "Loans a year for gold, property and home = 35% × that type's share of applications (our assumption; gold × 70% approved). Each type: a monthly chance among users "
+                "who have not yet bought one; one referral fee, on disbursal; gold, property and home reach every KYC'd user, durables and vehicles savers only. Rounded; rows may not add exactly.")
 
 
-PRODUCTS_SHOW = ["hlth_small", "hlth_family", "life_term", "accident", "two_wheeler", "device", "shop", "choti", "nps", "gold", "fd", "recharge", "bills"]
+PRODUCTS_SHOW = ["hlth_small", "hlth_family", "life_term", "accident", "two_wheeler", "device", "shop", "nps", "fd", "recharge", "bills"]
 
 
 def p_products(n):
@@ -615,29 +659,32 @@ def p_products(n):
     rows.append(["Cards (once per saver)", pct(X["card_share"]), "—", f"₹{X['card_fee']:,.0f} a card", "once", rs(ON["cards"])])
     rows.append(["<b>All of these</b>", "", "", "", "", f"<b>{rs(ON['ins'] + ON['cards'] + ON['oth'])}</b>"])
     tb = table(["Product", "Take-up a year", "Ticket", "Our commission", "Renews", "₹ per saver won, 5 y"], rows, [34, 12, 14, 16, 10, 14], 10.5, compact=True)
-    ins = eff("ins_partner_share")
-    hf = eff("hlth_family_takeup")
+    prod = [k for k in OAT.index if k.split("_")[0] in ("hlth", "life", "accident", "two", "device", "shop", "nps", "fd", "recharge", "bills", "card")]
+    top = max(prod, key=lambda k: abs(OAT.loc[k, "on_hi"] - OAT.loc[k, "on_lo"]))
+    tsw = abs(OAT.loc[top, "on_hi"] - OAT.loc[top, "on_lo"])
     body = tb + chips([
-        (f"Small on purpose: {(ON['ins'] + ON['cards'] + ON['oth']) / ON['rev']:.0%} of revenue", "Insurance, cards and everyday products are where we expect to earn on top; we count them cautiously and the plan does not depend on them."),
-        ("Insurance through a partner (to be signed)", f"We plan to sell under a broker partner's licence; the partner would keep a quarter, so we would get {pct(X['ins_partner_share'])} of commissions, capped by the regulator's draft (15% first year, 5% on renewals)."),
-        ("Widest ranges, smallest effect", f"Every one of these products moves LTV/CAC by 0.2× or less across its whole range (family health cover is the largest: {x(hf[0])} to {x(hf[1])}).")])
-    return page(n, "Assumption 8", "INSURANCE, CARDS AND OTHER PRODUCTS", f"Insurance, cards and everyday products add {rs(ON['ins'] + ON['cards'] + ON['oth'])} per online saver over five years; "
-                "no single one moves LTV/CAC by more than 0.2×", body,
-                "Take-up: share of savers still saving who do not yet hold it, a year. Policies renew each year at the rate shown; habits (gold, recharge, bills) keep running. Money counted while the saver keeps saving. Rounded; rows may not add exactly.")
+        (f"Small on purpose: {(ON['ins'] + ON['cards'] + ON['oth']) / ON['rev']:.0%} of revenue", "Cards and everyday products are where we expect to earn on top; we count them cautiously and the plan does not depend on them."),
+        ("Insurance: a fixed fee, not counted", f"We plan to refer savers to a broker partner for a fixed fee, to be agreed; a share of the broker's commission would need our own licence. "
+                                                 f"With our own corporate-agent registration, insurance would add {rs(INS_LIC['ins'])} a saver ({x(INS_LIC['ltvcac'])})."),
+        ("Widest ranges, smallest effect", f"Every one of these moves LTV/CAC by {tsw:.2f}× or less across its whole range ({lb.label_of(top).split(':')[0].lower()} is the largest).")])
+    return page(n, "Assumption 8", "INSURANCE, CARDS AND OTHER PRODUCTS", f"Cards and everyday products add {rs(ON['cards'] + ON['oth'])} per online saver over five years; "
+                "insurance counts nothing until its fixed fee is agreed", body,
+                "Take-up: share of savers still saving who do not yet hold it, a year. Policies renew yearly at the rate shown; habits (recharge, bills) keep running. Off: the Choti SIP incentive "
+                "(our daily SIP disqualifies it) and digital gold (none at launch). Rounded; rows may not add exactly.")
 
 
 def p_serve(n):
     sc, tg, ag, et, ea = (eff(k) for k in ("support_cost", "takeup_growth", "approval_growth", "early_takeup_mult", "early_approval_mult"))
-    left = inputs_table(["support_cost", "tech", "early_takeup_mult", "early_approval_mult", "takeup_growth", "approval_growth", "year_cap"])
+    left = inputs_table(["support_cost", "tech", "debit_cost", "debits_month", "early_takeup_mult", "early_approval_mult", "takeup_growth", "approval_growth"])
     right = mini_tornado([("Support ₹0 / ₹15 a month", sc[0], sc[1]), ("Take-up growth 0% / 15%", tg[0], tg[1]), ("Approval growth 0% / 20%", ag[0], ag[1]),
                           ("First 6 months' take-up 25% / 75%", et[0], et[1]), ("First 6 months' approval 40% / 80%", ea[0], ea[1])], 520, "ONLINE LTV/CAC AT EACH END")
     body = two(left, right, 600) + chips([
-        (f"Serving {rs(-ON['serve'])} over 5 years", "₹5 a month for support, the app, bank charges and supervision, plus ₹1 of tech, for each saver still saving. Sign-ups who never save cost nothing to serve here (an assumption); "
-                                                     "compliance and lender integration are company costs, outside this view."),
+        (f"Serving {rs(-ON['serve'])} over 5 years", f"₹5 a month of support; ₹4 of tech for each of the {op.LOAN_REACH:g} KYC'd users who came with the saver, savers or not; ₹2 a debit, weekly, "
+                                                     f"until a daily SIP on one mandate is confirmed in writing. Daily debits at no cost to us would give {x(DEB0['ltvcac'])}."),
         ("Slow first months", "A saver of a few weeks is not ready to buy: in months 1–6 every product's take-up is half the full rate and lenders approve 60% as many, because the saving record is thin."),
         ("History helps, but only to year 5", "Each year the business runs, take-up rises 5% and approvals 10% (lenders see repayments); both stop rising after year 5. A saver who joins later starts higher.")])
-    return page(n, "Assumption 9", "COST TO SERVE, AND THE FIRST MONTHS", f"Serving costs ₹6 a month per saver still saving (a total of ₹16 gives {x(sc[1])}); the slow first months and a growing track record move LTV/CAC by under 1×",
-                body, "Caps: no take-up above 2× the agreed rate, no first-loan approval above 80%.")
+    return page(n, "Assumption 9", "COST TO SERVE, AND THE FIRST MONTHS", f"Serving costs about {rs(SERVE_M)} a month per saver still saving: support, tech for every KYC'd user, and weekly debits; with no debit cost LTV/CAC is {x(DEB0['ltvcac'])}",
+                body, "Caps: no take-up above 2× the agreed rate, no first-loan approval above 80%. The team, office, brand, compliance and lender integration are company costs, outside this view.")
 
 
 SHORT = {"on_ticket": "Personal + business loan size", "on_apply": "Users who apply for a loan a year", "cac": "Cost to win a saver (after the seed)",
@@ -649,7 +696,7 @@ SHORT = {"on_ticket": "Personal + business loan size", "on_apply": "Users who ap
 def tornado_svg(k=10):
     d = OAT.head(k).reset_index()
     W, x0 = 1152, 470
-    lo = min(d["on_lo"].min(), d["on_hi"].min(), ON["ltvcac"]) * 0.9
+    lo = min(d["on_lo"].min(), d["on_hi"].min(), ON["ltvcac"]) * 0.72
     hi = max(d["on_lo"].max(), d["on_hi"].max(), ON["ltvcac"]) * 1.05
     X_ = lambda v: x0 + (W - x0 - 60) * (v - lo) / (hi - lo)
     s = [T(0, 14, "ONLINE LTV/CAC (5 YEARS) WITH EACH INPUT AT THE LOW AND HIGH END OF ITS RANGE, EVERYTHING ELSE AT THE PLAN", 11.5, 700, SLATE, ls=1.1)]
@@ -680,13 +727,18 @@ def tornado_svg(k=10):
 def p_tornado(n):
     rest = OAT.iloc[10:]
     small = int((abs(rest["on_hi"] - rest["on_lo"]) < 0.2).sum())
-    hf = eff("hlth_family_takeup")
-    c_ = eff("cac")
+    sw = (OAT["on_hi"] - OAT["on_lo"]).abs()
+    big = [k for k in OAT.index if sw[k] >= 1.5]
+    nm = {"on_ticket": "loan size", "on_apply": "how many apply", "cac": "the cost to win", "on_daily": "the daily amount", "on_fee": "the payout",
+          "on_r12": "how many keep saving", "on_approved": "approvals", "on_reach": "how many see offers"}
+    lst = [nm.get(k, lb.label_of(k).lower()) for k in big]
+    lst_s = ", ".join(lst[:-1]) + " and " + lst[-1]
+    t_ = eff("on_ticket")
     body = tornado_svg() + chips([
-        ("Six inputs lead", "Loan size, how many apply, the cost to win and the daily amount each move LTV/CAC by about 3 turns across their ranges; the payout and how many keep saving by about 2."),
-        ("Retention matters, but less than feared", "Still saving at a year (24–45%) moves LTV/CAC by about 2 turns: KYC'd users who never save still see loan offers, so revenue does not fall as fast as savers do."),
-        (f"{small} of the other {len(rest)} inputs barely matter", f"Each moves LTV/CAC by under 0.2×; every insurance, product and card assumption is among them (family health cover is the largest, {abs(hf[1] - hf[0]):.2f}×). The full list is on the workbook's 'What moves it' tab.")])
-    return page(n, "What moves it", "ONE INPUT AT A TIME", f"Six inputs each move LTV/CAC by two turns or more (the cost to win: {x(c_[1])} to {x(c_[0])}); no other input moves it by two",
+        (f"{len(big)} inputs lead", f"{lst_s[0].upper() + lst_s[1:]} each move LTV/CAC by {min(sw[big]):.1f}–{max(sw[big]):.1f} turns across their ranges."),
+        ("Retention matters, but less than feared", f"Still saving at a year (24–45%) moves LTV/CAC by {sw['on_r12']:.1f} turns: KYC'd users who never save still see loan offers, so revenue does not fall as fast as savers do."),
+        (f"{small} of the other {len(rest)} inputs barely matter", "Each moves LTV/CAC by under 0.2×; every product and card assumption is among them (insurance counts nothing for now). The full list is on the workbook's 'What moves it' tab.")])
+    return page(n, "What moves it", "ONE INPUT AT A TIME", f"{len(big)} inputs each move LTV/CAC by 1.5 turns or more (loan size: {x(t_[0])} to {x(t_[1])}): {lst_s}",
                 body, "Each bar: the input at each end of its tested range, every other input at the plan; the range reads in the bar's order, left to right. Online saver, first five years.")
 
 
@@ -723,8 +775,10 @@ def p_mc(n):
     body = two(left, right, 560) + tb
     return page(n, "1,000 futures", "MONTE CARLO · OUR OWN RANGES, NOT OBSERVED ODDS: A STRESS TEST, NOT A FORECAST",
                 f"Across 1,000 simulated futures the online saver's median LTV/CAC is {x(MC_P50)}; {SH3:.0%} of futures reach 3×, and 1 in 10 falls below {x(MC_P10)}",
-                body, f"{len(OAT)} inputs drawn at once from their ranges (Latin hypercube, the same 1,000 futures as the company Monte Carlo; approvals and losses move together in bad years). "
-                      f"The cost to win is drawn from ₹300 to ₹600, so no future is worse than the seed's budget. The plan ({x(ON['ltvcac'])}) sits above the median because the ranges are wider on the downside. Red bars: below 3×.")
+                body, f"{len(OAT)} inputs drawn at once from their ranges (Latin hypercube, the same 1,000 futures as the company Monte Carlo); the plan is each range's most likely value and the low ends reach the evidence. "
+                      "Linked: loan demand with retention, the cost to win with reach, and more applicants with smaller loans and lower approval. "
+                      f"The cost to win runs from ₹300 to ₹800, as costs can rise with scale. The plan ({x(ON['ltvcac'])}) sits above the median mainly because loan reach is drawn "
+                      f"between 1 and 2.5 users, with the plan at the top. Red bars: below 3×.")
 
 
 def p_true(n):
@@ -739,22 +793,26 @@ def p_true(n):
             ["Cost to win above ₹525", f"{hicac.mean():.0%}", x(med(hicac)), f"{med(hicac, 'on_pay'):.0f}"],
             ["All 1,000 futures", "100%", x(MC_P50), f"{MC['on_pay'].median():.0f}"],
             ["Only 2% apply (the nearest observed rate), all else at the plan", "one test", x(AP2["ltvcac"]), f"{AP2['pay']}"]]
-    tb = table(["In futures where…", "Share of futures", "Median online LTV/CAC", "Median payback month"], rows, [46, 16, 20, 18], 12)
+    tb = table(["In futures where…", "Share of futures", "Median online LTV/CAC", "Median payback month"], rows, [46, 16, 20, 18], 11.5, compact=True)
     co = [["Online LTV/CAC under 3×", f"{below3.mean():.0%}", f"{MC.loc[below3, 'co_profit'].median():.0f}", f"${MC.loc[below3, 'co_money'].median():.1f}M"],
           ["Online LTV/CAC 3× or more", f"{(~below3).mean():.0%}", f"{MC.loc[~below3, 'co_profit'].median():.0f}", f"${MC.loc[~below3, 'co_money'].median():.1f}M"]]
-    tb2 = table(["Same futures, the whole company (profitable path)", "Share", "Median profit month", "Median money needed"], co, [46, 16, 20, 18], 12)
-    pl = [(pass_line("on_apply", 0.01, 0.35), lambda v: f"at least {v:.0%} apply for a loan a year (plan 35%)"),
-          (pass_line("cac", 450, 1500), lambda v: f"a cost to win of at most {rs(round(v, -1) if v > 1000 else round(v / 5) * 5)} (plan ₹450)"),
-          (pass_line("on_r12", 0.05, 0.38), lambda v: f"at least {v * 100:.0f} in 100 still saving at a year (plan 38)"),
-          (pass_line("on_ticket", 10000, 100000), lambda v: f"loans of at least ₹{v / 1000:.0f},000 (plan ₹1 lakh)"),
-          (pass_line("on_fee", 0.002, 0.02), lambda v: f"a payout of at least {v * 100:.2f}% (plan 2%)"),
-          (pass_line("on_reach", 1, 2.5), lambda v: f"offers reaching at least {v:.1f} users per saver (plan 2.5)")]
-    d50 = at(on_daily=50)["ltvcac"]
-    box_ = (f'<div style="border:1.5px solid {TEAL};border-radius:12px;padding:12px 16px;font-size:12.5px;line-height:1.5">'
-            f'<b style="color:{NAVY}">Where 3× holds, one input at a time</b> (everything else at the plan):<br>'
-            + "<br>".join(f"· {f(v)}" for v, f in pl if v is not None)
-            + f'<br>The daily amount alone cannot break it: ₹50 a day still gives {x(d50)}.'
-            f'<div style="margin-top:8px;color:{SLATE}">Rules on digital lending and on referral payouts could change what lenders pay; the payout line is the one to watch.</div></div>')
+    tb2 = table(["Same futures, the whole company (profitable path)", "Share", "Median profit month", "Median money needed"], co, [46, 16, 20, 18], 11.5, compact=True)
+    lines = [("Apply for a loan a year", "35%", "on_apply", (0.35, 1.0), (0.01, 0.35), lambda v: f"{v:.0%}"),
+             ("Loan size", "₹1 lakh", "on_ticket", (1e5, 5e5), (1e4, 1e5), lambda v: f"₹{v / 1000:,.0f}k"),
+             ("Payout at the start", "2%", "on_fee", (0.02, 0.06), (0.002, 0.02), lambda v: f"{v * 100:.2f}%"),
+             ("Still saving at a year", "38%", "on_r12", (0.38, 0.95), (0.05, 0.38), lambda v: f"{v:.0%}"),
+             ("Cost to win (before contingency)", "₹450", "cac", (100, 450), (450, 2000), lambda v: f"₹{v:,.0f}"),
+             ("Daily amount", "₹100", "on_daily", (100, 1000), (5, 100), lambda v: f"₹{v:,.0f}"),
+             ("KYC'd users who see offers", "2.5", "on_reach", (2.5, 8), (1, 2.5), lambda v: f"{v:.1f}")]
+    trows = []
+    for lab, plan, k, up, dn, f in lines:
+        v3, v2 = pass_line(k, *up, target=3.0), pass_line(k, *dn, target=2.0)
+        trows.append([lab, plan, f(v3) if v3 is not None else "—", f(v2) if v2 is not None else "not in range"])
+    tbp = table(["One input at a time", "Plan", "For 3×", "Below 2× at"], trows, [40, 16, 20, 24], 11, compact=True)
+    box_ = (f'<div style="border:1.5px solid {TEAL};border-radius:12px;padding:12px 14px;font-size:12px;line-height:1.45">'
+            f'<b style="color:{NAVY}">The plan returns {x(ON["ltvcac"])}. What takes it to 3×, and where it falls below 2×</b> (everything else at the plan):'
+            + tbp + f'Two levers outside the loan funnel: daily debits at no cost to us (once BSE confirms) give {x(DEB0["ltvcac"])}; our own insurance licence gives {x(INS_LIC["ltvcac"])}.'
+            f'<div style="margin-top:6px;color:{SLATE}">Rules on digital lending and on referral payouts could change what lenders pay.</div></div>')
     body = two(tb + '<div style="height:12px"></div>' + tb2, box_, 720) + chips([
         ("Test the loan funnel first", "How many KYC'd users apply, and how many are approved, is the least-observed and most powerful number. We plan to measure both with the seed's first lending partner."),
         ("Then retention and the cost to win", "We plan to measure both from the first cohort: cost per saver won each month, and the share still saving at months 3, 6 and 12."),
@@ -773,8 +831,8 @@ def p_workbook(n):
             ["Monte Carlo, What moves it, Sources", "The 1,000 futures (values), every input one at a time with rank correlations, and the research behind each source ID."]]
     tb = table(["Tab", "What it holds"], rows, [22, 78], 13)
     body = tb + chips([
-        ("Checked to the rupee", "Every formula was replayed by an independent formula engine and matches the plan's model at the plan and at five Monte Carlo futures spread from 1.9× to 7.6×: LTV/CAC to six decimals, the payback month exactly."),
-        ("Live where it matters", "The one-saver model is about 13,000 live formulas: change ₹100 a day to ₹300 and LTV/CAC moves from 4.10× to 6.46× in the sheet. The 1,000 futures and the one-at-a-time tests are values, rerun on request."),
+        ("Checked to the rupee", f"Every formula was replayed by an independent formula engine and matches the plan's model at the plan and at five Monte Carlo futures spread from {x(FUT.min())} to {x(FUT.max())}: LTV/CAC to six decimals, the payback month exactly."),
+        ("Live where it matters", f"The one-saver model is about 13,000 live formulas: change ₹100 a day to ₹300 and LTV/CAC moves from {ON['ltvcac']:.2f}× to {at(on_daily=300)['ltvcac']:.2f}× in the sheet. The 1,000 futures and the one-at-a-time tests are values, rerun on request."),
         ("Shareable", f'The workbook:<br><span style="word-break:break-all">{SHEET_URL}</span>')])
     return page(n, "The workbook", "HOW TO CHECK ANY NUMBER HERE", "Every number in this deck is a cell in the LTV/CAC workbook: change an assumption and the per-saver answer moves live", body,
                 "Blue cells are assumptions; grey cells are worked out. The arithmetic is checked; the assumptions are ours. The Monte Carlo and one-at-a-time tests are rerun on request when assumptions change.")
@@ -817,7 +875,9 @@ def a_products(n):
         money = float(P[f"rev_xs_{q}"][0][:60].sum()) * (REACH if q.startswith("loan_") else 1)
         money96 = float(P[f"rev_xs_{q}"][0].sum()) * (REACH if q.startswith("loan_") else 1)
         group = "Other lenders' loans" if q.startswith("loan_") else ("Insurance" if q in ce.INSURANCE else "Other products")
-        rows.append([lb.PRODUCT_LABEL[q] + (" (off: the core savings are the SIP)" if q == "sip" and money == 0 else ""), group, rs(money), rs(money96)])
+        tag = (" (off: the core savings are the SIP)" if q == "sip" and money == 0 else " (off)" if q in ("choti", "gold") else
+               " (fixed fee, not counted)" if q in ce.INSURANCE else " (savers only)" if q in ("loan_cd", "loan_vehicle") else "")
+        rows.append([lb.PRODUCT_LABEL[q] + tag, group, rs(money), rs(money96)])
     rows.append(["Personal + business loans (our DSA payout)", "Loans", rs(ON["pb"]), rs(ON["pb96"])])
     rows.append(["Cards", "Cards", rs(ON["cards"]), rs(ON["cards96"])])
     rows.append(["Fund trail", "Fund", rs(ON["fund"]), rs(ON["fund96"])])
@@ -841,9 +901,9 @@ def a_method(n):
             ["Loans", "Each reachable user is in one of three states: never borrowed, repaid and able to borrow again, or repaying. Each month a share applies (35% a year spread over 12 months, × the take-up factor); approved first loans move to repaying; 18 months later they can borrow again."],
             ["Top-ups", "Borrowers with 12+ EMIs paid and EMIs still due: 15% a year take a top-up of 40% of the original loan, at most one per loan."],
             ["Payouts", "Money lent × the payout (2% rising in a straight line to 3% by month 60) × (1 − 2.5% taken back). Counted for 2.5 KYC'd users per online saver."],
-            ["Products", "For each product, the share not yet holding it buys at a monthly rate (the yearly take-up spread over 12 months × the take-up factor). Policies renew yearly at their renewal rate; habits keep running; insurance pays the partner's share."],
+            ["Products", "For each product, the share not yet holding it buys at a monthly rate (the yearly take-up spread over 12 months × the take-up factor). Policies renew yearly at their renewal rate; habits keep running; insurance counts a fixed referral fee, to be agreed (₹0 here); the Choti SIP incentive and digital gold are off."],
             ["Factors", "Take-up factor: 50% in months 1–6, then 100%, × 1.05 per business year to year 5 (cap 2×). First-loan approval: 30% × 60% in months 1–6 × 1.10 per year (cap 80%)."],
-            ["Serving and payback", "Serving = (₹5 + ₹1) × share still saving. Cumulative = −cost to win + Σ(revenue − serving); pays back in the first month it reaches zero."]]
+            ["Serving and payback", "Serving = share still saving × (₹5 support + ₹4 tech × KYC'd users reached + ₹2 × 4.33 weekly debits). Cost to win = ₹450 × 1.1 contingency. Cumulative = −cost to win + Σ(revenue − serving); pays back in the first month it reaches zero."]]
     tb = table(["Step", "How it is worked out, every month"], rows, [18, 82], 12)
     return page(n, "Appendix", "A11 · HOW THE MODEL WORKS", "The month-by-month rules behind one saver's value", tb,
                 "These are the rules on the workbook's Engine, Products and Saver tabs, one column each.")

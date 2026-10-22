@@ -103,7 +103,7 @@ def cover():
 <div class="cleft">
   <div class="cbrand">{NAME}</div><div class="cwork">Working name, to be finalised</div>
   <div class="ctitle">Seed plan</div>
-  <div class="ctag">Daily saving for India's self-employed, in mutual funds, in their own name. Online-first, with a doorstep pilot.</div>
+  <div class="ctag">Daily saving for India's self-employed, in mutual funds, in their own name. Online-first across India, with a doorstep pilot in NCR.</div>
   <div class="cmeta">Raising $500k · October 2026 · Confidential</div>
 </div>
 <div class="cright">
@@ -121,8 +121,8 @@ def cover():
 # ---------- page 2: use of funds ----------
 TP_ITEMS = [("Salaries: 2 founders + 3 hires", "Salaries"), ("App: build and running", "App and tech"),
             ("Office and fund-raising", "Office and fund-raising"), ("Setup, licences, compliance", "Licences and compliance"),
-            ("Customer support", "Support"), ("Design while building", "Design (outsourced)")]
-ACQ_ITEMS = [("Online sign-ups", "Online acquisition"), ("KYC checks", "KYC"), ("Doorstep pilot, 1 city", "Doorstep test arm")]
+            ("Support, payments and per-user tech", "Support"), ("Design while building", "Design (outsourced)")]
+ACQ_ITEMS = [("Online sign-ups", "Online acquisition"), ("KYC checks", "KYC"), ("Doorstep pilot, NCR", "Doorstep test arm")]
 
 
 def funds_bar():
@@ -161,10 +161,10 @@ The company plan raises in month 19 and scales from there; it does not count thi
 
 # ---------- page 3: product ----------
 PHASES = [("1", "Save", "Months 1–3 · live in month 4", NAVY, ["Sign-up with e-KYC and a bank check", "Daily saving from ₹100 into equity and debt funds (80/20)",
-                                                               "One UPI Autopay mandate", "Withdraw any day; money back in 1–3 working days"]),
+                                                               "One UPI Autopay mandate", "Withdraw any day: back in 1–3 working days; equity funds may charge an exit fee in year 1"]),
           ("2", "Habit", "Months 4–9", NAVY2, ["Goals, streaks and nudges", "Referrals (no cashback, by rule)", "Doorstep agent app for the pilot",
                                                 "Savings analytics"]),
-          ("3", "Offers", "Months 7–12", NAVY3, ["Loan offers from partner lenders", "Insurance through a partner", "Credit cards from issuers",
+          ("3", "Offers", "Months 7–12", NAVY3, ["Loan offers for users who opt in; saving improves them", "Insurance via a broker (fixed fee)", "Credit cards from issuers",
                                                    "Shown only when relevant"]),
           ("4", "Score and plan", "Months 10–18", NAVY4, ["Savings-record score", "AI money coach", "Wallet-like view; money stays in funds",
                                                           "Better offers for steady savers"])]
@@ -219,7 +219,7 @@ def flow():
     # withdraw loop
     s.append(f'<path d="M730 228 L730 276 L95 276 L95 238" fill="none" stroke="{BLUE}" stroke-width="2.4"/>')
     s.append(f'<polygon points="95,228 89,241 101,241" fill="{BLUE}"/>')
-    s.append(T(412, 268, "withdraw any day: back to the saver's bank in 1–3 working days", 12.5, 700, BLUE, "middle"))
+    s.append(T(412, 268, "withdraw any day: back in 1–3 working days (exit fees may apply in year 1)", 12.5, 700, BLUE, "middle"))
     # lender
     s.append(R(630, 306, 200, 64, "#f1f5f9", SLATE, 14, 1.8))
     s.append(T(730, 334, "Partner lender", 15, 700, SLATE, "middle"))
@@ -238,7 +238,7 @@ def flow():
 
 def p_flow():
     chips = [("In the saver's name", "Units sit with the fund house, registered to the saver."), ("Never through us", "We hold no customer money, ever."),
-             ("Paid by partners", "Fund houses and lenders pay us; we charge the saver nothing (the trail comes from the fund's own expense ratio).")]
+             ("Paid by partners", "Fund houses and lenders pay us. The fund house pays out of its published fee: a regular plan costs the saver about 0.5–1% a year more than a direct plan, and we say so up front.")]
     c = "".join(f'<div class="chip"><b>{a}</b><span>{b}</span></div>' for a, b in chips)
     return page(4, "How it works", "THE MONEY FLOW", "Money moves from the saver's bank to the fund and back, never through us",
                 "", flow() + f'<div class="chips3">{c}</div>',
@@ -254,10 +254,10 @@ REG = [("Before launch · months 0–3", NAVY, NAVY_L, [("Company setup, ₹1.25
                                                    ("KYC and UPI Autopay partners", "e-KYC ₹3–7 a check (₹40 budgeted per KYC with KRA, PAN and bank checks); daily mandates allowed"),
                                                    ("Data protection", "consent flows and data kept in India")]),
        ("After launch · months 4–12", NAVY3, "#eef4fb", [("Loans as a DSA / lending service provider", "from month 7: partner lenders pay us per loan; RBI digital-lending rules apply (the borrower pays us nothing)"),
-                                      ("Insurance through a partner", "from month 7; our own licence later"),
+                                      ("Insurance through a broker partner", "from month 7, for a fixed referral fee; our own registration later"),
                                       ("Credit cards with issuers", "the issuer decides every card"),
-                                      ("Two legal opinions first", "the marketing-partner model; any cash at the doorstep")]),
-       ("With the next round", SLATE, "#f1f5f9", [("Become a lending service provider", "larger fees; first-loss cover capped at 5%"),
+                                      ("Legal opinions first", "lender-offer consent, the insurance fee, agent rules; agents never handle cash")]),
+       ("With the next round", SLATE, "#f1f5f9", [("Deeper lender partnerships", "larger fees on a proven book; first-loss cover only with its own capital (up to 5% of loans, held as cash)"),
                                                  ("Own NBFC", "₹10 crore of capital; about 8–14 months or more"),
                                                  ("Insurance distribution licence", "under IRDAI's draft rules, once final")])]
 
@@ -381,17 +381,17 @@ def gantt():
     rows = [("Set up: company, AMFI, NISM", 1, 1, NAVY), ("Fund houses, exchange, KYC, mandates", 1, 3, NAVY),
             ("Release 1: Save", 1, 3, NAVY), ("Release 2: Habit", 4, 9, NAVY2), ("Release 3: Offers", 7, 12, NAVY3),
             ("Release 4: Score and plan", 10, 18, NAVY4), ("Keep building", 19, END, "#9fb8d6"),
-            ("Online customers", 4, 18, TEAL), ("Doorstep pilot, 1 city", 4, 18, AMBER), ("Next round", 16, 21, INK)]
+            ("Online customers", 4, 18, TEAL), ("Doorstep pilot, NCR", 4, 18, AMBER), ("Next round", 16, 21, INK)]
     s = []
     for m in range(1, END + 1):
         s.append(T(X(m) + w / 2, 12, str(m), 10.5, 600, MUTE, "middle"))
         if m % 3 == 1:
-            s.append(f'<line x1="{X(m)}" y1="20" x2="{X(m)}" y2="{24 + len(rows) * 27}" stroke="{LINE}"/>')
+            s.append(f'<line x1="{X(m)}" y1="20" x2="{X(m)}" y2="{24 + len(rows) * 22}" stroke="{LINE}"/>')
     for i, (lab, a, b, col) in enumerate(rows):
-        y = 22 + i * 27
-        s.append(T(0, y + 15, lab, 12.5, 600))
-        s.append(R(X(a) + 1, y + 3, (b - a + 1) * w - 2, 16, col, r=5))
-    yb = 30 + len(rows) * 27
+        y = 22 + i * 22
+        s.append(T(0, y + 13, lab, 12, 600))
+        s.append(R(X(a) + 1, y + 3, (b - a + 1) * w - 2, 14, col, r=5))
+    yb = 26 + len(rows) * 22
     for m, lab, col in ((4, "Launch", TEAL), (10, "6 months of data", AMBER), (16, "12 months of data", RED), (24, "Plan ends", SLATE)):
         xm = X(m) + w / 2
         s.append(f'<polygon points="{xm},{yb} {xm - 7},{yb + 10} {xm},{yb + 20} {xm + 7},{yb + 10}" fill="{col}"/>')
@@ -403,11 +403,12 @@ def p_milestones():
     # aligned with the online-first business case (online/Online_business_case.pdf): plan value -> the value that brings profit into year 5
     LV = pd.read_csv(TAB / "online_levers.csv").set_index("case")          # same numbers as the business case
     mo = lambda k: int(LV.loc[k]["EBITDA positive from month"])
-    b = mo("Today's evidence")
-    gates = [("Cost to win a saver", f"₹600 an online saver in the seed ({rs(round(P.acq_per_saver, -1))} blended with doorstep); ₹450 planned after; ₹300 (a competitor's figure) brings profit {b - mo('Cost to win Rs 300')} months sooner"),
-             ("Still saving at 12 months", f"38% online is the plan; 45% brings profit {b - mo('45% still saving at a year')} months sooner"),
-             ("Daily amount", f"₹100 is the plan; ₹200 brings profit {b - mo('Rs 200 a day')} months sooner"),
-             ("Who borrows", f"35% of KYC'd users apply a year is the plan; at 10% profit comes {mo('10% apply for a loan a year') - b} months later"),
+    b = mo("The plan")
+    mths = lambda k: f"{k} month" + ("" if k == 1 else "s")
+    gates = [("Cost to win a saver", f"₹600 an online saver in the seed ({rs(round(P.acq_per_saver, -1))} blended with doorstep); ₹450 planned after; ₹300 (a competitor's figure) brings profit {mths(b - mo('Cost to win Rs 300'))} sooner"),
+             ("Still saving at 12 months", f"38% online is the plan; 45% brings profit {mths(b - mo('45% still saving at a year'))} sooner"),
+             ("Daily amount", f"₹100 is the plan; ₹200 brings profit {mths(b - mo('Rs 200 a day'))} sooner"),
+             ("Who borrows", f"35% of KYC'd users apply a year is the plan; at 10% profit comes {mths(mo('10% apply for a loan a year') - b)} later"),
              ("Doorstep arm", "must clearly beat online's 38% still saving (55% is the plan) to stay")]
     g = "".join(f'<div class="gate"><span>{i + 1}</span><b>{a}</b><em>{b}</em></div>' for i, (a, b) in enumerate(gates))
     body = gantt() + f'<div class="sub-h" style="margin-top:6px">WHAT WE WILL PROVE BEFORE THE NEXT ROUND</div><div class="gates">{g}</div>'
@@ -517,10 +518,10 @@ h1 {{ font-size: 29px; font-weight: 600; line-height: 1.16; margin: 0 0 20px; le
 .kpi b {{ display: block; font-size: 28px; color: {NAVY}; letter-spacing: -.01em; }} .kpi span {{ font-size: 12.5px; color: {SLATE}; }}
 /* milestones */
 .gates {{ display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; }}
-.gate {{ border: 1px solid {LINE}; border-radius: 12px; padding: 12px 14px; background: {BG}; }}
+.gate {{ border: 1px solid {LINE}; border-radius: 12px; padding: 10px 12px; background: {BG}; }}
 .gate span {{ display: inline-flex; width: 24px; height: 24px; border-radius: 50%; background: {NAVY}; color: #fff; font-size: 12px; font-weight: 700;
              align-items: center; justify-content: center; margin-bottom: 6px; }}
-.gate b {{ display: block; font-size: 13.5px; }} .gate em {{ font-style: normal; font-size: 12px; color: {SLATE}; }}
+.gate b {{ display: block; font-size: 13px; }} .gate em {{ font-style: normal; font-size: 11.5px; line-height: 1.35; color: {SLATE}; }}
 /* assumptions */
 .at {{ width: 100%; border-collapse: collapse; font-size: 12.5px; }}
 .at th {{ text-align: left; font-size: 11px; letter-spacing: .1em; text-transform: uppercase; color: {SLATE}; border-bottom: 2px solid {NAVY}; padding: 6px 10px; }}

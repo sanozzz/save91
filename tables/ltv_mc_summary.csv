@@ -1,21 +1,21 @@
 measure,P10,P50,P90,mean
-"Online: LTV/CAC, 5 years",2.575,3.791,5.686,4.001
-"Online: LTV/CAC, 8 years",3.927,5.975,9.18,6.326
-Online: pays back in month,14.0,20.0,28.0,20.561
-"Online: revenue, 5 years (₹)",1322.382,1821.532,2601.06,1908.412
-"Online: fund fees, 5 years (₹)",314.329,536.485,927.929,583.976
-"Online: personal + business loan payouts, 5 years (₹)",425.575,772.924,1376.282,842.933
-"Online: other loan referrals, 5 years (₹)",193.835,279.173,368.657,281.142
-"Online: insurance, 5 years (₹)",58.28,81.599,113.133,84.506
-"Online: cards + other products, 5 years (₹)",90.149,114.329,143.82,115.854
-"Online: serving, 5 years (₹)",-213.42,-133.711,-67.306,-136.997
-"Online: net after the cost to win, 5 years (₹)",730.102,1249.28,2005.565,1321.419
-Doorstep: cost to win (₹),334.081,402.339,474.784,404.735
-"Doorstep: LTV/CAC, 5 years",2.425,3.832,5.939,4.051
-Doorstep: pays back in month,17.0,23.0,30.0,23.406
-Company: profit from month (profitable path),37.0,42.0,49.0,42.868
-Company: money needed ($M),2.042,2.571,3.393,2.668
-share online LTV/CAC >= 3,,0.774,,
-share online LTV/CAC < 1,,0.001,,
-share online paid back <= 24 months,,0.791,,
-share doorstep LTV/CAC >= 3,,0.761,,
+"Online: LTV/CAC, 5 years",1.133,2.041,3.553,2.212
+"Online: LTV/CAC, 8 years",1.942,3.54,6.095,3.849
+Online: pays back in month,26.0,38.0,56.0,40.145
+"Online: revenue, 5 years (₹)",1043.372,1526.901,2281.331,1613.177
+"Online: fund fees, 5 years (₹)",311.607,531.479,914.272,582.738
+"Online: personal + business loan payouts, 5 years (₹)",324.959,650.86,1209.034,723.423
+"Online: other loan referrals, 5 years (₹)",126.393,210.24,300.336,210.996
+"Online: insurance, 5 years (₹)",0.0,0.0,0.0,0.0
+"Online: cards + other products, 5 years (₹)",72.578,94.614,121.291,96.019
+"Online: serving, 5 years (₹)",-560.118,-469.827,-384.33,-471.863
+"Online: net after the cost to win, 5 years (₹)",72.298,534.666,1254.668,609.648
+Doorstep: cost to win (₹),334.783,403.204,475.885,405.621
+"Doorstep: LTV/CAC, 5 years",1.222,2.213,3.88,2.421
+Doorstep: pays back in month,26.0,38.0,54.0,39.641
+Company: profit from month (profitable path),44.0,53.0,76.0,56.86
+Company: money needed ($M),2.961,4.188,6.432,4.571
+share online LTV/CAC >= 3,,0.179,,
+share online LTV/CAC < 1,,0.069,,
+share online paid back <= 24 months,,0.073,,
+share doorstep LTV/CAC >= 3,,0.262,,

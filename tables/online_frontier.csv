@@ -1,7 +1,7 @@
 case,online savers won a month (m30 on),growth a year,savers won by m60,active savers m60,AUM m60 Rs cr,Y5 revenue Rs cr,Y5 EBITDA Rs cr,Y8 revenue Rs cr,Y8 EBITDA Rs cr,EBITDA positive from month,money needed $M,20x ARR m60 Rs cr,0.45x AUM m60 Rs cr,$1B on both at m60
-"10,000 online savers a month",10000,1.0,438068,190145,589,20.2,8.2,39.2,25.1,42,1.9,472,265,False
-"20,000 online savers a month",20000,1.0,842168,370959,1104,38.9,18.2,76.9,52.5,40,2.5,913,497,False
-"40,000 online savers a month",40000,1.0,1650368,732582,2133,76.2,37.7,152.4,107.0,40,3.7,1794,960,False
-"80,000 online savers a month",80000,1.0,3266868,1455874,4192,150.8,77.0,303.4,216.3,39,6.1,3556,1887,False
-"150,000 online savers a month",150000,1.0,6098568,2723328,7800,281.5,145.7,567.9,407.8,39,10.4,6642,3510,False
-"250,000 online savers a month",250000,1.0,10142568,4533219,12952,468.2,243.8,675.6,617.7,39,16.6,11050,5829,False
+"10,000 online savers a month",10000,1.0,438068,190145,589,18.7,2.9,36.5,16.6,49,2.5,438,265,False
+"20,000 online savers a month",20000,1.0,842168,370959,1104,36.0,7.8,71.7,35.7,49,3.5,846,497,False
+"40,000 online savers a month",40000,1.0,1650368,732582,2133,70.5,17.2,142.1,73.7,48,5.5,1663,960,False
+"80,000 online savers a month",80000,1.0,3266868,1455874,4192,139.6,36.4,282.8,149.9,48,9.6,3296,1887,False
+"150,000 online savers a month",150000,1.0,6098568,2723328,7800,260.5,69.8,529.2,283.3,48,16.7,6157,3510,False
+"250,000 online savers a month",250000,1.0,10142568,4533219,12952,433.3,117.5,631.3,492.4,47,26.9,10242,5829,False

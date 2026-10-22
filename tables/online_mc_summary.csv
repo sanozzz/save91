@@ -1,5 +1,5 @@
-plan,online savers a month,draws,chance EBITDA positive by month 60,chance by month 54,chance never by month 96,profit month P10,profit month P50,profit month P90,money needed $M P10,money needed $M P50,money needed $M P90,Y5 EBITDA Rs cr P10,Y5 EBITDA Rs cr P50,Y5 EBITDA Rs cr P90,Y8 EBITDA Rs cr P10,Y8 EBITDA Rs cr P50,Y8 EBITDA Rs cr P90,P10,P50,P90
-Profitable path,20000,1000,0.984,0.964,0.0,37.0,42.0,49.0,2.04,2.57,3.39,4.12,15.66,32.91,25.83,47.31,78.15,,,
-Grow fast,150000,1000,0.992,0.978,0.0,36.0,40.0,49.0,7.86,11.03,15.82,44.26,127.29,253.79,211.01,369.27,598.35,,,
-"One online saver, 60-month revenue (Rs)",,,,,,,,,,,,,,,,,,1322.38,1821.53,2601.06
-"One doorstep saver, 60-month revenue (Rs)",,,,,,,,,,,,,,,,,,1184.81,1718.21,2469.36
+plan,online savers a month,draws,chance EBITDA positive by month 60,chance by month 54,chance never by month 96,profit month P10,profit month P50,profit month P90,money needed $M P10,money needed $M P50,money needed $M P90,Y5 EBITDA Rs cr P10,Y5 EBITDA Rs cr P50,Y5 EBITDA Rs cr P90,Y8 EBITDA Rs cr P10,Y8 EBITDA Rs cr P50,Y8 EBITDA Rs cr P90,P90,P10,P50
+Profitable path,20000,1000,0.707,0.556,0.034,44.0,53.0,76.0,2.96,4.19,6.43,-8.66,1.87,16.54,5.88,24.79,53.95,,,
+Grow fast,150000,1000,0.778,0.65,0.023,42.0,50.0,71.0,13.32,21.0,34.88,-48.54,27.12,133.97,61.66,202.9,419.15,,,
+"One online saver, 60-month revenue (Rs)",,,,,,,,,,,,,,,,,,2281.33,1043.37,1526.9
+"One doorstep saver, 60-month revenue (Rs)",,,,,,,,,,,,,,,,,,2181.97,1000.23,1476.84

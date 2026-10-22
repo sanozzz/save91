@@ -2,10 +2,10 @@ key,label,shape,low,likely,high,basis
 on_daily,Daily amount (Rs),pert,50,100,300,PhonePe daily SIP ~Rs 50 / Bachatt minimum Rs 100 / Bachatt film Rs 300
 on_r12,Online: still saving at 12 months,pert,0.24,0.38,0.45,savings apps 24% / SBI MF Rs 250 daily SIP ~38% / credit hook 45%
 on_r3,Online: still saving at month 3,pert,0.52,0.8,0.85,app curve 52% / SBI steady drop ~80%
-cac,"Cost to win a saver after the seed (Rs, all-in)",pert,300,450,600,a competitor's figure (PR-02) / midpoint (operator 21 Oct) / our seed funnel
-on_apply,Reachable users who apply for a loan a year (all loan types),pert,0.1,0.35,0.5,payments-app merchants ~1-2% / founders' 35% / credit-hungry; fintech borrowers ~49% re-borrow in 6 months (XF-15..17)
-on_ticket,"Personal + business loan size, blended (Rs)",pert,50000,100000,200000,personal Rs 18.8k-70k (XF-11) / blend of Rs 50k personal and Rs 1.5 lakh business / merchant loans Rs 2 lakh (XF-09)
-on_approved,First loan applications approved,pert,0.2,0.3,0.45,"founders' past data ~25% / 30% / PSU banks approve ~80% of pre-qualified (XF-18, XF-24)"
+cac,"Cost to win a saver after the seed (Rs, all-in)",pert,300,450,800,"a competitor's figure (PR-02) / midpoint (operator 21 Oct) / costs rise with scale (Groww Rs 796-1,374, TB-18)"
+on_apply,Reachable users who apply for a loan a year (all loan types),pert,0.02,0.35,0.5,payments-app merchants ~1-2% (XF-16) / founders' 35% / credit-hungry; fintech borrowers ~49% re-borrow in 6 months (XF-15..17)
+on_ticket,"Personal + business loan size, blended (Rs)",pert,25000,100000,200000,the founders' own 2019-22 book Rs 10-25k (XF-24) / blend of Rs 50k personal and Rs 1.5 lakh business / merchant loans Rs 2 lakh (XF-09)
+on_approved,First loan applications approved,pert,0.11,0.3,0.45,"a digital lender's 11% of new applicants (XL-41) / 30% / PSU banks approve ~80% of pre-qualified (XF-18, XF-24)"
 on_fee,"Our payout on personal + business loans, at the start",pert,0.01,0.02,0.03,"DSA payout 1-2.5%, up to 3% (XF-01/02); rises 1.5x by year 5"
 on_reach,"KYC'd users reached by loan offers, per online saver won",pert,1.0,2.5,2.5,"savers only / every KYC'd user (5 sign-ups, half KYC) staying as long as savers"
 eq_share,Equity share of the savings,pert,0.5,0.8,0.9,Bachatt conversation: about 80% choose equity SIPs

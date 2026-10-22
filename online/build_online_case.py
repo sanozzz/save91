@@ -1,5 +1,5 @@
 """Online-first business case (21 Oct 2026). Landscape pages in the seed plan's design (seed/build_seed_plan.py CSS and
-helpers). Operator: revamp the numbers for online-first + offline test; base = TODAY'S EVIDENCE + what it takes; both a
+helpers). Operator: revamp the numbers for online-first + offline test; base = the plan (evidence where it exists, targets with pass lines where not); both a
 profitable path and a unicorn track. Numbers: tables/online_*.csv (model/online_plan.py). Builds
 online/Online_business_case.html and .pdf."""
 import re
@@ -51,7 +51,7 @@ def lm(key):
     return int(LEV.loc[key]["EBITDA positive from month"])
 
 
-BASE_M = lm("Today's evidence")
+BASE_M = lm("The plan")
 
 
 def pf(m):
@@ -81,7 +81,7 @@ def cover():
     keys = ("45% still saving at a year", "Rs 200 a day", "Rs 300 a day", "Cost to win Rs 300", "50% apply for a loan a year")
     lo, hi = min(lm(k) for k in keys), max(lm(k) for k in keys)
     tiles = [(f"{LV0['LTV/CAC 60m']:.1f}× LTV/CAC", f"one online saver: ₹{int(LV0['cost to win Rs'])} to win, ₹{int(LV0['contribution 60m Rs']):,} back over five years, paid back in month {int(LV0['pays back in month'])}"),
-             (yr(LEAN['EBITDA positive from month']).capitalize(), f"EBITDA turns positive on today's evidence ({pf(LEAN['EBITDA positive from month'])}, ${LEAN['money needed $M']}M raised, 20,000 savers a month)"),
+             (yr(LEAN['EBITDA positive from month']).capitalize(), f"EBITDA turns positive in the plan ({pf(LEAN['EBITDA positive from month'])}, ${LEAN['money needed $M']}M raised, 20,000 savers a month)"),
              (f"Months {lo}–{hi}", f"with any one change: ₹200–300 a day, 45% still saving, half applying for loans or ₹300 to win ({LVS} savers a month)"),
              (("$1B: 10 crore" if unicorn_title().startswith("Only capturing") else ("Not by year 5" if unicorn_title().startswith("No combination") else "$1B by year 5")), unicorn_title())]
     t = "".join(f'<div class="ctile"><div class="cbig" style="font-size:34px">{a}</div><div class="csub">{b}</div></div>' for a, b in tiles)
@@ -89,7 +89,7 @@ def cover():
 <div class="cleft">
   <div class="cbrand">{sp.NAME}</div><div class="cwork">Working name, to be finalised</div>
   <div class="ctitle" style="font-size:52px">Online-first business case</div>
-  <div class="ctag">What the numbers say on today's evidence, and the five numbers that change them.</div>
+  <div class="ctag">What the numbers say in the plan, and the five numbers that change them.</div>
   <div class="cmeta">October 2026 · Confidential</div>
 </div>
 <div class="cright"><div class="cgrid">{t}</div>
@@ -103,7 +103,7 @@ LTVW = pd.read_csv(TAB / "online_ltv_waterfall.csv")
 LTVC = pd.read_csv(TAB / "online_ltv_curve.csv")
 LTVL = pd.read_csv(TAB / "online_ltv_levers.csv").set_index("case")
 LTVL["LTV/CAC 60m"] = LTVL["contribution 60m Rs"] / LTVL["cost to win Rs"]   # from the rupee figures, so the shown 1 dp is not rounded twice
-LV0 = LTVL.loc["Today's evidence"]
+LV0 = LTVL.loc["The plan"]
 
 
 def money(v):
@@ -201,12 +201,12 @@ def p_unit():
 <div class="chip"><b>Doorstep: {d_ltv:.1f}×</b>₹{int(-d['Cost to win'])} to win all-in; {DOOR['still saving at 12 months']:.0%} still saving at a year; pays back in month {int(DOOR['pays back its cost in month'])}. The 1 in 10 test.</div></div>"""
     return page(2, "One saver", "LTV / CAC", f"A saver won online costs ₹{int(LV0['cost to win Rs'])} and returns ₹{int(LV0['contribution 60m Rs']):,} over five years: "
                 f"{LV0['LTV/CAC 60m']:.1f}× LTV/CAC, paid back in month {int(LV0['pays back in month'])}",
-                body, f"Today's evidence: ₹100 a day; {ON['still saving at 12 months']:.0%} still saving at a year (our extrapolation from SBI MF's ₹250 daily SIP); 80/20 equity and debt funds. "
-                      "Serving = support ₹5 and tech ₹1 a month while saving. Not in this view: the company's fixed costs (team, office, brand) and the 10% contingency, "
-                      "which is why the company turns profitable later than the saver. Every assumption behind this page, with its source, range and effect: the LTV/CAC deck and its live workbook.")
+                body, f"The plan: ₹100 a day; {ON['still saving at 12 months']:.0%} still saving at a year (our extrapolation from SBI MF's ₹250 daily SIP); 80/20 equity and debt funds. "
+                      "Serving = ₹5 support, ₹4 tech for each of the 2.5 KYC'd users and ₹2 a weekly debit, a month while saving; the cost to win includes our 10% contingency. "
+                      "Not in this view: the company's fixed costs (team, office, brand), which is why the company turns profitable later than the saver. Every assumption behind this page, with its source, range and effect: the LTV/CAC deck and its live workbook.")
 
 
-LTV_LABEL = {"Today's evidence": "Today's evidence (the plan)", "Rs 300 a day": "₹300 a day (plan ₹100)", "Rs 200 a day": "₹200 a day (plan ₹100)",
+LTV_LABEL = {"The plan": "The plan", "Rs 300 a day": "₹300 a day (plan ₹100)", "Rs 200 a day": "₹200 a day (plan ₹100)",
              "Cost to win Rs 300": "₹300 to win a saver (plan ₹450)", "Credit-hungry: 45% stay + 50% apply": "Credit-hungry: 45% stay + 50% apply",
              "45% still saving at a year": "45% still saving at a year (plan 38%)", "50% apply for a loan a year": "50% apply for a loan a year (plan 35%)",
              "10% apply for a loan a year": "10% apply for a loan a year (plan 35%)", "Loan offers to savers only": "Loan offers to savers only (plan: every KYC'd user)",
@@ -216,8 +216,8 @@ LTV_LABEL = {"Today's evidence": "Today's evidence (the plan)", "Rs 300 a day": 
 
 def ltv_bars():
     W, x0, x1 = 1152, 330, 760
-    rows = [("Today's evidence", LTVL.loc["Today's evidence"])] + sorted(
-        ((k, r) for k, r in LTVL.iterrows() if k != "Today's evidence"), key=lambda kr: -kr[1]["LTV/CAC 60m"])
+    rows = [("The plan", LTVL.loc["The plan"])] + sorted(
+        ((k, r) for k, r in LTVL.iterrows() if k != "The plan"), key=lambda kr: -kr[1]["LTV/CAC 60m"])
     mx = 4.5
     X = lambda v: x0 + (x1 - x0) * min(v, mx) / mx
     n = len(rows)
@@ -241,8 +241,8 @@ def ltv_bars():
 
 def p_ltv_levers():
     L = LTVL["LTV/CAC 60m"]
-    base = L["Today's evidence"]
-    title = (f"LTV/CAC is {base:.1f}× on today's evidence; ₹300 a day takes it to {L['Rs 300 a day']:.1f}× and ₹300 to win to "
+    base = L["The plan"]
+    title = (f"LTV/CAC is {base:.1f}× in the plan; ₹300 a day takes it to {L['Rs 300 a day']:.1f}× and ₹300 to win to "
              f"{L['Cost to win Rs 300']:.1f}×, while savings-app retention cuts it to {L['24% still saving at a year (savings apps)']:.1f}×")
     body = ltv_bars() + f"""<div class="chips3" style="margin-top:2px">
 <div class="chip"><b>Loans move it most</b>If only 10% apply a year it falls to {L['10% apply for a loan a year']:.1f}×; with offers to savers only (not every KYC'd user) {L['Loan offers to savers only']:.1f}×.</div>
@@ -282,7 +282,7 @@ def frontier():
 def p_frontier():
     pos = [int(r["online savers won a month (m30 on)"]) for r in FRONT.to_dict("records") if r["Y5 EBITDA Rs cr"] > 0]
     Y5TXT = (f"Profitable for the whole of year 5 from {pos[0] // 1000}k savers a month; below that, profit starts during the year."
-             if pos else "No level is profitable for year 5 as a whole on today's evidence.")
+             if pos else "No level is profitable for year 5 as a whole in the plan.")
     body = frontier() + f"""<div class="chips3">
 <div class="chip"><b>From one saver to the company</b>Each saver pays back in month {int(LV0['pays back in month'])}; with the team, tech and office on top, the company turns positive in {pf(LEAN['EBITDA positive from month'])} at 20,000 savers a month.</div>
 <div class="chip"><b>Scale buys time</b>Fixed costs spread: at 1.5 lakh a month profit comes at {pf(FAST['EBITDA positive from month'])}, for ${FAST['money needed $M']}M.</div>
@@ -291,7 +291,7 @@ def p_frontier():
     mo = [int(m) for m in FRONT["EBITDA positive from month"]]
     soon = int(LEAN["EBITDA positive from month"]) - int(FAST["EBITDA positive from month"])
     when = f", {soon} months sooner" if soon > 1 else " in about the same time"
-    return page(3, "Growth", "TODAY'S EVIDENCE", f"On today's evidence EBITDA turns positive in months {min(mo)}–{max(mo)}; ${FAST['money needed $M']}M instead of ${LEAN['money needed $M']}M buys {big:.0f}× the active savers{when}",
+    return page(3, "Growth", "THE PLAN", f"In the plan EBITDA turns positive in months {min(mo)}–{max(mo)}; ${FAST['money needed $M']}M instead of ${LEAN['money needed $M']}M buys {big:.0f}× the active savers{when}",
                 body, f"Online savers won a month from month 30 (a straight line from the seed's pace over months 19–30), 1 in 10 savers from the doorstep. Money needed = the deepest cumulative cash hole from month 1 (seed spend included) + a ₹5 crore floor. The 2.5 lakh case stops signing at the pool cap in month {CAPM}.")
 
 
@@ -377,11 +377,11 @@ Team costs follow the same rules, so they are likely understated.</div>"""
     title = (f"Side by side: the profitable path pays from month {int(LEAN['EBITDA positive from month'])} on ${LEAN['money needed $M']}M; "
              f"capturing 10 crore savers pays from month {int(CAPR['EBITDA positive from month'])}, needs ${CAPR['money needed $M']:,.0f}M and clears $1B by year 5")
     return page(4, "Three plans", "SIDE BY SIDE", title, body,
-                "Today's evidence for every plan; each starts from the seed (months 1–18) and grows flat from month 30. Revenue, EBITDA and money in ₹ crore or $ million; undiscounted.")
+                "The plan for every plan; each starts from the seed (months 1–18) and grows flat from month 30. Revenue, EBITDA and money in ₹ crore or $ million; undiscounted.")
 
 
 # ---------- 5 levers
-LEV_ORDER = [("Today's evidence", "Today's evidence (the plan)"), ("Cost to win Rs 300", "₹300 to win a saver (plan ₹450)"),
+LEV_ORDER = [("The plan", "The plan"), ("Cost to win Rs 300", "₹300 to win a saver (plan ₹450)"),
              ("45% still saving at a year", "45% still saving at a year (plan 38%)"), ("Rs 200 a day", "₹200 a day (plan ₹100)"),
              ("Rs 300 a day", "₹300 a day (plan ₹100)"), ("50% apply for a loan a year", "50% apply for a loan a year (plan 35%)"),
              ("Credit-hungry: 45% stay + 50% apply", "Credit-hungry: 45% stay + 50% apply"),
@@ -393,27 +393,27 @@ LEV_ORDER = [("Today's evidence", "Today's evidence (the plan)"), ("Cost to win 
 
 def levers():
     W, x0, x1 = 1152, 330, 1000
-    lo, hi = 40, 96
+    lo, hi, PT = 30, 96, 27
     X = lambda m: x0 + (x1 - x0) * (min(max(m, lo), hi) - lo) / (hi - lo)
     n = len(LEV_ORDER)
     s = [T(0, 14, f"AT {LVS} ONLINE SAVERS A MONTH (THE PLAN): THE MONTH EBITDA TURNS POSITIVE, AND THE MONEY IT TAKES IN ALL", 11.5, 700, SLATE, ls=1.1)]
     y5 = X(60.5)
-    s.append(f'<rect x="{x0}" y="26" width="{y5 - x0}" height="{n * 33 + 6}" fill="#eef7f5"/>')
+    s.append(f'<rect x="{x0}" y="26" width="{y5 - x0}" height="{n * PT + 6}" fill="#eef7f5"/>')
     for m in (48, 60, 72, 84):
-        s.append(f'<line x1="{X(m + 0.5)}" y1="26" x2="{X(m + 0.5)}" y2="{32 + n * 33}" stroke="{LINE}"/>'
-                 + T(X(m + 0.5), 50 + n * 33, f"end of year {m // 12}", 12, 600, SLATE, "middle"))
+        s.append(f'<line x1="{X(m + 0.5)}" y1="26" x2="{X(m + 0.5)}" y2="{32 + n * PT}" stroke="{LINE}"/>'
+                 + T(X(m + 0.5), 50 + n * PT, f"end of year {m // 12}", 12, 600, SLATE, "middle"))
     for i, (key, lab) in enumerate(LEV_ORDER):
         r = LEV.loc[key]
-        y = 30 + i * 33
+        y = 30 + i * PT
         m = r["EBITDA positive from month"]
         m = int(m) if str(m).isdigit() else 97
         col = NAVY if i == 0 else (TEAL if m < BASE_M else (SLATE if m == BASE_M else LATE))
         s.append(T(0, y + 17, lab, 12.5, 700 if i == 0 else 500))
         s.append(R(x0, y + 4, X(m) - x0, 20, col, r=5))
         s.append(T(X(m) + 8, y + 19, (f"month {m}" if m <= 96 else "after month 96") + f" · ${r['money needed $M']}M", 12, 700, col))
-    ly = 74 + n * 33
+    ly = 74 + n * PT
     same = any(lm(k) == BASE_M for k, _ in LEV_ORDER[1:])
-    keys = [("Today's evidence", NAVY), ("Sooner", TEAL)] + ([("Same month", SLATE)] if same else []) + [("Later", LATE), ("Shaded: by the end of year 5", "#cfeee8")]
+    keys = [("The plan", NAVY), ("Sooner", TEAL)] + ([("Same month", SLATE)] if same else []) + [("Later", LATE), ("Shaded: by the end of year 5", "#cfeee8")]
     for k, (lab, col) in enumerate(keys):
         lx = k * 200
         s.append(f'<rect x="{lx}" y="{ly - 11}" width="13" height="13" rx="2" fill="{col}"/>' + T(lx + 20, ly, lab, 12, 600))
@@ -423,8 +423,9 @@ def levers():
 def p_levers():
     ms = {k: lm(k) for k, _ in LEV_ORDER[1:]}
     late = sorted((v, k) for k, v in ms.items() if v > BASE_M)
-    title = (f"The plan turns positive in month {BASE_M}; ₹300 a day brings it to month {lm('Rs 300 a day')}, "
-             f"while savings-app retention or debt-only funds push it to months {late[-2][0]}–{late[-1][0]}")
+    nm = {k: v[0].lower() + v[1:] for k, v in LEV_ORDER}
+    title = (f"The plan turns positive in month {BASE_M}; ₹300 a day brings it to {lm('Rs 300 a day')}, "
+             f"while {nm.get(late[-2][1], late[-2][1])} or {nm.get(late[-1][1], late[-1][1])} push it to {late[-2][0]} and {late[-1][0]}")
     return page(5, "What it takes", "WHAT MOVES THE PROFIT MONTH", title, levers(),
                 "One assumption changed at a time (the 24% case also lowers month-3 retention to 52%); everything else at the plan's values. Year 5 is months 49–60. The seed measures the five that matter most (see the seed page).")
 
@@ -435,7 +436,7 @@ def unicorn():
     rows = UNIC.to_dict("records") + [dict(CAPR, case="Capture 10 crore savers")]
     mx = max(max(max(r["0.45x AUM m60 Rs cr"], r["20x ARR m60 Rs cr"]) for r in rows), UNI) * 1.04
     X = lambda v: (W - x0 - 230) * v / mx
-    names = {"Today's evidence": "Today's evidence", "Rs 300 a day": "₹300 a day", "Credit-hungry": "Credit-hungry savers",
+    names = {"The plan": "The plan", "Rs 300 a day": "₹300 a day", "Credit-hungry": "Credit-hungry savers",
              "Credit-hungry + Rs 200 a day": "Credit-hungry + ₹200 a day", "Credit-hungry + Rs 300 a day": "Credit-hungry + ₹300 a day",
              "Capture 10 crore savers": "Capture 10 crore savers (12.4 lakh a month)"}
     s = [T(0, 14, "VALUE AT MONTH 60, ₹ CRORE: FIVE CASES AT 2.5 LAKH ONLINE SAVERS A MONTH, AND THE 10-CRORE PATH. $1B ONLY IF BOTH BARS CLEAR THE LINE", 11.5, 700, SLATE, ls=1.1)]
@@ -465,7 +466,7 @@ def unicorn_title():
         return (f"Only capturing 10 crore savers clears $1B on both yardsticks by year 5, for ${CAPR['money needed $M']:,.0f}M; "
                 f"at 2.5 lakh savers a month the closest case falls {1 - close.max():.0%} short")
     if ok:
-        short = {"Today's evidence": "today's evidence", "Rs 300 a day": "₹300 a day", "Credit-hungry": "credit-hungry savers",
+        short = {"The plan": "the plan", "Rs 300 a day": "₹300 a day", "Credit-hungry": "credit-hungry savers",
                  "Credit-hungry + Rs 200 a day": "credit-hungry at ₹200 a day", "Credit-hungry + Rs 300 a day": "credit-hungry at ₹300 a day"}
         best = UNIC[UNIC["case"].isin(ok)]["money needed $M"].min()
         return (f"{len(ok)} of 5 combinations clear $1B on both yardsticks by year 5 ({'; '.join(short.get(o, o) for o in ok)}); "
@@ -486,7 +487,7 @@ def p_unicorn():
 # ---------- 7 what the seed proves
 def p_seed():
     oo = LEV.loc["Online only after m18"]
-    base = LEV.loc["Today's evidence"]
+    base = LEV.loc["The plan"]
     om = int(oo['EBITDA positive from month'])
     when = f"the same month ({om})" if om == BASE_M else f"month {om} instead of {BASE_M}"
     door_line = f"Without it: profit in {when}. It must beat online's {ON['still saving at 12 months']:.0%} clearly to earn its place."
@@ -514,7 +515,7 @@ def p_seed():
 ASSUME = [("Online saver", "₹100 a day, ~20 debit days a month; 80% still saving at month 3, 38% at a year",
            "₹100 is our assumption (Bachatt's stated minimum). Retention: our extrapolation from SBI MF's ₹250 daily SIP for first-time investors (36% of a year's sign-ups stopped within it); savings apps' 24% is the downside"),
           ("Doorstep saver", "Same product; 80% still saving at month 3, 55% at a year; 100 sign-ups per agent a month, each counted as a saver",
-           "Agreed street inputs; the agent sets the mandate at sign-up. A competitor's street team reports 100–125 a person a month. All-in cost ₹404 a saver at scale"),
+           "Agreed street inputs; the agent sets the mandate at sign-up. A competitor's street team reports 100–125 a person a month. All-in cost ₹405 a saver at scale (₹446 with our contingency)"),
           ("Funds", "80% equity SIP / 20% debt; returns 10% / 7% a year; fees 0.75% / 0.35% of balance",
            "Mix from a practitioner conversation (not yet a filed research row); fees from fund-house disclosures; the equity return is our estimate"),
           ("Cost to win a saver", "₹600 during the seed (our funnel), ₹450 after; range ₹300–600",

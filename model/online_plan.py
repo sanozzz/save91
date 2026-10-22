@@ -5,11 +5,18 @@ Operator, 21 Oct: "based on the new approach and meeting with saket, we will be 
 the seed plan and our online first and offline test mode, we need to revamp our numbers and everytihing". Taps the same day:
   - an online saver puts in Rs 100 a day (Bachatt's stated minimum; ~20 debit days a month);
   - fund mix 80% equity SIP / 20% debt as the base (Bachatt conversation, F22), debt-only as a side case;
-  - cost to win a saver Rs 300 all-in as the base (Saket Khandelwal, PR-02), Rs 550 as the stress case (our own);
+  - cost to win a saver: Rs 600 in the seed (its budgeted funnel), Rs 450 after (founder's judgement), Rs 300-600 range;
   - both a PROFITABLE path and a UNICORN track;
-  - BASE = TODAY'S EVIDENCE + "what it takes" (loan marketplace: 35% apply a year, 2.5 KYC'd users reached a saver; Rs 100 a day); online retention 38% at a
+  - BASE = the plan: evidence where it exists, founder targets where it does not, each target shown with its evidence and
+    3x pass line (founder's decision, 22 Oct) (loan marketplace: 35% apply a year, 2.5 KYC'd users reached a saver; Rs 100 a day); online retention 38% at a
     year (operator 21 Oct: SBI's Rs 250 daily SIP, no loans), 24% (savings apps) as the downside, 45% (credit hook) as the upside.
-Reconciled with the seed plan: the seed budgets Rs 550 a saver while the brand is new (months 4-18); Rs 300 from month 19.
+Reconciled with the seed plan: the seed budgets Rs 600 a saver while the brand is new (months 4-18); Rs 450 from month 19.
+Critical review fixes (22 Oct, reviews/2026-10-21/CRITICAL_REVIEW.md; founder decisions the same day):
+  - serving: tech Rs 4 a month for every KYC'd user reached (the 2 Oct costing), weekly debits at Rs 2 each until BSE StAR MF
+    and the fund houses confirm a daily SIP on one mandate; the LTV's cost to win carries the plan's 10% contingency (Rs 495);
+  - loan reach applies only to the 35% funnel (personal/business, gold, property, home); gold loans 70% approved;
+  - insurance: a fixed referral fee through the broker, to be agreed, not counted (no share of a broker's commission);
+    Choti SIP incentive and digital gold off (the daily SIP disqualifies Choti; no digital gold at launch).
 Doorstep: operator 21 Oct, "90% online and 10% offline" (was 80/20) -> 1 in 10 savers from doorstep agents (55% still saving at
 a year, agreed street retention); the online-only case stops them after the 18-month test.
 
@@ -17,7 +24,7 @@ How it works
   1. Per-saver age profiles from model/cohort_engine.py (agreed inputs, tables/dist_agreed_v1.csv) with the online overrides
      in saver_inputs(): fund trail, loan marketing fees, cards, 17 cross-sell products, active savers, AUM. One profile per
      calendar cohort (the agreed take-up and approval growth with the pool's history; held after year 5).
-  2. Savers won a month: the seed plan for months 4-18 (95,800 online sign-ups, 1 in 5 save, + doorstep), then a straight
+  2. Savers won a month: the seed plan for months 4-18 (97,200 online sign-ups, 1 in 5 save, + doorstep), then a straight
      ramp to a level by month 30, then growth g a year. Cumulative savers won are capped at 20% of a 7 crore pool (agreed).
   3. Costs: acquisition (CAC x online savers won; doorstep agents), team (the seed team to month 18, then headcount rules),
      tech, office, compliance, support, brand. EBITDA; tax 25% on profit after losses carried forward. Interest on cash is
@@ -82,6 +89,7 @@ def saver_inputs(mix="80/20", doorstep=False):
         "loan_home_ticket": 800000.0, "loan_home_comm": 0.005,        # XF-13 Rs 6-8 lakh, XF-03
         "fee_early": 0.0, "fee_b3": 0.0,                      # a marketing partner collects nothing
         "kyc_cost": 0.0,                                      # inside the all-in CAC / the doorstep cost
+        **OFF_PRODUCTS,
     })
     x.update({k: v for k, v in OV.items() if not (doorstep and k in ("r12", "r3")) and not k.startswith("_")})
     return x
@@ -110,27 +118,34 @@ def calendar(prof, won):
 
 
 AGENT_SIGNUPS, RAMP = 100.0, (0.5, 2 / 3, 5 / 6)             # agreed signups_run; ramp_months 3
-AGENT_COST = 20000 + 3000 + 2000 + 1000                      # salary + statutory + incentive (our estimate) + cash cover
-HIRE_KIT, AGENT_CHURN = 12000.0, 0.30                         # base_inputs
+AGENT_COST = 20000 + 3000 + 2000 + 1000                      # salary + statutory + incentive (our estimate) + fidelity cover (agents never handle cash)
+HIRE_KIT, AGENT_CHURN = 12000.0 + 3500.0, 0.30              # base_inputs kit + NISM V-A for each agent (REG-036/037)
 LEAD_PAY, PER_LEAD = 40000 * 1.1, 10                          # field lead once agents > 5 (a founder below that)
 CITY_OFFICE, PER_CITY = 50000.0, 15
 DOOR_KYC = 40.0
 SEED_ONLINE = 97200 * 0.5 * 0.4 / (SEED_END - LAUNCH + 1)     # seed plan at 90/10: 97,200 online sign-ups, 1 in 5 save = 19,440
 DOOR_SHARE = 0.10
-TECH_PER_SAVER = 1.0
+TECH_PER_SAVER = 4.0               # Rs a month per KYC'd user reached (the 2 Oct costing; was Rs 1, our judgement)
+DEBIT_COST, DEBITS_A_MONTH = 2.0, 52 / 12   # weekly debits at Rs 2 (tri_costs base) until a daily SIP is confirmed in writing
+GOLD_APPROVAL = 0.70               # gold loans are secured; the lender's call (our assumption)
+OFF_PRODUCTS = {"ins_partner_share": 0.0, "choti_takeup": 0.0, "gold_takeup": 0.0}   # fixed insurance fee not counted; Choti, digital gold off
 # Loan marketplace (operator 21 Oct): loan offers go to ANYONE KYC'd from day 1, and a KYC'd user who never saves stays reachable
 # as long as a saver does. Online: 5 sign-ups a saver, half complete KYC -> 2.5 KYC'd users reached per online saver won.
 # Doorstep: the agent signs a saver 1:1, so 1.0.
 SIGNUPS_PER_SAVER, KYC_SHARE = 5.0, 0.5
 LOAN_REACH = SIGNUPS_PER_SAVER * KYC_SHARE
 LOAN_XS = ("loan_gold", "loan_cd", "loan_vehicle", "loan_home", "loan_lap")
+LOAN_REACH_XS = ("loan_gold", "loan_home", "loan_lap")   # inside the 35% funnel: reach every KYC'd user; durables and vehicles: savers only
 LOAN_APPLY = 0.35                                     # share of reachable users who apply for a loan a year (operator 21 Oct)
 LOAN_MIX = {"apply": 0.70, "loan_gold_takeup": 0.15, "loan_lap_takeup": 0.03, "loan_home_takeup": 0.02}   # 10% against savings: not counted
 
 
 def loan_mix(total):
-    """The total apply rate split across the loan funnels: personal + business (the engine's 'apply'), gold, LAP, home."""
-    return {k: total * v for k, v in LOAN_MIX.items()}                                  # Rs a month per active saver (JUDGEMENT), a serving cost                                             # operator 21 Oct: 90% online, 10% offline (share of savers won)
+    """The total apply rate split across the loan funnels: personal + business (the engine's 'apply'), gold, LAP, home.
+    Gold is a once-only referral in the engine, so its approval is folded into its take-up."""
+    out = {k: total * v for k, v in LOAN_MIX.items()}
+    out["loan_gold_takeup"] *= GOLD_APPROVAL
+    return out                                  # Rs a month per active saver (JUDGEMENT), a serving cost                                             # operator 21 Oct: 90% online, 10% offline (share of savers won)
 
 
 def won_path(level, growth, doorstep_after=True):
@@ -185,7 +200,7 @@ def headcount(t, active, mkt):
 def company(level, growth=1.0, cac=CAC, seed_cac=SEED_CAC, mix="80/20", doorstep_after=True, name=None):
     on, door, agents = won_path(level, growth, doorstep_after)
     Con, Cdo = calendar(profiles(saver_inputs(mix)), on), calendar(profiles(saver_inputs(mix, True)), door)
-    for k in ("rev_origination", "loans", "money_lent_new", *(f"rev_xs_{q}" for q in LOAN_XS)):
+    for k in ("rev_origination", "loans", "money_lent_new", *(f"rev_xs_{q}" for q in LOAN_REACH_XS)):
         if k in Con:
             Con[k] = Con[k] * OV.get("_loan_reach", LOAN_REACH)  # KYC'd non-savers who came with the online saver also borrow
     L = {k: Con[k] + Cdo[k] for k in LINES}
@@ -209,13 +224,15 @@ def company(level, growth=1.0, cac=CAC, seed_cac=SEED_CAC, mix="80/20", doorstep
         rf = (1.07 ** ((tt - SEED_END - 1) // 12)) if tt > SEED_END else 1.0
         people[i] = sum(PAY[r] * n for r, n in h.items()) * rf
         heads[i] = sum(h.values())
-    tech = np.where(t <= 3, 1_500_000 / 3, 0) + 150000 + active * TECH_PER_SAVER  # base_inputs + Rs 1 per active saver (JUDGEMENT)
+    reached = Con["still_saving"] * OV.get("_loan_reach", LOAN_REACH) + Cdo["still_saving"]   # KYC'd users who use the app
+    tech = np.where(t <= 3, 1_500_000 / 3, 0) + 150000 + reached * TECH_PER_SAVER  # base_inputs + Rs 4 per KYC'd user reached
+    payments = active * DEBIT_COST * DEBITS_A_MONTH
     office = np.where(t <= SEED_END, 75000, 150000 + heads * 10000)
     compliance = np.where(t == 1, 125000, 0) + np.where(t <= SEED_END, 1_000_000, 2_500_000) / 12
     brand = np.where(t > SEED_END, 200000, 0)
     design = np.where(t <= 3, 100000, 0)
     raise_cost = np.where(t == 1, 500000, 0) + np.where(t == SEED_END + 1, 1_500_000, 0)
-    support = L["cost_support"]
+    support = L["cost_support"] + payments
     contingency = CONTINGENCY * (mkt + door_cost + people + tech + office + compliance + brand + design + raise_cost + support)
     acquisition = mkt + door_cost
     opex = people + tech + office + compliance + brand + design + raise_cost + support + contingency
@@ -286,6 +303,7 @@ def unit_rows():
         d = ltv_parts(x, rch)
         p, inc, serve = d["_p"], d["income"], d["serving"]
         cum = np.cumsum(inc - serve)
+        c = c * (1 + CONTINGENCY)
         pay = int(np.argmax(cum >= c)) + 1 if (cum >= c).any() else None
         r = {"saver": nm, "cost to win Rs": round(c), "still saving at 12 months": round(float(p["still_saving"][0][12]), 3),
              "revenue 24 months Rs": round(inc[:24].sum()), "revenue 60 months Rs": round(inc[:60].sum()),
@@ -293,7 +311,7 @@ def unit_rows():
              "serving 60 months Rs": round(serve[:60].sum()), "pays back its cost in month": pay or "never",
              "fund trail 60m Rs": round(d["Fund fees"][:60].sum()), "loan fees 60m Rs": round(d["personal and business loans"][:60].sum()),
              "cards 60m Rs": round(d["Cards"][:60].sum()), "insurance 60m Rs": round(d["Insurance"][:60].sum())}
-        r["other products 60m Rs"] = r["revenue 60 months Rs"] - r["fund trail 60m Rs"] - r["loan fees 60m Rs"] - r["cards 60m Rs"] - r["insurance 60m Rs"]
+        r["other products and other lenders' loans 60m Rs"] = r["revenue 60 months Rs"] - r["fund trail 60m Rs"] - r["loan fees 60m Rs"] - r["cards 60m Rs"] - r["insurance 60m Rs"]
         r["all loan referrals 60m Rs"] = round(d["Loans (all referrals)"][:60].sum())
         r["loan reach (KYC'd users per saver won)"] = rch
         r["personal and business loans per saver won, 60m"] = round(float(p["loans"][0][:60].sum() * rch), 4)
@@ -313,17 +331,19 @@ def ltv_parts(x, reach=None):
     fee_mult = 1.0 + 0.5 * np.minimum(t - 1, 59) / 59
     orig0 = p["rev_origination"][0]
     xsl0 = sum(p[f"rev_xs_{q}"][0] for q in LOAN_XS)
+    xsr0 = sum(p[f"rev_xs_{q}"][0] for q in LOAN_REACH_XS)
     ins = sum(p[f"rev_xs_{q}"][0] for q in LTV_INS)
     fund, cards, inc0 = p["rev_fund"][0], p["rev_cards"][0], p["income"][0]
     other = inc0 - fund - orig0 - xsl0 - ins - cards
     orig = orig0 * fee_mult * reach
-    loan = orig + xsl0 * reach
-    serve = p["cost_support"][0] + p["still_saving"][0] * TECH_PER_SAVER
+    loan = orig + xsr0 * reach + (xsl0 - xsr0)
+    serve = p["cost_support"][0] + p["still_saving"][0] * (TECH_PER_SAVER * reach + DEBIT_COST * DEBITS_A_MONTH)
     return {"Fund fees": fund, "Loans (all referrals)": loan, "Insurance": ins, "Cards": cards, "Other products": other,
             "personal and business loans": orig, "income": fund + loan + ins + cards + other, "serving": serve, "_p": p}
 
 
 def ltv_view(x, cac, months=60, reach=None):
+    cac = cac * (1 + CONTINGENCY)                             # the plan spends the cost to win plus its 10% contingency
     d = ltv_parts(x, reach)
     cum = np.cumsum(d["income"] - d["serving"])
     pay = int(np.argmax(cum >= cac)) + 1 if (cum >= cac).any() else None
@@ -338,6 +358,7 @@ def ltv_tables():
     lines, curve = [], []
     for nm, x, c, rch in (("Online saver", saver_inputs(), CAC, LOAN_REACH), ("Doorstep saver", saver_inputs(doorstep=True), door_cac, 1.0)):
         d, cum, v = ltv_view(x, c, reach=rch)
+        c = c * (1 + CONTINGENCY)
         lines.append({"saver": nm, "line": "Cost to win", "Rs over 60 months": -round(c)})
         for k in ("Fund fees", "Loans (all referrals)", "Insurance", "Cards", "Other products"):
             lines.append({"saver": nm, "line": k, "Rs over 60 months": round(float(d[k][:60].sum()))})
@@ -375,14 +396,15 @@ def loan_funnel_rows():
             {"stage": "personal + business loan applications, 5 years", "per 100 savers won": users * float(p["applications"][0][:n].sum())},
             {"stage": "personal + business loans (first + repeat), 5 years", "per 100 savers won": users * float(p["loans"][0][:n].sum())}]
     types = [("Personal + business", float(p["loans"][0][:n].sum() + p["topups"][0][:n].sum()), float(p["money_lent_new"][0][:n].sum()),
-              x["fee"], float((p["rev_origination"][0] * fee_mult)[:n].sum()))]
+              x["fee"], float((p["rev_origination"][0] * fee_mult)[:n].sum()), users)]
     for q, nm in (("loan_gold", "Gold"), ("loan_lap", "Loan against property"), ("loan_home", "Home"),
                   ("loan_cd", "Consumer durable"), ("loan_vehicle", "Two-wheeler / e-rickshaw")):
         k = float(p[f"takeups_{q}"][0][:n].sum())
-        types.append((nm, k, k * x[f"{q}_ticket"], x[f"{q}_comm"], float(p[f"rev_xs_{q}"][0][:n].sum())))
-    for nm, k, lent, fee, rev in types:
-        rows.append({"stage": f"type: {nm}", "per 100 savers won": users * k, "lent Rs per 100 savers won": users * lent,
-                     "average loan Rs": lent / k if k else 0.0, "payout at the start": fee, "our fees Rs per saver won": users * rev / 100})
+        who = users if q in LOAN_REACH_XS else 100.0              # durables and vehicles: savers only
+        types.append((nm, k, k * x[f"{q}_ticket"], x[f"{q}_comm"], float(p[f"rev_xs_{q}"][0][:n].sum()), who))
+    for nm, k, lent, fee, rev, who in types:
+        rows.append({"stage": f"type: {nm}", "per 100 savers won": who * k, "lent Rs per 100 savers won": who * lent,
+                     "average loan Rs": lent / k if k else 0.0, "payout at the start": fee, "our fees Rs per saver won": who * rev / 100})
     cols = ["stage", "per 100 savers won", "lent Rs per 100 savers won", "average loan Rs", "payout at the start", "our fees Rs per saver won"]
     return [{c: r.get(c, "") for c in cols} for r in rows]
 
@@ -424,7 +446,7 @@ def write(name, rows):
 
 FRONTIER = (10000, 20000, 40000, 80000, 150000, 250000)
 LEVER_LEVEL = 20000                                   # one change at a time, at the plan's own level (review 21 Oct)
-LEVERS = (("Today's evidence", {}), ("24% still saving at a year (savings apps)", {"r12": 0.2415, "r3": 0.52}),
+LEVERS = (("The plan", {}), ("24% still saving at a year (savings apps)", {"r12": 0.2415, "r3": 0.52}),
           ("45% still saving at a year", {"r12": 0.45}), ("Rs 200 a day", {"daily": 200.0}),
           ("Rs 300 a day", {"daily": 300.0}), ("10% apply for a loan a year", loan_mix(0.10)),
           ("50% apply for a loan a year", loan_mix(0.50)), ("Loan offers to savers only", {"_loan_reach": 1.0}),
@@ -452,7 +474,7 @@ def main():
     # a growing path hit the cap at m55 and its "profit from m55" was spend stopping, not the business)
     uni = []
     hungry = {"r12": 0.45, **loan_mix(0.50)}
-    for nm, ov in (("Today's evidence", {}), ("Rs 300 a day", {"daily": 300.0}), ("Credit-hungry", hungry),
+    for nm, ov in (("The plan", {}), ("Rs 300 a day", {"daily": 300.0}), ("Credit-hungry", hungry),
                    ("Credit-hungry + Rs 200 a day", {**hungry, "daily": 200.0}),
                    ("Credit-hungry + Rs 300 a day", {**hungry, "daily": 300.0})):
         OV.clear()

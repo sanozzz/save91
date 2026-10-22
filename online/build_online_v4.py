@@ -97,7 +97,7 @@ def clip(s, n):
 # ---------------------------------------------------------------- story
 def cover():
     tiles = [(f"{bc.LV0['LTV/CAC 60m']:.1f}× LTV/CAC", f"one online saver: ₹{int(bc.LV0['cost to win Rs'])} to win, ₹{int(bc.LV0['contribution 60m Rs']):,} back over five years, paid back in month {int(bc.LV0['pays back in month'])}"),
-             (f"Month {int(bc.LEAN['EBITDA positive from month'])}", f"EBITDA turns positive on today's evidence: the profitable path, ${bc.LEAN['money needed $M']}M in all"),
+             (f"Month {int(bc.LEAN['EBITDA positive from month'])}", f"EBITDA turns positive in the plan: the profitable path, ${bc.LEAN['money needed $M']}M in all"),
              (f"Month {int(bc.FAST['EBITDA positive from month'])}", f"growing fast: ${bc.FAST['money needed $M']}M in all for {bc.FAST['active savers m60'] / bc.LEAN['active savers m60']:.0f}× the active savers"),
              ("$0.5M seed", "measures the five numbers that decide how much to raise next")]
     t = "".join(f'<div class="ctile"><div class="cbig" style="font-size:34px">{a}</div><div class="csub">{b}</div></div>' for a, b in tiles)
@@ -105,7 +105,7 @@ def cover():
 <div class="cleft">
   <div class="cbrand">{sp.NAME}</div><div class="cwork">Working name, to be finalised</div>
   <div class="ctitle" style="font-size:50px">Daily saving, online first</div>
-  <div class="ctag">For India's self-employed: ₹100 a day into funds in the saver's own name, credit as the reward for saving. 9 in 10 savers online, 1 in 10 at the doorstep. Business model v4.</div>
+  <div class="ctag">For India's self-employed: ₹100 a day into funds in the saver's own name, and the longer they save, the better their loan offer. 9 in 10 savers online, 1 in 10 at the doorstep. Business model v4.</div>
   <div class="cmeta">October 2026 · Confidential · Piyush (CEO) and Sandeep (CPTO)</div>
 </div>
 <div class="cright"><div class="cgrid">{t}</div>
@@ -118,14 +118,14 @@ def p_customer():
     probs = [("Sold on “believe me”", "An investment person they know picks the product. Nothing is written down.", "A written rule they can see: why this fund, in one sentence."),
              ("Can't start small alone", "A small instalment happens today because someone comes to collect it.", "₹100 a day by UPI Autopay, set up in minutes; an agent for 1 in 10."),
              ("Forgotten after joining", "Nobody comes back to ask what else the saver needs.", "Streaks, nudges and an AI money coach in the app."),
-             ("Saves a little, then stops", "Some keep saving; many drop off.", "Credit tied to the streak: save 6 months, see your loan offer (our proposal).")]
+             ("Saves a little, then stops", "Some keep saving; many drop off.", "Saving improves the offer: the longer the streak, the better the loan limit and rate (our proposal).")]
     cards = "".join(f"""<div class="ph-card"><div class="ph-top" style="background:{NAVY if i % 2 == 0 else NAVY2}"><span class="ph-n">{i + 1}</span>
 <div><div class="ph-h">{a}</div></div></div><ul><li><i style="color:{RED}">✕</i>{b}</li><li><i style="color:{TEAL}">✓</i>{c}</li></ul></div>"""
                     for i, (a, b, c) in enumerate(probs))
     body = f"""<div class="phases">{cards}</div>
 <div class="rbox" style="margin-top:20px;font-size:15px"><b>What savers think the product is:</b> a wallet they save into and then borrow from,
-an overdraft-like line. Our answer keeps the money in funds in the saver's own name (we never hold it) and makes credit the reward for saving.</div>"""
-    return page(2, "The customer", "THE SAVER'S PROBLEM, NOT OURS", "They will save a small amount every day and want to borrow when they need to; nobody serves both",
+an overdraft-like line. Our answer keeps the money in funds in the saver's own name (we never hold it) and lets saving improve the loan offer.</div>"""
+    return page(2, "The customer", "THE SAVER'S PROBLEM, NOT OURS", "Anyone can sign up savers; a product built for how they save and borrow is still missing, and the market is big enough for more than one winner",
                 body, "Sources: practitioner conversations, 17–18 Oct 2026 (customer problem notes; the wallet reading is the founders' own).")
 
 
@@ -149,12 +149,12 @@ def p_product():
 <div class="ph-m">{m}</div></div></div><ul>{''.join(f'<li><i style="color:{col}">✓</i>{f}</li>' for f in feats)}</ul></div>""" for n, h, m, col, feats in sp.PHASES)
     body = f'<div class="phases">{cards}</div><div style="margin-top:16px">{channel_bar()}</div>'
     return page(3, "Product and channel", "WHAT WE BUILD", "Four releases in 18 months; 9 in 10 savers come online, 1 in 10 through a doorstep agent",
-                body, "Doorstep agents sign savers up and set the UPI mandate; they never handle cash. The pilot runs in one city with two agents.")
+                body, "Doorstep agents sign savers up and set the UPI mandate; they never handle cash. The pilot runs in NCR with two agents; online is pan-India.")
 
 
 def p_flow():
     chips = [("In the saver's name", "Units sit with the fund house, registered to the saver."), ("Never through us", "We hold no customer money, ever."),
-             ("Paid by partners", "Fund houses and lenders pay us; we charge the saver nothing (the trail comes from the fund's own expense ratio).")]
+             ('Paid by partners', 'Fund houses and lenders pay us. The fund house pays out of its published fee: a regular plan costs the saver about 0.5–1% a year more than a direct plan, and we say so up front.')]
     c = "".join(f'<div class="chip"><b>{a}</b><span>{b}</span></div>' for a, b in chips)
     return page(4, "How it works", "THE MONEY FLOW", "Money moves from the saver's bank to the fund and back, never through us",
                 sp.flow() + f'<div class="chips3">{c}</div>',
@@ -203,7 +203,7 @@ def p_loan_funnel():
 <div class="chip"><b>Every KYC'd user, from day 1</b>Each online saver comes with 5 sign-ups; half finish KYC, so {bc.op_reach():g} people see loan offers for every saver won.</div>
 <div class="chip"><b>35% apply a year, 30% approved</b>About 1 in 10 reachable users gets a loan each year; 70% of repeat applications are approved.</div>
 <div class="chip"><b>We earn as a DSA</b>2% on personal and business loans, rising to 3% by year 5; 0.5–1% on gold, property and home loans.</div></div>"""
-    title = (f"Per 100 online savers won, {bc.op_reach() * 100:.0f} KYC'd users see loan offers; in five years they take {nloans:.0f} loans "
+    title = (f"Per 100 online savers won, {bc.op_reach() * 100:.0f} KYC'd users see loan offers; in five years they take {nloans:.0f} loans of all types "
              f"worth ₹{lent / 1e5:,.0f} lakh, earning us ₹{tot:,.0f} a saver")
     return page(6, "Loans", "THE LOAN FUNNEL", title, body,
                 "Personal + business loans include top-ups. Applications split 70% personal or business, 15% gold, 3% property, 2% home (10% against savings: tiny, not counted). "
@@ -256,7 +256,7 @@ def p_retention():
 <div class="chip"><b>Personal loans alone can't lift it</b>At 3.6% of savers applying a year, about {loans24:.0f} in 1,000 online savers get a personal loan in their first two years.</div>
 <div class="chip"><b>Credit might</b>Savers who want credit may keep saving to qualify: our hypothesis, and the seed tests it. It only works if loan offers are visibly tied to the saving streak.</div></div>"""
     return page(6, "Retention", "THE LEAST-MEASURED NUMBER", f"At 38 in 100 still saving after a year, profit comes in month {m38}; at 24 in 100 it slips to month {m24}, at 45 in 100 it comes in month {m45}",
-                body, "Profitable path: 20,000 online savers a month from month 30. The 24% case also lowers month-3 retention to 52%; everything else at today's evidence.")
+                body, "Profitable path: 20,000 online savers a month from month 30. The 24% case also lowers month-3 retention to 52%; everything else at the plan.")
 
 
 def p_frontier():
@@ -294,7 +294,7 @@ def mc_chart():
         s.append(R(kx, y, 380, 116, BG, LINE, 12, 1))
         s.append(T(kx + 16, y + 26, lab, 13.5, 700, NAVY))
         s.append(T(kx + 16, y + 56, f"{m['chance EBITDA positive by month 60']:.0%}", 26, 800, TEAL))
-        s.append(T(kx + 92, y + 52, "chance of profit by month 60", 11.5, 600, SLATE))
+        s.append(T(kx + 92, y + 52, "of futures in profit by month 60", 11.5, 600, SLATE))
         s.append(T(kx + 16, y + 82, f"profit month {m['profit month P10']:.0f} / {m['profit month P50']:.0f} / {m['profit month P90']:.0f}", 12, 600))
         s.append(T(kx + 16, y + 102, f"money needed ${m['money needed $M P10']:.1f}M / ${m['money needed $M P50']:.1f}M / ${m['money needed $M P90']:.1f}M", 12, 600))
     s.append(T(kx, 296, "bad case / middle / good case (P10 / P50 / P90)", 11, 600, MUTE))
@@ -305,11 +305,11 @@ def p_mc():
     body = mc_chart() + f"""<div class="chips3" style="margin-top:8px">
 <div class="chip"><b>One saver, five years</b>₹{ONR['P10']:,.0f} / ₹{ONR['P50']:,.0f} / ₹{ONR['P90']:,.0f} of revenue (bad / middle / good case), against ₹{int(bc.ON['cost to win Rs'])} to win.</div>
 <div class="chip"><b>Almost always, in time</b>EBITDA turns positive by month 96 in {round((1 - MP['chance never by month 96']) * 100)} of 100 futures on the profitable path and {round((1 - MF['chance never by month 96']) * 100)} of 100 growing fast.</div>
-<div class="chip"><b>Faster is surer</b>Growing fast raises the chance of profit by month 60 from {MP['chance EBITDA positive by month 60']:.0%} to {MF['chance EBITDA positive by month 60']:.0%}, for about {MF['money needed $M P50'] / MP['money needed $M P50']:.0f}× the money.</div></div>"""
+<div class="chip"><b>Faster is surer</b>Growing fast raises the share of futures in profit by month 60 from {MP['chance EBITDA positive by month 60']:.0%} to {MF['chance EBITDA positive by month 60']:.0%}, for about {MF['money needed $M P50'] / MP['money needed $M P50']:.0f}× the money.</div></div>"""
     med = DRAWS[["on_daily", "on_apply"]].median()
-    return page(10, "Ranges", "1,000 SIMULATED FUTURES", f"In {round(MP['chance EBITDA positive by month 60'] * 100)} of 100 futures the profitable path turns positive by month 60; the middle future needs ${MP['money needed $M P50']:.1f}M",
+    return page(10, "Ranges", "1,000 SIMULATED FUTURES · OUR OWN RANGES, NOT OBSERVED ODDS", f"In {round(MP['chance EBITDA positive by month 60'] * 100)} of 100 futures inside our own ranges the profitable path turns positive by month 60; the middle one needs ${MP['money needed $M P50']:.1f}M",
                 body, f"The plan: month {int(bc.LEAN['EBITDA positive from month'])} and ${bc.LEAN['money needed $M']}M; the middle future: month {MP['profit month P50']:.0f} and ${MP['money needed $M P50']:.1f}M "
-                      f"(middle draws ₹{med['on_daily']:.0f} a day, {med['on_apply']:.0%} applying for loans). Revenue, retention, loan and cost-to-win inputs vary; team and fixed costs stay at plan; approvals and losses move together in bad years.")
+                      f"(middle draws ₹{med['on_daily']:.0f} a day, {med['on_apply']:.0%} applying for loans). Revenue, retention, loan and cost-to-win inputs vary within our own ranges, whose low ends reach the evidence; demand and retention, and cost to win and reach, move together. Team and fixed costs stay at plan. A stress test, not odds.")
 
 
 def tornado():
@@ -477,7 +477,7 @@ def a_mc(n):
         '<div class="sub-h" style="margin-top:14px">THE 12 INPUTS THAT MOVE THE RESULT MOST (−1 TO +1, PROFITABLE PATH)</div>' + \
         table(["Input", "With money needed", "With Y5 EBITDA"], drows, [64, 18, 18], 11, compact=True)
     return page(n, "Appendix", "A8 · SIMULATED FUTURES", "1,000 simulated futures: the results, and the inputs that matter", body,
-                "Bad / middle / good = the 10th, 50th and 90th percentile. Inputs drawn by Latin hypercube; approvals and losses move together in bad years.")
+                "Bad / middle / good = the 10th, 50th and 90th percentile. Inputs drawn by Latin hypercube from our own ranges (low ends at the evidence; linked where they move together): a stress test, not odds.")
 
 
 def a_levers(n):
@@ -497,22 +497,23 @@ def a_audit(n):
     vc = a["verdict"].fillna("").str.lower().value_counts()
     fixed = int(vc.get("mislabelled", 0) + vc.get("not supported", 0))
     lab = [("matches", "match their source"), ("judgement-labelled-as-such", "our judgement, labelled as such"),
-           ("partly", "partly supported: carried as ranges (A1, A8)")]
+           ("partly", "partly supported: carried as ranges (A1, A8)"), ("target", "targets the seed must prove: the loan funnel and the cost to win")]
     chips = "".join(f'<div class="kpi"><b>{int(vc.get(k, 0))}</b><span>{t}</span></div>' for k, t in lab) + \
         f'<div class="kpi"><b>{fixed}</b><span>wrong or unsourced: fixed or flagged below</span></div>'
     # What the audit found in the plan as first built, and what this model does about each (every row is a
     # 'mislabelled' or 'not supported' line of the audit table).
-    rows = [["Cost to win in the seed was ₹550; the seed's own funnel gives ₹600 an online saver", "Seed now ₹600; ₹450 after the seed, range ₹300–600"],
-            ["Seed sign-ups were 95,800; the seed plan now has 97,200 (19,440 savers)", "Updated to 97,200"],
-            ["The agreed 10% contingency on every cost line was missing", "Added, inside EBITDA"],
+    rows = [["The loan funnel (35% apply, ₹1 lakh loans, offers to 2.5 users a saver, payout rising to 3%) was labelled as evidence", "Labelled as targets, each with its evidence and the value 3× needs (re-audited 22 Oct)"],
+            ["No payment cost on debits; tech ₹1 a saver a month", "₹2 a weekly debit; ₹4 tech for every KYC'd user reached"],
+            ["Insurance counted 75% of a broker's commission; the Choti SIP incentive and digital gold were counted", "Insurance: a fixed referral fee, not counted until agreed; Choti and digital gold off"],
+            ["Cost to win in the seed was ₹550; the seed's own funnel gives ₹600 an online saver", "Seed now ₹600; ₹450 after the seed, range ₹300–600"],
+            ["The agreed 10% contingency on every cost line was missing", "Added, inside EBITDA and on the LTV's cost to win (₹495)"],
             ["The agreed 2-month delay before fees arrive in cash was missing", "Added to cash and money needed"],
-            ["A '45-month runway' was quoted; the company plan spends faster after month 18", "Dropped; money needed comes from the full plan"],
             ["Compliance of ₹25 lakh a year after the seed is not an agreed input", "Kept; A3 marks post-round costs as our judgement"],
             ["Loan against property take-up (0.5%) and size (₹15 lakh) had no source", "Rebuilt 21 Oct from lender data: ₹4 lakh micro-LAP at 1%, 3% of loan applicants"]]
-    body = f'<div class="kpis" style="grid-template-columns:repeat(4,1fr)">{chips}</div>' + \
+    body = f'<div class="kpis" style="grid-template-columns:repeat(5,1fr)">{chips}</div>' + \
         '<div class="sub-h" style="margin-top:14px">WHAT THE AUDIT FOUND, AND WHAT CHANGED</div>' + \
         table(["Finding", "What this model does"], rows, [62, 38], 12, compact=True)
-    return page(n, "Appendix", "A10 · INPUT AUDIT", f"All {len(a)} inputs checked against their sources", body,
+    return page(n, "Appendix", "A10 · INPUT AUDIT", f"All {len(a)} inputs checked against their sources, re-checked on the plan's values on 22 Oct", body,
                 f"An independent reviewer read each source row; the full {len(a)}-row table travels with the model.")
 
 
@@ -553,9 +554,10 @@ def a_sheet(n):
         (f'<div class="rbox" style="margin-top:12px">The {len(miss)} checks outside target are small EBITDA figures, where a 1% test is tight; '
          f'each gap is under ₹0.1 Cr: {note}.</div>' if len(miss) else "")
     nlev = c.loc[c["case"].str.startswith("lever"), "case"].nunique()
-    return page(n, "Appendix", "A11 · SPREADSHEET CHECK", "The spreadsheet and the model give the same answers", body,
+    return page(n, "Appendix", "A11 · SPREADSHEET CHECK", "The spreadsheet and the model gave the same answers on 21 Oct, before the 22 Oct fixes", body,
                 f"Both plans: revenue and EBITDA in every year 1–8, profit month, money needed, active savers, money saved. Each of the {nlev} assumption changes: years 5 and 8 and the profit month. "
-                "The live Google Sheet was read back after it was built.")
+                "The live Google Sheet was read back after it was built. The 22 Oct fixes (payments, tech per KYC'd user, the insurance fee, the contingency on the cost to win) "
+                "are in the model and this deck; the sheet is being refreshed to match.")
 
 
 def a_changes(n):
