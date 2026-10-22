@@ -434,7 +434,7 @@ def p_payback(n):
     m = ON["_m"]
     peak = int(np.argmax(sum(m[k] for k, _l, _c in LINES))) + 1
     body = two(payback_svg(), stack_svg(), 560) + chips([
-        (f"Why month {ON['pay']}", f"Loans start in month 1 for every KYC'd user, at half the full take-up and 60% of the approvals for six months; a first loan pays {pct(X['fee'])} of ₹1 lakh. The fund trail builds slowly with the balance."),
+        (f"Why month {ON['pay']}", f"Loans start in month 1 for every KYC'd user, at half the full take-up and 60% of the approvals for six months; a first loan pays {pct(X['fee'])} of {short_rs(X['ticket'], 'rs')}. The fund trail builds slowly with the balance."),
         (f"A jump in month {peak}", "The first six months run at half the take-up and 60% of the approvals; from month 7 every user applies at the full rate, so first loans peak, then thin as users borrow once and savers stop."),
         ("Then a long tail", f"After year 1, 1.5% of savers stop each month; the fund balance, repeat borrowing and loan offers to KYC'd users who never saved keep paying: {rs(ON['ltv96'] - ON['ltv'])} more in years 6–8.")])
     return page(n, "The answer", "WHEN IT PAYS BACK", f"The online saver earns back the {rs(CAC)} in month {ON['pay']}; the doorstep saver in month {DR['pay']}; by year 8 they have returned {ON['ltvcac96']:.1f} and {DR['ltvcac96']:.1f} times their cost",
@@ -613,10 +613,10 @@ def p_loans_pb(n):
                           ("Taken back 0% / 5%", tb[0], tb[1])], 520, "ONLINE LTV/CAC AT EACH END")
     body = two(left, right, 600) + chips([
         ("30% first, 70% repeat", "A digital lender approves 11% of new and 74% of repeat applicants; the founders' past lending about 25%. Our 30% sits above both; it rises 10% a year (cap 80%)."),
-        ("₹1 lakh, blended", f"Digital personal loans average ₹19,000–70,000; merchant loans ₹50,000–5 lakh (one app's average ₹2 lakh). ₹1 lakh sits above the personal-loan average and the founders' own ₹10–25k: at {short_rs(OAT.loc['on_ticket', 'low'], 'rs')} LTV/CAC is {x(t[0])}."),
+        (f"{short_rs(X['ticket'], 'rs')}, blended: the founders' number", f"Research found smaller loans: digital personal loans average ₹19,000–70,000; merchant loans ₹50,000–5 lakh (one app's average ₹2 lakh); the founders' own 2019–22 book ₹10–25k. At {short_rs(OAT.loc['on_ticket', 'low'], 'rs')} LTV/CAC is {x(t[0])}."),
         ("A DSA's payout", "Platforms pay DSAs 1–2.5% of a personal loan, up to 3%; we start at 2%, rising to 3% by year 5. Paid by the lender, who takes back 2.5% of payouts (loans cancelled or repaid early).")])
     return page(n, "Assumption 6", "PERSONAL AND BUSINESS LOANS", f"Personal and business loans bring {rs(ON['pb'])} per online saver: {n1 + n2 + n3} loans per 100 savers won over five years, "
-                f"at a 2% payout on ₹1 lakh", body, "Tenure 18 months; repeat loans once repaid; top-ups after 12 EMIs. We earn a referral payout only and the lender carries the credit risk. From the first loan we are each lender's "
+                f"at a 2% payout on {short_rs(X['ticket'], 'rs')}", body, "Tenure 18 months; repeat loans once repaid; top-ups after 12 EMIs. We earn a referral payout only and the lender carries the credit risk. From the first loan we are each lender's "
                 "lending service provider under RBI's digital-lending rules: fees from the lender only, a key-facts statement for every loan, a grievance officer.")
 
 
@@ -637,9 +637,13 @@ def p_loans_other(n):
                           ("Home approval 30% / 60%", hom[0], hom[1])], 1100, "ONLINE LTV/CAC AT EACH END")
     body = tb + '<div style="height:10px"></div>' + right + chips([
         ("Gold: the most common", "Gold loans average ₹1.96 lakh across India; we plan ₹1 lakh for this segment at a 0.5% payout (DSA rates 0.25–1.5%), with 70% of applications approved."),
-        ("Property and home: rare but large", "Micro-LAP averages ₹3.9 lakh, affordable housing ₹6–8 lakh; DSA payouts 0.5–1.5% and 0.25–0.75%. Secured, so approval is higher: 45%."),
+        ("Property and home: rare but large", f"Founders' sizes: {short_rs(X['loan_lap_ticket'], 'rs')} against property, {short_rs(X['loan_home_ticket'], 'rs')} for a home (India's average home loan ~₹32 lakh). Payouts 0.5–1.5% and 0.25–0.75%; secured, so 45% approved."),
         ("Durables and vehicles: small", f"No outside data on take-up or payout for these two; both are our assumptions, counted for savers only (outside the 35% funnel), together {rs(cdv)} a saver.")])
-    return page(n, "Assumption 7", "OTHER LENDERS' LOANS", f"Gold, property, home, durable and vehicle loans from other lenders add {rs(ON['ol'])} per online saver; gold loans are a third of it", body,
+    phrase = {"Gold": "gold loans", "Loan against property": "loans against property", "Home": "home loans", "Consumer durable": "durable loans", "Two-wheeler / e-rickshaw": "vehicle loans"}
+    fees = {nm: float(FUN.loc[f"type: {nm}", "our fees Rs per saver won"]) for nm in names}
+    big = max(fees, key=fees.get)
+    return page(n, "Assumption 7", "OTHER LENDERS' LOANS", f"Gold, property, home, durable and vehicle loans from other lenders add {rs(ON['ol'])} per online saver; "
+                f"{phrase[big]} bring {fees[big] / sum(fees.values()):.0%} of it", body,
                 "Loans a year for gold, property and home = 35% × that type's share of applications (our assumption; gold × 70% approved). Each type: a monthly chance among users "
                 "who have not yet bought one; one referral fee, on disbursal; gold, property and home reach every KYC'd user, durables and vehicles savers only. Rounded; rows may not add exactly.")
 
@@ -792,26 +796,28 @@ def p_true(n):
             ["Fewer than 30 in 100 still saving at a year", f"{lowret.mean():.0%}", x(med(lowret)), f"{med(lowret, 'on_pay'):.0f}"],
             ["Cost to win above ₹525", f"{hicac.mean():.0%}", x(med(hicac)), f"{med(hicac, 'on_pay'):.0f}"],
             ["All 1,000 futures", "100%", x(MC_P50), f"{MC['on_pay'].median():.0f}"],
-            ["Only 2% apply (the nearest observed rate), all else at the plan", "one test", x(AP2["ltvcac"]), f"{AP2['pay']}"]]
+            ["Only 2% apply (nearest observed), all else as planned", "one test", x(AP2["ltvcac"]), f"{AP2['pay']}"]]
     tb = table(["In futures where…", "Share of futures", "Median online LTV/CAC", "Median payback month"], rows, [46, 16, 20, 18], 11.5, compact=True)
     co = [["Online LTV/CAC under 3×", f"{below3.mean():.0%}", f"{MC.loc[below3, 'co_profit'].median():.0f}", f"${MC.loc[below3, 'co_money'].median():.1f}M"],
           ["Online LTV/CAC 3× or more", f"{(~below3).mean():.0%}", f"{MC.loc[~below3, 'co_profit'].median():.0f}", f"${MC.loc[~below3, 'co_money'].median():.1f}M"]]
     tb2 = table(["Same futures, the whole company (profitable path)", "Share", "Median profit month", "Median money needed"], co, [46, 16, 20, 18], 11.5, compact=True)
     lines = [("Apply for a loan a year", "35%", "on_apply", (0.35, 1.0), (0.01, 0.35), lambda v: f"{v:.0%}"),
-             ("Loan size", "₹1 lakh", "on_ticket", (1e5, 5e5), (1e4, 1e5), lambda v: f"₹{v / 1000:,.0f}k"),
+             ("Loan size", short_rs(X["ticket"], "rs"), "on_ticket", (X["ticket"], 1e6), (1e4, X["ticket"]), lambda v: f"₹{v / 1000:,.0f}k"),
              ("Payout at the start", "2%", "on_fee", (0.02, 0.06), (0.002, 0.02), lambda v: f"{v * 100:.2f}%"),
              ("Still saving at a year", "38%", "on_r12", (0.38, 0.95), (0.05, 0.38), lambda v: f"{v:.0%}"),
-             ("Cost to win (before contingency)", "₹450", "cac", (100, 450), (450, 2000), lambda v: f"₹{v:,.0f}"),
+             ("Cost to win, pre-contingency", "₹450", "cac", (100, 450), (450, 2000), lambda v: f"₹{v:,.0f}"),
              ("Daily amount", "₹100", "on_daily", (100, 1000), (5, 100), lambda v: f"₹{v:,.0f}"),
-             ("KYC'd users who see offers", "2.5", "on_reach", (2.5, 8), (1, 2.5), lambda v: f"{v:.1f}")]
+             ("Users who see offers", "2.5", "on_reach", (2.5, 8), (1, 2.5), lambda v: f"{v:.1f}")]
     trows = []
+    above = ON["ltvcac"] >= 3          # a plan already above 3x shows where each input alone pulls it down to 3x
     for lab, plan, k, up, dn, f in lines:
-        v3, v2 = pass_line(k, *up, target=3.0), pass_line(k, *dn, target=2.0)
-        trows.append([lab, plan, f(v3) if v3 is not None else "—", f(v2) if v2 is not None else "not in range"])
-    tbp = table(["One input at a time", "Plan", "For 3×", "Below 2× at"], trows, [40, 16, 20, 24], 11, compact=True)
+        v3, v2 = pass_line(k, *(dn if above else up), target=3.0), pass_line(k, *dn, target=2.0)
+        trows.append([lab, plan, f(v3) if v3 is not None else "—", f(v2) if v2 is not None else "—"])
+    tbp = table(["One input at a time", "Plan", "Down to 3× at" if above else "For 3×", "Below 2× at"], trows, [40, 16, 20, 24], 11, compact=True)
+    head = ("Where one input alone takes it down to 3×, and below 2×" if above else "What takes it to 3×, and where it falls below 2×")
     box_ = (f'<div style="border:1.5px solid {TEAL};border-radius:12px;padding:12px 14px;font-size:12px;line-height:1.45">'
-            f'<b style="color:{NAVY}">The plan returns {x(ON["ltvcac"])}. What takes it to 3×, and where it falls below 2×</b> (everything else at the plan):'
-            + tbp + f'Two levers outside the loan funnel: daily debits at no cost to us (once BSE confirms) give {x(DEB0["ltvcac"])}; our own insurance licence gives {x(INS_LIC["ltvcac"])}.'
+            f'<b style="color:{NAVY}">The plan returns {x(ON["ltvcac"])}. {head}</b> (everything else at the plan):'
+            + tbp + f'(— : not reached in the range tested.) Two levers outside the loan funnel: daily debits at no cost to us (once BSE confirms) give {x(DEB0["ltvcac"])}; our own insurance licence gives {x(INS_LIC["ltvcac"])}.'
             f'<div style="margin-top:6px;color:{SLATE}">Rules on digital lending and on referral payouts could change what lenders pay.</div></div>')
     body = two(tb + '<div style="height:12px"></div>' + tb2, box_, 720) + chips([
         ("Test the loan funnel first", "How many KYC'd users apply, and how many are approved, is the least-observed and most powerful number. We plan to measure both with the seed's first lending partner."),

@@ -197,8 +197,8 @@ def inputs_list():
        "Operator, 21 Oct: 30% first, 70% repeat (XF-18, XF-24).", P))
     a((G6, "approved_repeat", "Repeat applications approved (after repaying one)", X0["approved_repeat"], "share", "approved_repeat",
        ag("approved_repeat"), "Operator, 21 Oct: 70% (a repaid borrower is a known borrower).", P))
-    a((G6, "ticket", "Loan size, blended personal and business", 100000.0, "₹ a loan", "on_ticket", om.ONLINE["on_ticket"][5],
-       "Blend of personal loans ~₹50,000 (digital NBFCs ₹18,800–70,000, XF-11) and business loans ~₹1.5 lakh (merchant loans ₹50,000–5 lakh, XF-09/10).", "rs"))
+    a((G6, "ticket", "Loan size, blended personal and business", op.saver_inputs()["ticket"], "₹ a loan", "on_ticket", om.ONLINE["on_ticket"][5],
+       "Founders, 22 Oct: ₹3 lakh. Research found smaller loans: digital personal loans ₹18,800–70,000 (XF-11), merchant loans ₹50,000–5 lakh (XF-09/10).", "rs"))
     a((G6, "fee", "Our DSA payout at the start", 0.02, "share of the loan", "on_fee", om.ONLINE["on_fee"][5],
        "DSA payouts on personal loans 1–2.5%, up to 3% (XF-01, XF-02); paid by the lender on disbursal.", "pct2"))
     a((G6, "fee_mult_end", "Payout rises to this multiple by month 60", 1.5, "× the starting payout", None,
@@ -224,7 +224,8 @@ def inputs_list():
             a((G7, f"{q}_takeup", f"{nm}: take-up a year", X0[f"{q}_takeup"], "share of savers without one, a year", f"{q}_takeup",
                ag(f"{q}_takeup"), ag(f"{q}_takeup", "why_this_shape"), "pct2"))
         src = {"loan_gold": "XF-12 (₹1.96 lakh industry average, smaller for this segment); payout XF-05.",
-               "loan_lap": "XF-13 (micro-LAP ₹3.9 lakh); payout XF-04.", "loan_home": "XF-13 (₹6–8 lakh affordable housing); payout XF-03."}
+               "loan_lap": "Founders, 22 Oct: ₹25 lakh (micro-LAP lenders average ₹3.9 lakh, XF-13); payout XF-04.",
+               "loan_home": "Founders, 22 Oct: ₹30 lakh (India's average home loan ~₹32 lakh, XL-29; affordable-housing lenders ₹6–15 lakh); payout XF-03."}
         tk = X0[f"{q}_ticket"] if q in ("loan_cd", "loan_vehicle") else op.saver_inputs()[f"{q}_ticket"]
         cm = X0[f"{q}_comm"] if q in ("loan_cd", "loan_vehicle") else op.saver_inputs()[f"{q}_comm"]
         a((G7, f"{q}_ticket", f"{nm}: loan size", tk, "₹ a loan", f"{q}_ticket" if q in ("loan_cd", "loan_vehicle") else None,

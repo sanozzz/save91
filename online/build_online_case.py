@@ -521,13 +521,13 @@ ASSUME = [("Online saver", "₹100 a day, ~20 debit days a month; 80% still savi
           ("Cost to win a saver", "₹600 during the seed (our funnel), ₹450 after; range ₹300–600",
            "₹450 sits between a competitor's reported ₹300 per customer (per sign-up or per saver not stated) and our own funnel's ₹600; the seed measures it"),
           ("Loans", "Offers to every KYC'd user (2.5 per online saver) from day 1; 35% apply a year (70% personal or business, 15% gold, 3% property, 2% home); "
-                    "30% of first applications approved, 70% of repeats; ₹1 lakh personal/business loan at a 2% payout rising to 3%",
+                    "30% of first applications approved, 70% of repeats; ₹3 lakh personal/business loans at a 2% payout rising to 3%; home loans ₹30 lakh, property ₹25 lakh",
            "Founders' choice on reach and apply rate; payouts at DSA norms (1–2.5% personal and business, 0.5–1.5% property, 0.25–1.5% gold); "
-           "tickets from digital NBFC, merchant-loan, gold-loan and micro-LAP data (research/xs_funnel_2026-10-21.csv)"),
-          ("Other products", "Cards, insurance (at IRDAI's draft caps), recharge, bills, FD, gold-loan and property-loan referrals", "Agreed take-up and commission inputs; property and home loans now sized from micro-LAP and affordable-housing lenders"),
+           "loan sizes are the founders' numbers (22 Oct), above the digital-lender and micro-LAP averages in research/xs_funnel_2026-10-21.csv; gold from industry data"),
+          ("Other products", "Cards, insurance (at IRDAI's draft caps), recharge, bills, FD, gold-loan and property-loan referrals", "Agreed take-up and commission inputs; property ₹25 lakh and home ₹30 lakh loans (founders, 22 Oct)"),
           ("Team", "Seed: 2 founders at $1,000 a month + 3 hires. After the round: founders ₹1.5L, hires by active savers",
            "Seed plan; agreed salary inputs, +10% statutory, +7% a year"),
-          ("Other costs", "Tech ₹1.5L a month + ₹1 per active saver; office; compliance ₹25L a year after the round; brand ₹2L a month; 10% contingency on every cost",
+          ("Other costs", "Tech ₹1.5L a month + ₹4 per KYC'd user reached; payments ₹2 a weekly debit; office; compliance ₹25L a year after the round; brand ₹2L a month; 10% contingency on every cost",
            "Agreed inputs and the agreed 10% contingency; per-saver tech and the ₹25L compliance are our estimates"),
           ("Growth limit", "At most 20% of about 7 crore urban self-employed ever signed", "PLFS shares (agreed pool) and the agreed 20% cap"),
           ("Not counted", "Interest on cash; any own-book lending; revenue beyond these lines", "Conservative by design")]

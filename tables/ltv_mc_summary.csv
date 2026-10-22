@@ -1,21 +1,21 @@
 measure,P10,P50,P90,mean
-"Online: LTV/CAC, 5 years",1.133,2.041,3.553,2.212
-"Online: LTV/CAC, 8 years",1.942,3.54,6.095,3.849
-Online: pays back in month,26.0,38.0,56.0,40.145
-"Online: revenue, 5 years (₹)",1043.372,1526.901,2281.331,1613.177
+"Online: LTV/CAC, 5 years",2.945,5.203,8.755,5.656
+"Online: LTV/CAC, 8 years",4.707,8.1,13.896,8.923
+Online: pays back in month,11.0,16.0,27.0,17.815
+"Online: revenue, 5 years (₹)",2033.691,3173.144,5049.426,3393.87
 "Online: fund fees, 5 years (₹)",311.607,531.479,914.272,582.738
-"Online: personal + business loan payouts, 5 years (₹)",324.959,650.86,1209.034,723.423
-"Online: other loan referrals, 5 years (₹)",126.393,210.24,300.336,210.996
+"Online: personal + business loan payouts, 5 years (₹)",895.36,1796.153,3348.952,1996.006
+"Online: other loan referrals, 5 years (₹)",399.052,711.395,1054.073,719.107
 "Online: insurance, 5 years (₹)",0.0,0.0,0.0,0.0
 "Online: cards + other products, 5 years (₹)",72.578,94.614,121.291,96.019
 "Online: serving, 5 years (₹)",-560.118,-469.827,-384.33,-471.863
-"Online: net after the cost to win, 5 years (₹)",72.298,534.666,1254.668,609.648
+"Online: net after the cost to win, 5 years (₹)",1081.879,2198.648,4020.023,2390.341
 Doorstep: cost to win (₹),334.783,403.204,475.885,405.621
-"Doorstep: LTV/CAC, 5 years",1.222,2.213,3.88,2.421
-Doorstep: pays back in month,26.0,38.0,54.0,39.641
-Company: profit from month (profitable path),44.0,53.0,76.0,56.86
-Company: money needed ($M),2.961,4.188,6.432,4.571
-share online LTV/CAC >= 3,,0.179,,
-share online LTV/CAC < 1,,0.069,,
-share online paid back <= 24 months,,0.073,,
-share doorstep LTV/CAC >= 3,,0.262,,
+"Doorstep: LTV/CAC, 5 years",2.727,4.554,7.495,4.886
+Doorstep: pays back in month,15.0,21.0,31.0,22.052
+Company: profit from month (profitable path),32.0,37.0,44.0,37.252
+Company: money needed ($M),1.615,2.227,3.216,2.359
+share online LTV/CAC >= 3,,0.889,,
+share online LTV/CAC < 1,,0.002,,
+share online paid back <= 24 months,,0.85,,
+share doorstep LTV/CAC >= 3,,0.851,,

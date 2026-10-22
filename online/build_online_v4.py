@@ -384,7 +384,7 @@ def a_online(n):
              "on_r3": "savings-app curve 52% / SBI's steady monthly drop ~80%",
              "cac": "a competitor's reported ₹300 / the midpoint, founders' choice / our seed funnel's ₹600",
              "on_apply": "payments-app merchants borrow ~1-2% a year / founders' plan 35% / credit-hungry (fintech borrowers ~49% re-borrow in 6 months)",
-             "on_ticket": "personal ₹50k / blend of personal ₹50k and business ₹1.5 lakh / merchant loans ~₹2 lakh (Paytm)",
+             "on_ticket": "the founders' own 2019–22 book ₹10–25k / the founders' ₹3 lakh (22 Oct; research found digital personal loans ₹19k–70k, merchant loans ₹50k–5 lakh) / unsecured business loans up to ₹5 lakh",
              "on_approved": "founders' past lending ~25% / 30% / PSU banks approve ~80% of pre-qualified MSMEs",
              "on_fee": "DSA payouts 1-2.5% (up to 3%) on personal and business loans; rises 1.5× by year 5",
              "on_reach": "savers only / every KYC'd user: 5 sign-ups a saver, half complete KYC",
@@ -395,7 +395,7 @@ def a_online(n):
              ["Deposit growth", "–", "5% a year", "–", "Agreed: each saver's daily amount rises 5% for each year they keep saving"],
              ["Late drop-off (after month 12)", "1%", "1.5%", "3%", "Agreed: savers stopping each month after the first year"],
              ["Doorstep saver: still saving after a year", "25%", "55%", "72%", "Agreed street input"],
-             ["Loan sizes: gold / property / home", "–", "₹1 / 4 / 8 lakh", "–", "Gold loans ₹1.96 lakh industry (Experian, smaller here); micro-LAP ₹3.9 lakh and housing ₹6–8 lakh (Five Star)"],
+             ["Loan sizes: gold / property / home", "–", "₹1 / 25 / 30 lakh", "–", "Property and home: the founders' numbers (22 Oct; India's average home loan ~₹32 lakh, micro-LAP lenders ₹3.9 lakh); gold ₹1.96 lakh industry average (Experian), smaller here"],
              ["Planning rate", "–", "₹95 per $", "–", "Founders' decision"]]
     return page(n, "Appendix", "A1 · ONLINE INPUTS", "Online inputs: low / likely / high, and where each comes from",
                 table(["Input", "Low", "Likely", "High", "Basis"], rows, [30, 8, 9, 8, 45], 11, compact=True))
@@ -428,7 +428,7 @@ def a_costs(n):
             ["Engineers", "1 from month 1 (₹1.1 lakh), 1 junior from month 7 (₹50k)", "3 + 1 per 2 lakh active savers, up to 40 (₹1.2 lakh)"],
             ["Operations and support", "1 from month 4 (₹30k)", "1 per 20,000 active savers, at least 2 (₹40k)"],
             ["Product, compliance, growth, finance, risk", "Founders, CA and lawyer", "1 each, scaling with savers and ad spend"],
-            ["App and tech", "₹15 lakh to integrate, ₹1.5 lakh a month", "₹1.5 lakh a month + ₹1 per active saver"],
+            ["App and tech", "₹15 lakh to integrate, ₹1.5 lakh a month", "₹1.5 lakh a month + ₹4 per KYC'd user reached"],
             ["Office", "Co-working ₹75k a month", "₹1.5 lakh + ₹10k a head a month"],
             ["Compliance", "Setup ₹1.25 lakh; ₹10 lakh a year", "₹25 lakh a year"],
             ["Brand, design, fund-raising", "Design ₹1 lakh a month in months 1–3; ₹5 lakh to raise the seed", "Brand ₹2 lakh a month; ₹15 lakh for the next round"],
@@ -502,14 +502,14 @@ def a_audit(n):
         f'<div class="kpi"><b>{fixed}</b><span>wrong or unsourced: fixed or flagged below</span></div>'
     # What the audit found in the plan as first built, and what this model does about each (every row is a
     # 'mislabelled' or 'not supported' line of the audit table).
-    rows = [["The loan funnel (35% apply, ₹1 lakh loans, offers to 2.5 users a saver, payout rising to 3%) was labelled as evidence", "Labelled as targets, each with its evidence and the value 3× needs (re-audited 22 Oct)"],
+    rows = [["The loan funnel (35% apply, the loan sizes, offers to 2.5 users a saver, payout rising to 3%) was labelled as evidence", "Labelled as targets, each with its evidence and where it pulls LTV/CAC down to 3× and 2× (re-audited 22 Oct)"],
             ["No payment cost on debits; tech ₹1 a saver a month", "₹2 a weekly debit; ₹4 tech for every KYC'd user reached"],
             ["Insurance counted 75% of a broker's commission; the Choti SIP incentive and digital gold were counted", "Insurance: a fixed referral fee, not counted until agreed; Choti and digital gold off"],
             ["Cost to win in the seed was ₹550; the seed's own funnel gives ₹600 an online saver", "Seed now ₹600; ₹450 after the seed, range ₹300–600"],
             ["The agreed 10% contingency on every cost line was missing", "Added, inside EBITDA and on the LTV's cost to win (₹495)"],
             ["The agreed 2-month delay before fees arrive in cash was missing", "Added to cash and money needed"],
             ["Compliance of ₹25 lakh a year after the seed is not an agreed input", "Kept; A3 marks post-round costs as our judgement"],
-            ["Loan against property take-up (0.5%) and size (₹15 lakh) had no source", "Rebuilt 21 Oct from lender data: ₹4 lakh micro-LAP at 1%, 3% of loan applicants"]]
+            ["Loan against property take-up (0.5%) and size (₹15 lakh) had no source", "Take-up rebuilt 21 Oct from lender data (3% of loan applicants, 1% payout); size ₹25 lakh, the founders' number (22 Oct), a target"]]
     body = f'<div class="kpis" style="grid-template-columns:repeat(5,1fr)">{chips}</div>' + \
         '<div class="sub-h" style="margin-top:14px">WHAT THE AUDIT FOUND, AND WHAT CHANGED</div>' + \
         table(["Finding", "What this model does"], rows, [62, 38], 12, compact=True)
@@ -551,8 +551,8 @@ def a_sheet(n):
     body = f'<div class="kpis" style="grid-template-columns:repeat(3,1fr)">{chips}</div>' + \
         '<div class="sub-h" style="margin-top:14px">THE LIVE SHEET NEXT TO THE MODEL</div>' + \
         table(["Measure", "Profitable path: sheet", "Profitable path: model", "Grow fast: sheet", "Grow fast: model"], rows, [32, 17, 17, 17, 17], 12) + \
-        (f'<div class="rbox" style="margin-top:12px">The {len(miss)} checks outside target are small figures, where a 1% test is tight: year-4 EBITDA '
-         f'(near zero) in both plans, year-2 revenue and year-5 EBITDA in two assumption changes. The largest gap is ₹{miss["gap"].abs().max():.2f} Cr. '
+        (f'<div class="rbox" style="margin-top:12px">The {len(miss)} checks outside target ({"; ".join(sorted(set(m.split(" (")[0] for m in miss["measure"])))}) '
+         f'are the years when profit turns, where a 1% test is tight. The largest gap is ₹{miss["gap"].abs().max():.2f} Cr. '
          f'The sheet\'s costs equal the model\'s exactly; every gap comes from its simpler timing of revenue.</div>' if len(miss) else "")
     nlev = c.loc[c["case"].str.startswith("lever"), "case"].nunique()
     return page(n, "Appendix", "A11 · SPREADSHEET CHECK", "The spreadsheet and the model give the same answers, after the 22 Oct fixes", body,
@@ -567,8 +567,8 @@ def a_changes(n):
             ["Still saving after a year", "55% for every saver", "38% online (24–45%); 55% at the doorstep"],
             ["Where the money goes", "Debt fund, 0.35% fee", "80% equity SIP / 20% debt, 0.67% blended fee"],
             ["Cost to win a saver", "Agent salary + bought leads", "₹600 in the seed, ₹450 after (₹300–600)"],
-            ["Loans", "₹2.5 lakh; 18% of savers apply a year", "Every KYC'd user, 35% apply a year, 30% approved; ₹1 lakh personal/business at 2% rising to 3%"],
-            ["Home loan", "₹25 lakh", "₹8 lakh (affordable housing), 0.5% payout"],
+            ["Loans", "₹2.5 lakh; 18% of savers apply a year", "Every KYC'd user, 35% apply a year, 30% approved; ₹3 lakh personal/business at 2% rising to 3%"],
+            ["Home loan", "₹25 lakh", "₹30 lakh, 0.5% payout"],
             ["Lending", "Own NBFC, 30% of personal loans on book from month 30", "DSA / lending service provider for partner lenders; no own book"],
             ["Collections fees", "The agent collects overdue loans", "None"],
             ["Money", "₹1,108 crore over six rounds; unicorn on paper by month 59",

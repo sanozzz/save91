@@ -160,7 +160,7 @@ def input_sections():
              "Operator 21 Oct: 30% (founders' past lending ~25%; PSU banks approve ~80% of pre-qualified MSMEs)"),
             ("approved_repeat", "Approved, repeat loan", "share", "pct", X_ON["approved_repeat"], "Operator 21 Oct: 70%"),
             ("ticket", "Loan size, personal + business blended", "₹", "inr", X_ON["ticket"],
-             "Half personal ₹50k (digital NBFC ₹18.8k-70k, FACE/CRIF) and half business ₹1.5 lakh (merchant loans ₹50k-5 lakh, Paytm ~₹2 lakh)"),
+             "Founders 22 Oct: ₹3 lakh (research found smaller: digital personal loans ₹18.8k-70k, FACE/CRIF; merchant loans ₹50k-5 lakh, Paytm ~₹2 lakh)"),
             ("fee", "Our payout at the start: a DSA's rate", "of the loan", "pct3", X_ON["fee"], "DSA payouts 1-2.5% on personal and business loans (research 21 Oct)"),
             ("fee_mult_start", "Fee multiplier in month 1", "x", "mult", X_ON["fee_mult_start"], "Agreed"),
             ("fee_mult_end", "Fee multiplier reached by month 60 (straight line, held after)", "x", "mult", X_ON["fee_mult_end"], "Agreed"),

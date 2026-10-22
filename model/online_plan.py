@@ -79,14 +79,14 @@ def saver_inputs(mix="80/20", doorstep=False):
         "upi_12": 1.0, "upi_ramp": 2,                         # all UPI (refresh; Bachatt is 100% UPI)
         # loan funnel, operator 21 Oct + research/xs_funnel_2026-10-21.csv: 35% of reachable users apply for a loan a year, 70% of
         # them for personal or business loans (this funnel), 15% gold, 10% against their savings (tiny money, not counted), 3% LAP,
-        # 2% home. 30% of first applications approved (eligibility inside it), 70% of repeats. Blended ticket: personal Rs 50k
-        # (digital NBFC Rs 18.8k-70k, XF-11) and business Rs 1.5 lakh (merchant loans Rs 50k-5 lakh, XF-09/10). DSA payout 2%
+        # 2% home. 30% of first applications approved (eligibility inside it), 70% of repeats. Blended ticket Rs 3 lakh
+        # (founder 22 Oct; research found smaller: digital NBFC personal Rs 18.8k-70k, XF-11; merchant loans Rs 50k-5 lakh, XF-09/10). DSA payout 2%
         # (XF-01/02), rising 1.5x by year 5 (company); tenure 12-24 months.
         "eligible": 1.0, "approved_first": 0.30, "approved_repeat": 0.70, **loan_mix(LOAN_APPLY),
-        "ticket": 100000.0, "fee": 0.02, "tenure": 18.0,
+        "ticket": 300000.0, "fee": 0.02, "tenure": 18.0,
         "loan_gold_ticket": 100000.0, "loan_gold_comm": 0.005,        # XF-12 (Rs 1.96 lakh industry, smaller for this segment), XF-05
-        "loan_lap_ticket": 400000.0, "loan_lap_comm": 0.01,           # XF-13 micro-LAP Rs 3.9 lakh, XF-04
-        "loan_home_ticket": 800000.0, "loan_home_comm": 0.005,        # XF-13 Rs 6-8 lakh, XF-03
+        "loan_lap_ticket": 2500000.0, "loan_lap_comm": 0.01,          # founder 22 Oct (micro-LAP lenders Rs 3.9 lakh, XF-13), XF-04
+        "loan_home_ticket": 3000000.0, "loan_home_comm": 0.005,       # founder 22 Oct (India average ~Rs 32 lakh, XL-29; affordable HFCs Rs 6-15 lakh), XF-03
         "fee_early": 0.0, "fee_b3": 0.0,                      # a marketing partner collects nothing
         "kyc_cost": 0.0,                                      # inside the all-in CAC / the doorstep cost
         **OFF_PRODUCTS,

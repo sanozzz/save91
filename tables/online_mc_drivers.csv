@@ -1,87 +1,87 @@
 input,label,rank corr with money needed (profitable path),rank corr with Y5 EBITDA (profitable path)
-cac,"Cost to win a saver after the seed (Rs, all-in)",0.463,-0.176
-on_r12,Online: still saving at 12 months,-0.371,0.449
-on_apply,Reachable users who apply for a loan a year (all loan types),-0.371,0.406
-on_fee,"Our payout on personal + business loans, at the start",-0.328,0.356
-on_ticket,"Personal + business loan size, blended (Rs)",-0.289,0.347
-approval_growth,First-loan and card approval rise each calendar year as lenders see our pool's repayments,-0.166,0.22
-on_daily,Daily amount (Rs),-0.157,0.178
-takeup_growth,"All take-up hazards rise each calendar year as the pool's history grows (loan apply, cards, all cross-sell products)",-0.147,0.204
-loan_vehicle_ticket,Two-wheeler / e-rickshaw loan: ticket,-0.142,0.137
-support_cost,"Running cost per active saver a month (support, app, bank cash-deposit charges, supervision)",0.129,-0.115
-on_reach,"KYC'd users reached by loan offers, per online saver won",0.113,0.035
-on_approved,First loan applications approved,-0.112,0.094
-early_takeup_mult,"In months 1–6, every take-up (loan applications, cards, all cross-sell products) as a share of the agreed rate",-0.094,0.027
-early_approval_mult,"In months 1–6, loan and card approvals as a share of the agreed rate",-0.079,0.081
-bills_ticket,Bill payments (BBPS): ticket,0.077,-0.056
-days,Deposit days a month (while active),-0.075,0.093
-loan_lap_approval,Loan against property (his shop or home; once per saver): approval share,-0.075,0.07
-fd_takeup,FD via partner banks: take-up a year,-0.072,0.06
-shop_comm,Shop insurance (fire and burglary): our commission,-0.068,0.065
-sip_comm,Equity/hybrid SIP trail: our commission,-0.065,0.074
-amount_growth,Growth in his daily amount per year saved,0.061,-0.072
-life_term_takeup,Term life (small cover): take-up a year,-0.059,0.072
-gold_renew,Digital gold: renews a year,0.058,-0.064
-capacity,Cash visits one agent can make a day,-0.057,0.038
-withdraw_m,"Share of the balance withdrawn mid-term, each month",0.054,-0.071
-on_r3,Online: still saving at month 3,-0.054,0.064
-hlth_family_comm,Family health cover (₹3–5 lakh floater): our commission,0.048,-0.048
-two_wheeler_renew,Two-wheeler insurance (savers with a vehicle): renews a year,-0.045,0.027
-recovered,Recovered of what is owed after 90 days,0.043,-0.059
-two_wheeler_comm,Two-wheeler insurance (savers with a vehicle): our commission,0.043,-0.06
-ticket_growth,His next loan (repeat or top-up) is bigger for each year he has repaid,-0.04,0.035
-recharge_comm,Mobile recharge: our commission,-0.04,0.051
-loan_home_approval,"Home loan (affordable housing; once per saver, other lenders): approval share",0.038,-0.028
-two_wheeler_takeup,Two-wheeler insurance (savers with a vehicle): take-up a year,0.036,-0.038
-ramp_months,Months for a new agent to reach full speed (straight line from 50%),-0.034,0.022
-lead_cost,Our cost per online lead the agent converts,0.032,-0.032
-eq_share,Equity share of the savings,-0.032,0.032
-hlth_family_renew,Family health cover (₹3–5 lakh floater): renews a year,0.031,-0.037
-life_term_renew,Term life (small cover): renews a year,-0.03,0.01
-eq_return,"Equity return a year, net",0.028,-0.019
-device_comm,Mobile / device insurance: our commission,-0.027,0.032
-sip_ticket,Equity/hybrid SIP trail: ticket,-0.027,0.037
-bills_comm,Bill payments (BBPS): our commission,-0.027,0.008
-shop_takeup,Shop insurance (fire and burglary): take-up a year,-0.026,0.035
-cash_cover,"Fidelity and cash-in-transit insurance, per agent a month (fixed per agent)",0.024,-0.03
-life_term_ticket,Term life (small cover): ticket,0.023,-0.015
-loan_vehicle_comm,Two-wheeler / e-rickshaw loan: our commission,0.023,-0.014
-accident_comm,Personal accident: our commission,-0.022,0.031
-gold_ticket,Digital gold: ticket,0.022,-0.004
-loss,"Money lost on loans, after recoveries (share of money lent)",-0.021,0.029
-device_takeup,Mobile / device insurance: take-up a year,0.021,-0.016
-recharge_takeup,Mobile recharge: take-up a year,-0.021,0.038
-churn_late,Monthly drop-off after month 12,0.018,-0.05
-loan_cd_takeup,Consumer-durable loan: take-up a year,0.018,-0.015
-accident_ticket,Personal accident: ticket,0.017,-0.033
-hlth_small_comm,Small health / hospital cash: our commission,-0.016,0.007
-hlth_small_renew,Small health / hospital cash: renews a year,0.016,-0.02
-online_lead_share,Share of onboardings that start as bought online leads (the agent closes and serves them),-0.015,0.003
-card_share,"Active savers who get a card (once, spread over ages 1–6; was ages 7–12)",0.014,-0.017
-accident_takeup,Personal accident: take-up a year,0.014,-0.013
-hlth_small_ticket,Small health / hospital cash: ticket,0.013,-0.022
-sip_renew,Equity/hybrid SIP trail: renews a year,0.012,-0.023
-hlth_family_ticket,Family health cover (₹3–5 lakh floater): ticket,0.011,-0.016
-choti_renew,choti_renew,-0.011,0.004
-topup_share,Top-up loans: share of borrowers with 12+ EMIs paid on time who take a top-up each year,0.01,-0.005
-nps_takeup,NPS (₹200 once a new account): take-up a year,0.01,0.003
-life_term_comm,Term life (small cover): our commission,-0.009,0.01
-two_wheeler_ticket,Two-wheeler insurance (savers with a vehicle): ticket,-0.009,0.012
-device_ticket,Mobile / device insurance: ticket,0.009,-0.018
-hlth_small_takeup,Small health / hospital cash: take-up a year,0.008,-0.018
-early_cured,Share of loans that fall 31–90 days behind and that our agent brings back before 90 days,0.007,-0.011
-shop_ticket,Shop insurance (fire and burglary): ticket,-0.007,0.02
-fd_ticket,FD via partner banks: ticket,0.007,0.005
-signup_decline_y5,"Sign-ups fall in a straight line from the year-1 level (months 1–12, after the ramp) to this share of it by month 49, then flat",0.006,0.015
-topup_size,"Top-up size, as a share of his original ticket (times ticket_growth)",-0.005,0.013
-hlth_family_takeup,Family health cover (₹3–5 lakh floater): take-up a year,-0.005,0.012
-approved_repeat,"Approved, repeat loan (after repaying one)",0.004,0.0
-accident_renew,Personal accident: renews a year,0.004,-0.007
-fd_comm,FD via partner banks: our commission,-0.004,-0.001
-bills_takeup,Bill payments (BBPS): take-up a year,-0.004,-0.001
-loan_cd_ticket,Consumer-durable loan: ticket,-0.004,0.014
-card_fee,Fee per approved card,0.002,-0.006
-shop_renew,Shop insurance (fire and burglary): renews a year,-0.002,0.007
-loan_cd_comm,Consumer-durable loan: our commission,0.002,0.013
-loan_vehicle_takeup,Two-wheeler / e-rickshaw loan: take-up a year,0.001,0.006
-taken_back,Fees taken back (loan closed or bad within 6 months),-0.0,-0.033
+on_apply,Reachable users who apply for a loan a year (all loan types),-0.439,0.469
+cac,"Cost to win a saver after the seed (Rs, all-in)",0.428,-0.004
+on_r12,Online: still saving at 12 months,-0.375,0.487
+on_fee,"Our payout on personal + business loans, at the start",-0.324,0.354
+on_ticket,"Personal + business loan size, blended (Rs)",-0.273,0.342
+early_takeup_mult,"In months 1–6, every take-up (loan applications, cards, all cross-sell products) as a share of the agreed rate",-0.194,0.027
+early_approval_mult,"In months 1–6, loan and card approvals as a share of the agreed rate",-0.134,0.095
+loan_vehicle_ticket,Two-wheeler / e-rickshaw loan: ticket,-0.13,0.113
+on_approved,First loan applications approved,-0.118,0.079
+approval_growth,First-loan and card approval rise each calendar year as lenders see our pool's repayments,-0.117,0.244
+loan_lap_approval,Loan against property (his shop or home; once per saver): approval share,-0.115,0.092
+takeup_growth,"All take-up hazards rise each calendar year as the pool's history grows (loan apply, cards, all cross-sell products)",-0.083,0.2
+amount_growth,Growth in his daily amount per year saved,0.076,-0.08
+bills_ticket,Bill payments (BBPS): ticket,0.076,-0.05
+shop_comm,Shop insurance (fire and burglary): our commission,-0.075,0.064
+fd_takeup,FD via partner banks: take-up a year,-0.073,0.053
+on_r3,Online: still saving at month 3,-0.072,0.074
+support_cost,"Running cost per active saver a month (support, app, bank cash-deposit charges, supervision)",0.059,-0.045
+on_reach,"KYC'd users reached by loan offers, per online saver won",0.059,0.146
+life_term_takeup,Term life (small cover): take-up a year,-0.057,0.068
+gold_renew,Digital gold: renews a year,0.056,-0.052
+two_wheeler_comm,Two-wheeler insurance (savers with a vehicle): our commission,0.053,-0.071
+days,Deposit days a month (while active),-0.052,0.068
+recovered,Recovered of what is owed after 90 days,0.05,-0.074
+two_wheeler_renew,Two-wheeler insurance (savers with a vehicle): renews a year,-0.049,0.021
+capacity,Cash visits one agent can make a day,-0.045,0.017
+two_wheeler_takeup,Two-wheeler insurance (savers with a vehicle): take-up a year,0.042,-0.043
+ticket_growth,His next loan (repeat or top-up) is bigger for each year he has repaid,-0.037,0.03
+loan_home_approval,"Home loan (affordable housing; once per saver, other lenders): approval share",0.037,-0.025
+hlth_family_comm,Family health cover (₹3–5 lakh floater): our commission,0.036,-0.04
+hlth_family_renew,Family health cover (₹3–5 lakh floater): renews a year,0.036,-0.048
+eq_return,"Equity return a year, net",0.035,-0.021
+loan_vehicle_comm,Two-wheeler / e-rickshaw loan: our commission,0.033,-0.018
+sip_ticket,Equity/hybrid SIP trail: ticket,-0.031,0.043
+card_share,"Active savers who get a card (once, spread over ages 1–6; was ages 7–12)",0.028,-0.027
+shop_takeup,Shop insurance (fire and burglary): take-up a year,-0.028,0.045
+life_term_ticket,Term life (small cover): ticket,0.027,-0.016
+ramp_months,Months for a new agent to reach full speed (straight line from 50%),-0.026,0.008
+lead_cost,Our cost per online lead the agent converts,0.026,-0.017
+accident_ticket,Personal accident: ticket,0.025,-0.032
+recharge_comm,Mobile recharge: our commission,-0.025,0.045
+bills_comm,Bill payments (BBPS): our commission,-0.024,-0.01
+loan_cd_takeup,Consumer-durable loan: take-up a year,0.024,-0.024
+shop_ticket,Shop insurance (fire and burglary): ticket,-0.023,0.043
+withdraw_m,"Share of the balance withdrawn mid-term, each month",0.022,-0.034
+hlth_small_ticket,Small health / hospital cash: ticket,0.018,-0.025
+life_term_renew,Term life (small cover): renews a year,-0.018,-0.012
+accident_takeup,Personal accident: take-up a year,0.018,-0.027
+device_ticket,Mobile / device insurance: ticket,-0.018,-0.001
+cash_cover,"Fidelity and cash-in-transit insurance, per agent a month (fixed per agent)",0.017,-0.022
+device_takeup,Mobile / device insurance: take-up a year,0.017,-0.011
+loan_cd_ticket,Consumer-durable loan: ticket,-0.017,0.01
+accident_comm,Personal accident: our commission,-0.015,0.023
+sip_comm,Equity/hybrid SIP trail: our commission,-0.015,0.02
+loss,"Money lost on loans, after recoveries (share of money lent)",-0.014,0.029
+nps_takeup,NPS (₹200 once a new account): take-up a year,0.014,0.002
+eq_share,Equity share of the savings,-0.014,0.012
+loan_cd_comm,Consumer-durable loan: our commission,-0.013,0.023
+hlth_small_renew,Small health / hospital cash: renews a year,0.012,-0.014
+life_term_comm,Term life (small cover): our commission,-0.011,0.018
+on_daily,Daily amount (Rs),-0.011,0.023
+card_fee,Fee per approved card,0.01,-0.018
+loan_vehicle_takeup,Two-wheeler / e-rickshaw loan: take-up a year,0.01,0.001
+online_lead_share,Share of onboardings that start as bought online leads (the agent closes and serves them),-0.009,0.003
+two_wheeler_ticket,Two-wheeler insurance (savers with a vehicle): ticket,-0.009,0.014
+device_comm,Mobile / device insurance: our commission,-0.008,0.021
+shop_renew,Shop insurance (fire and burglary): renews a year,0.008,0.002
+choti_renew,choti_renew,-0.008,-0.008
+gold_ticket,Digital gold: ticket,0.008,0.014
+hlth_family_ticket,Family health cover (₹3–5 lakh floater): ticket,-0.007,0.0
+early_cured,Share of loans that fall 31–90 days behind and that our agent brings back before 90 days,0.005,-0.011
+hlth_small_takeup,Small health / hospital cash: take-up a year,0.005,-0.025
+hlth_small_comm,Small health / hospital cash: our commission,-0.005,0.003
+fd_comm,FD via partner banks: our commission,0.005,-0.015
+taken_back,Fees taken back (loan closed or bad within 6 months),-0.004,-0.036
+sip_renew,Equity/hybrid SIP trail: renews a year,-0.003,-0.02
+fd_ticket,FD via partner banks: ticket,0.003,-0.001
+bills_takeup,Bill payments (BBPS): take-up a year,0.003,-0.004
+signup_decline_y5,"Sign-ups fall in a straight line from the year-1 level (months 1–12, after the ramp) to this share of it by month 49, then flat",0.002,0.029
+topup_share,Top-up loans: share of borrowers with 12+ EMIs paid on time who take a top-up each year,0.002,0.003
+topup_size,"Top-up size, as a share of his original ticket (times ticket_growth)",-0.002,0.015
+accident_renew,Personal accident: renews a year,-0.002,0.006
+churn_late,Monthly drop-off after month 12,0.001,-0.04
+approved_repeat,"Approved, repeat loan (after repaying one)",-0.001,-0.003
+recharge_takeup,Mobile recharge: take-up a year,0.001,0.03
+hlth_family_takeup,Family health cover (₹3–5 lakh floater): take-up a year,-0.0,0.01
