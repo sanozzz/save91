@@ -13,6 +13,9 @@ HERE = Path(__file__).resolve().parent
 ROOT = HERE.parent
 sys.path.insert(0, str(ROOT / "seed"))
 import build_seed_plan as sp  # noqa: E402  (CSS, colours and svg helpers)
+sys.path.insert(0, str(ROOT / "ltv"))
+sys.path.insert(0, str(ROOT / "model"))
+import build_ltv_deck as ld  # noqa: E402  (the lender-fee test page, shared with the LTV/CAC deck)
 
 TAB = ROOT / "tables"
 INK, NAVY, TEAL, BLUE, AMBER, SLATE, MUTE, LINE, BG, RED = sp.INK, sp.NAVY, sp.TEAL, sp.BLUE, sp.AMBER, sp.SLATE, sp.MUTE, sp.LINE, sp.BG, sp.RED
@@ -80,7 +83,7 @@ def page(n, section, kicker, title, body, src=""):
 def cover():
     keys = ("45% still saving at a year", "Rs 200 a day", "Rs 300 a day", "Cost to win Rs 300", "50% apply for a loan a year")
     lo, hi = min(lm(k) for k in keys), max(lm(k) for k in keys)
-    tiles = [(f"{LV0['LTV/CAC 60m']:.1f}× LTV/CAC", f"one online saver: ₹{int(LV0['cost to win Rs'])} to win, ₹{int(LV0['contribution 60m Rs']):,} back over five years, paid back in month {int(LV0['pays back in month'])}"),
+    tiles = [(f"{LV0['LTV/CAC 60m']:.1f}× LTV/CAC", f"if our loan targets hold. One online saver: ₹{int(LV0['cost to win Rs'])} to win, ₹{int(LV0['contribution 60m Rs']):,} back over five years, paid back in month {int(LV0['pays back in month'])}"),
              (yr(LEAN['EBITDA positive from month']).capitalize(), f"EBITDA turns positive in the plan ({pf(LEAN['EBITDA positive from month'])}, ${LEAN['money needed $M']}M raised, 20,000 savers a month)"),
              (f"Months {lo}–{hi}", f"with any one change: ₹200–300 a day, 45% still saving, half applying for loans or ₹300 to win ({LVS} savers a month)"),
              (("$1B: 10 crore" if unicorn_title().startswith("Only capturing") else ("Not by year 5" if unicorn_title().startswith("No combination") else "$1B by year 5")), unicorn_title())]
@@ -539,8 +542,13 @@ def p_assume():
                 f'<table class="at"><tr><th>Input</th><th>Value</th><th>Basis</th></tr>{rows}</table>')
 
 
+def p_fees():
+    title, body, src = ld.fee_test()
+    return page(4, "What has to be true", "THE ONE NUMBER", title, body, src)
+
+
 def build():
-    pages = [cover(), p_unit(), p_ltv_levers(), p_frontier(), p_plans(), p_levers(), p_unicorn(), p_seed(), p_assume()]
+    pages = [cover(), p_unit(), p_ltv_levers(), p_fees(), p_frontier(), p_plans(), p_levers(), p_unicorn(), p_seed(), p_assume()]
     pages = [pages[0]] + [re.sub(r'(<footer class="pf"><span>[^<]*</span><span>)[^<]*(</span></footer>)', rf"\g<1>{i}\2", h)
                           for i, h in enumerate(pages[1:], start=2)]
     html = (f'<!doctype html><html><head><meta charset="utf-8"><title>Online-first business case</title><style>{sp.CSS}</style></head>'

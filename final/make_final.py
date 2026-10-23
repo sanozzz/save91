@@ -22,8 +22,8 @@ DOCS = [  # (name in final/, source, what it is)
     ("2_Online_plan_v4.pdf", "online/Online_model_v4.pdf",
      "The full online-first plan: the saver, the company year by year, the Monte Carlo, the levers, and an appendix with every "
      "input, its source and the input audit."),
-    ("3_LTV_CAC_one_saver.pdf", "ltv/LTV_CAC_deck.pdf",
-     "What one saver is worth: the cost to win them, each revenue stream, serving, payback, and the tests that matter."),
+    ("3_LTV_CAC_one_saver.pdf", "ltv/LTV_CAC_simple.pdf",
+     "What one saver is worth, in eight pages: how one saver makes money, how each assumption changes the number, and the five checks the seed runs."),
     ("4_Seed_plan_0.5M.pdf", "seed/Seed_Plan_investor.pdf",
      "The $0.5M seed: customers (1 lakh sign-ups), product and team for 24 months, the reserve, and what the seed must prove."),
     ("5_Bachatt_teardown_memo.pdf", "memo/Bachatt_teardown_memo.pdf",
@@ -50,6 +50,7 @@ BACKGROUND = [  # linked, not copied: useful, but not the current numbers
     ("others/reviews/INVESTMENT_REVIEW_v4_status.md", "Each point of the earlier investment review, with its status in the current plan."),
     ("others/tables/online_inputs_audit.csv", "Every input against its source, with a verdict (matches, partly, judgement, target)."),
     ("others/research/", "The evidence: one row per source, with IDs the decks cite."),
+    ("others/ltv/LTV_CAC_deck.pdf", "The detailed LTV/CAC deck (32 pages): every assumption with its range, sources and the 1,000 simulated futures."),
     ("others/README.md", "The map of everything behind final/."),
 ]
 
@@ -72,7 +73,8 @@ def headline():
     cmc = pick("online_mc_summary.csv", "plan", "Profitable path")
     return [
         f"One online saver costs ₹{float(on['cost to win Rs']):,.0f} to win (with the 10% contingency) and returns "
-        f"{float(on['LTV/CAC 60m']):.1f}× that over five years; it pays back in month {int(float(on['pays back in month']))}. "
+        f"{float(on['LTV/CAC 60m']):.1f}× that over five years if the loan targets hold (the credit bet); it pays back in month "
+        f"{int(float(on['pays back in month']))}. "
         f"A doorstep saver returns {door_x:.1f}×.",
         f"The company, at 20,000 online savers won a month from month 30, is EBITDA-positive from month "
         f"{int(float(co['EBITDA positive from month']))} and needs ${float(co['money needed $M']):.1f}M in all; "
@@ -119,7 +121,7 @@ def readme():
     L += ["", "Superseded: [`others/archive/`](../others/archive/README.md) holds the earlier offline street-agent plan (16–18 Oct).",
           "", "## Refreshing this folder", "", "After changing an input, rebuild in this order (from the repo root), then run this script:", "", "```",
           "cd others/model && PYTHONPATH=. python online_plan.py && PYTHONPATH=. python online_mc.py && PYTHONPATH=. python ltv_book.py <payload_dir>",
-          "cd .. && for b in ltv/build_ltv_deck.py online/build_online_v4.py online/build_online_case.py seed/build_seed_plan.py; do PYTHONPATH=model python $b; done",
+          "cd .. && for b in ltv/build_ltv_deck.py ltv/build_ltv_simple.py online/build_online_v4.py online/build_online_case.py seed/build_seed_plan.py; do PYTHONPATH=model python $b; done",
           "cd .. && python final/make_final.py", "```", "",
           "The sheets are pushed separately (`others/model/v4_gsheet.py`, `v4_toy_check.py`, `v4_ltv_tab.py`, `ltv_book.py`).", ""]
     return "\n".join(L)

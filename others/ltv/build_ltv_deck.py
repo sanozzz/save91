@@ -270,7 +270,7 @@ def cover():
     names = {"on_ticket": "loan size", "on_apply": "how many apply for a loan", "cac": "the cost to win", "on_daily": "the daily amount",
              "on_fee": "the loan payout", "on_r12": "how many keep saving", "on_approved": "loan approvals", "on_reach": "how many see loan offers"}
     words = [names.get(k, lb.label_of(k).lower()) for k in big]
-    tiles = [(x(ON["ltvcac"]), f"one online saver: {rs(CAC)} to win (₹450 + our 10% contingency), {rs(ON['ltv'])} back over five years after serving; paid back in month {ON['pay']}"),
+    tiles = [(x(ON["ltvcac"]), f"if our loan targets hold. One online saver: {rs(CAC)} to win (₹450 + our 10% contingency), {rs(ON['ltv'])} back over five years after serving; paid back in month {ON['pay']}"),
              (x(DR["ltvcac"]), f"one doorstep saver: {rs(DCAC)} to win all-in, {rs(DR['ltv'])} back; paid back in month {DR['pay']}"),
              (f"{x(MC_P50)} median", f"across 1,000 simulated futures (our own ranges, not observed odds): {SH3:.0%} at 3× or better, 1 in 10 below {x(MC_P10)}"),
              (f"{len(big)} numbers", f"decide it: {', '.join(words[:-1])} and {words[-1]}. The loan numbers are our targets; each is shown with its evidence, range and effect.")]
@@ -373,7 +373,7 @@ def p_answer(n):
         ("Loans are the biggest stream", f"{rs(ON['pb'] + ON['ol'])} of {rs(ON['rev'])}: {(ON['pb'] + ON['ol']) / ON['rev']:.0%} of revenue. Fund fees are {ON['fund'] / ON['rev']:.0%}; insurance, cards and other products {(ON['ins'] + ON['cards'] + ON['oth']) / ON['rev']:.0%}."),
         ("Doorstep: more saving, fewer loans", f"More doorstep savers keep saving ({DR['s12']:.0%} vs {ON['s12']:.0%} at a year), so the fund earns {rs(DR['fund'])} vs {rs(ON['fund'])}; but a doorstep saver brings no extra KYC'd users."),
         ("Cross-sell is {:.0%} of revenue".format(xs), f"Everything except the fund trail is earned on what users borrow or buy through us. About {rs(round(gap, -1))} of the {rs(ON['ltv'])} comes from loans to KYC'd sign-ups who never save; with offers to savers only, LTV/CAC is {x(only)}.")])
-    return page(n, "The answer", "LTV / CAC", f"An online saver costs {rs(CAC)} and returns {rs(ON['ltv'])} over five years: {ON['ltvcac']:.1f}×, paid back in month {ON['pay']}; "
+    return page(n, "The answer", "LTV / CAC", f"If our loan targets hold, an online saver costs {rs(CAC)} and returns {rs(ON['ltv'])} over five years: {ON['ltvcac']:.1f}×, paid back in month {ON['pay']}; "
                 f"a doorstep saver {DR['ltvcac']:.1f}×, month {DR['pay']}", body,
                 f"{rs(ON['rev'])} revenue − {rs(-ON['serve'])} serving = {rs(ON['ltv'])} returned; less {rs(CAC)} to win (₹450 + our 10% contingency) = {rs(ON['net'])} net. Live in the workbook, tab LTV-CAC. Rounded; rows may not add exactly.")
 
@@ -828,6 +828,219 @@ def p_true(n):
                 "Company: the profitable path, 20,000 online savers won a month from month 30. Money needed: the peak cash spent before profit, in $ at ₹95. Same 1,000 futures as the LTV/CAC, so each row is one consistent future.")
 
 
+# What has to be true (founders 23 Oct: keep the 7.7x and show the one number it rests on). Market values: the middle of the
+# evidence in reviews/2026-10-23_ltv_cac_check (evidence.md); "fewer keep saving" = 35% at a year, then 2.5% stop a month.
+MKT_SAVE = {"on_r12": 0.35, "churn_late": 0.025}
+MKT_CAC = 750.0
+MKT_OV = {"r12": 0.35, "churn_late": 0.025, **op.loan_mix(0.20), "approved_first": 0.20, "ticket": 50000.0,
+          "loan_home_ticket": 1.2e6, "loan_lap_ticket": 5e5, "trail": 0.8 * 0.0075 + 0.2 * 0.0010}
+
+
+def market():
+    """Every input at the middle of the evidence, payout held at 2% (the same run as evidence.md's base). Through online_plan, not
+    lb.evaluate, because the workbook's Monte Carlo mapping holds home and property loan sizes fixed. Returns (loan fees, LTV/CAC), 5 years."""
+    op.OV.clear()
+    op.OV.update(MKT_OV)
+    op._CACHE.clear()
+    try:
+        d = op.ltv_parts(op.saver_inputs())
+        t = np.arange(1, op.M + 1)
+        ramp = 1.0 + 0.5 * np.minimum(t - 1, 59) / 59
+        held = d["personal and business loans"] * (1 / ramp - 1)       # take the 2% -> 3% rise back out
+        loans = float((d["Loans (all referrals)"] + held)[:60].sum())
+        ltv = float((d["income"] + held - d["serving"])[:60].sum())
+        return loans, ltv / (MKT_CAC * (1 + op.CONTINGENCY))
+    finally:
+        op.OV.clear()
+        op._CACHE.clear()
+
+
+def fee_test():
+    """(title, body, footnote) of the page on lender fees per saver won: the plan's, what 1x and 3x need, today's market rates."""
+    def need(o):
+        c, rest = -o["cac"], o["ltv"] - o["pb"] - o["ol"]           # rest: what the saver brings without loans, less serving
+        return c - rest, 3 * c - rest
+    plan_fee = ON["pb"] + ON["ol"]
+    n1, n3 = need(ON)
+    m = at(cac=MKT_CAC, **MKT_SAVE)
+    m1, m3 = need(m)
+    mkt_fee, mkt_x = market()
+    per_saver = float((P["loans_first"][0][:60].sum() + P["loans_repeat"][0][:60].sum() + P["topups"][0][:60].sum()) * REACH)
+    rate = ON["pb"] / (per_saver * X["ticket"])                     # fee per personal/business loan, share of its size (ramp and growth in)
+    top = max(plan_fee, m3)
+    rows = [("The plan", plan_fee, NAVY, x(ON["ltvcac"])),
+            ("Needed for 3×, everything else as planned", n3, TEAL, "3×"),
+            ("Needed for 3× if a saver costs ₹750 to win and fewer keep saving", m3, TEAL, "3×"),
+            ("Break-even, everything else as planned", n1, AMBER, "1×"),
+            ("Break-even at ₹750 to win and fewer keep saving", m1, AMBER, "1×"),
+            ("Ordinary app users at today's market rates", mkt_fee, SLATE, x(mkt_x))]
+    bars = "".join(
+        f'<div style="display:flex;align-items:center;gap:10px;margin:7px 0">'
+        f'<div style="flex:0 0 250px;font-size:12px;line-height:1.3;color:{INK}">{lab}</div>'
+        f'<div style="flex:1;display:flex;align-items:center;gap:8px"><div style="height:16px;width:{max(v / top * 100, 1.2):.1f}%;background:{c};border-radius:3px"></div>'
+        f'<b style="font-size:12.5px;color:{NAVY};white-space:nowrap">{rs(v)}</b><span style="font-size:11px;color:{SLATE}">{tag}</span></div></div>'
+        for lab, v, c, tag in rows)
+    left = (f'<div style="font-size:11.5px;font-weight:700;letter-spacing:1.1px;color:{SLATE}">LENDER FEES PER ONLINE SAVER WON, FIRST 5 YEARS (₹)</div>' + bars)
+    loans = lambda need_, t: f"{need_ / (rate * t) * 100:,.0f}"
+    trows = [[short_rs(t, "rs"), loans(n1, t), loans(n3, t), loans(m3, t)] for t in (50000.0, 100000.0, X["ticket"])]
+    right = (f'<div style="font-size:12.5px;line-height:1.45;margin-bottom:6px"><b style="color:{NAVY}">What that means in loans:</b> personal and business '
+             f'loans per 100 savers won over five years, at each average loan size (other lenders\' loans not counted, so these are the most needed). '
+             f'The plan has {per_saver * 100:.0f} at {short_rs(X["ticket"], "rs")}.</div>'
+             + table(["Average loan", "Break-even", "3×", "3× at ₹750 and fewer keep saving"], trows, [25, 22, 18, 35], 12, compact=True))
+    body = two(left, right, 600) + chips([
+        ("Why this number", f"Lender fees are {plan_fee / ON['rev']:.0%} of a saver's revenue. The {x(ON['ltvcac'])} holds only if lenders pay about "
+                            f"{rs(plan_fee)} per saver won; below {rs(n3)} it falls under 3×."),
+        ("Today's market", "On the largest payments and lending apps, 1–5% of users take a loan in a year and first loans are ₹5,000–25,000. "
+                           "Nobody has measured savers who choose to see lender offers."),
+        ("What the seed measures", "Month by month: the share of KYC'd users who opt in to offers, first loans per 100, the median approved loan, "
+                                   "and the fee lenders pay after clawbacks, in writing.")])
+    title = (f"What has to be true: lenders pay us {rs(plan_fee)} per saver won in the plan; 3× needs {rs(n3)} and break-even {rs(n1)}")
+    src = ("Lender fees per saver won: every loan referral fee from one online saver won and the KYC'd users who came with them, over five years, after "
+           "payouts taken back. Fewer keep saving: 35% still saving at a year and 2.5% stopping each month after, the middle of the evidence. Today's "
+           "market rates: 20% of reachable users apply a year, 20% of first applications approved, ₹50,000 personal and business loans, ₹12 lakh home "
+           "and ₹5 lakh property loans, a 2% payout with no rise, 0.62% fund trail, ₹750 to win a saver.")
+    return title, body, src
+
+
+def p_fees(n):
+    title, body, src = fee_test()
+    return page(n, "What has to be true", "THE ONE NUMBER", title, body, src)
+
+
+# ------------------------------------------------------------------------------------------------ the credit bet (23 Oct)
+# The 7.7x rests on one bet; the market figures are the middle of the evidence in reviews/2026-10-23_ltv_cac_check.
+FLAT = {"takeup_growth": 0.0, "approval_growth": 0.0}
+
+
+def _ltvx(ov=None, cac=None, reach=None):
+    """Online LTV/CAC over five years with some plan inputs changed (online_plan.ltv_view), everything else as planned."""
+    op.OV.clear()
+    op.OV.update(ov or {})
+    op._CACHE.clear()
+    try:
+        return op.ltv_view(op.saver_inputs(), op.CAC if cac is None else cac, reach=reach)[2]["LTV/CAC 60m"]
+    finally:
+        op.OV.clear()
+        op._CACHE.clear()
+
+
+def emi(principal, yearly, months):
+    r = yearly / 12
+    return principal * r / (1 - (1 + r) ** -months)
+
+
+def bet_svg(W=1120):
+    """Plan against the market, one strip per target: grey band = what the market shows, navy dot = the plan."""
+    inc_hi, inc_lo = emi(X["ticket"], 0.24, X["tenure"]) / 0.40, emi(X["ticket"], 0.24, X["tenure"]) / 0.50
+    share = 1 - _ltvx(reach=1.0) / ON["ltvcac"]
+    first = op.LOAN_APPLY * X["approved_first"]
+    lk = lambda v: short_rs(v, "rs")
+    rows = [("Average personal or business loan", f"{lk(X['ticket'])} needs ₹{inc_lo / 1e3:.0f}–{inc_hi / 1e3:.0f}k a month of income; our savers earn ₹20–40k",
+             X["ticket"], 15000, 120000, 350000, lk, None, False),
+            ("Reachable users who take a first loan, a year", f"{pct(op.LOAN_APPLY)} apply × {pct(X['approved_first'])} approved",
+             first, 0.01, 0.05, 0.12, lambda v: pct(v, 1), None, False),
+            ("Cost to win a saver", f"lower is better; our own seed budget is {rs(op.SEED_CAC)}", op.CAC, 800, 1400, 1600, rs, None, False),
+            ("Lender payout on personal and business loans", f"starts at {pct(X['fee'])} (open dot), {pct(X['fee'] * 1.5)} by year 5",
+             X["fee"] * 1.5, 0.01, 0.025, 0.035, lambda v: pct(v, 1), X["fee"], False),
+            ("Value from KYC'd users who never save", f"{share:.0%} of the {x(ON['ltvcac'])} comes from them", share, None, None, 1.0,
+             lambda v: f"{v:.0%}", None, False),
+            ("Still saving after a year", "from savings apps to a daily SIP", X["r12"], 0.24, 0.45, 0.5, lambda v: f"{v:.0%}", None, True)]
+    S, Wd, h = 390, 500, 50
+    out = []
+    for i, (lab, sub, plan, lo, hi, top, f, start, ok) in enumerate(rows):
+        y = 14 + i * h
+        X_ = lambda v: S + Wd * min(v, top) / top
+        out.append(T(0, y + 14, lab, 13.5, 700, NAVY))
+        out.append(T(0, y + 31, sub, 11, 500, SLATE))
+        out.append(f'<line x1="{S}" y1="{y + 20}" x2="{S + Wd}" y2="{y + 20}" stroke="{LINE}" stroke-width="6" stroke-linecap="round"/>')
+        if lo is not None:
+            out.append(R(X_(lo), y + 13, max(X_(hi) - X_(lo), 5), 14, "#cbd5e1", r=7))
+            out.append(T((X_(lo) + X_(hi)) / 2, y + 40, f"market {f(lo)}–{f(hi)}", 10.5, 600, SLATE, "middle"))
+        else:
+            out.append(T(S, y + 40, "no market data: nobody has measured it", 10.5, 600, SLATE))
+        if start is not None:
+            out.append(f'<circle cx="{X_(start):.1f}" cy="{y + 20}" r="5.5" fill="white" stroke="{NAVY}" stroke-width="2"/>')
+        out.append(f'<circle cx="{X_(plan):.1f}" cy="{y + 20}" r="8" fill="{NAVY}"/>')
+        out.append(T(X_(plan), y + 6, f"plan {f(plan)}", 11.5, 700, NAVY, "middle"))
+        fill, ink, word = (sp.TEAL_L, TEAL, "inside the evidence") if ok else (sp.AMBER_L, AMBER, "not proven")
+        out.append(R(S + Wd + 46, y + 9, 150, 22, fill, r=11))
+        out.append(T(S + Wd + 121, y + 24, word, 11.5, 700, ink, "middle"))
+    return svg(W, 14 + len(rows) * h, "".join(out))
+
+
+def p_bet(n):
+    bet = (f'<div style="border-left:5px solid {TEAL};background:{sp.TEAL_L};border-radius:10px;padding:8px 14px;margin-bottom:4px;'
+           f'font-size:14px;line-height:1.38;color:{INK}"><b style="color:{NAVY}">The bet:</b> our savers earn more and want credit, and their saving '
+           "history makes lenders say yes more often and lend more. If it is true, loan size, how many borrow and what lenders pay rise together; "
+           "if it is false, they fall together.</div>")
+    body = bet + bet_svg() + chips([
+        ("Why it could be true", "Daily savers who ask to see loan offers are the most credit-ready users an app has, and a saving record is data a lender can use."),
+        ("Why it may not be", "Our interviews put savers at ₹20–40k a month. Higher earners borrow bigger, but investing apps pay ₹800–1,400 to win them."),
+        ("How we will know", "Five checks, most before any money is lent (two pages on): pre-screen, terms, who signs up, opt-in, cost to win.")])
+    return page(n, "What has to be true", "THE CREDIT BET", f"{x(ON['ltvcac'])} holds only if one bet comes true", body,
+                "Market: first loans ₹5,000–25,000 and 1–5% of app users borrowing a year (Paytm, Kissht and PhonePe filings, 2025–26); Kissht approves 11% "
+                "of new applicants (prospectus, 2026); the largest investing app pays ₹800–1,400 per new investor (shareholder letters, 2025–26); DSA rate cards "
+                "1–2.5%; still saving after a year 24–45%. Income needed: the EMI at 24% a year over 18 months, at 40–50% of income.")
+
+
+def fragile_svg(W=600):
+    one = [("Loans ₹1.5 lakh, not ₹3 lakh", _ltvx({"ticket": 150000.0})),
+           (f"20% apply a year, not {pct(op.LOAN_APPLY)}", _ltvx(op.loan_mix(0.20))),
+           (f"₹750 to win a saver, not {rs(op.CAC)}", _ltvx(cac=750.0)),
+           ("Loan offers to savers only", _ltvx(reach=1.0)),
+           ("No yearly rise in take-up or approvals", _ltvx(FLAT))]
+    many = [("₹1.5 lakh loans, 25% apply, ₹600 to win", _ltvx({"ticket": 150000.0, **op.loan_mix(0.25)}, 600.0)),
+            ("₹1 lakh loans, 20% apply, ₹750 to win", _ltvx({"ticket": 100000.0, **op.loan_mix(0.20)}, 750.0)),
+            ("Every input at today's market rates", market()[1])]
+    groups = [("THE PLAN", [("Every target met", ON["ltvcac"])]), ("ONE TARGET MISSES", one), ("TWO OR THREE MISS", many)]
+    L, Bw, top, rh = 250, 290, 8.0, 25
+    out, y = [], 6
+    for g, items in groups:
+        out.append(T(0, y + 12, g, 10.5, 700, SLATE, ls=1.1))
+        y += 18
+        for lab, v in items:
+            col = NAVY if g == "THE PLAN" else (TEAL if v >= 3 else LATE)
+            w = max(Bw * min(v, top) / top, 3)
+            out.append(T(0, y + 14, lab, 12, 500, INK))
+            out.append(R(L, y + 2, w, 16, col, r=3))
+            out.append(T(L + w + 6, y + 15, f"{v:.1f}×", 12, 700, col))
+            y += rh
+        y += 6
+    x3 = L + Bw * 3 / top
+    out.insert(0, f'<line x1="{x3:.1f}" y1="18" x2="{x3:.1f}" y2="{y - 4}" stroke="{SLATE}" stroke-width="1.2" stroke-dasharray="4 4"/>')
+    out.append(T(x3, y + 10, "3×", 11, 700, SLATE, "middle"))
+    return svg(W, y + 16, "".join(out)), min(v for _l, v in one), max(v for _l, v in many[:2])
+
+
+CHECKS = [("A lender's pre-screen", "A lending partner soft-checks the credit of our first 1,000 KYC'd sign-ups: the approval rate and the loan each could get. "
+                                    "Weeks, and no money lent."),
+          ("Terms in writing", "The payout, clawbacks and approval rules for savers with 3–6 months of daily saving, in a signed letter."),
+          ("Who signs up", "The income of the first sign-ups. It sets the loan size more than anything we assume."),
+          ("Opt-in and apply", "How many KYC'd users ask to see lender offers, and how many apply in their first 3 months."),
+          ("The real cost to win", "What the pilot pays per saver who makes a first debit, month by month.")]
+
+
+def p_find_out(n):
+    chart, worst_one, best_many = fragile_svg()
+    steps = "".join(
+        f'<div style="display:flex;gap:12px;align-items:flex-start;margin:0 0 11px">'
+        f'<div style="flex:0 0 30px;height:30px;border-radius:15px;background:{NAVY};color:white;font-weight:800;font-size:14px;'
+        f'display:flex;align-items:center;justify-content:center">{i}</div>'
+        f'<div style="font-size:12.5px;line-height:1.38"><b style="color:{NAVY}">{a}.</b> {b}</div></div>'
+        for i, (a, b) in enumerate(CHECKS, start=1))
+    right = (f'<div style="font-size:11.5px;font-weight:700;letter-spacing:1.1px;color:{SLATE};margin-bottom:8px">FIVE CHECKS BEFORE WE SCALE</div>'
+             + steps + f'<div style="font-size:12.5px;line-height:1.4;border-top:1px solid {LINE};padding-top:8px;color:{INK}"><b style="color:{NAVY}">'
+             f'The pass mark:</b> lender fees on track for ₹1,358 per saver won for 3×, ₹368 to break even (the one-number page). If checks 1 and 2 come back '
+             "strong, the bet has evidence behind it; if they come back at market levels, we know before the money goes into scale.</div>")
+    left = (f'<div style="font-size:11.5px;font-weight:700;letter-spacing:1.1px;color:{SLATE}">ONLINE LTV/CAC, 5 YEARS, EVERYTHING ELSE AS PLANNED</div>'
+            + chart)
+    return page(n, "What has to be true", "HOW FRAGILE, AND HOW WE FIND OUT",
+                f"Any one target can miss and it stays at {worst_one:.1f}× or more; two misses take it below 3×. Five checks tell us which it is before we scale",
+                two(left, right, 600),
+                "One target misses: only that input changes. Two or three miss: the inputs named change together. Today's market rates: as on the one-number "
+                "page. A soft credit check reads a bureau file without touching the person's score.")
+
+
 def p_workbook(n):
     rows = [["LTV-CAC", "The answer, live: waterfall, LTV/CAC over 5 and 8 years, payback, for both savers; the 1,000 futures' summary; next to the plan model's values (gap 0)."],
             ["Projector", "Ask the 1,000 futures anything: any result, any percentile, the share above a line, with up to three filters on any input."],
@@ -878,8 +1091,8 @@ def a_inputs(n, keys, label, j, of):
 def a_products(n):
     rows = []
     for q, kind, nm, _d in ce.PRODUCTS:
-        money = float(P[f"rev_xs_{q}"][0][:60].sum()) * (REACH if q.startswith("loan_") else 1)
-        money96 = float(P[f"rev_xs_{q}"][0].sum()) * (REACH if q.startswith("loan_") else 1)
+        money = float(P[f"rev_xs_{q}"][0][:60].sum()) * (REACH if q in op.LOAN_REACH_XS else 1)      # durables, vehicles: savers only
+        money96 = float(P[f"rev_xs_{q}"][0].sum()) * (REACH if q in op.LOAN_REACH_XS else 1)
         group = "Other lenders' loans" if q.startswith("loan_") else ("Insurance" if q in ce.INSURANCE else "Other products")
         tag = (" (off: the core savings are the SIP)" if q == "sip" and money == 0 else " (off)" if q in ("choti", "gold") else
                " (fixed fee, not counted)" if q in ce.INSURANCE else " (savers only)" if q in ("loan_cd", "loan_vehicle") else "")
@@ -918,7 +1131,7 @@ def a_method(n):
 def build():
     pages = [cover()]
     story = [p_how, p_answer, p_payback, p_cac, p_retention, p_saving, p_fund, p_loans_reach, p_loans_pb, p_loans_other, p_products, p_serve,
-             p_tornado, p_mc, p_true, p_workbook]
+             p_tornado, p_mc, p_bet, p_fees, p_find_out, p_true, p_workbook]
     for i, f in enumerate(story, start=2):
         pages.append(f(i))
     k = len(pages) + 1

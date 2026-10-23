@@ -1,0 +1,33 @@
+case,rate a year,EMI Rs a month,"income needed, FOIR 50%","income needed, FOIR 40%","EMI as a multiple of the Rs 2,000 saved a month",FOIR,largest loan Rs
+"Personal + business, Rs 3 lakh, 18 months",0.18,19142,38283,47854,9.6,,
+"Personal + business, Rs 3 lakh, 18 months",0.24,20011,40021,50027,10.0,,
+"Personal + business, Rs 3 lakh, 18 months",0.3,20901,41802,52253,10.5,,
+"Personal + business, Rs 3 lakh, 18 months",0.36,21813,43625,54532,10.9,,
+"Home, Rs 30 lakh, 20 years",0.085,26035,52069,65087,13.0,,
+"Home, Rs 30 lakh, 20 years",0.1,28951,57901,72377,14.5,,
+"Home, Rs 30 lakh, 20 years",0.12,33033,66065,82581,16.5,,
+"Home, Rs 30 lakh, 15 years",0.085,29542,59084,73855,14.8,,
+"Home, Rs 30 lakh, 15 years",0.1,32238,64476,80595,16.1,,
+"Home, Rs 30 lakh, 15 years",0.12,36005,72010,90013,18.0,,
+"Property (LAP), Rs 25 lakh, 15 years",0.11,28415,56830,71037,14.2,,
+"Property (LAP), Rs 25 lakh, 15 years",0.14,33294,66587,83234,16.6,,
+"Property (LAP), Rs 25 lakh, 15 years",0.18,40261,80521,100651,20.1,,
+"Property (LAP), Rs 25 lakh, 10 years",0.11,34438,68875,86094,17.2,,
+"Property (LAP), Rs 25 lakh, 10 years",0.14,38817,77633,97042,19.4,,
+"Property (LAP), Rs 25 lakh, 10 years",0.18,45046,90093,112616,22.5,,
+"Largest 18-month loan on Rs 23,012 a month (urban self-employed average, NG-005), no other debt",0.24,,,,,0.4,138000.0
+"Largest 18-month loan on Rs 23,012 a month (urban self-employed average, NG-005), no other debt",0.24,,,,,0.5,172000.0
+"Largest 18-month loan on Rs 23,012 a month (urban self-employed average, NG-005), no other debt",0.3,,,,,0.4,132000.0
+"Largest 18-month loan on Rs 23,012 a month (urban self-employed average, NG-005), no other debt",0.3,,,,,0.5,165000.0
+"Largest 18-month loan on Rs 30,000 a month (middle of a typical customer, IV-04), no other debt",0.24,,,,,0.4,180000.0
+"Largest 18-month loan on Rs 30,000 a month (middle of a typical customer, IV-04), no other debt",0.24,,,,,0.5,225000.0
+"Largest 18-month loan on Rs 30,000 a month (middle of a typical customer, IV-04), no other debt",0.3,,,,,0.4,172000.0
+"Largest 18-month loan on Rs 30,000 a month (middle of a typical customer, IV-04), no other debt",0.3,,,,,0.5,215000.0
+"Largest 18-month loan on Rs 34,868 a month (Delhi urban self-employed, NG-006), no other debt",0.24,,,,,0.4,209000.0
+"Largest 18-month loan on Rs 34,868 a month (Delhi urban self-employed, NG-006), no other debt",0.24,,,,,0.5,261000.0
+"Largest 18-month loan on Rs 34,868 a month (Delhi urban self-employed, NG-006), no other debt",0.3,,,,,0.4,200000.0
+"Largest 18-month loan on Rs 34,868 a month (Delhi urban self-employed, NG-006), no other debt",0.3,,,,,0.5,250000.0
+"Largest 18-month loan on Rs 40,000 a month (top of a typical customer, IV-04), no other debt",0.24,,,,,0.4,240000.0
+"Largest 18-month loan on Rs 40,000 a month (top of a typical customer, IV-04), no other debt",0.24,,,,,0.5,300000.0
+"Largest 18-month loan on Rs 40,000 a month (top of a typical customer, IV-04), no other debt",0.3,,,,,0.4,230000.0
+"Largest 18-month loan on Rs 40,000 a month (top of a typical customer, IV-04), no other debt",0.3,,,,,0.5,287000.0

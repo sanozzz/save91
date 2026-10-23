@@ -1,12 +1,12 @@
 # Save91 / SaveMore: final documents
 
-Built 22 Oct 2026 by `final/make_final.py` from the files and tables in this repo. Do not edit this README by hand; edit the script and run it again.
+Built 23 Oct 2026 by `final/make_final.py` from the files and tables in this repo. Do not edit this README by hand; edit the script and run it again.
 
 The plan: savers put away ₹100 a day by UPI into mutual funds in their own name (80% equity, 20% debt). We earn fund fees and, as a loan marketplace, referral fees from lenders. 9 in 10 savers come online, pan-India; 1 in 10 through doorstep agents in NCR. The app never holds anyone's money.
 
 ## The plan in three lines
 
-- One online saver costs ₹495 to win (with the 10% contingency) and returns 7.7× that over five years; it pays back in month 12. A doorstep saver returns 5.6×.
+- One online saver costs ₹495 to win (with the 10% contingency) and returns 7.7× that over five years if the loan targets hold (the credit bet); it pays back in month 12. A doorstep saver returns 5.6×.
 - The company, at 20,000 online savers won a month from month 30, is EBITDA-positive from month 33 and needs $1.8M in all; year-5 EBITDA ₹67.7 crore.
 - Across 1,000 simulated futures (a stress test, not odds), the online saver's median LTV/CAC is 5.2× (1 in 10 below 2.9×); 89% reach 3×, and the company is profitable by month 60 in 99%.
 
@@ -24,9 +24,9 @@ Every figure is a plan with targets, not evidence. The targets the seed must pro
 
 | File | What it is | Pages | Built from |
 |---|---|---|---|
-| [`1_Online_business_case.pdf`](1_Online_business_case.pdf) | The short read: what the numbers say in the plan, and the five numbers that change them. | 9 | `others/online/Online_business_case.pdf` |
+| [`1_Online_business_case.pdf`](1_Online_business_case.pdf) | The short read: what the numbers say in the plan, and the five numbers that change them. | 10 | `others/online/Online_business_case.pdf` |
 | [`2_Online_plan_v4.pdf`](2_Online_plan_v4.pdf) | The full online-first plan: the saver, the company year by year, the Monte Carlo, the levers, and an appendix with every input, its source and the input audit. | 28 | `others/online/Online_model_v4.pdf` |
-| [`3_LTV_CAC_one_saver.pdf`](3_LTV_CAC_one_saver.pdf) | What one saver is worth: the cost to win them, each revenue stream, serving, payback, and the tests that matter. | 29 | `others/ltv/LTV_CAC_deck.pdf` |
+| [`3_LTV_CAC_one_saver.pdf`](3_LTV_CAC_one_saver.pdf) | What one saver is worth, in eight pages: how one saver makes money, how each assumption changes the number, and the five checks the seed runs. | 8 | `others/ltv/LTV_CAC_simple.pdf` |
 | [`4_Seed_plan_0.5M.pdf`](4_Seed_plan_0.5M.pdf) | The $0.5M seed: customers (1 lakh sign-ups), product and team for 24 months, the reserve, and what the seed must prove. | 9 | `others/seed/Seed_Plan_investor.pdf` |
 | [`5_Bachatt_teardown_memo.pdf`](5_Bachatt_teardown_memo.pdf) | Context: what Bachatt has built, what is still vision, and where the market is open (memo, 19 Oct). | 8 | `others/memo/Bachatt_teardown_memo.pdf` |
 
@@ -50,6 +50,7 @@ Both sheets are checked against the Python model: the company sheet's formulas a
 - [`others/reviews/INVESTMENT_REVIEW_v4_status.md`](../others/reviews/INVESTMENT_REVIEW_v4_status.md): Each point of the earlier investment review, with its status in the current plan.
 - [`others/tables/online_inputs_audit.csv`](../others/tables/online_inputs_audit.csv): Every input against its source, with a verdict (matches, partly, judgement, target).
 - [`others/research/`](../others/research/): The evidence: one row per source, with IDs the decks cite.
+- [`others/ltv/LTV_CAC_deck.pdf`](../others/ltv/LTV_CAC_deck.pdf): The detailed LTV/CAC deck (32 pages): every assumption with its range, sources and the 1,000 simulated futures.
 - [`others/README.md`](../others/README.md): The map of everything behind final/.
 
 Superseded: [`others/archive/`](../others/archive/README.md) holds the earlier offline street-agent plan (16–18 Oct).
@@ -60,7 +61,7 @@ After changing an input, rebuild in this order (from the repo root), then run th
 
 ```
 cd others/model && PYTHONPATH=. python online_plan.py && PYTHONPATH=. python online_mc.py && PYTHONPATH=. python ltv_book.py <payload_dir>
-cd .. && for b in ltv/build_ltv_deck.py online/build_online_v4.py online/build_online_case.py seed/build_seed_plan.py; do PYTHONPATH=model python $b; done
+cd .. && for b in ltv/build_ltv_deck.py ltv/build_ltv_simple.py online/build_online_v4.py online/build_online_case.py seed/build_seed_plan.py; do PYTHONPATH=model python $b; done
 cd .. && python final/make_final.py
 ```
 

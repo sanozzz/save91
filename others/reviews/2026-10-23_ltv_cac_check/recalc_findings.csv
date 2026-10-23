@@ -1,0 +1,27 @@
+id,finding,kind,where,LTV 60m Rs,cost to win Rs,LTV/CAC 60m,effect (x),LTV/CAC 96m,payback month
+F0,"The plan, rebuilt",-,,3813,495,7.7,0.0,12.16,12
+F1a,The first real cohort joins at launch (business month 4) at the seed's Rs 600 to win,inconsistency,"online_plan.py:49,52 vs :332 (row 0 = a month-1 joiner) and :346 (Rs 450)",3970,660,6.02,-1.69,9.37,14
+F1b,A saver won after the seed (month 19) at Rs 450,inconsistency (cuts the other way),same; the payout ramp and the yearly growth have moved on by month 19,4751,495,9.6,1.89,14.13,9
+F2,"Serving carries the plan's 10% contingency, as the cost to win does",inconsistency,"online_plan.py:236 (company: 10% on support, tech, debits) vs :340,:346 (LTV: cost to win only)",3763,495,7.6,-0.1,12.04,12
+F3,Fees arrive 2 months after they are earned,judgement (timing),"online_plan.py:56,246 (company cash) vs :338 (LTV books on disbursal)",3658,495,7.39,-0.31,11.94,14
+F4,Every quoted payout and trail includes 18% GST,judgement (basis),deck p2 'Fees are quoted before GST and TDS'; no lender or fund-house letter in the folder,3155,495,6.37,-1.33,10.11,14
+F5a,"Non-savers stay reachable on the savings-app curve (52% at month 3, 24% at 12), not the savers' 80%/38%",judgement,"online_plan.py:132-136, 205, 339",3074,495,6.21,-1.49,9.89,14
+F5b,Non-savers reachable for their first 3 months only,judgement (severe),same,1803,495,3.64,-4.06,5.95,22
+F5c,Offers to savers only (reach 1),the founders' own lever,deck p9: 3.5x,1743,495,3.52,-4.18,5.83,24
+F6,Support for non-savers: Rs 5 a month each while reachable,missing cost,online_plan.py:340 (support per saver still saving only),3654,495,7.38,-0.32,11.76,13
+F7,"A user a lender rejects stays rejected (approval is the person's, not a fresh 30% draw each month)",hidden assumption,cohort_engine.py:476-487,3157,495,6.38,-1.33,9.58,12
+F8,No payout on repeat loans and top-ups (the lender already has the borrower),judgement,"cohort_engine.py:520-523, 560",3342,495,6.75,-0.95,9.54,12
+F9a,Clawbacks 5% of payouts (top of the plan's range),judgement,ltv_inputs taken_back,3741,495,7.56,-0.15,11.94,12
+F9b,Clawbacks 10% of payouts,judgement,XL-47: taken back if closed or bad within 6 months,3597,495,7.27,-0.44,11.49,12
+F10a,Take-up does not rise 5% a business year,hidden assumption,cohort_engine.py:447-449,3487,495,7.04,-0.66,10.9,12
+F10b,Approvals do not rise 10% a business year,hidden assumption,cohort_engine.py:448-450,3325,495,6.72,-0.99,10.46,12
+F10c,"Both flat: 35% apply and 30% approved, as the summary states them",hidden assumption,same,3053,495,6.17,-1.54,9.39,12
+F11,The payout stays at 2% (no rise to 3%),judgement (no source for the rise),online_plan.py:331; audit: 'the rise to 3% has no source',3255,495,6.58,-1.13,10.03,12
+F12,"Rs 450 comes from better conversion (1 in 3.75 save), so reach is 1.875 not 2.5",inconsistency (linked inputs),deck p5: Rs 450 needs Rs 70 a sign-up OR 1 in 3.75 saving; online_plan.py:135,2951,495,5.96,-1.74,9.52,14
+F13,"Missing variable costs (my illustration): Rs 250 a loan (grievances, KFS, disputes, fraud checks), Rs 30 an application (bureau, consent), a Rs 20 e-KYC re-check at year 2, Rs 5 support for non-savers",missing cost,none of these is in online_plan.py:338-342,3465,495,7.0,-0.7,11.25,13
+F14,"A careful investor's view, no input changed: F2 + F3 + F5a + F6 + F10c",combination,-,2234,495,4.51,-3.19,7.2,18
+F15,F14 + rejected users stay rejected (F7),combination,-,1804,495,3.64,-4.06,5.52,19
+F16a,"No unsourced rises: payout flat at 2%, take-up and approvals flat (the cohort then no longer matters)",hidden assumption + judgement,F10c + F11,2638,495,5.33,-2.37,7.86,12
+F16b,F16a for a seed-era saver at the seed's Rs 600 to win,combination,F16a + F1a,2638,660,4.0,-3.71,5.9,15
+F17a,"Personal + business loans sized to what Rs 30,000 a month repays in 18 months (FOIR 50%, 24%): Rs 225,000",affordability test,IV-04 typical customer Rs 20-40k; REG-077,3112,495,6.29,-1.42,9.99,14
+F17b,"... and home Rs 1,550,000 (20 yrs, 10%), property Rs 1,130,000 (15 yrs, 14%) on the same income",affordability test,same,2696,495,5.45,-2.26,8.82,16
