@@ -1,13 +1,16 @@
 case,cost to win Rs,revenue 60m Rs,serving 60m Rs,contribution 60m Rs,LTV/CAC 60m,net after cost to win 60m Rs,LTV/CAC 96m,pays back in month
-The plan,495,4313,501,3813,7.7,3318,12.16,12
-24% still saving at a year (savings apps),495,2777,335,2442,4.93,1947,7.77,16
-45% still saving at a year,495,5026,566,4459,9.01,3964,14.29,11
-Rs 200 a day,495,4845,501,4344,8.78,3849,14.16,11
-Rs 300 a day,495,5376,501,4875,9.85,4380,16.16,10
-10% apply for a loan a year,495,1661,501,1160,2.34,665,4.1,35
-50% apply for a loan a year,495,5996,501,5495,11.1,5000,17.22,9
-Loan offers to savers only,495,2117,374,1743,3.52,1248,5.83,24
-Credit-hungry: 45% stay + 50% apply,495,6982,566,6416,12.96,5921,20.21,8
-Cost to win Rs 300,330,4313,501,3813,11.55,3483,18.24,9
-Cost to win Rs 600 (our funnel),660,4313,501,3813,5.78,3153,9.12,14
-Debt-only funds,495,4059,501,3559,7.19,3064,11.19,12
+The plan,495,561,190,370,0.75,-125,1.32,75
+24% still saving at a year (savings apps),495,352,129,224,0.45,-271,0.74,after month 96
+45% still saving at a year,495,882,261,622,1.26,127,2.7,53
+Rs 200 a day,495,978,190,788,1.59,293,2.75,44
+Rs 300 a day,495,1396,190,1206,2.44,711,4.18,33
+10% apply for a loan a year,495,507,190,317,0.64,-178,1.19,83
+50% apply for a loan a year,495,737,190,547,1.1,52,1.78,56
+Non-savers stay as long as savers,495,703,309,394,0.8,-101,1.4,72
+Credit-hungry: 45% stay + 50% apply,495,1142,261,881,1.78,386,3.49,42
+Loan funnel at our old targets,495,746,190,555,1.12,60,1.83,55
+"We pay Rs 2 a debit, weekly",495,561,369,192,0.39,-303,0.9,after month 96
+"Equity fund fee 0.5%, not 0.75%",495,431,190,241,0.49,-254,0.88,after month 96
+Cost to win Rs 300,330,561,190,370,1.12,40,1.99,56
+Cost to win Rs 600 (our funnel),660,561,190,370,0.56,-290,0.99,after month 96
+Debt-only funds,495,290,190,99,0.2,-396,0.39,after month 96

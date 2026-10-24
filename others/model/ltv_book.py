@@ -8,11 +8,16 @@ Checked: model/toy_check.py's formula interpreter replays every formula and must
 Monte Carlo futures (tables/ltv_book_check.csv). The Monte Carlo is the SAME 1,000 futures as model/online_mc.py (same seed,
 same draws), so each future's LTV/CAC sits next to that future's company profit month.
 
-24 Oct (founders): the workbook is re-based on the main case, the median of the LTV/CAC Monte Carlo (model/ltv_odds.py: the cost to
-win fixed, the ten unmeasured inputs anywhere between today's market and our target). Its Monte Carlo tab is that Monte Carlo's
-1,000 futures, each next to its company profit month; "What moves it" sets each of the ten at today's market and at our target
-around the main case. base_params() / evaluate() still give our targets, which the LTV/CAC decks use; the earlier plan-centred
-Monte Carlo's tables (ltv_mc_draws.csv, ltv_one_at_a_time.csv, ltv_drivers.csv, ltv_mc_summary.csv) are no longer rewritten.
+24 Oct, REBASE (founders questioned every LTV input; online_plan.py "REBASE 24 Oct"): every input is fixed by the founders (market
+figures, Bachatt, or our judgement: Rs 70k first loans, 20% apply, 20% approved, no yearly rises, home Rs 12 lakh / LAP Rs 5 lakh, payout 2% flat,
+non-savers fade -> reach 1.06, debits Rs 0, recharge/bills/FD/NPS off), except the two still uncertain, which model/ltv_odds.py
+draws: still saving at 12 months (30-40%, the drop-off after it moving 2.5% -> 1.5%) and the debt fund's fee (0.10% -> 0.35%).
+base_params() / evaluate() give the MAIN CASE (the Monte Carlo median; the decks use it). The Inputs tab shows Low / Main case /
+High for the drawn inputs and "fixed by the founders, 24 Oct" for the rest. The Monte Carlo tab is ltv_odds' 1,000 futures (its 12
+input columns kept, so the named ranges stay put; only still saving, the drop-off after and the debt trail vary). "What moves it"
+shows the drawn inputs at their low and high ends and the five upside levers of tables/ltv_upside_levers.csv ("what it takes"),
+one at a time from the main case. The earlier plan-centred Monte Carlo's tables (ltv_mc_draws.csv, ltv_one_at_a_time.csv,
+ltv_drivers.csv, ltv_mc_summary.csv) are no longer rewritten.
 
 Usage: python model/ltv_book.py <payload_dir>
 Writes tables/ltv_book_spec.json, ltv_book_mc_draws.csv, ltv_book_moves.csv, ltv_book_check.csv, ltv_inputs.csv, and the
@@ -47,6 +52,38 @@ ALLSPEC = {**{k: tuple(DISTS[k][:4]) for k in ce.KEYS}, **{k: tuple(v[:4]) for k
 AGREED = {r["key"]: r for r in csv.DictReader((T / "dist_agreed_v1.csv").open())}
 X0 = op.X0
 DOOR_CAC = op.unit_rows_door_cac()
+
+
+def _saver_inputs_24oct(doorstep=False):
+    """online_plan's saver inputs with no main case and no lever in force: the founders' 24 Oct base."""
+    keep_main, keep_ov = dict(op.MAIN), dict(op.OV)
+    op.MAIN.clear()
+    op.OV.clear()
+    op._CACHE.clear()
+    try:
+        return op.saver_inputs(doorstep=doorstep)
+    finally:
+        op.MAIN.update(keep_main)
+        op.OV.update(keep_ov)
+        op._CACHE.clear()
+
+
+SI0 = _saver_inputs_24oct()
+# the 24 Oct base in this workbook's parameter space (the online_mc names apply_params maps): online_plan's values wherever it sets
+# them, the agreed likely values elsewhere. "trail" / "fund_return" are the DEBT fund's (apply_params blends them with the equity fund).
+BASE0 = {**{k: float(ALLSPEC[k][2]) for k in ALLSPEC},
+         **{k: float(SI0[k]) for k in ce.KEYS if k in SI0},
+         "on_daily": SI0["daily"], "on_r12": SI0["r12"], "on_r3": SI0["r3"], "cac": op.CAC, "on_apply": op.LOAN_APPLY,
+         "on_ticket": SI0["ticket"], "on_approved": SI0["approved_first"], "on_fee": SI0["fee"], "on_reach": op.LOAN_REACH,
+         "eq_share": 0.8, "eq_return": op.EQ_RETURN, "trail": op.DEBT_TRAIL, "fund_return": op.DEBT_RETURN, "sip_comm": op.EQ_TRAIL,
+         "r3": op.DOOR["r3"], "r12": op.DOOR["r12"], "signups_run": op.AGENT_SIGNUPS, "fee_mult_end": 1.0 + op.PAYOUT_RISE}
+UPSIDE_CSV = {r["lever"]: r for r in csv.DictReader((T / "ltv_upside_levers.csv").open())}   # model/ltv_odds.py: what it takes
+
+
+def need_alone(lever, tag="1x"):
+    """The value one upside lever needs alone for 1x (or 2x) in 5 years, from tables/ltv_upside_levers.csv; None = not reachable."""
+    m = re.match(r"\S+ ([\d.]+)", UPSIDE_CSV[lever][f"alone for {tag} (5y)"])
+    return float(m.group(1)) if m else None
 
 
 def neutral(text):
@@ -94,6 +131,26 @@ def plain(text):
     return re.sub(r"\bRs\b\.?", "₹", text)                   # Rs premium a year → ₹ premium a year
 
 
+JARGON = [(re.compile(r"(?<!\()\bDSA\b(?! \()"), "loan-referral agent (DSA)"), (re.compile(r"(?<!\()\bTER\b(?! \()"), "fund fee (TER)"),
+          (re.compile(r"(?<!\()\bMDR\b(?! \()"), "payment fee (MDR)")]
+
+
+def unjargon(text):
+    """Plain words on the workbook (24 Oct rule): an acronym only with its meaning beside it. Workbook only; the decks keep their wording."""
+    for rx, words in JARGON:
+        text = rx.sub(words, text)
+    return text
+
+
+def curly_lead(text):
+    """A cell that starts with a straight ' loses it in Google Sheets (a text marker). Such a cell gets curly quotes: an opening ' (at the
+    start, or after a space or bracket) becomes ‘ and a closing one (after a non-space, before a non-letter) becomes ’; apostrophes stay."""
+    if not text.startswith("'"):
+        return text
+    text = re.sub(r"(?<!\S)'(?=\S)|(?<=[(\[])'(?=\S)", "‘", text)
+    return re.sub(r"(?<=\S)'(?!\w)", "’", text)
+
+
 def clean(text):
     for a, b in CLEAN:
         text = text.replace(a, b)
@@ -132,39 +189,66 @@ def ag(k, field="evidence_points"):
 P = "pct"
 G1, G2, G3, G4, G5, G6, G7, G8, G9, G10, G11, G12 = (
     "1. Cost to win a saver", "2. Who keeps saving", "3. How much they save", "4. The fund, and what it pays us",
-    "5. Loans: who sees the offers, who applies", "6. Personal and business loans (our DSA payout)",
-    "7. Other loans (other lenders pay a referral fee)", "8. The first months, and growth with the pool's history", "9. Cards",
+    "5. Loans: who sees the offers, who applies", "6. Personal and business loans (the lender's payout to us)",
+    "7. Other loans (other lenders pay a referral fee)", "8. The first months, and yearly rises (none at today's market)", "9. Cards",
     "10. Insurance (through a broker partner)", "11. Other products", "12. Cost to serve a saver")
 INS = [p for p in ce.INSURANCE]
 PRODUCT_LABEL = {p: neutral(nm) for p, _k, nm, _d in ce.PRODUCTS}
+F24 = "Founders, 24 Oct"
+FIXED_NOTE = "fixed by the founders, 24 Oct (market figures, Bachatt, or our judgement)"   # FIXES.md B7
+DRAWN_MCK = {"r12_on": "on_r12", "churn_late": "churn_late", "debt_trail": "trail"}   # the Inputs cells the Monte Carlo draws
+
+
+def _pc(v):
+    return f"{v:.0%}" if abs(v * 100 - round(v * 100)) < 1e-9 else f"{v:.1%}"
 
 
 def inputs_list():
+    """(group, key, label, value, unit, mc key or None, source, why, format) for every blue cell on Inputs, at the MAIN CASE. The mc key
+    is the ALLSPEC key of a drawn input (its range); None = fixed by the founders, 24 Oct."""
+    v = sheet_values(PP_MAIN, DOOR_CAC)
+    return [(g, k, lab, float(val) if k == "cac_door" else float(v.get(k, val)), u, DRAWN_MCK.get(k), s, w, f)
+            for g, k, lab, val, u, _m, s, w, f in _inputs_raw()]
+
+
+def _inputs_raw():
     L = []
     a = L.append
     a((G1, "cac_on", "Online saver: cost to win after the seed, all-in (before our 10% contingency)", op.CAC, "₹ a saver won", "cac",
-       "Operator, 21 Oct: ₹450 base, range ₹300–600.",
+       f"₹{op.CAC:,.0f} at scale: the founders' figure (they call it 'fairly sorted'), plus the {op.CONTINGENCY:.0%} contingency = "
+       f"₹{op.CAC * (1 + op.CONTINGENCY):,.0f}. The seed budgets ₹{op.SEED_CAC:,.0f} while the brand is new, and measures it.",
        "₹300 is a competitor's figure per 'customer' (PR-02; the customer is not defined). ₹600 is our own seed funnel: ₹100 a sign-up + "
        "₹40 KYC for 1 in 2 sign-ups, and 1 in 5 sign-ups start saving. The seed (months 4–18) is budgeted at ₹600; this is a saver won after it.", "rs"))
     a((G1, "cac_door", "Doorstep saver: cost to win, all-in at scale (before our 10% contingency)", round(DOOR_CAC, 2), "₹ a saver won", None,
        "Company model (online_plan.py), months 31–96: agent pay ₹26,000 a month (salary, statutory, incentive, fidelity cover), a ₹15,500 kit with NISM V-A, "
        "30% of agents leaving a year, field leads, city offices and ₹40 KYC, divided by doorstep savers won.",
        "Worked out, not assumed. In the Monte Carlo it moves with each future's agent output (sign-ups a month per agent).", "rs"))
-    a((G1, "contingency", "Our 10% contingency on the cost to win", op.CONTINGENCY, "share", None,
-       "Our business plan's convention: 10% on every cost line, the cost to win included.",
-       "So the LTV/CAC divides by what the plan actually spends: ₹450 × 1.1 = ₹495 online (critical review, 22 Oct).", P))
+    a((G1, "contingency", "Our 10% contingency on the cost to win and on serving", op.CONTINGENCY, "share", None,
+       "Our business plan's convention: 10% on every cost line, the cost to win and serving included (numbers review, 24 Oct: "
+       "serving now carries it too, as the company model does).",
+       f"So the LTV/CAC uses what the plan actually spends: ₹{op.CAC:,.0f} × {1 + op.CONTINGENCY:g} = ₹{op.CAC * (1 + op.CONTINGENCY):,.0f} "
+       "online to win a saver, and serving × 1.1.", P))
     a((G2, "r3_on", "Online: still saving at month 3", 0.80, "share of savers won", "on_r3", om.ONLINE["on_r3"][5],
        "SBI MF's ₹250 daily SIP: 35.64% had stopped at an average age of about 6 months (NG-033, XO-05), a steady ~7% a month, which is ~80% at month 3.", P))
-    a((G2, "r12_on", "Online: still saving at month 12", 0.38, "share of savers won", "on_r12", om.ONLINE["on_r12"][5],
-       "Operator, 21 Oct: the SBI ₹250 daily SIP (first-time investors, no loans) as the base; savings apps (24%) as the downside; "
-       "a credit hook (45%) as the upside.", P))
+    (r_lo, _rm, r_hi), (c_lo, c_hi), (t_lo, t_hi) = ((lo.INPUTS["keep"][1]["r12"][0], 0, lo.INPUTS["keep"][1]["r12"][1]),
+                                                       lo.INPUTS["keep"][1]["churn_late"], lo.INPUTS["trail"][1]["_debt_trail"])
+    a((G2, "r12_on", "Online: still saving at month 12", SI0["r12"], "share of savers won", "on_r12",
+       f"{F24}: Bachatt's own {_pc(r_lo)}–{_pc(r_hi)} still saving at a year. SBI MF's ₹250 daily SIP agrees: 35.64% of a year's "
+       "registrations stopped within the year, about 38% still saving at 12 months at a steady drop-off (NG-033, XO-05).",
+       f"Still uncertain, so the Monte Carlo draws it, equally likely anywhere from {_pc(r_lo)} to {_pc(r_hi)}; the main case is its "
+       "median. It moves LTV/CAC more than anything else.", P))
     a((G2, "r3_door", "Doorstep: still saving at month 3", op.DOOR["r3"], "share of savers won", "r3", ag("r3"), ag("r3", "why_this_shape"), P))
     a((G2, "r12_door", "Doorstep: still saving at month 12", op.DOOR["r12"], "share of savers won", "r12", ag("r12"),
        "Agreed street retention: an agent visits, which keeps more people saving than an app does.", P))
-    a((G2, "churn_late", "Both: share who stop each month after month 12", X0["churn_late"], "share a month", "churn_late",
-       ag("churn_late"), ag("churn_late", "why_this_shape"), P))
-    a((G3, "daily", "Daily amount", 100.0, "₹ a day", "on_daily", om.ONLINE["on_daily"][5],
-       "Operator, 21 Oct: ₹100 a day, the stated minimum of a daily-savings app; the range runs from a ₹50 daily SIP to ₹300.", "rs"))
+    a((G2, "churn_late", "Both: share who stop each month after month 12", SI0["churn_late"], "share a month", "churn_late",
+       f"{F24}: it moves with the share still saving at 12 months, from {_pc(c_lo)} a month (at {_pc(r_lo)} still saving) to "
+       f"{_pc(c_hi)} (at {_pc(r_hi)}). " + ag("churn_late"),
+       "Drawn with the share still saving at 12 months (savers who last a year rarely leave). The doorstep saver uses the same cell.", P))
+    a((G3, "daily", "Daily amount", 100.0, "₹ a day", "on_daily",
+       f"{F24}: ₹100 a day is our product's floor (fund houses' daily SIP minimum is ~₹100 a scheme, TC-45). Bachatt's average is "
+       "unknown, and its own minimums are lower: ₹51 / ₹101 a day, ₹20 for its liquid fund (TC-47).",
+       f"Fixed at the floor. A higher average is the biggest upside lever: ₹{need_alone('daily'):.0f} a day alone gives 1× in 5 years "
+       "(What moves it).", "rs"))
     a((G3, "days", "Saving days a month", X0["days"], "days a month", "days", ag("days"), ag("days", "why_this_shape"), "n1"))
     a((G3, "amount_growth", "Daily amount steps up each year saved", X0["amount_growth"], "a year", "amount_growth",
        ag("amount_growth"), ag("amount_growth", "why_this_shape"), P))
@@ -179,18 +263,24 @@ def inputs_list():
        "Conservative against long-run Indian equity returns; it only grows the balance the trail is paid on.", P))
     a((G4, "debt_return", "Debt fund return to the saver, net", op.DEBT_RETURN, "a year", "fund_return", ag("fund_return"),
        ag("fund_return", "why_this_shape"), P))
-    a((G4, "eq_trail", "Our trail on equity funds", op.EQ_TRAIL, "share of the balance a year", "sip_comm", ag("sip_comm"),
-       "Distributor trail on an equity SIP, paid by the fund house on the balance.", "pct2"))
-    a((G4, "debt_trail", "Our trail on debt funds", op.DEBT_TRAIL, "share of the balance a year", "trail", ag("trail"),
-       ag("trail", "why_this_shape"), "pct2"))
+    a((G4, "eq_trail", "Our trail on equity funds", op.EQ_TRAIL, "share of the balance a year", "sip_comm",
+       f"{F24}: 0.75% kept (active funds; not yet confirmed in writing). " + ag("sip_comm"),
+       "Distributor trail on an equity SIP, paid by the fund house on the balance. The founders want it confirmed in writing.", "pct2"))
+    a((G4, "debt_trail", "Our trail on debt funds", op.DEBT_TRAIL, "share of the balance a year", "trail",
+       f"{F24}: drawn from {t_lo:.2%} (a liquid fund) to {t_hi:.2%} (a short-duration fund). " + ag("trail")[:1].upper() + ag("trail")[1:],
+       f"Still uncertain, so the Monte Carlo draws it, equally likely anywhere from {t_lo:.2%} to {t_hi:.2%}; the main case is its median.", "pct2"))
     a((G5, "reach_on", "Online: KYC'd users who see loan offers, per saver won", op.LOAN_REACH, "users per saver won", "on_reach",
-       om.ONLINE["on_reach"][5],
-       "Operator, 21 Oct: offers go to anyone KYC'd from day 1. 5 sign-ups for each saver, half finish KYC = 2.5. A KYC'd user who never "
-       "saves stays reachable for as long as a saver keeps saving. Low end: offers to savers only (1).", "n2"))
+       f"{F24}: offers go to anyone KYC'd, but the KYC'd users who never save fade within about 3 months, and lenders rarely approve in "
+       "a user's first months.",
+       f"5 sign-ups for each saver, half finish KYC: the saver plus {op.SIGNUPS_PER_SAVER * op.KYC_SHARE - 1:g} non-savers, each worth about "
+       f"{op.NONSAVER_WORTH:.0%} of a saver's loan fees: 1 + {op.SIGNUPS_PER_SAVER * op.KYC_SHARE - 1:g} × {op.NONSAVER_WORTH:.0%} = "
+       f"{op.LOAN_REACH:.2f}.", "n2"))
     a((G5, "reach_door", "Doorstep: users who see loan offers, per saver won", 1.0, "users per saver won", None,
        "The agent signs a saver one to one.", "No extra KYC'd non-savers come with a doorstep saver.", "n2"))
     a((G5, "loan_apply", "Reachable users who apply for a loan in a year (all loan types)", op.LOAN_APPLY, "share a year", "on_apply",
-       om.ONLINE["on_apply"][5], "Operator, 21 Oct: 35% a year, split by loan type below.", P))
+       f"{F24}: {_pc(op.LOAN_APPLY)} a year, today's market. Payments-app merchants ~1–2% (XF-16); fintech "
+       "borrowers ~49% borrow again within 6 months (XF-15..17).",
+       f"Split by loan type below. Alone, it would need {_pc(need_alone('apply'))} applying a year for 1× in 5 years (What moves it).", P))
     for k, lab in (("pb", "personal or business loans"), ("gold", "gold loans"), ("lap", "loans against property"), ("home", "home loans")):
         key = {"pb": "apply", "gold": "loan_gold_takeup", "lap": "loan_lap_takeup", "home": "loan_home_takeup"}[k]
         a((G5, f"mix_{k}", f"Share of applications: {lab}", op.LOAN_MIX[key], "share of applications", None,
@@ -200,16 +290,24 @@ def inputs_list():
        "A gold loan is a once-only referral in the model, so approval scales its take-up (critical review, 22 Oct).", P))
     a((G6, "eligible", "Applicants who can carry the loan", 1.0, "share", None, "Operator, 21 Oct.",
        "1 = eligibility is inside the approval share below (lenders' approval rates already reflect who qualifies).", P))
-    a((G6, "approved_first", "First applications a lender approves", 0.30, "share", "on_approved", om.ONLINE["on_approved"][5],
-       "Operator, 21 Oct: 30% first, 70% repeat (XF-18, XF-24).", P))
+    a((G6, "approved_first", "First applications a lender approves", SI0["approved_first"], "share", "on_approved",
+       f"{F24}: {_pc(SI0['approved_first'])} of first applications, the founders' market figure, between 11% (an app lender's new "
+       "applicants, XL-41) and 25% (our own past data, XF-24).",
+       f"Eligibility is inside this share; approvals do not rise with the business's years. Gold loans are approved at "
+       f"{_pc(op.GOLD_APPROVAL)} and home / property loans at {_pc(X0['loan_home_approval'])} (rows below).", P))
     a((G6, "approved_repeat", "Repeat applications approved (after repaying one)", X0["approved_repeat"], "share", "approved_repeat",
        ag("approved_repeat"), "Operator, 21 Oct: 70% (a repaid borrower is a known borrower).", P))
-    a((G6, "ticket", "Loan size, blended personal and business", op.saver_inputs()["ticket"], "₹ a loan", "on_ticket", om.ONLINE["on_ticket"][5],
-       "Founders, 22 Oct: ₹3 lakh. Research found smaller loans: digital personal loans ₹18,800–70,000 (XF-11), merchant loans ₹50,000–5 lakh (XF-09/10).", "rs"))
-    a((G6, "fee", "Our DSA payout at the start", 0.02, "share of the loan", "on_fee", om.ONLINE["on_fee"][5],
-       "DSA payouts on personal loans 1–2.5%, up to 3% (XF-01, XF-02); paid by the lender on disbursal.", "pct2"))
-    a((G6, "fee_mult_end", "Payout rises to this multiple by month 60", 1.5, "× the starting payout", None,
-       "Operator, 21 Oct: 'DSA rates, rising'.", "A straight line from 1× in month 1 to 1.5× in month 60 (2% → 3%), as volume grows.", "n2"))
+    a((G6, "ticket", "First loan size, blended personal and business", SI0["ticket"], "₹ a loan", "on_ticket",
+       f"{F24}: ₹{SI0['ticket'] / 1000:.0f}k for a first loan, Bachatt's number. Our research had smaller loans: small personal-loan "
+       "referrals ₹15k / ₹25k / ₹58.5k; digital personal loans ₹18,800–70,000 (XF-11).",
+       f"Repeat loans are {_pc(X0['ticket_growth'])} bigger for each year repaid, and {_pc(X0['topup_share'])} of borrowers a year "
+       f"take a top-up of {_pc(X0['topup_size'])} of the loan (rows below).", "rs"))
+    a((G6, "fee", "Lender payout to us at the start", SI0["fee"], "share of the loan", "on_fee",
+       f"{F24}: {SI0['fee']:.0%}, the market middle of 1%, 2% and 3%. Lenders pay a loan-referral partner 1–2.5% on personal loans, "
+       "up to 3% (XF-01, XF-02).", "Paid by the lender when the loan is paid out.", "pct2"))
+    a((G6, "fee_mult_end", "Payout rises to this multiple by month 60", 1.0 + op.PAYOUT_RISE, "× the starting payout", None,
+       f"{F24}: the market rate, flat.",
+       "1 = no rise. A straight line from 1× in month 1 to this multiple in month 60, held after (1.5 would be 2% → 3%).", "n2"))
     a((G6, "tenure", "Loan tenure", 18.0, "months", None, "Research: 12–24 months for this segment (saver_inputs).",
        "A loan repaid at month 18 frees the borrower for a repeat loan.", "n0"))
     a((G6, "taken_back", "Payouts taken back (loan closed or bad within 6 months)", X0["taken_back"], "share of payouts",
@@ -231,12 +329,14 @@ def inputs_list():
             a((G7, f"{q}_takeup", f"{nm}: take-up a year", X0[f"{q}_takeup"], "share of savers without one, a year", f"{q}_takeup",
                ag(f"{q}_takeup"), ag(f"{q}_takeup", "why_this_shape"), "pct2"))
         src = {"loan_gold": "XF-12 (₹1.96 lakh industry average, smaller for this segment); payout XF-05.",
-               "loan_lap": "Founders, 22 Oct: ₹25 lakh (micro-LAP lenders average ₹3.9 lakh, XF-13); payout XF-04.",
-               "loan_home": "Founders, 22 Oct: ₹30 lakh (India's average home loan ~₹32 lakh, XL-29; affordable-housing lenders ₹6–15 lakh); payout XF-03."}
-        tk = X0[f"{q}_ticket"] if q in ("loan_cd", "loan_vehicle") else op.saver_inputs()[f"{q}_ticket"]
-        cm = X0[f"{q}_comm"] if q in ("loan_cd", "loan_vehicle") else op.saver_inputs()[f"{q}_comm"]
+               "loan_lap": f"{F24}: ₹{SI0['loan_lap_ticket'] / 1e5:g} lakh, the market size (micro-LAP lenders average ₹3.9 lakh, XF-13); payout XF-04.",
+               "loan_home": f"{F24}: ₹{SI0['loan_home_ticket'] / 1e5:g} lakh, the market size (affordable-housing lenders ₹6–15 lakh; "
+                            "India's average home loan ~₹32 lakh, XL-29); payout XF-03."}
+        tk = X0[f"{q}_ticket"] if q in ("loan_cd", "loan_vehicle") else SI0[f"{q}_ticket"]
+        cm = X0[f"{q}_comm"] if q in ("loan_cd", "loan_vehicle") else SI0[f"{q}_comm"]
+        why_tk = {"loan_gold": "Operator, 21 Oct baseline.", "loan_lap": f"{F24}: market size.", "loan_home": f"{F24}: market size."}
         a((G7, f"{q}_ticket", f"{nm}: loan size", tk, "₹ a loan", f"{q}_ticket" if q in ("loan_cd", "loan_vehicle") else None,
-           src.get(q, ag(f"{q}_ticket")), "Operator, 21 Oct baseline." if q in src else ag(f"{q}_ticket", "why_this_shape"), "rs"))
+           src.get(q, ag(f"{q}_ticket")), why_tk.get(q) or ag(f"{q}_ticket", "why_this_shape"), "rs"))
         a((G7, f"{q}_comm", f"{nm}: our referral fee", cm, "share of the loan", f"{q}_comm" if q in ("loan_cd", "loan_vehicle") else None,
            src.get(q, ag(f"{q}_comm")), "Paid once by the lender on disbursal.", "pct2"))
         if q in ("loan_lap", "loan_home"):
@@ -246,14 +346,17 @@ def inputs_list():
        "early_takeup_mult", ag("early_takeup_mult"), ag("early_takeup_mult", "why_this_shape"), P))
     a((G8, "early_approval_mult", "Months 1–6: loan and card approvals, share of the full rate", X0["early_approval_mult"], "share",
        "early_approval_mult", ag("early_approval_mult"), ag("early_approval_mult", "why_this_shape"), P))
-    a((G8, "takeup_growth", "Take-up of every product rises each business year", X0["takeup_growth"], "a year", "takeup_growth",
-       ag("takeup_growth"), ag("takeup_growth", "why_this_shape"), P))
-    a((G8, "approval_growth", "Approvals rise each business year (lenders see our repayments)", X0["approval_growth"], "a year",
-       "approval_growth", ag("approval_growth"), ag("approval_growth", "why_this_shape"), P))
+    a((G8, "takeup_growth", "Take-up of every product rises each business year", SI0["takeup_growth"], "a year", "takeup_growth",
+       f"{F24}: none, today's market rates. Our old target was {_pc(X0['takeup_growth'])} a year: an upside lever on What moves it.",
+       "A known pool may get more offers and buy more; not assumed until measured.", P))
+    a((G8, "approval_growth", "Approvals rise each business year (lenders see our repayments)", SI0["approval_growth"], "a year",
+       "approval_growth", f"{F24}: none, today's market rates. Our old target was {_pc(X0['approval_growth'])} a year: an upside lever "
+       "on What moves it. A lender approves 74% of repeat applicants (XL-41).",
+       "Repayment history is what lenders price; not assumed until our own repayments are measured.", P))
     a((G8, "early_months", "The first months run at the early factors", float(ce.EARLY_MONTHS), "months", None, "Engine rule.",
        "Full rates from month 7.", "n0"))
-    a((G8, "year_cap", "Growth with the pool's history stops after year", 5.0, "year", None, "Engine rule (held at the year-5 value).",
-       "No growth is assumed after year 5.", "n0"))
+    a((G8, "year_cap", "Yearly rises (if any) stop after year", 5.0, "year", None, "Engine rule (held at the year-5 value).",
+       "No rise is assumed after year 5; at today's market there is none at all.", "n0"))
     a((G8, "takeup_cap", "No take-up factor above", ce.TAKEUP_CAP, "× the agreed rate", None, "Engine cap.", "At most 2× the agreed rate.", "n2"))
     a((G9, "card_share", "Savers who get a card (once)", X0["card_share"], "share", "card_share", ag("card_share"),
        ag("card_share", "why_this_shape"), P))
@@ -290,9 +393,11 @@ def inputs_list():
                 why = "₹200 once per new account (the ticket × 1)."
             val, src = X0[k], ag(k) or "Engine default (cohort_engine.PRODUCTS)."
             if k in op.OFF_PRODUCTS:                       # critical review, 22 Oct
-                val, mck, src = op.OFF_PRODUCTS[k], None, "Off (critical review, 22 Oct)."
+                val, mck = op.OFF_PRODUCTS[k], None
+                src = "Off (critical review, 22 Oct)." if k in ("choti_takeup", "gold_takeup") else "Off (founders, 24 Oct)."
                 why = {"choti_takeup": "The Choti SIP incentive is for a first-time investor's monthly SIP only; our daily SIP disqualifies it.",
-                       "gold_takeup": "No digital gold at launch (unregulated; the folder's own row advises against it); a gold fund later."}[k]
+                       "gold_takeup": "No digital gold at launch (unregulated; the folder's own row advises against it); a gold fund later."}.get(
+                    k, "Not in the launch app (founders, 24 Oct); upside once built.")
             a((grp, k, f"{PRODUCT_LABEL[p]}: {w}", val, neutral(unit), mck, src, neutral(why), fm))
     a((G12, "support_cost", "Support cost per saver still saving", X0["support_cost"], "₹ a month", "support_cost", ag("support_cost"),
        ag("support_cost", "why_this_shape"), "rs2"))
@@ -300,10 +405,11 @@ def inputs_list():
        "The 2 Oct costing: ₹4 a month (cloud, SMS, KYC calls); was ₹1, our judgement.",
        "Charged for every KYC'd user who came with the saver (reach), savers or not, while the saver keeps saving.", "rs2"))
     a((G12, "debit_cost", "Payment cost per debit", op.DEBIT_COST, "₹ a debit", None,
-       "The 2 Oct costing: ₹2 base (₹5 list price through a payment gateway, TC-02/06; ₹0 to us through BSE StAR MF, XB-01).",
-       "Until BSE StAR MF and the fund houses confirm a daily SIP on one mandate in writing, we assume weekly debits at ₹2.", "rs2"))
+       f"{F24}: ₹0 to us: the daily SIP runs through BSE StAR MF or the fund house's own mandate. BSE offers the XSIP facility free to "
+       "distributors (TC-42); fund houses pay BSE per transaction (TC-43); daily SIP minimum ~₹100 a scheme (TC-45). Not yet confirmed in writing.",
+       "At ₹100 a day the saving likely goes into one hybrid fund. Type 2 here and 4.33 below to see the old ₹2 weekly debit.", "rs2"))
     a((G12, "debits_month", "Debits a month per saver still saving", op.DEBITS_A_MONTH, "debits a month", None,
-       "Founder's decision, 22 Oct: weekly until daily is confirmed.", "52 weeks ÷ 12. The monthly amount is unchanged.", "n2"))
+       f"{F24}: a daily SIP, one debit on each saving day.", "The saving days a month (group 3). The monthly amount is unchanged.", "n2"))
     return L
 
 
@@ -337,12 +443,14 @@ FMT = {"pct": "0.0%", "pct2": "0.00%", "pct3": "0.000%", "rs": "#,##0", "rs2": "
 def inputs_sheet(L, ranges):
     cells, names, rows_fmt, blue, grey, bold = {}, {}, [], [], [], []
     cells["A1"] = "Inputs: every number behind one saver's LTV/CAC (the main case)"
-    cells["A2"] = (f"Blue = an assumption you can change; every tab recalculates. Grey = worked out from the blue cells (do not type there). The values are "
-                   f"the MAIN CASE: the ten inputs nobody has measured sit {T_MAIN:.0%} of the way from today's market to our target, the median of the "
-                   "Monte Carlo, which draws each anywhere in that range (the six loan inputs move together); every other input is fixed, the cost to "
-                   "win included (it is measured). Type the 'Our target' column into the blue cells to see our targets. Sources: the IDs (XF-, XO-, PR- ...) "
-                   "are on the Sources tab.")
-    head = ["", "Input", "Value", "Unit", "Today's market", "Main case", "Our target", "Monte Carlo", "Source", "Why this number", "Name in formulas"]
+    (r_lo, r_hi), (t_lo, t_hi) = lo.INPUTS["keep"][1]["r12"], lo.INPUTS["trail"][1]["_debt_trail"]
+    cells["A2"] = ("Blue = an assumption you can change; every tab recalculates. Grey = worked out from the blue cells (do not type there). The values are "
+                   "the MAIN CASE. On 24 Oct the founders fixed every input (market figures, Bachatt, or our judgement); two are still uncertain and the "
+                   f"Monte Carlo draws them, each equally likely anywhere in its range: still saving at 12 months ({_pc(r_lo)}–{_pc(r_hi)}, with the "
+                   f"drop-off after it moving with it) and our share of the debt fund's fee ({t_lo:.2%}–{t_hi:.2%}). Their low end, main case (the Monte "
+                   "Carlo's median) and high end are beside them; type a low or high value into the blue cell to see it. Sources: the IDs "
+                   "(XF-, XO-, TC- ...) are on the Sources tab.")
+    head = ["", "Input", "Value", "Unit", "Low end", "Main case", "High end", "Monte Carlo", "Source", "Why this number", "Name in formulas"]
     for j, h in enumerate(head):
         cells[f"{tc.col_name(j + 1)}3"] = h
     r = 4
@@ -356,13 +464,14 @@ def inputs_sheet(L, ranges):
             bold.append(r)
             r += 1
             last_grp = grp
-        cells[f"B{r}"], cells[f"C{r}"], cells[f"D{r}"] = lab, float(val), unit
+        g10 = lambda v_: float(f"{float(v_):.10g}")                    # no float dust (0.34944000000000003) in a drawn cell
+        cells[f"B{r}"], cells[f"C{r}"], cells[f"D{r}"] = lab, g10(val) if key in ranges else float(val), unit
         if key in ranges:
-            mk, md, tg, loan = ranges[key]
-            cells[f"E{r}"], cells[f"F{r}"], cells[f"G{r}"] = float(mk), float(md), float(tg)
-            cells[f"H{r}"] = "drawn: market to target" + (" (moves with the loan inputs)" if loan else "")
+            mk, md, tg, follows = ranges[key]
+            cells[f"E{r}"], cells[f"F{r}"], cells[f"G{r}"] = g10(mk), g10(md), g10(tg)
+            cells[f"H{r}"] = "drawn: moves with still saving at 12 months" if follows else "drawn: equally likely anywhere from low to high"
         else:
-            cells[f"H{r}"] = "fixed: measured" if key == "cac_on" else "fixed"
+            cells[f"H{r}"] = FIXED_NOTE
         cells[f"I{r}"], cells[f"J{r}"], cells[f"K{r}"] = clean(neutral(src)), clean(neutral(why)), f"i_{key}"
         names[f"i_{key}"] = f"C{r}"
         rows_fmt.append((r, fm))
@@ -418,7 +527,7 @@ def engine_tab():
     t.add("af", "CALENDAR", "First-loan approval", "=MIN(i_approval_cap,i_approved_first*[ema]*[ma])", fm="pct")
     t.add("apf", "CALENDAR", "Approval factor: secured loans, cards", "=[ema]*[ma]")
     t.add("cf", "CALENDAR", "Card factor (take-up × approval)", "=[tf]*MIN(i_takeup_cap,[apf])")
-    t.add("ramp", "CALENDAR", "DSA payout ramp (× the starting payout)", "=1+(i_fee_mult_end-1)*MIN([m]-1,59)/59")
+    t.add("ramp", "CALENDAR", "Lender payout ramp (× the starting payout)", "=1+(i_fee_mult_end-1)*MIN([m]-1,59)/59")
     t.add("dps", "THE FUND", "Deposits this month (₹)", "=i_daily*i_days*(1+i_amount_growth)^INT(([m]-1)/i_term)", fm="rs2")
     t.add("bs", "THE FUND", "Balance at the start (₹)", 0, "=[be@p]*IF(MOD([m]-1,i_term)=0,i_rollover,1)", fm="rs2")
     t.add("be", "THE FUND", "Balance at the end (₹)", "=[bs]*(1-i_withdraw_m)+[dps]+([bs]*(1-i_withdraw_m)+0.5*[dps])*d_rm", fm="rs2")
@@ -482,7 +591,7 @@ def products_tab():
     oth = [p for p, *_ in ce.PRODUCTS if p not in INS and not p.startswith("loan_")]
     t.add("ins", "TOTALS", "Insurance (₹)", "=" + "+".join(revs[p] for p in INS), fm="rs3")
     reach_l = [p for p in loans if p in op.LOAN_REACH_XS]
-    t.add("oloans", "TOTALS", "Other loans in the 35% funnel: gold, property, home (₹)", "=" + "+".join(revs[p] for p in reach_l), fm="rs3")
+    t.add("oloans", "TOTALS", "Other loans in the apply funnel: gold, property, home (₹)", "=" + "+".join(revs[p] for p in reach_l), fm="rs3")
     t.add("oloans_s", "TOTALS", "Other loans, savers only: durables, vehicles (₹)", "=" + "+".join(revs[p] for p in loans if p not in reach_l), fm="rs3")
     t.add("other", "TOTALS", "Other products: SIP, Choti, NPS, gold, FD, recharge, bills (₹)", "=" + "+".join(revs[p] for p in oth), fm="rs3")
     return t
@@ -507,8 +616,10 @@ def saver_tab():
         t.add(f"{sv}.cards", band, "Cards (₹)", f"=[{sv}.s]*[Engine!cardfee]", fm="rs2")
         t.add(f"{sv}.oth", band, "Other products (₹)", f"=[{sv}.s]*[Products!other]", fm="rs2")
         t.add(f"{sv}.rev", band, "Revenue (₹)", f"=[{sv}.fund]+[{sv}.pb]+[{sv}.ol]+[{sv}.ins]+[{sv}.cards]+[{sv}.oth]", fm="rs2")
-        t.add(f"{sv}.serve", band, "Serving: support, tech for every KYC'd user reached, payments (₹)",
-              f"=[{sv}.s]*(i_support_cost+i_tech*i_reach_{sv}+i_debit_cost*i_debits_month)", fm="rs2")
+        t.add(f"{sv}.serve", band, "Serving: support, tech for every KYC'd user reached, payments" + (", plus the 10% contingency (₹)"
+              if op.SERVE_CONTINGENCY else " (₹)"),
+              f"=[{sv}.s]*(i_support_cost+i_tech*i_reach_{sv}+i_debit_cost*i_debits_month)" + ("*(1+i_contingency)" if op.SERVE_CONTINGENCY else ""),
+              fm="rs2")
         t.add(f"{sv}.net", band, "Revenue less serving (₹)", f"=[{sv}.rev]-[{sv}.serve]", fm="rs2")
         t.add(f"{sv}.cum", band, ("Online" if sv == "on" else "Doorstep") + ": cumulative ₹ after the cost to win",
               f"=-d_cac_all_{sv}+[{sv}.net]", f"=[{sv}.cum@p]+[{sv}.net]", fm="rs")
@@ -541,8 +652,8 @@ def shift(f, k):
 
 # ------------------------------------------------------------------------------------------------------------ answer tab
 LINES = [("Cost to win", None), ("Fund fees (our trail on the savings)", "fund"), ("Personal + business loan payouts", "pb"),
-         ("Other loan referrals (gold, property, home, durables, vehicles)", "ol"), ("Insurance", "ins"), ("Cards", "cards"),
-         ("Other products (recharge, bills, FD, NPS)", "oth"), ("Serving (support, tech, payments)", "serve")]
+         ("Other loan referrals (gold, property, home, durables, vehicles)", "ol"), ("Insurance (not counted yet)", "ins"), ("Cards", "cards"),
+         ("Other products (off at launch: recharge, bills, FD, NPS)", "oth"), ("Serving (support, tech, payments, + 10% contingency)", "serve")]
 
 
 def answer_tab(sv_tab, py):
@@ -550,8 +661,9 @@ def answer_tab(sv_tab, py):
     col = sv_tab.cols
     c["A1"] = "LTV/CAC: what one saver won is worth, live"
     c["A2"] = ("Per saver won, undiscounted ₹. LTV = revenue less serving over 5 years (8 years alongside); LTV/CAC = LTV ÷ cost to win; pays back = "
-               "the month cumulative revenue less serving reaches the cost to win. A saver who joins in the business's month 1. Not in this view: "
-               "the team, office and brand (company costs), the 10% contingency, tax. Change any blue cell on Inputs and every number here moves.")
+               "the month cumulative revenue less serving reaches the cost to win. The cost to win and serving both carry the plan's 10% contingency. "
+               "A saver who joins in the business's month 1. Not in this view: the team, office and brand (company costs), tax. Change any blue "
+               "cell on Inputs and every number here moves.")
     head = ["Per saver won (₹)", "Online, 5 years", "Doorstep, 5 years", "Online, 8 years", "Doorstep, 8 years", None,
             "Plan model, main case: online, 5 years (fixed)", "Plan model, main case: doorstep, 5 years (fixed)", "Sheet − plan model, online"]
     for j, h in enumerate(head):
@@ -576,6 +688,8 @@ def answer_tab(sv_tab, py):
     c["A19"] = "Cross-sell share of revenue (everything except fund fees)"
     c["A20"] = "Still saving at month 12"
     c["A21"] = "Deposits over the period (₹)"
+    c["A22"] = "Cross-sell alone ÷ cost to win, BEFORE serving (loans, insurance, cards, other products)"
+    c["A23"] = "Cross-sell alone ÷ cost to win, AFTER serving (on its own it never pays back)"
     for x, sv, last in (("B", "on", R60), ("C", "door", R60), ("D", "on", R1), ("E", "door", R1)):
         c[f"{x}13"] = f"=SUM({x}5:{x}12)"
         c[f"{x}15"] = f"=SUM({x}6:{x}11)"
@@ -587,12 +701,15 @@ def answer_tab(sv_tab, py):
         c[f"{x}20"] = f"=Saver!{col[f'{sv}.s']}{R0 + 12}"
         dep = col[f"{sv}.dep"]
         c[f"{x}21"] = f"=SUM(Saver!{dep}{R0}:{dep}{last})"
-    for r, k in ((13, "net"), (15, "rev"), (16, "ltv"), (17, "ltvcac"), (18, "pay"), (19, "xs"), (20, "s12"), (21, "dep")):
+        c[f"{x}22"] = f"=SUM({x}7:{x}11)/-{x}5"
+        c[f"{x}23"] = f"=(SUM({x}7:{x}11)+{x}12)/-{x}5"
+    for r, k in ((13, "net"), (15, "rev"), (16, "ltv"), (17, "ltvcac"), (18, "pay"), (19, "xs"), (20, "s12"), (21, "dep"), (22, "xs_cac"),
+                 (23, "xs_net_cac")):
         c[f"G{r}"], c[f"H{r}"] = round(py["on"][k], 4), round(py["door"][k], 4)
         c[f"I{r}"] = f'=IFERROR(B{r}-G{r},"")'
-    c["A23"] = ("1,000 futures (the Monte Carlo tab: the cost to win fixed, the ten unmeasured inputs drawn between today's market and our target; "
-                "each future's company profit month alongside). Ask any other question on Projector.")
-    for j, h in enumerate(["", "10th percentile", "Median", "90th percentile", "Share of futures at 3× or more", "Share paid back within 24 months",
+    c["A24"] = ("1,000 draws (the Monte Carlo tab's futures): every input fixed by the founders except the two still uncertain, still saving "
+                "at 12 months and the debt fund's fee; each draw's company profit month alongside. Ask any other question on Projector.")
+    for j, h in enumerate(["", "10th percentile", "Median", "90th percentile", "Share of futures at 1× or more (5 years)", "Share paid back within 5 years",
                            "Share never paid back in 8 years"]):
         if h:
             c[f"{tc.col_name(j + 1)}24"] = h
@@ -603,8 +720,8 @@ def answer_tab(sv_tab, py):
         c[f"A{r}"] = lab
         c[f"B{r}"], c[f"C{r}"], c[f"D{r}"] = f"=PERCENTILE({nm},0.1)", f"=MEDIAN({nm})", f"=PERCENTILE({nm},0.9)"
         if pay:
-            c[f"E{r}"] = f'=COUNTIF({nm},">=3")/COUNT({nm})'
-            c[f"F{r}"] = f'=COUNTIF({pay},"<=24")/COUNT({pay})'
+            c[f"E{r}"] = f'=COUNTIF({nm},">=1")/COUNT({nm})'
+            c[f"F{r}"] = f'=COUNTIF({pay},"<=60")/COUNT({pay})'
             c[f"G{r}"] = f'=COUNTIF({pay},">96")/COUNT({pay})'
     c["A30"] = ("Charts: the waterfall is the online saver's 5 years (column B); the curve is each saver's cumulative ₹ after the cost to win "
                 "(Saver tab), crossing zero in the payback month.")
@@ -628,13 +745,16 @@ def py_view(x, cac, reach):
         out["ltvcac" + tag], out["net" + tag] = out["ltv" + tag] / cac, out["ltv" + tag] - cac
     out["cac"], out["pay"] = -cac, pay
     out["xs"] = (out["rev"] - out["fund"]) / out["rev"]
+    out["xs_cac"], out["xs_cac96"] = (out["rev"] - out["fund"]) / cac, (out["rev96"] - out["fund96"]) / cac   # cross-sell alone ÷ cost to win
+    out["xs_net_cac"], out["xs_net_cac96"] = out["xs_cac"] + out["serve"] / cac, out["xs_cac96"] + out["serve96"] / cac   # after serving (serve < 0)
     out["s12"] = float(p["still_saving"][0][12])
     out["dep"] = float(p["deposits"][0][:60].sum())
     return out
 
 
 def base_params():
-    return {k: float(ALLSPEC[k][2]) for k in ALLSPEC}
+    """The MAIN CASE (24 Oct): the founders' fixed inputs, the two drawn inputs at the Monte Carlo median (tables/ltv_ladder.csv)."""
+    return {k: v for k, v in odds_params(lo.at(T_MAIN)).items() if k != "_extra"}
 
 
 def apply_params(pp):
@@ -672,7 +792,7 @@ def evaluate(pp, door_cac=True):
 def sheet_values(pp, door_cac):
     """Blue-cell values on Inputs for a Monte Carlo parameter set (inverse of apply_params)."""
     v = {}
-    for grp, key, lab, val, *_ in inputs_list():
+    for grp, key, lab, val, *_ in _inputs_raw():
         v[key] = float(val)
     for k in ce.KEYS:
         if k not in om.FIXED_DESIGN and k in v:
@@ -683,8 +803,7 @@ def sheet_values(pp, door_cac):
               "debt_trail": pp["trail"], "r3_door": pp["r3"], "r12_door": pp["r12"], "cac_door": door_cac})
     ex = pp.get("_extra", {})
     v.update({k: ex[k] for k in ("loan_home_ticket", "loan_lap_ticket") if k in ex})
-    if "_payout_rise" in ex:
-        v["fee_mult_end"] = 1.0 + ex["_payout_rise"]
+    v["fee_mult_end"] = 1.0 + ex.get("_payout_rise", op.PAYOUT_RISE)   # the sheet's payout ramp is online_plan.payout_mult()
     return v
 
 
@@ -697,14 +816,14 @@ ODDS_CELL = {"ticket": "ticket", "_apply": "loan_apply", "_loan_reach": "reach_o
              "loan_lap_ticket": "loan_lap_ticket", "_payout_rise": "fee_mult_end", "r12": "r12_on", "churn_late": "churn_late",
              "_debt_trail": "debt_trail", "approved_repeat": "approved_repeat"}   # ltv_odds input -> the blue cell on Inputs
 with (T / "ltv_ladder.csv").open() as _f:
-    T_MAIN = float(next(r for r in csv.DictReader(_f) if r["rung"] == "Median")["position (0 market, 1 targets)"])
+    T_MAIN = float(next(r for r in csv.DictReader(_f) if r["rung"] == "Main case")["drawn position (0 low, 1 high)"])
 
 
 def odds_params(pos):
-    """Parameters with every LTV/CAC Monte Carlo input at its position (0 = today's market, 1 = our target), the rest at the plan."""
-    pp = base_params()
+    """Parameters with each drawn input at its position (0 = the low end, 1 = the high end), the rest at the founders' 24 Oct values."""
+    pp = dict(BASE0)
     pp["_extra"] = {}
-    for k, (_lab, params, _loan) in lo.INPUTS.items():
+    for k, (_lab, params) in lo.INPUTS.items():
         for q, (mk, tg) in params.items():
             v = mk + (tg - mk) * float(pos[k])
             if q in ODDS_PP:
@@ -715,22 +834,26 @@ def odds_params(pos):
 
 
 def odds_ranges():
-    """Inputs cell -> (today's market, main case, our target, a loan input?) for the ten inputs the Monte Carlo draws."""
+    """Inputs cell -> (low end, main case, high end, moves with another input?) for the cells the Monte Carlo draws."""
     out = {}
-    for _k, (_lab, params, loan) in lo.INPUTS.items():
-        for q, (mk, tg) in params.items():
+    for _k, (_lab, params) in lo.INPUTS.items():
+        for j, (q, (mk, tg)) in enumerate(params.items()):
             f = (lambda v: 1.0 + v) if q == "_payout_rise" else (lambda v: v)
-            out[ODDS_CELL[q]] = (f(mk), f(mk + (tg - mk) * T_MAIN), f(tg), loan)
+            out[ODDS_CELL[q]] = (f(mk), f(mk + (tg - mk) * T_MAIN), f(tg), j > 0)
     return out
 
 
 PP_MAIN = odds_params(lo.at(T_MAIN))
+# the drawn inputs' ranges, as (shape, low, main case, high) in numerical order, for anyone who reads ALLSPEC for a range (the decks)
+for _k, (_lab, _params) in lo.INPUTS.items():
+    for _q, (_a, _b) in _params.items():
+        ALLSPEC[ODDS_PP[_q]] = ("uniform", min(_a, _b), PP_MAIN[ODDS_PP[_q]], max(_a, _b))
 
 
 # ---------------------------------------------------------------------------------------------------------- Monte Carlo
 MC_IN = [("on_ticket", "Personal + business loan size (₹)"), ("on_apply", "Apply for a loan in a year"), ("on_reach", "KYC'd users per online saver"),
          ("on_approved", "First applications approved"), ("takeup_growth", "Take-up rises a year"), ("approval_growth", "Approvals rise a year"),
-         ("home", "Home loan size (₹; property loans move with it)"), ("rise", "Payout by month 60 (× the starting payout)"),
+         ("home", "Home loan size (₹)"), ("rise", "Payout by month 60 (× the starting payout)"),
          ("on_r12", "Online: still saving at month 12"), ("churn_late", "Stop a month after month 12"), ("trail", "Our trail on debt funds"),
          ("approved_repeat", "Repeat applications approved")]     # 12 columns, as before, so the tab's named ranges keep their place
 MC_OUT = [("on_ltv60", "Online: LTV/CAC, 5 years"), ("on_ltv96", "Online: LTV/CAC, 8 years"), ("on_pay", "Online: pays back in month"),
@@ -739,7 +862,7 @@ MC_OUT = [("on_ltv60", "Online: LTV/CAC, 5 years"), ("on_ltv96", "Online: LTV/CA
           ("on_ins60", "Online: insurance, 5 years (₹)"), ("on_co60", "Online: cards + other products, 5 years (₹)"),
           ("on_serve60", "Online: serving, 5 years (₹)"), ("on_net60", "Online: net after the cost to win, 5 years (₹)"),
           ("door_cac", "Doorstep: cost to win (₹)"), ("door_ltv60", "Doorstep: LTV/CAC, 5 years"), ("door_pay", "Doorstep: pays back in month"),
-          ("co_profit", "Company: profit from month (profitable path)"), ("co_money", "Company: money needed ($M)")]
+          ("co_profit", "Company: EBITDA positive from month (20,000 online savers a month)"), ("co_money", "Company: money needed ($M)")]
 
 
 def mc_run():
@@ -762,17 +885,21 @@ def mc_run():
 
 
 def mc_run_odds():
-    """The LTV/CAC Monte Carlo's 1,000 futures (tables/ltv_odds_draws.csv) through this workbook's one-saver view, online and doorstep."""
+    """The LTV/CAC Monte Carlo's 1,000 futures (tables/ltv_odds_draws.csv) through this workbook's one-saver view, online and doorstep.
+    Asserts agreement with each draw: LTV/CAC at 5 years (to 2e-4: the CSV keeps 4 decimals and the drawn positions to 4 decimals), at
+    8 years (to 6e-3: online_plan.ltv_view rounds it to 2 decimals), and the payback month (within a month, for the same rounding)."""
     rows = []
     for i, d in enumerate(csv.DictReader((T / "ltv_odds_draws.csv").open())):
         pos = {k: float(d[k]) for k in lo.KEYS}
         pp = odds_params(pos)
         on, dr, dc = evaluate(pp, door_cac=False)
-        assert abs(on["ltvcac"] - float(d["ltv_cac"])) < 2e-3, (i, on["ltvcac"], d["ltv_cac"])
+        assert abs(on["ltvcac"] - float(d["ltv_cac"])) < 2e-4, (i, on["ltvcac"], d["ltv_cac"])   # the CSV: 4 decimals, positions to 4 decimals
+        # the CSV keeps the drawn positions to 4 decimals, so a payback on the edge of a month can land one month either side
+        assert abs(on["ltvcac96"] - float(d["ltv_cac_96"])) < 6e-3 and abs(on["pay"] - int(d["payback"])) <= 1, (i, on["ltvcac96"], on["pay"], d)
         ex = pp["_extra"]
         rows.append({"draw": i + 1, "_pos": pos, **{k: pp[k] for k in ("on_ticket", "on_apply", "on_reach", "on_approved", "takeup_growth",
                                                                          "approval_growth", "on_r12", "churn_late", "trail", "approved_repeat")},
-                     "home": ex["loan_home_ticket"], "rise": 1.0 + ex["_payout_rise"],
+                     "home": ex.get("loan_home_ticket", SI0["loan_home_ticket"]), "rise": 1.0 + ex.get("_payout_rise", op.PAYOUT_RISE),
                      "on_ltv60": on["ltvcac"], "on_ltv96": on["ltvcac96"], "on_pay": on["pay"], "on_rev60": on["rev"], "on_fund60": on["fund"],
                      "on_pb60": on["pb"], "on_ol60": on["ol"], "on_ins60": on["ins"], "on_co60": on["cards"] + on["oth"], "on_serve60": on["serve"],
                      "on_net60": on["net"], "door_cac": dc, "door_ltv60": dr["ltvcac"], "door_pay": dr["pay"],
@@ -780,31 +907,80 @@ def mc_run_odds():
     return rows
 
 
-SHOWN = {"ticket": "ticket", "apply": "_apply", "reach": "_loan_reach", "approved": "approved_first", "rises": "takeup_growth",
-         "home_lap": "loan_home_ticket", "payout": "_payout_rise", "keep": "r12", "trail": "_debt_trail", "repeat": "approved_repeat"}   # value shown
-SHOWN_NOTE = {"rises": " (take-up shown; approvals rise twice as fast)", "home_lap": " (home shown; property loans move with it)",
-              "payout": " (× the starting payout by month 60)", "keep": " (at a year shown; the monthly stops after it move with it)",
-              "trail": " (the debt fund's trail shown)"}
+SHOWN = {"keep": "r12", "trail": "_debt_trail"}                                  # drawn input -> the value shown
+SHOWN_LABEL = {"keep": "still saving at 12 months ({lo}–{hi}; the drop-off after it moves with it)", "trail": "our share of the debt fund's fee ({lo}–{hi})"}
+UPSIDE_PP = {"daily": "on_daily", "r12": "on_r12", "churn_late": "churn_late", "_apply": "on_apply", "approved_first": "on_approved",
+             "takeup_growth": "takeup_growth", "approval_growth": "approval_growth"}   # ltv_odds upside input -> parameter
+UPSIDE_NOTE = {"daily": "", "keep_up": " (the drop-off after it falls to 1.0% a month, on the line through Bachatt's 30–40%)", "apply": "", "approved": "",
+               "rises": " (take-up shown; approvals rise twice as fast)"}
+
+
+def lever_params(k, u, base=None):
+    """The main case (or base) with upside lever k the share u of the way to its upside (model/ltv_odds.overrides, same caps)."""
+    pp = dict(PP_MAIN if base is None else base)
+    for q, (a, b) in lo.UPSIDE[k][1].items():
+        a = pp[UPSIDE_PP[q]] if a is None else a
+        x = a + (b - a) * u
+        if q in lo.CAPS:
+            x = min(x, lo.CAPS[q]) if b > a else max(x, lo.CAPS[q])
+        pp[UPSIDE_PP[q]] = x
+    return pp
+
+
+def show_value(q, v):
+    """An input's value in words for the What moves it tab."""
+    if q in ("daily", "on_daily"):
+        return f"₹{v:,.0f}"
+    if q in ("_debt_trail", "trail"):
+        return f"{v:.2%}"
+    return _pc(round(v, 3))
 
 
 def one_at_a_time_odds(rows):
-    """Each Monte Carlo input at today's market, then at our target, everything else at the main case."""
+    """What moves it (24 Oct). Drawn: each of the two uncertain inputs at its low end, then its high end, the other at the main case,
+    with its rank correlation over the 1,000 futures. Upside: each of ltv_odds' five upside levers alone, from the main case (low) to its
+    upside (high), checked against tables/ltv_upside_levers.csv, with the value it needs alone for 1x (and 2x) in 5 years."""
     b_on, b_dr, _ = evaluate(PP_MAIN, door_cac=False)
-    out = []
+    drawn, up = [], []
     for k in lo.KEYS:
         res = {tag: evaluate(odds_params({**lo.at(T_MAIN), k: v}), door_cac=False) for tag, v in (("lo", 0.0), ("hi", 1.0))}
         q = SHOWN[k]
         mk, tg = lo.INPUTS[k][1][q]
-        if q == "_payout_rise":
-            mk, tg = 1.0 + mk, 1.0 + tg
         pos = [r["_pos"][k] for r in rows]
-        out.append({"key": k, "label": lo.INPUTS[k][0] + SHOWN_NOTE.get(k, ""), "low": mk, "likely": mk + (tg - mk) * T_MAIN, "high": tg,
-                    "on_lo": res["lo"][0]["ltvcac"], "on_hi": res["hi"][0]["ltvcac"], "pay_lo": res["lo"][0]["pay"], "pay_hi": res["hi"][0]["pay"],
-                    "door_lo": res["lo"][1]["ltvcac"], "door_hi": res["hi"][1]["ltvcac"],
-                    "rank_on": float(stats.spearmanr(pos, [r["on_ltv60"] for r in rows]).statistic),
-                    "rank_door": float(stats.spearmanr(pos, [r["door_ltv60"] for r in rows]).statistic)})
-    out.sort(key=lambda r: -abs(r["on_hi"] - r["on_lo"]))
-    return out, b_on, b_dr
+        drawn.append({"key": k, "kind": "drawn", "label": "Drawn: " + SHOWN_LABEL[k].format(lo=show_value(q, min(mk, tg)), hi=show_value(q, max(mk, tg))),
+                      "low": mk, "likely": mk + (tg - mk) * T_MAIN, "high": tg,
+                      "low_txt": show_value(q, mk), "likely_txt": show_value(q, mk + (tg - mk) * T_MAIN), "high_txt": show_value(q, tg),
+                      "on_lo": res["lo"][0]["ltvcac"], "on_hi": res["hi"][0]["ltvcac"], "on96_lo": res["lo"][0]["ltvcac96"],
+                      "on96_hi": res["hi"][0]["ltvcac96"], "pay_lo": res["lo"][0]["pay"], "pay_hi": res["hi"][0]["pay"],
+                      "door_lo": res["lo"][1]["ltvcac"], "door_hi": res["hi"][1]["ltvcac"],
+                      "rank_on": float(stats.spearmanr(pos, [r["on_ltv60"] for r in rows]).statistic),
+                      "rank_door": float(stats.spearmanr(pos, [r["door_ltv60"] for r in rows]).statistic),
+                      "need_1x": None, "need_2x": None, "need_txt": ""})
+    for k in lo.UKEYS:
+        lab, params = lo.UPSIDE[k]
+        q = next(iter(params))
+        hi = lever_params(k, 1.0)
+        on_hi, dr_hi, _ = evaluate(hi, door_cac=False)
+        csv_row = UPSIDE_CSV[k]
+        assert abs(on_hi["ltvcac"] - float(csv_row["LTV/CAC 5y at the upside alone"])) < 2e-3, (k, on_hi["ltvcac"], csv_row)
+        assert abs(on_hi["ltvcac96"] - float(csv_row["LTV/CAC 8y at the upside alone"])) < 6e-3, (k, on_hi["ltvcac96"], csv_row)
+        assert on_hi["pay"] == int(csv_row["pays back in month at the upside alone"]), (k, on_hi["pay"], csv_row)
+        v0, v1 = PP_MAIN[UPSIDE_PP[q]], hi[UPSIDE_PP[q]]
+        n1, n2 = need_alone(k, "1x"), need_alone(k, "2x")
+        for need, target in ((n1, 1.0), (n2, 2.0)):
+            if need is not None:                                    # the lever at the value the table gives: LTV/CAC = target (4 figures)
+                got = evaluate(lever_params(k, (need - v0) / (v1 - v0)), door_cac=False)[0]["ltvcac"]
+                assert abs(got - target) < 0.01 * target, (k, need, got)
+        unit = {"daily": " a day", "keep_up": " still saving", "apply": " applying"}.get(k, "")
+        txt = "not reachable" if n1 is None else show_value(q, n1) + unit + (" (beyond the upside)" if n1 > v1 + 1e-12 else "")
+        up.append({"key": k, "kind": "upside", "label": "Upside: " + lab[:1].lower() + lab[1:] + UPSIDE_NOTE.get(k, ""),
+                   "low": v0, "likely": v0, "high": v1,
+                   "low_txt": show_value(q, v0), "likely_txt": show_value(q, v0), "high_txt": show_value(q, v1),
+                   "on_lo": b_on["ltvcac"], "on_hi": on_hi["ltvcac"], "on96_lo": b_on["ltvcac96"], "on96_hi": on_hi["ltvcac96"],
+                   "pay_lo": b_on["pay"], "pay_hi": on_hi["pay"], "door_lo": b_dr["ltvcac"], "door_hi": dr_hi["ltvcac"],
+                   "rank_on": None, "rank_door": None, "need_1x": n1, "need_2x": n2, "need_txt": txt})
+    swing = lambda r: -abs(r["on_hi"] - r["on_lo"])
+    return sorted(drawn, key=swing) + sorted(up, key=swing), b_on, b_dr
 
 
 def drivers(rows):
@@ -895,22 +1071,36 @@ def check(spec_sheets, sv_tab, cases):
                 cc = tc.col_num(sv_tab.cols[f"{sv}.{k}"])
                 sheet_m = np.array([float(b.cell("Saver", r, cc)) for r in range(R0, R1 + 1)])
                 pm = py["_m"][k]
-                worst = max(worst, float(np.max(np.abs(sheet_m - pm)) / max(1e-9, np.max(np.abs(pm)))))
+                # a line that is zero here (insurance, other products: off) is judged on its gap in rupees (floor ₹0.001)
+                worst = max(worst, float(np.max(np.abs(sheet_m - pm)) / max(1e-3, np.max(np.abs(pm)))))
             ltv = float(b.cell("LTV-CAC", 17, tc.col_num(col_b)))
+            ltv8 = float(b.cell("LTV-CAC", 17, tc.col_num(col_b) + 2))          # D / E: the 8-year columns
+            xs5, xs8 = (float(b.cell("LTV-CAC", 22, tc.col_num(col_b) + j)) for j in (0, 2))
+            xn5, xn8 = (float(b.cell("LTV-CAC", 23, tc.col_num(col_b) + j)) for j in (0, 2))
             pay = b.cell("LTV-CAC", 18, tc.col_num(col_b))
             pay = 97 if isinstance(pay, str) else int(pay)
             rows.append({"case": name, "saver": sv, "sheet LTV/CAC 5y": round(ltv, 6), "python LTV/CAC 5y": round(py["ltvcac"], 6),
+                         "sheet LTV/CAC 8y": round(ltv8, 6), "python LTV/CAC 8y": round(py["ltvcac96"], 6),
+                         "sheet cross-sell/CAC 5y": round(xs5, 6), "python cross-sell/CAC 5y": round(py["xs_cac"], 6),
+                         "sheet cross-sell/CAC 8y": round(xs8, 6), "python cross-sell/CAC 8y": round(py["xs_cac96"], 6),
+                         "sheet cross-sell after serving/CAC 5y": round(xn5, 6), "python cross-sell after serving/CAC 5y": round(py["xs_net_cac"], 6),
+                         "sheet cross-sell after serving/CAC 8y": round(xn8, 6), "python cross-sell after serving/CAC 8y": round(py["xs_net_cac96"], 6),
                          "sheet payback": pay, "python payback": py["pay"], "worst monthly line gap (share of the line's peak)": f"{worst:.2e}"})
-            assert abs(ltv - py["ltvcac"]) < 1e-6 * max(1, abs(py["ltvcac"])) and pay == py["pay"] and worst < 1e-8, rows[-1]
+            assert all(abs(a_ - b_) < 1e-6 * max(1, abs(b_)) for a_, b_ in ((ltv, py["ltvcac"]), (ltv8, py["ltvcac96"]), (xs5, py["xs_cac"]),
+                                                                             (xs8, py["xs_cac96"]), (xn5, py["xs_net_cac"]),
+                                                                             (xn8, py["xs_net_cac96"]))), rows[-1]
+            assert pay == py["pay"] and worst < 1e-8, rows[-1]
     return rows
 
 
 # ------------------------------------------------------------------------------------------------------------- the tabs
 def mc_tab(rows):
-    c = {"A1": "Monte Carlo: 1,000 futures of one saver (the LTV/CAC Monte Carlo: the cost to win fixed, the value of a saver drawn)",
-         "A2": ("Each row is one future: the ten unmeasured inputs drawn for it, each anywhere between today's market and our target (the six loan "
-                "inputs move together; property loans move with home loans), what one saver is worth in it, and the company's profit month and "
-                "money needed at 20,000 online savers a month. 97 in a 'pays back' or 'profit from' column = not within 8 years. The median "
+    (r_lo, r_hi), (t_lo, t_hi) = lo.INPUTS["keep"][1]["r12"], lo.INPUTS["trail"][1]["_debt_trail"]
+    c = {"A1": "Monte Carlo: 1,000 futures of one saver (the cost to win and every input the founders fixed held; the two still uncertain drawn)",
+         "A2": (f"Each row is one future: still saving at 12 months drawn anywhere from {_pc(r_lo)} to {_pc(r_hi)} (the drop-off after it moving "
+                f"with it) and our share of the debt fund's fee anywhere from {t_lo:.2%} to {t_hi:.2%}, each equally likely; every other input "
+                "column holds the founders' 24 Oct value. Then what one saver is worth in that future, and the company's EBITDA month and money "
+                "needed at 20,000 online savers a month. 97 in a 'pays back' or 'EBITDA positive' column = not within 8 years. The median "
                 "future is the main case on Inputs. Values, not formulas: Projector asks questions of this table live.")}
     head = ["Future"] + [h for _k, h in MC_IN] + [h for _k, h in MC_OUT]
     for j, h in enumerate(head):
@@ -923,7 +1113,8 @@ def mc_tab(rows):
             line.append(round(v) if abs(v) >= 100 else round(v, 5 if abs(v) < 0.01 else (4 if abs(v) < 1 else 2)))
         for k, _h in MC_OUT:
             v = r[k]
-            line.append(round(v, 2) if k in ("on_ltv60", "on_ltv96", "door_ltv60", "co_money") else int(round(v)))
+            # 5-year LTV/CAC to 3 decimals and 8-year to 2, so the sheet's shares at 1x match model/ltv_odds' summary (4% / 95%)
+            line.append(round(v, 3) if k in ("on_ltv60", "door_ltv60") else round(v, 2) if k in ("on_ltv96", "co_money") else int(round(v)))
         data.append(line)
     c["A4"] = f"=SEQUENCE({len(rows)})"
     names = {"mc_data": f"A4:{tc.col_name(len(head))}{3 + len(rows)}", "mc_head": f"A3:{tc.col_name(len(head))}3"}
@@ -939,7 +1130,7 @@ def projector_tab():
                 "columns in B6:B8 with a range (leave from/to blank for no limit). 3) Set a line in B10 to get the share of futures above and below it."),
          "A4": "Show", "B4": "Online: LTV/CAC, 5 years",
          "A5": "Keep only futures where (blank = all)", "B5": "column", "C5": "from", "D5": "to",
-         "A6": "Filter 1", "A7": "Filter 2", "A8": "Filter 3", "A10": "Line to test", "B10": 3,
+         "A6": "Filter 1", "A7": "Filter 2", "A8": "Filter 3", "A10": "Line to test", "B10": 1,
          "A12": "Answer", "B12": "=B4"}
     stat = [("Futures that pass the filters", "=SUM(J4:J1003)"), ("Mean", "=AVERAGE(FILTER(K4:K1003,J4:J1003=1))")]
     for q, lab in ((0.05, "5th percentile"), (0.10, "10th percentile"), (0.25, "25th percentile"), (0.50, "Median"),
@@ -967,44 +1158,53 @@ def projector_tab():
     c["K4"] = "=ARRAYFORMULA(INDEX(mc_data,0,MATCH(B4,mc_head,0)))"
     c["E4"] = '=IF(ISNA(MATCH(B4,mc_head,0)),"Pick a column name from the list","")'
     # ready answers
-    c["M3"] = "Ready answers (all 1,000 futures, whatever the filters on the left)"
-    ready = [("Online saver: LTV/CAC (5 years), median", "=MEDIAN(mc_on_ltv60)"),
-             ("Online saver: share of futures at 3× or more", '=COUNTIF(mc_on_ltv60,">=3")/1000'),
-             ("Online saver: share of futures below 1× (never earns back its cost in 5 years)", '=COUNTIF(mc_on_ltv60,"<1")/1000'),
+    c["M3"] = "Ready answers (all 1,000 draws, whatever the filters on the left; 'main case' rows read the live LTV-CAC tab)"
+    keep = 'INDEX(mc_data,0,MATCH("Online: still saving at month 12",mc_head,0))'
+    co = {r["measure"]: r for r in csv.DictReader((T / "ltv_odds_summary.csv").open())}
+    never = float(co["chance EBITDA positive by month 96"]["P50"]) == 0
+    ready = [("Online saver: LTV/CAC at 5 years (net of serving), median of the 1,000 draws = the main case", "=MEDIAN(mc_on_ltv60)"),
+             ("Online saver: LTV/CAC at 8 years (net of serving), median", "=MEDIAN(mc_on_ltv96)"),
              ("Online saver: pays back in month, median", "=MEDIAN(mc_on_pay)"),
-             ("Online saver: share paid back within 24 months", '=COUNTIF(mc_on_pay,"<=24")/1000'),
-             ("Doorstep saver: LTV/CAC (5 years), median", "=MEDIAN(mc_door_ltv60)"),
-             ("Doorstep saver: pays back in month, median", "=MEDIAN(mc_door_pay)"),
-             ("Company: share of futures profitable by month 60", '=COUNTIF(mc_co_profit,"<=60")/1000'),
-             ("Online LTV/CAC median, in futures where under 25% apply for a loan a year",
-              f'=MEDIAN(FILTER(mc_on_ltv60,INDEX(mc_data,0,MATCH("Apply for a loan in a year",mc_head,0))<0.25))'),
-             ("Online LTV/CAC median, in futures where personal and business loans average under ₹1 lakh",
-              f'=MEDIAN(FILTER(mc_on_ltv60,INDEX(mc_data,0,MATCH("Personal + business loan size (₹)",mc_head,0))<100000))'),
-             ("Company profit month, median, in futures where online LTV/CAC is under 3×", '=MEDIAN(FILTER(mc_co_profit,mc_on_ltv60<3))'),
-             ("Company profit month, median, in futures where online LTV/CAC is 3× or more", '=MEDIAN(FILTER(mc_co_profit,mc_on_ltv60>=3))')]
+             ("Share of the 1,000 draws at 1× or more in 5 years (everything else held at the main case)", '=COUNTIF(mc_on_ltv60,">=1")/1000'),
+             ("Share of the 1,000 draws at 1× or more in 8 years", '=COUNTIF(mc_on_ltv96,">=1")/1000'),
+             ("Main case: cross-sell alone (loans, cards) ÷ cost to win, 5 years, BEFORE serving", "='LTV-CAC'!B22"),
+             ("Main case: cross-sell alone ÷ cost to win, 8 years, BEFORE serving", "='LTV-CAC'!D22"),
+             ("Main case: cross-sell alone ÷ cost to win, 5 years, AFTER serving (on its own it never pays back)", "='LTV-CAC'!B23"),
+             ("Main case: cross-sell alone ÷ cost to win, 8 years, AFTER serving", "='LTV-CAC'!D23"),
+             ("Online LTV/CAC (5 years), median, in draws where 38% or more are still saving at 12 months", f"=MEDIAN(FILTER(mc_on_ltv60,{keep}>=0.38))"),
+             ("Online LTV/CAC (5 years), median, in draws where under 32% are still saving at 12 months", f"=MEDIAN(FILTER(mc_on_ltv60,{keep}<0.32))"),
+             ("Company: share of draws with EBITDA (operating profit before interest, tax and depreciation) positive by month 96",
+              '=COUNTIF(mc_co_profit,"<=96")/1000'),
+             ("Company: money needed ($M), median" + (": at least this, as no draw is EBITDA-positive by month 96 and the cash hole is still "
+              "deepening" if never else ""), "=MEDIAN(mc_co_money)")]
     for i, (lab, f) in enumerate(ready):
         c[f"M{4 + i}"], c[f"N{4 + i}"] = lab, f
     return {"title": "Projector", "cells": c, "named_ranges": {}}
 
 
 def moves_tab(oat, b_on):
-    c = {"A1": "What moves LTV/CAC: the ten unmeasured inputs, one at a time around the main case, and across the 1,000 futures",
-         "A2": (f"Left: each input set to today's market and then to our target, everything else at the main case (online LTV/CAC "
-                f"{b_on['ltvcac']:.2f}×, paid back in month {b_on['pay']}). Sorted by how far it moves the online saver. Right: rank correlation "
-                "with LTV/CAC over the 1,000 futures (all ten moving at once): near 0 = it hardly matters. The cost to win is measured and "
-                "fixed. To see one live, type its market or target value into Inputs.")}
-    head = ["Input", "Today's market", "Main case", "Our target", "Online LTV/CAC at market", "Online LTV/CAC at target", "Swing (target − market)",
-            "Online pays back at market (month)", "at target", "Doorstep LTV/CAC at market", "Doorstep LTV/CAC at target",
-            "Rank correlation with online LTV/CAC (1,000 futures)", "Rank correlation with doorstep LTV/CAC"]
+    lad = {r["rung"]: r for r in csv.DictReader((T / "ltv_ladder.csv").open())}
+    two = lad["2×"]
+    three = ("3× is out of reach on these levers" if "3×" not in lad else f"3× needs {rung_words(lad['3×'])}")
+    c = {"A1": "What moves LTV/CAC: the two inputs still uncertain, and what it takes (five upside levers, one at a time)",
+         "A2": (f"Main case: online LTV/CAC {b_on['ltvcac']:.2f}× at 5 years, {b_on['ltvcac96']:.2f}× at 8, paid back in month {b_on['pay']}. "
+                "Drawn rows: each uncertain input at the low and then the high end of its range, the other at the main case; the rank "
+                "correlation is over the 1,000 draws (near 0 = it hardly matters). Upside rows: one lever moved from the main case to its "
+                "upside, everything else at the main case (the loan levers' upside is our old targets); the last column is the value it needs "
+                f"alone for 1× in 5 years. All five together: 2× needs {rung_words(two)}; {three}. To see one live, type its value into Inputs.")}
+    head = ["Input (drawn = still uncertain; upside = what it takes)", "Low end (upside: the main case)", "Main case", "High end (upside: the upside)",
+            "Online LTV/CAC, 5 years, at the low end", "Online LTV/CAC, 5 years, at the high end", "Swing, 5 years (high − low)",
+            "Online pays back at the low end (month)", "Online pays back at the high end (month)", "Online LTV/CAC, 8 years, at the low end",
+            "Online LTV/CAC, 8 years, at the high end", "Rank correlation with online LTV/CAC (1,000 draws; drawn inputs)",
+            "Needs alone for 1× in 5 years (upside levers)"]
     for j, h in enumerate(head):
         c[f"{tc.col_name(j + 1)}4"] = h
+    pay = lambda m: "after 96" if m > 96 else int(m)
     data = []
     for r in oat:
-        def nn(v):
-            return round(v) if abs(v) >= 1000 else round(v, 4)
-        data.append([r["label"], nn(r["low"]), nn(r["likely"]), nn(r["high"]), round(r["on_lo"], 2), round(r["on_hi"], 2),
-                     round(r["on_hi"] - r["on_lo"], 2), r["pay_lo"], r["pay_hi"], round(r["door_lo"], 2), round(r["door_hi"], 2),
-                     round(r["rank_on"], 3), round(r["rank_door"], 3)])
+        data.append([r["label"], r["low_txt"], r["likely_txt"], r["high_txt"], round(r["on_lo"], 2), round(r["on_hi"], 2),
+                     round(r["on_hi"] - r["on_lo"], 2), pay(r["pay_lo"]), pay(r["pay_hi"]), round(r["on96_lo"], 2), round(r["on96_hi"], 2),
+                     "" if r["rank_on"] is None else round(r["rank_on"], 3), r["need_txt"]])
     return {"title": "What moves it", "cells": c, "named_ranges": {}, "_data": data}
 
 
@@ -1047,44 +1247,111 @@ def sources_tab(all_text):
     return {"title": "Sources", "cells": c, "named_ranges": {}, "_data": data}, missing
 
 
+def headline():
+    """The numbers the README and the checks quote, read from model/ltv_odds.py's tables (never retyped)."""
+    sp = {(r["case"], r["years"]): {k: float(v) for k, v in r.items() if k not in ("case", "years")}
+          for r in csv.DictReader((T / "ltv_saver_split.csv").open())}
+    sm = {r["measure"]: r for r in csv.DictReader((T / "ltv_odds_summary.csv").open())}
+    lad = {r["rung"]: r for r in csv.DictReader((T / "ltv_ladder.csv").open())}
+    return {"y5": sp[("Main case", "5y")], "y8": sp[("Main case", "8y")], "sum": sm, "main": lad["Main case"], "two": lad.get("2×"),
+            "three": "3×" in lad, "lad": lad}
+
+
+def rung_words(r):
+    """A ladder rung's five levers in words: '₹161 a day, 41% still saving, 29% applying and 26% approved'."""
+    return (f"₹{float(r['saved a day Rs']):.0f} a day, {float(r['still saving at 12 months']):.0%} still saving, "
+            f"{float(r['apply a year']):.0%} applying and {float(r['first loans approved']):.0%} approved")
+
+
+def rung_company(r):
+    """A rung's company result: 'EBITDA positive from month 68, $5.1M' or 'still not EBITDA-positive by month 96, $8.1M+'."""
+    m, money = int(float(r["EBITDA positive from month"])), float(r["money needed $M"])
+    return f"EBITDA positive from month {m}, ${money:.1f}M" if m <= 96 else f"still not EBITDA-positive by month 96, ${money:.1f}M+"
+
+
 def readme_tab(checks, oat_n):
+    h = headline()
+    y5, y8, sm, mn, lad = h["y5"], h["y8"], h["sum"], h["main"], h["lad"]
+    q = lambda m, c: float(sm[m][c])
+    x = lambda v: f"{v:.2f}×".replace("-", "−")                    # LTV/CAC to 2 decimals, a true minus
+    rs = lambda v: f"₹{v:,.0f}"
+    lev = {r["case"]: r for r in csv.DictReader((T / "online_ltv_levers.csv").open())}   # one change at a time, the saver
+    lx = lambda name, col="LTV/CAC 60m": x(float(lev[name][col]))
+    cac = y5["cost to win"]
+    co = q("chance EBITDA positive by month 96", "P50")
+    pay_p90 = q("Saver pays back in month (97 = not by 96)", "P90")
+    (r_lo, r_hi), (t_lo, t_hi) = lo.INPUTS["keep"][1]["r12"], lo.INPUTS["trail"][1]["_debt_trail"]
+    blend = 0.8 * op.EQ_TRAIL + 0.2 * PP_MAIN["trail"]
+    rungs = [(n, lad[n]) for n in ("1×", "2×", "3×") if n in lad]
     lines = [
         "SaveMore: LTV/CAC model (the main case, 24 Oct 2026)",
         "What one saver won is worth, with every assumption visible: the investor plan's own model, rebuilt here cell by cell.",
-        (f"The values are the MAIN CASE: the median of the LTV/CAC Monte Carlo. The cost to win is measured and fixed; the ten inputs nobody has "
-         f"measured sit {T_MAIN:.0%} of the way from today's market to our target. Our targets are one column away on Inputs ('Our target')."),
+        ("LTV/CAC = what a saver brings in over 5 or 8 years, less the cost of serving them, divided by what it costs to win them. On 24 Oct the "
+         "founders fixed every input (market figures, Bachatt, or our judgement). Two are still uncertain and the Monte Carlo draws them (we ran "
+         f"the model 1,000 times, picking retention, {_pc(r_lo)}–{_pc(r_hi)} still saving at 12 months, and the debt fund's fee, "
+         f"{t_lo:.2%}–{t_hi:.2%}, at random within their ranges). The values on Inputs are the MAIN CASE, the median draw."),
         "",
         "THE ANSWER",
-        "LTV-CAC: the waterfall (cost to win → each revenue line → serving → net), LTV/CAC over 5 and 8 years, the payback month, for an online and a doorstep saver; and the same across 1,000 futures.",
+        (f"Cross-selling alone (loans and cards): {rs(y5['cross-sell'])} per saver in 5 years, {rs(y8['cross-sell'])} in 8. That is "
+         f"{x(y5['cross-sell'] / cac)} and {x(y8['cross-sell'] / cac)} of the {rs(cac)} it costs to win a saver, and less than the "
+         f"{rs(y5['serving'])} / {rs(y8['serving'])} it costs to serve them, so on its own it never pays back "
+         f"({x((y5['cross-sell'] - y5['serving']) / cac)} after serving). Insurance, recharge, bills, FD and NPS are not counted."),
+        (f"With fund fees, {x(y5['net'] / cac)} in 5 years and {x(y8['net'] / cac)} in 8 (net of serving); it pays back in month "
+         f"{int(float(mn['saver pays back in month']))}. At market numbers this is a fund-fee business; loans are a small add-on."),
+        (f"Assumes debits cost us ₹0 and a {op.EQ_TRAIL:.2%} equity fund fee, both still to be confirmed in writing (₹2 a weekly debit would cut a "
+         f"saver to about {lx('We pay Rs 2 a debit, weekly')}, a 0.5% fee to about {lx('Equity fund fee 0.5%, not 0.75%')}). The cost to win is "
+         f"₹{op.CAC:,.0f} at scale (the founders' figure; they call it 'fairly sorted') plus the {op.CONTINGENCY:.0%} contingency = {rs(cac)}; "
+         f"the seed budgets ₹{op.SEED_CAC:,.0f} while the brand is new, and measures it. At ₹{op.SEED_CAC:,.0f} "
+         f"(₹{float(lev['Cost to win Rs 600 (our funnel)']['cost to win Rs']):,.0f} with the contingency) a saver is about "
+         f"{lx('Cost to win Rs 600 (our funnel)')} / {lx('Cost to win Rs 600 (our funnel)', 'LTV/CAC 96m')}."),
+        (f"Still uncertain, mostly how long savers keep saving: 8 in 10 draws land between {x(q('LTV/CAC, 5 years', 'P10'))} and "
+         f"{x(q('LTV/CAC, 5 years', 'P90'))} at 5 years, and between {x(q('LTV/CAC, 8 years', 'P10'))} and {x(q('LTV/CAC, 8 years', 'P90'))} at 8. "
+         f"{q('chance LTV/CAC >= 1', 'P50'):.1%} of the 1,000 draws reach 1× in 5 years and {q('chance 8-year LTV/CAC >= 1', 'P50'):.0%} by 8, "
+         "holding everything else at the main case."),
+        (f"What it takes for 1× in 5 years, one lever alone: ₹{need_alone('daily'):.0f} a day on average (₹100 is our product's floor), or "
+         f"{need_alone('keep_up'):.1%} still saving at 12 months. No single loan lever gets there (applications from "
+         f"{lo.UPSIDE['apply'][1]['_apply'][1]:.0%} of users a year give {x(float(UPSIDE_CSV['apply']['LTV/CAC 5y at the upside alone']))}). "
+         + " ".join(f"{n} needs {rung_words(r)} together ({rung_company(r)})." for n, r in rungs)
+         + ("" if h["three"] else " 3× is out of reach on these levers.")),
+        (f"The company (20,000 online savers a month from month 30): EBITDA (operating profit before interest, tax and depreciation) is "
+         + ("not positive by month 96 in any of the 1,000 draws" if co == 0 else f"positive by month 96 in {co:.0%} of the draws")
+         + f"; money needed ${q('Money needed, $M', 'P50'):.1f}M+ at the median (still losing money at month 96, so at least this). Each saver "
+           "costs more than it earns back within 5 years, so growing faster deepens the loss."),
         "",
         "HOW TO USE IT",
         "1. Change any BLUE cell on Inputs: LTV-CAC, Saver, Engine and Products recalculate. Grey cells are worked out; do not type there.",
-        "2. Projector: ask the 1,000 futures any question: the median, any percentile, the share above a line, for any column, with up to three filters (e.g. only futures where fewer than 25% apply for a loan).",
-        "3. What moves it: each of the ten unmeasured inputs at today's market and at our target, one at a time around the main case, sorted by how much it moves LTV/CAC.",
+        "2. Projector: ask the 1,000 draws (one row each on the Monte Carlo tab, 'futures') any question: the median, any percentile, the share above a line, for any column, with up to three filters (e.g. only draws where 38% or more are still saving at 12 months).",
+        "3. What moves it: the two drawn inputs at the low and high ends of their ranges, and the five upside levers (what it takes) one at a time from the main case, with the value each needs alone for 1×.",
         "",
         "TABS",
-        "LTV-CAC: the answer, live, next to the plan model's values (the gap column should read 0).",
-        "Projector: live questions to the Monte Carlo.",
-        "Inputs: every assumption, its value, unit, range, Monte Carlo treatment, source and reason; the 'Name in formulas' column is the named range the formulas use.",
+        "LTV-CAC: the answer, live, next to the plan model's values (the gap column should read 0); cross-sell alone before and after serving in rows 22–23.",
+        "Projector: live questions to the Monte Carlo, and ready answers.",
+        f"Inputs: every assumption, its value, unit, low end / main case / high end (the two drawn inputs) or '{FIXED_NOTE}', source and reason; the 'Name in formulas' column is the named range the formulas use.",
         "Saver: one saver won, months 1–96: still saving, deposits, balance, each revenue line, serving, and the cumulative ₹ after the cost to win.",
         "Engine: the per-saver machinery for the fund, personal and business loans (first, repeat and top-up loans) and cards.",
-        "Products: the per-saver machinery for 19 cross-sell products (7 insurance, 5 other loans, 7 others).",
-        "Monte Carlo: 1,000 futures (values). What moves it: one at a time and rank correlations (values). Sources: the research behind the inputs.",
+        "Products: the per-saver machinery for 19 cross-sell products (5 other loans; 7 insurance and 7 others, not counted or off at launch).",
+        "Monte Carlo: 1,000 draws (values). What moves it: the drawn inputs and the upside levers (values). Sources: the research behind the inputs.",
         "",
         "DEFINITIONS",
-        "Saver won = someone who starts saving (not a sign-up). Cost to win = all-in marketing and onboarding per saver won.",
-        "Revenue = what we are paid: our trail on the fund balance, DSA payouts on loans, referral fees, insurance commission (our broker partner's share), card fees and product commissions. The app never holds the money.",
-        "LTV = revenue less serving cost (support + tech per saver still saving) over 5 years, undiscounted (8 years alongside). LTV/CAC = LTV ÷ cost to win. Pays back = the first month cumulative revenue less serving reaches the cost to win.",
-        "A saver who joins in the business's month 1: their take-up and approval factors grow with the business's years (held after year 5); a saver who joins later starts higher, so this is the cautious case.",
-        (f"Loans: offers reach every KYC'd user who came with the saver (online {PP_MAIN['on_reach']:.2f} per saver won in the main case, 2.5 at our "
-         "target; doorstep 1); a KYC'd user who never saves stays reachable for as long as the saver keeps saving."),
-        "Not in this view: the team, office and brand (company costs, in our business-plan model), the 10% contingency, the 2-month wait for fees to arrive, tax.",
+        "Saver won = someone who starts saving (not a sign-up). Cost to win = all-in marketing and onboarding per saver won, plus the plan's 10% contingency.",
+        "Revenue = what we are paid: our trail on the fund balance (the fund fee), lenders' payouts and referral fees on loans, and card fees (3% of savers still saving at month 7 take one). Insurance (a fixed broker fee, to be agreed) is not counted; recharge, bills, FD and NPS are not in the launch app; nor loans against savings (10% of applications). The app never holds the money: funds are bought in the saver's own name, and a saver who stops withdraws everything, so fund fees stop.",
+        f"Serving = support ₹{X0['support_cost']:g} a month per saver still saving, tech ₹{op.TECH_PER_SAVER:g} a month for every KYC'd user reached, and payments (₹0 a debit), plus the plan's 10% contingency. LTV = revenue less serving over 5 years, undiscounted (8 years alongside). Pays back = the first month cumulative revenue less serving reaches the cost to win.",
+        "A saver who joins in the business's month 1. Loan take-up and approvals do not rise with the business's years (today's market rates); lenders' caution in a user's first 6 months is kept.",
+        (f"Loans: offers reach the saver and the KYC'd users who came with them (about {op.SIGNUPS_PER_SAVER * op.KYC_SHARE:g} a saver); those "
+         f"who never save fade within about 3 months, so the reach of {PP_MAIN['on_reach']:.2f} per online saver won is a value weight "
+         "(only the tech cost scales with it); doorstep 1."),
+        "Not in this view: the team, office and brand (company costs, in our business-plan model), the 2-month wait for fees to arrive, tax.",
+        "",
+        "THE FOUR FACTS THAT DECIDE IT, ALL CHEAP TO GET",
+        (f"1. The AVERAGE daily amount at Bachatt (₹100 is our floor; Bachatt's own minimums are lower). 2. The exact 12-month retention at "
+         f"Bachatt. 3. The ₹0 debit cost in writing (BSE and the fund houses; one hybrid fund at ₹100 a day). 4. The fee on the fund the ₹100 "
+         f"goes into, in writing ({blend:.2%} blended or better: 80% equity at {op.EQ_TRAIL:.2%} and 20% debt at about {PP_MAIN['trail']:.2%})."),
         "",
         "CHECKS",
-        f"The sheet's formulas were replayed by a formula interpreter and match the plan's model at the base and at {len(checks) // 2 - 1} Monte Carlo futures: "
+        f"The sheet's formulas were replayed by a formula interpreter and match the plan's model at the main case and at {len(checks) // 2 - 1} Monte Carlo draws: "
         "LTV/CAC to 6 decimals, the payback month exactly, every monthly line to 1 part in 100 million.",
-        f"The Monte Carlo is the LTV/CAC Monte Carlo (the cost to win fixed): each future's LTV/CAC sits next to that future's company profit month. "
-        f"{oat_n} inputs are drawn; the median future is the main case.",
+        (f"The Monte Carlo is the LTV/CAC Monte Carlo's 1,000 draws: the cost to win and every fixed input held, {oat_n} inputs drawn; each draw's LTV/CAC "
+         "sits next to that draw's company EBITDA month, and the median draw is the main case."),
     ]
     return {"title": "README", "cells": {f"A{i + 1}": t for i, t in enumerate(lines)}, "named_ranges": {}, "_n": len(lines)}
 
@@ -1174,8 +1441,7 @@ def main():
     out = Path(sys.argv[1])
     out.mkdir(parents=True, exist_ok=True)
     sv_main, rng = sheet_values(PP_MAIN, DOOR_CAC), odds_ranges()
-    note = f"Main case: {T_MAIN:.0%} of the way from today's market to our target. Our target: "
-    L = [(g, k, lab, sv_main.get(k, v), u, m, (note + s_) if k in rng else s_, w, f) for g, k, lab, v, u, m, s_, w, f in inputs_list()]
+    L = [(g, k, lab, sv_main.get(k, v), u, m, s_, w, f) for g, k, lab, v, u, m, s_, w, f in inputs_list()]
     inp = inputs_sheet(L, rng)
     eng, prd, sav = engine_tab(), products_tab(), saver_tab()
     tabs = {"Engine": eng, "Products": prd, "Saver": sav}
@@ -1183,6 +1449,15 @@ def main():
     b_on, b_dr, _ = evaluate(base, door_cac=False)
     med = float(np.median([float(d["ltv_cac"]) for d in csv.DictReader((T / "ltv_odds_draws.csv").open())]))
     assert abs(b_on["ltvcac"] - med) < 0.005, (b_on["ltvcac"], med)
+    hl = headline()                                          # the main case agrees with model/ltv_odds' split and ladder
+    for mine, theirs in ((b_on["ltvcac"], hl["y5"]["net"] / hl["y5"]["cost to win"]), (b_on["ltvcac96"], hl["y8"]["net"] / hl["y8"]["cost to win"]),
+                         (b_on["xs_cac"], hl["y5"]["cross-sell"] / hl["y5"]["cost to win"]),
+                         (b_on["xs_cac96"], hl["y8"]["cross-sell"] / hl["y8"]["cost to win"])):
+        assert abs(mine - theirs) < 1e-4, (mine, theirs)
+    assert abs(b_on["xs_net_cac"] - (hl["y5"]["cross-sell"] - hl["y5"]["serving"]) / hl["y5"]["cost to win"]) < 1e-4, b_on["xs_net_cac"]
+    assert b_on["pay"] == int(float(hl["main"]["saver pays back in month"])), b_on["pay"]
+    print(f"main case: online {b_on['ltvcac']:.4f}x (5y), {b_on['ltvcac96']:.4f}x (8y), pays back m{b_on['pay']}; cross-sell alone "
+          f"{b_on['xs_cac']:.4f}x / {b_on['xs_cac96']:.4f}x; doorstep {b_dr['ltvcac']:.4f}x, m{b_dr['pay']}")
     py = {"on": b_on, "door": b_dr}
     sheets = [inp, expand(eng, tabs), expand(prd, tabs), expand(sav, tabs), answer_tab(sav, py)]
     print("rows on Inputs", inp["_last"], "| columns: Engine", len(eng.order), "Products", len(prd.order), "Saver", len(sav.order))
@@ -1203,13 +1478,20 @@ def main():
     src, missing = sources_tab(text)
     print("source IDs not found in research/:", missing)
     rd = readme_tab(chk, len(lo.KEYS))
-    bad = re.compile(r"operator|Bachatt|Engine (rule|cap|convention)|pool's history|street model|earlier model|\bRs\b", re.I)
+    bad = re.compile(r"operator|Bachatt|Engine (rule|cap|convention)|pool's history|street model|earlier model|\bRs\b|clawback|"
+                     r"1\.75×|7\.7×|₹3 lakh|₹1\.7 lakh|35% apply|2\.5 KYC|month 63|\$4\.7M|our target|ten (unmeasured )?inputs|today's market to", re.I)
+    jargon = re.compile(r"(?<!\()\b(DSA|MDR|TER)\b(?! \()")   # plain words: an acronym only with its meaning beside it
     for sh in sheets + [mc, proj, mov, src, rd]:            # investor wording on every text cell; formulas must not need it
         for c, v in sh["cells"].items():
             if isinstance(v, str):
                 if not v.startswith("="):
-                    sh["cells"][c] = v = plain(v)
-                assert not bad.search(v), (sh["title"], c, v[:80])
+                    sh["cells"][c] = v = curly_lead(unjargon(plain(v)))
+                assert not bad.search(v) and not jargon.search(v), (sh["title"], c, v[:80])
+    for sh in (mov, src):                                   # the value tabs' text too
+        sh["_data"] = [[curly_lead(unjargon(plain(v))) if isinstance(v, str) else v for v in row] for row in sh["_data"]]
+        for row in sh["_data"]:
+            for v in row:
+                assert not (isinstance(v, str) and (jargon.search(v) or v.startswith("'") or re.search(r"Bueno|BetterPlace|1\.75×|7\.7×", v))), (sh["title"], v[:80])
     # tables
     def wcsv(name, recs):
         with (T / name).open("w", newline="") as f:
@@ -1222,7 +1504,8 @@ def main():
     wcsv("ltv_inputs.csv", [{"group": g, "key": k, "label": lab, "value": v, "unit": u, "mc": rng.get(k), "source": s_, "why": w}
                             for g, k, lab, v, u, m, s_, w, _f in L])
     on = np.array([r["on_ltv60"] for r in rows])
-    print({"median online LTV/CAC": round(float(np.median(on)), 3), "share >= 3": round(float((on >= 3).mean()), 3),
+    print({"median online LTV/CAC": round(float(np.median(on)), 3), "share >= 1 (5y)": round(float((on >= 1).mean()), 3),
+           "share >= 1 (8y)": round(float(np.mean([r["on_ltv96"] >= 1 for r in rows])), 3),
            "median doorstep LTV/CAC": round(float(np.median([r["door_ltv60"] for r in rows])), 3)})
     print("moves:", [(d["key"], round(d["on_lo"], 2), round(d["on_hi"], 2)) for d in oat])
     # ------------------------------------------------------------------ payloads
@@ -1303,11 +1586,11 @@ def main():
             width_req(s, 5, 8, 80), width_req(s, 9, 10, 380), width_req(s, 11, 11, 150)]
     s = sid["LTV-CAC"]
     fin += [fmt_req(s, "B5:I16", "#,##0;-#,##0;0"), fmt_req(s, "B17:I17", '0.00"×"'), fmt_req(s, "B18:I18", "0"), fmt_req(s, "B19:I20", "0%"),
-            fmt_req(s, "B21:I21", "#,##0"), fmt_req(s, "B25:D25", '0.00"×"'), fmt_req(s, "B27:D27", '0.00"×"'), fmt_req(s, "B26:D26", "0"),
+            fmt_req(s, "B21:I21", "#,##0"), fmt_req(s, "B22:I23", '0.00"×"'), fmt_req(s, "B25:D25", '0.00"×"'), fmt_req(s, "B27:D27", '0.00"×"'), fmt_req(s, "B26:D26", "0"),
             fmt_req(s, "B28:D28", "0"), fmt_req(s, "E25:G28", "0%"),
             style_req(s, "A1:A1", bold=True, size=14), style_req(s, "A2:I2", wrap=True), style_req(s, "A4:I4", bold=True, wrap=True),
-            style_req(s, "A13:I13", bold=True), style_req(s, "A17:I18", bold=True, fill=(0.93, 0.97, 0.96)), style_req(s, "G5:H21", color=GREY),
-            style_req(s, "A23:A23", bold=True), style_req(s, "A24:G24", bold=True, wrap=True), width_req(s, 1, 1, 400), width_req(s, 2, 9, 120),
+            style_req(s, "A13:I13", bold=True), style_req(s, "A17:I18", bold=True, fill=(0.93, 0.97, 0.96)), style_req(s, "G5:H23", color=GREY),
+            style_req(s, "A24:G24", bold=True, wrap=True), width_req(s, 1, 1, 400), width_req(s, 2, 9, 120),
             {"mergeCells": {"range": a1grid(s, "A2:I2"), "mergeType": "MERGE_ALL"}},
             {"updateDimensionProperties": {"range": {"sheetId": s, "dimension": "ROWS", "startIndex": 1, "endIndex": 2}, "properties": {"pixelSize": 64}, "fields": "pixelSize"}},
             freeze_req(s, 4)]
@@ -1337,8 +1620,8 @@ def main():
             style_req(s, "B4:D10", color=BLUE, fill=(1.0, 0.98, 0.85)), style_req(s, "A12:B12", bold=True), style_req(s, "A13:B25", fill=(0.93, 0.97, 0.96)),
             fmt_req(s, "B13:B13", "0"), fmt_req(s, "B14:B23", "#,##0.00"), fmt_req(s, "B24:B25", "0.0%"), fmt_req(s, "A31:B50", "#,##0.00"), style_req(s, "A30:C30", bold=True),
             style_req(s, "A29:A29", bold=True), style_req(s, "J3:K3", bold=True, wrap=True), style_req(s, "J4:K1003", color=GREY),
-            style_req(s, "M3:M3", bold=True), style_req(s, "M4:M15", wrap=True), fmt_req(s, "N4:N15", "0.00"),
-            fmt_req(s, "N5:N6", "0%"), fmt_req(s, "N8:N8", "0%"), fmt_req(s, "N11:N11", "0%"), style_req(s, "E4:E4", color=(0.8, 0.1, 0.1), bold=True),
+            style_req(s, "M3:M3", bold=True), style_req(s, "M4:M16", wrap=True), fmt_req(s, "N4:N16", "0.00"),
+            fmt_req(s, "N6:N6", "0"), fmt_req(s, "N7:N8", "0.0%"), fmt_req(s, "N15:N15", "0%"), style_req(s, "E4:E4", color=(0.8, 0.1, 0.1), bold=True),
             width_req(s, 1, 1, 300), width_req(s, 2, 4, 230), width_req(s, 5, 9, 60), width_req(s, 10, 11, 110), width_req(s, 12, 12, 20),
             width_req(s, 13, 13, 430), width_req(s, 14, 14, 90)]
     fin.append({"addChart": {"chart": {"spec": {"title": "How the answer spreads across the futures that pass the filters", "basicChart": {

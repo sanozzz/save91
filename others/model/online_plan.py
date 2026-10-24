@@ -17,6 +17,16 @@ Critical review fixes (22 Oct, reviews/2026-10-21/CRITICAL_REVIEW.md; founder de
   - loan reach applies only to the 35% funnel (personal/business, gold, property, home); gold loans 70% approved;
   - insurance: a fixed referral fee through the broker, to be agreed, not counted (no share of a broker's commission);
     Choti SIP incentive and digital gold off (the daily SIP disqualifies Choti; no digital gold at launch).
+REBASE 24 Oct (founders questioned every LTV input, "question hard and critically"; their answers are now the base):
+  - personal/business loans Rs 70k for a FIRST loan (Bachatt's number), repeats bigger (ticket_growth 10% a year repaid + top-ups);
+  - loan funnel at today's market: 20% of reachable users apply a year, 20% of first applications approved, no yearly rises;
+  - home Rs 12 lakh and LAP Rs 5 lakh (market sizes); payouts at the market rate, 2% flat (research xs_lending_summary.md 1/2/3%);
+  - KYC'd non-savers see offers but fade within ~3 months: each is worth ~4% of a saver's loan fees (lenders rarely approve in
+    a user's first months), so 1.5 non-savers add 0.06 to the reach;
+  - debits cost us Rs 0: the daily SIP runs through BSE StAR MF / the fund house's mandate (XSIP is free to distributors,
+    research TC-42..45). UNCONFIRMED in writing - outreach/2026-10-22_daily_sip_questions.md;
+  - recharge, bill payments, FD and NPS off (not in the launch app); equity trail 0.75% kept (active funds, unconfirmed);
+  - still saving at 12 months: Bachatt's 30-40% (drawn in ltv_odds.py; base 35%); Rs 100 a day is the MINIMUM (cautious).
 Doorstep: operator 21 Oct, "90% online and 10% offline" (was 80/20) -> 1 in 10 savers from doorstep agents (55% still saving at
 a year, agreed street retention); the online-only case stops them after the 18-month test.
 
@@ -53,13 +63,14 @@ SEED_CAC, CAC = 600.0, 450.0       # Rs per online saver won, all-in. Seed: the 
                                    # for 1 in 2, 1 in 5 save). After: operator 21 Oct "Rs 450 base, Rs 300-600 range" (audit: Rs 300 from
                                    # PR-02 is per "customer", undefined; our funnel says Rs 600)
 CONTINGENCY = 0.10                 # agreed base convention (company_model.py): 10% on every expensed line, inside EBITDA
+SERVE_CONTINGENCY = True           # the per-saver LTV carries it on serving too (24 Oct; False = the 23 Oct convention, for the bridge only)
 COMMISSION_LAG = 2                 # agreed base convention: revenue arrives 2 months after it is earned (cash only)
 
 X0 = ce.likely_inputs(ce.load_dists()[0])
 EQ_RETURN, DEBT_RETURN = 0.10, 0.07          # JUDGEMENT: equity 10% a year net (conservative); debt agreed 7%
 EQ_TRAIL, DEBT_TRAIL = X0["sip_comm"], X0["trail"]   # agreed: equity SIP commission 0.75%; debt fund 0.35%
 OV = {}                                       # lever overrides (what it takes); online saver only for r3 / r12
-MAIN = {}                                     # the main case under every lever (use_main_case()); empty = our targets
+MAIN = {}                                     # the main case under every lever (use_main_case()); empty = the drawn inputs' midpoints
 DOOR = {"r3": 0.80, "r12": X0["r12"]}        # doorstep saver retention (agreed street); the Monte Carlo draws it
 
 
@@ -70,24 +81,26 @@ def saver_inputs(mix="80/20", doorstep=False):
         "daily": 100.0, "days": 20.0,                         # operator: Rs 100 a day; agreed ~20 debit days
         "rollover": 1.0,                                      # an SIP has no yearly term payout (the street product did)
         "fund_return": eq * EQ_RETURN + (1 - eq) * DEBT_RETURN,
-        "trail": eq * EQ_TRAIL + (1 - eq) * in_force().get("_debt_trail", DEBT_TRAIL),   # the Monte Carlo draws the debt fund's trail
+        "trail": eq * in_force().get("_eq_trail", EQ_TRAIL) + (1 - eq) * in_force().get("_debt_trail", DEBT_TRAIL),   # the MC draws the debt trail
         "sip_takeup": 0.0 if eq else X0["sip_takeup"],        # the core balance IS the equity SIP in the 80/20 base
-        # operator 21 Oct: online base 38% still saving at a year = SBI MF's Rs 250 daily SIP (first-time investors, no loans;
-        # NG-033 / XO-05: 35.64% stopped at an average age of ~6 months -> a steady ~7% a month -> ~80% at month 3, ~38% at 12).
-        # Savings apps (24%, r3 52%) are the downside; the credit hook (45%) the upside. Doorstep: agreed street 80% / 55%.
+        # founders 24 Oct: Bachatt's own 30-40% still saving at a year (base 35%, drawn 30-40% with the drop-off after, 2.5%-1.5% a
+        # month). SBI MF's Rs 250 daily Jan Nivesh SIP agrees: 35.64% of FY26 registrations stopped within the year (NG-033), ~38% at
+        # 12 months at a steady hazard. Savings apps (24%, r3 52%) are the downside; the credit hook (45%) the upside. Doorstep: agreed street 80% / 55%.
         "r3": DOOR["r3"] if doorstep else 0.80,
-        "r12": DOOR["r12"] if doorstep else 0.38,
+        "r12": DOOR["r12"] if doorstep else 0.35,
+        "churn_late": X0["churn_late"] if doorstep else 0.02,
         "upi_12": 1.0, "upi_ramp": 2,                         # all UPI (refresh; Bachatt is 100% UPI)
-        # loan funnel, operator 21 Oct + research/xs_funnel_2026-10-21.csv: 35% of reachable users apply for a loan a year, 70% of
-        # them for personal or business loans (this funnel), 15% gold, 10% against their savings (tiny money, not counted), 3% LAP,
-        # 2% home. 30% of first applications approved (eligibility inside it), 70% of repeats. Blended ticket Rs 3 lakh
-        # (founder 22 Oct; research found smaller: digital NBFC personal Rs 18.8k-70k, XF-11; merchant loans Rs 50k-5 lakh, XF-09/10). DSA payout 2%
-        # (XF-01/02), rising 1.5x by year 5 (company); tenure 12-24 months.
-        "eligible": 1.0, "approved_first": 0.30, "approved_repeat": 0.70, **loan_mix(LOAN_APPLY),
-        "ticket": 300000.0, "fee": 0.02, "tenure": 18.0,
+        # loan funnel, founders 24 Oct (today's market): 20% of reachable users apply for a loan a year, 70% of them for personal or
+        # business loans (this funnel), 15% gold, 10% against their savings (tiny money, not counted), 3% LAP, 2% home. 20% of first
+        # applications approved (eligibility inside it), 70% of repeats; no yearly rises. First loan Rs 70k (Bachatt; our research had
+        # Rs 15k / 25k / 58.5k for small personal-loan referrals), repeats 10% bigger a year repaid plus top-ups. DSA payout 2% flat
+        # (market middle, research 1-3%); tenure 12-24 months.
+        "eligible": 1.0, "approved_first": 0.20, "approved_repeat": 0.70, **loan_mix(LOAN_APPLY),
+        "takeup_growth": 0.0, "approval_growth": 0.0,
+        "ticket": 70000.0, "fee": 0.02, "tenure": 18.0,
         "loan_gold_ticket": 100000.0, "loan_gold_comm": 0.005,        # XF-12 (Rs 1.96 lakh industry, smaller for this segment), XF-05
-        "loan_lap_ticket": 2500000.0, "loan_lap_comm": 0.01,          # founder 22 Oct (micro-LAP lenders Rs 3.9 lakh, XF-13), XF-04
-        "loan_home_ticket": 3000000.0, "loan_home_comm": 0.005,       # founder 22 Oct (India average ~Rs 32 lakh, XL-29; affordable HFCs Rs 6-15 lakh), XF-03
+        "loan_lap_ticket": 500000.0, "loan_lap_comm": 0.01,           # market size, founders 24 Oct (micro-LAP lenders Rs 3.9 lakh, XF-13), XF-04
+        "loan_home_ticket": 1200000.0, "loan_home_comm": 0.005,       # market size, founders 24 Oct (affordable HFCs Rs 6-15 lakh), XF-03
         "fee_early": 0.0, "fee_b3": 0.0,                      # a marketing partner collects nothing
         "kyc_cost": 0.0,                                      # inside the all-in CAC / the doorstep cost
         **OFF_PRODUCTS,
@@ -115,15 +128,15 @@ def in_force():
 
 def use_main_case(on=True):
     """Founders 23 Oct: the financials are built on the LTV/CAC Monte Carlo's median ("CAC is fairly sorted and measured while LTV
-    isn't"). Sets MAIN to every unmeasured input the median's share of the way from today's market to our target (tables/ltv_ladder.csv,
-    model/ltv_odds.py); on=False goes back to our targets. Returns that share."""
+    isn't"). Sets MAIN to every still-uncertain input the median's share of the way from the low to the high end of its range
+    (tables/ltv_ladder.csv, model/ltv_odds.py); on=False goes back to the midpoints. Returns that share."""
     MAIN.clear()
     _CACHE.clear()
     if not on:
-        return 1.0
-    import ltv_odds                              # imported with MAIN empty, so its targets are ours
+        return 0.5
+    import ltv_odds
     with (TAB / "ltv_ladder.csv").open() as f:
-        t = float(next(r for r in csv.DictReader(f) if r["rung"] == "Median")["position (0 market, 1 targets)"])
+        t = float(next(r for r in csv.DictReader(f) if r["rung"] == "Main case")["drawn position (0 low, 1 high)"])
     MAIN.update(ltv_odds.overrides(ltv_odds.at(t)))
     return t
 
@@ -131,6 +144,11 @@ def use_main_case(on=True):
 def payout_mult():
     t = np.arange(1, M + 1)
     return 1.0 + in_force().get("_payout_rise", PAYOUT_RISE) * np.minimum(t - 1, 59) / 59
+
+
+def debit_month():
+    """Rs a month of payment cost per saver still saving (OV "_debit_cost" / "_debits_a_month" override)."""
+    return in_force().get("_debit_cost", DEBIT_COST) * in_force().get("_debits_a_month", DEBITS_A_MONTH)
 
 
 def calendar(prof, won):
@@ -152,18 +170,21 @@ DOOR_KYC = 40.0
 SEED_ONLINE = 97200 * 0.5 * 0.4 / (SEED_END - LAUNCH + 1)     # seed plan at 90/10: 97,200 online sign-ups, 1 in 5 save = 19,440
 DOOR_SHARE = 0.10
 TECH_PER_SAVER = 4.0               # Rs a month per KYC'd user reached (the 2 Oct costing; was Rs 1, our judgement)
-DEBIT_COST, DEBITS_A_MONTH = 2.0, 52 / 12   # weekly debits at Rs 2 (tri_costs base) until a daily SIP is confirmed in writing
-PAYOUT_RISE = 0.5                  # agreed: the DSA payout rises to 1.5x by month 60, held after (OV "_payout_rise" overrides)
+DEBIT_COST, DEBITS_A_MONTH = 0.0, 20.0   # founders 24 Oct: daily debits at Rs 0 to us through BSE StAR MF / the fund house (TC-42..45);
+                                         # UNCONFIRMED in writing. Rs 2 weekly (the old base) is the lever {"_debit_cost": 2, "_debits_a_month": 52/12}
+PAYOUT_RISE = 0.0                  # founders 24 Oct: the market rate, flat (was a rise to 1.5x by month 60; OV "_payout_rise" overrides)
 GOLD_APPROVAL = 0.70               # gold loans are secured; the lender's call (our assumption)
-OFF_PRODUCTS = {"ins_partner_share": 0.0, "choti_takeup": 0.0, "gold_takeup": 0.0}   # fixed insurance fee not counted; Choti, digital gold off
-# Loan marketplace (operator 21 Oct): loan offers go to ANYONE KYC'd from day 1, and a KYC'd user who never saves stays reachable
-# as long as a saver does. Online: 5 sign-ups a saver, half complete KYC -> 2.5 KYC'd users reached per online saver won.
+OFF_PRODUCTS = {"ins_partner_share": 0.0, "choti_takeup": 0.0, "gold_takeup": 0.0,   # fixed insurance fee not counted; Choti, digital gold off;
+                "recharge_takeup": 0.0, "bills_takeup": 0.0, "fd_takeup": 0.0, "nps_takeup": 0.0}   # founders 24 Oct: not in the launch app
+# Loan marketplace (operator 21 Oct): loan offers go to ANYONE KYC'd from day 1. Online: 5 sign-ups a saver, half complete KYC -> 1.5
+# KYC'd non-savers per online saver won. Founders 24 Oct: non-savers fade within ~3 months; with lenders' first-months caution
+# (early take-up x0.5, approval x0.6) one is worth ~4% of a saver's loan fees (3.9% over 5 years, 3.2% over 8), so reach = 1.06.
 # Doorstep: the agent signs a saver 1:1, so 1.0.
-SIGNUPS_PER_SAVER, KYC_SHARE = 5.0, 0.5
-LOAN_REACH = SIGNUPS_PER_SAVER * KYC_SHARE
+SIGNUPS_PER_SAVER, KYC_SHARE, NONSAVER_WORTH = 5.0, 0.5, 0.04
+LOAN_REACH = 1.0 + (SIGNUPS_PER_SAVER * KYC_SHARE - 1.0) * NONSAVER_WORTH
 LOAN_XS = ("loan_gold", "loan_cd", "loan_vehicle", "loan_home", "loan_lap")
-LOAN_REACH_XS = ("loan_gold", "loan_home", "loan_lap")   # inside the 35% funnel: reach every KYC'd user; durables and vehicles: savers only
-LOAN_APPLY = 0.35                                     # share of reachable users who apply for a loan a year (operator 21 Oct)
+LOAN_REACH_XS = ("loan_gold", "loan_home", "loan_lap")   # inside the apply funnel: reach every KYC'd user; durables and vehicles: savers only
+LOAN_APPLY = 0.20                                     # share of reachable users who apply for a loan a year (founders 24 Oct: market)
 LOAN_MIX = {"apply": 0.70, "loan_gold_takeup": 0.15, "loan_lap_takeup": 0.03, "loan_home_takeup": 0.02}   # 10% against savings: not counted
 
 
@@ -253,7 +274,7 @@ def company(level, growth=1.0, cac=CAC, seed_cac=SEED_CAC, mix="80/20", doorstep
         heads[i] = sum(h.values())
     reached = Con["still_saving"] * in_force().get("_loan_reach", LOAN_REACH) + Cdo["still_saving"]   # KYC'd users who use the app
     tech = np.where(t <= 3, 1_500_000 / 3, 0) + 150000 + reached * TECH_PER_SAVER  # base_inputs + Rs 4 per KYC'd user reached
-    payments = active * DEBIT_COST * DEBITS_A_MONTH
+    payments = active * debit_month()
     office = np.where(t <= SEED_END, 75000, 150000 + heads * 10000)
     compliance = np.where(t == 1, 125000, 0) + np.where(t <= SEED_END, 1_000_000, 2_500_000) / 12
     brand = np.where(t > SEED_END, 200000, 0)
@@ -364,7 +385,8 @@ def ltv_parts(x, reach=None):
     other = inc0 - fund - orig0 - xsl0 - ins - cards
     orig = orig0 * fee_mult * reach
     loan = orig + xsr0 * reach + (xsl0 - xsr0)
-    serve = p["cost_support"][0] + p["still_saving"][0] * (TECH_PER_SAVER * reach + DEBIT_COST * DEBITS_A_MONTH)
+    serve = (p["cost_support"][0] + p["still_saving"][0] * (TECH_PER_SAVER * reach + debit_month())) * (1 + CONTINGENCY * SERVE_CONTINGENCY)   # numbers review 24 Oct:
+                                                              # the 10% contingency on every expensed line, as company() and the cost to win carry it
     return {"Fund fees": fund, "Loans (all referrals)": loan, "Insurance": ins, "Cards": cards, "Other products": other,
             "personal and business loans": orig, "income": fund + loan + ins + cards + other, "serving": serve, "_p": p}
 
@@ -477,13 +499,22 @@ def write(name, rows):
         w.writerows(rows)
 
 
+def churn_for(r12):
+    """The monthly drop-off after a year that goes with a 12-month retention: the line through Bachatt's range (30% <-> 2.5% a month,
+    40% <-> 1.5%), held between 1.0% and 2.5% (numbers review 24 Oct: one retention definition everywhere)."""
+    return min(0.025, max(0.010, 0.025 - (r12 - 0.30) * 0.10))
+
+
 FRONTIER = (10000, 20000, 40000, 80000, 150000, 250000)
 LEVER_LEVEL = 20000                                   # one change at a time, at the plan's own level (review 21 Oct)
-LEVERS = (("The plan", {}), ("24% still saving at a year (savings apps)", {"r12": 0.2415, "r3": 0.52}),
-          ("45% still saving at a year", {"r12": 0.45}), ("Rs 200 a day", {"daily": 200.0}),
+LEVERS = (("The plan", {}), ("24% still saving at a year (savings apps)", {"r12": 0.2415, "r3": 0.52, "churn_late": churn_for(0.2415)}),
+          ("45% still saving at a year", {"r12": 0.45, "churn_late": churn_for(0.45)}), ("Rs 200 a day", {"daily": 200.0}),
           ("Rs 300 a day", {"daily": 300.0}), ("10% apply for a loan a year", loan_mix(0.10)),
-          ("50% apply for a loan a year", loan_mix(0.50)), ("Loan offers to savers only", {"_loan_reach": 1.0}),
-          ("Credit-hungry: 45% stay + 50% apply", {"r12": 0.45, **loan_mix(0.50)}))
+          ("50% apply for a loan a year", loan_mix(0.50)), ("Non-savers stay as long as savers", {"_loan_reach": 2.5}),
+          ("Credit-hungry: 45% stay + 50% apply", {"r12": 0.45, "churn_late": churn_for(0.45), **loan_mix(0.50)}),
+          ("Loan funnel at our old targets", {**loan_mix(0.35), "approved_first": 0.30, "takeup_growth": 0.05, "approval_growth": 0.10}),
+          ("We pay Rs 2 a debit, weekly", {"_debit_cost": 2.0, "_debits_a_month": 52 / 12}),
+          ("Equity fund fee 0.5%, not 0.75%", {"_eq_trail": 0.005}))
 
 
 def main():
@@ -506,7 +537,7 @@ def main():
     # unicorn test at a flat 2.5 lakh online savers a month: stays under the 20% pool cap through month 60 (numbers review:
     # a growing path hit the cap at m55 and its "profit from m55" was spend stopping, not the business)
     uni = []
-    hungry = {"r12": 0.45, **loan_mix(0.50)}
+    hungry = {"r12": 0.45, "churn_late": churn_for(0.45), **loan_mix(0.50)}
     for nm, ov in (("The plan", {}), ("Rs 300 a day", {"daily": 300.0}), ("Credit-hungry", hungry),
                    ("Credit-hungry + Rs 200 a day", {**hungry, "daily": 200.0}),
                    ("Credit-hungry + Rs 300 a day", {**hungry, "daily": 300.0})):
@@ -531,7 +562,7 @@ def main():
     write("online_capture_10cr_yearly.csv", yearly(o))
     for nm, lv in (("evidence_20k", 20000), ("evidence_150k", 150000)):
         write(f"online_{nm}_yearly.csv", yearly(company(lv, 1.0, name=nm)))
-    OV.update({"r12": 0.45, **loan_mix(0.50)})
+    OV.update({"r12": 0.45, "churn_late": churn_for(0.45), **loan_mix(0.50)})
     write("online_credit_hungry_80k_yearly.csv", yearly(company(80000, 1.0, name="credit hungry 80k")))
     OV.clear()
     keep = ("case", "saver", "EBITDA positive from month", "money needed $M", "Y5 EBITDA Rs cr", "Y8 EBITDA Rs cr", "active savers m60",
@@ -544,4 +575,5 @@ def main():
 
 
 if __name__ == "__main__":
+    use_main_case()          # 24 Oct: every online_* table is the main case (the drawn inputs at the Monte Carlo median)
     main()

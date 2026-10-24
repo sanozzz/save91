@@ -1,5 +1,5 @@
 # Cost and fee assumptions, checked against outside sources (2 Oct 2026)
-Evidence: `research/tri_costs.csv`, rows TC-01..TC-41. "Same-origin" = repeats a source already in research/*.csv. Each block: our bear / base / bull, then the evidence, a verdict and a Monte Carlo (MC) distribution.
+Evidence: `research/tri_costs.csv`, rows TC-01..TC-47 (TC-42..47 added 24 Oct). "Same-origin" = repeats a source already in research/*.csv. Each block: our bear / base / bull, then the evidence, a verdict and a Monte Carlo (MC) distribution.
 
 ## Headline: collecting the money costs more than the gold margin earns on it
 - One Rs 40 debit earns about **Rs 0.30**: half goes to gold at a 1.5% margin; the fund trail on the other half is negligible.
@@ -13,6 +13,13 @@ Evidence: `research/tri_costs.csv`, rows TC-01..TC-41. "Same-origin" = repeats a
 - Zero MDR on Autopay is confirmed (TC-11), but payment companies still charge their own fee. BSE StAR MF puts the order fee on the fund house (TC-12), but Rs 20 daily fund orders sit under the Rs 100 daily minimum. Jar's accounts hint the gold provider may carry the payment cost (TC-10, unverified).
 - **Verdict.** Base Rs 2 has no direct source; it needs percentage pricing or a negotiated rate. A new, low-volume app pays list price (Rs 5.90 with GST), so bear Rs 5 is too low. GST comes back as input credit only if our commissions are taxable; this needs checking.
 - **MC:** lognormal, median 2.0, sigma 0.8 (p5 0.5, p95 7.5, mean 2.76). Better: one pricing switch shared with cost_failed, either flat Rs 5.90 or 2-3.4% of the debit.
+- **24 Oct update.** The cost to us is Rs 0 on the exchange route, and only there.
+  - BSE says its exchange SIP facility (XSIP) is free to distributors, and several SIPs can share one mandate (TC-42).
+  - BSE bills the fund houses instead, on terms agreed one fund house at a time since 2018. Today's rates are not public (TC-43).
+  - Daily SIPs do run through BSE today (TC-44).
+  - Recurring SIP debits carry no MDR; one-time fund payments by UPI carry 0.02% (TC-11, TC-46).
+  - The binding limit is the minimum per fund: about Rs 100 a day at most fund houses (TC-45). So Rs 80 + Rs 20 does not fit; one hybrid fund at Rs 100 a day does.
+  - Still to confirm in writing: daily Rs 100 orders accepted through BSE, and the fee on a hybrid fund (outreach/2026-10-22_daily_sip_questions.md).
 
 **cost_failed: Rs 1 / 0.25 / 0 per failed debit**
 - **Evidence.** No payment company says whether a failed execution is billed. With percentage pricing a failure costs about 0 (Razorpay reportedly passes bounces through at cost, TC-15). With a flat fee billed per attempt it costs Rs 5.90: Rs 8.85 per success at our 67% success rate, Rs 22.7 at 26%.

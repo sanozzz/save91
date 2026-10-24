@@ -1,17 +1,17 @@
 measure,P10,P50,P90,mean
-"LTV/CAC, 5 years",0.848,1.749,3.956,2.135
-"LTV/CAC, 8 years",1.55,2.765,5.96,3.324
-Saver pays back in month (97 = not by 96),18.0,39.0,67.1,40.776
-Company EBITDA positive from month (97 = not by 96),39.0,63.0,97.0,66.527
-"Money needed, $M",2.478,4.687,9.335,5.274
-"Year 5 EBITDA, Rs crore",-14.031,-3.93,22.484,0.843
-"Cumulative EBITDA to month 60, Rs crore",-53.044,-34.676,12.862,-26.204
-"Cumulative EBITDA to month 96, Rs crore",-79.376,-15.052,151.371,14.778
-chance LTV/CAC >= 1,,0.836,,
-chance LTV/CAC >= 2,,0.432,,
-chance LTV/CAC >= 3,,0.229,,
-chance LTV/CAC >= 5,,0.028,,
-chance LTV/CAC >= our targets,,0.0,,
-chance EBITDA positive by month 60,,0.463,,
-chance EBITDA positive by month 96,,0.786,,
-chance cumulative EBITDA positive by month 96,,0.435,,
+"LTV/CAC, 5 years",0.602,0.748,0.928,0.759
+"LTV/CAC, 8 years",1.0,1.32,1.76,1.359
+Saver pays back in month (97 = not by 96),64.0,75.0,97.0,77.261
+Company EBITDA positive from month (97 = not by 96),97.0,97.0,97.0,97.0
+"Money needed, $M",8.792,9.338,9.787,9.301
+"Year 5 EBITDA, Rs crore",-14.471,-14.023,-13.492,-13.987
+"Cumulative EBITDA to month 60, Rs crore",-52.348,-51.7,-50.951,-51.661
+"Cumulative EBITDA to month 96, Rs crore",-85.34,-80.469,-74.575,-80.088
+chance LTV/CAC >= 1,,0.003,,
+chance LTV/CAC >= 2,,0.0,,
+chance LTV/CAC >= 3,,0.0,,
+chance 8-year LTV/CAC >= 1,,0.903,,
+chance saver pays back by month 96,,0.894,,
+chance EBITDA positive by month 60,,0.0,,
+chance EBITDA positive by month 96,,0.0,,
+chance cumulative EBITDA positive by month 96,,0.0,,

@@ -874,58 +874,59 @@ LADDER = pd.read_csv(TAB / "ltv_ladder.csv").set_index("rung")
 
 
 def fee_test():
-    """(title, body, footnote) of the page on lender fees per saver won: our targets', the main case's, what 1x and 3x need, today's
-    market. The cost to win is held at the plan throughout (founders 23 Oct: "CAC is fairly sorted and measured while LTV isn't")."""
-    def need(o):
-        c, rest = -o["cac"], o["ltv"] - o["pb"] - o["ol"]           # rest: what the saver brings without loans, less serving
-        return c - rest, 3 * c - rest
-    plan_fee = ON["pb"] + ON["ol"]
-    assert abs(fees_at(1.0)[0] - plan_fee) < 2, (fees_at(1.0)[0], plan_fee)
-    n1, n3 = need(ON)
-    m = at(**MKT_SAVE)
-    m1, m3 = need(m)
-    t_main = float(LADDER.loc["Median", "position (0 market, 1 targets)"])
-    main_fee, main_x = fees_at(t_main)
-    mkt_fee, mkt_x = fees_at(0.0)
-    per_saver = float((P["loans_first"][0][:60].sum() + P["loans_repeat"][0][:60].sum() + P["topups"][0][:60].sum()) * REACH)
-    rate = ON["pb"] / (per_saver * X["ticket"])                     # fee per personal/business loan, share of its size (ramp and growth in)
-    top = max(plan_fee, m3)
-    rows = [("Our targets", plan_fee, NAVY, x(ON["ltvcac"])),
-            ("Needed for 3×, everything else at target", n3, TEAL, "3×"),
-            ("Needed for 3× if fewer keep saving", m3, TEAL, "3×"),
-            ("The main case (the Monte Carlo median)", main_fee, NAVY3, f"{main_x:.2f}×"),
-            ("Break-even, everything else at target", n1, AMBER, "1×"),
-            ("Break-even if fewer keep saving", m1, AMBER, "1×"),
-            ("Today's market, every input", mkt_fee, SLATE, x(mkt_x))]
+    """(title, body, footnote) of the page on what loans would have to bring per saver won, on the 24 Oct main case: today's lender
+    fees, what 1x and 2x need with everything else at the main case (and 1x at the low end of retention), and our old loan targets.
+    The cost to win is held at the plan throughout (founders 23 Oct: "CAC is fairly sorted and measured while LTV isn't")."""
+    t_main = float(LADDER.loc["Main case", "drawn position (0 low, 1 high)"])
+    sp_ = lambda pos, up=None: lo.split(pos, up)["5y"]
+    s, s_lo = sp_(lo.at(t_main)), sp_({**lo.at(t_main), "keep": 0.0})          # the low end moves retention only
+    old = sp_(lo.at(t_main), {"apply": 1.0, "approved": 1.0, "rises": 1.0})
+    c = s["cost to win"]
+    loans = s["Loans (all referrals)"]
+    rest = lambda q: q["net"] - q["Loans (all referrals)"]          # what the saver brings without loans, less serving
+    n1, n2, n1_lo = c - rest(s), 2 * c - rest(s), c - rest(s_lo)
+    assert abs(loans - fees_at(t_main)[0]) < 1, (loans, fees_at(t_main))
+    pb = FUN.loc["type: Personal + business"]
+    per_loan = float(pb["our fees Rs per saver won"]) / float(pb["per 100 savers won"]) * 100    # ₹ to us per personal/business loan
+    rows = sorted([("Needed for 2×, everything else at the main case", n2, TEAL, "2×"),
+                   ("Our old loan targets: applying 35%, approval 30%, yearly rises", old["Loans (all referrals)"], NAVY4, x2(old["LTV/CAC"])),
+                   ("Needed for 1× if only 30% keep saving a year", n1_lo, AMBER, "1×"),
+                   ("Needed for 1×, everything else at the main case", n1, AMBER, "1×"),
+                   ("The main case today", loans, NAVY, x2(s["LTV/CAC"]))], key=lambda r: -r[1])
+    top = rows[0][1]
     bars = "".join(
-        f'<div style="display:flex;align-items:center;gap:10px;margin:7px 0">'
+        f'<div style="display:flex;align-items:center;gap:10px;margin:9px 0">'
         f'<div style="flex:0 0 250px;font-size:12px;line-height:1.3;color:{INK}">{lab}</div>'
-        f'<div style="flex:1;display:flex;align-items:center;gap:8px"><div style="height:16px;width:{max(v / top * 100, 1.2):.1f}%;background:{c};border-radius:3px"></div>'
-        f'<b style="font-size:12.5px;color:{NAVY};white-space:nowrap">{rs(v)}</b><span style="font-size:11px;color:{SLATE}">{tag}</span></div></div>'
-        for lab, v, c, tag in rows)
+        f'<div style="flex:1;display:flex;align-items:center;gap:8px"><div style="height:18px;width:{max(v / top * 100, 1.2) * 0.78:.1f}%;background:{c_};border-radius:3px"></div>'
+        f'<b style="font-size:13px;color:{NAVY};white-space:nowrap">{rs(v)}</b><span style="font-size:11px;color:{SLATE}">{tag}</span></div></div>'
+        for lab, v, c_, tag in rows)
     left = (f'<div style="font-size:11.5px;font-weight:700;letter-spacing:1.1px;color:{SLATE}">LENDER FEES PER ONLINE SAVER WON, FIRST 5 YEARS (₹)</div>' + bars)
-    loans = lambda need_, t: f"{need_ / (rate * t) * 100:,.0f}"
-    trows = [[short_rs(t, "rs"), loans(n1, t), loans(n3, t), loans(m3, t)] for t in (50000.0, 100000.0, X["ticket"])]
+    now = float(pb["per 100 savers won"])
+    need = lambda v: now + (v - loans) / per_loan * 100
+    trows = [["The main case today", f"{now:.0f}", rs(loans)], ["For 1×", f"{need(n1):.0f}", rs(n1)], ["For 1× at 30% still saving", f"{need(n1_lo):.0f}", rs(n1_lo)],
+             ["For 2×", f"{need(n2):.0f}", rs(n2)]]
     right = (f'<div style="font-size:12.5px;line-height:1.45;margin-bottom:6px"><b style="color:{NAVY}">What that means in loans:</b> personal and business '
-             f'loans per 100 savers won over five years, at each average loan size (other lenders\' loans not counted, so these are the most needed). '
-             f'Our targets have {per_saver * 100:.0f} at {short_rs(X["ticket"], "rs")}.</div>'
-             + table(["Average loan", "Break-even", "3×", "3× if fewer keep saving"], trows, [25, 22, 18, 35], 12, compact=True))
+             f'loans per 100 savers won over five years if they alone made up the gap, at today\'s {rs(per_loan)} to us a loan ({short_rs(X["ticket"], "rs")} first '
+             'loans at a 2% payout, repeats a little bigger).</div>'
+             + table(["", "Loans per 100 savers, 5 years", "Lender fees a saver"], trows, [40, 32, 28], 12, compact=True))
     body = two(left, right, 600) + chips([
-        ("Why this number", f"Lender fees are {plan_fee / ON['rev']:.0%} of a saver's revenue at our targets. The cost to win is known, so this is the "
-                            f"number that decides: below {rs(n3)} per saver won, LTV/CAC falls under 3×."),
-        ("Today's market", "On the largest payments and lending apps, 1–5% of users take a loan in a year and first loans are ₹5,000–25,000. "
-                           "Nobody has measured savers who choose to see lender offers."),
+        ("Why this number", f"The cost to win is the founders' figure and fund fees follow the balance, so what lenders pay is what loans would have to move. "
+                            f"Today loans are {loans / (s['net'] + s['serving']):.0%} of a saver's revenue."),
+        ("Today's market", f"{pct(op.LOAN_APPLY)} of the users we can reach apply for a loan a year and {pct(X['approved_first'])} of first loans are "
+                           f"approved; no yearly rises. Even our old targets for all three give {x2(old['LTV/CAC'])}."),
         ("What the seed measures", "Month by month: the share of KYC'd users who opt in to offers, first loans per 100, the median approved loan, "
                                    "and the fee lenders pay after refunds to lenders, in writing.")])
-    title = (f"What has to be true: lenders pay us {rs(plan_fee)} per saver won at our targets and {rs(main_fee)} in the main case; "
-             f"3× needs {rs(n3)}, break-even {rs(n1)}")
-    src = (f"Lender fees per saver won: every loan referral fee from one online saver won and the KYC'd users who came with them, over five years, after "
-           f"payouts taken back. Cost to win {rs(-ON['cac'])} throughout (₹450 plus our 10% contingency). Fewer keep saving: 35% still saving at a year and "
-           "2.5% stopping each month after, the middle of the evidence. Main case: every unmeasured input "
-           f"{t_main:.0%} of the way from today's market to our target. Today's market: 20% of reachable users apply a year, 20% of first applications "
-           "and 74% of repeats approved, no yearly rises, ₹50,000 personal and business loans, ₹12 lakh home and ₹5 lakh property loans, offers to "
-           "savers only, a 2% payout with no rise, 0.62% of the fund as our fee, 35% still saving at a year and 2.5% stopping a month after.")
+    title = (f"Loans would have to bring {rs(n1)} per saver won, not {rs(loans)}, to pay back the cost to win in 5 years; 2× needs {rs(n2)}, and "
+             f"our old loan targets bring {rs(old['Loans (all referrals)'])}")
+    src = (f"Lender fees per saver won: every loan referral fee from one online saver won and the KYC'd sign-ups who came with them, over five years, after "
+           f"refunds to lenders. Cost to win {rs(c)} throughout (₹450 at scale, the founders' figure, plus our 10% contingency). Main case: the Monte Carlo median of still saving at 12 "
+           "months and the debt fund's fee; everything else at the founders' 24 October inputs. Needed: the lender fees that, with fund fees, cards and "
+           "serving at the main case, give that LTV/CAC.")
     return title, body, src
+
+
+def x2(v):
+    return f"{float(v):.2f}×"
 
 
 def p_fees(n):

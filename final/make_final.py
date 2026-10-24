@@ -18,14 +18,14 @@ T = SRC / "tables"
 
 DOCS = [  # (name in final/, source, what it is)
     ("1_Online_business_case.pdf", "online/Online_business_case.pdf",
-     "The short read: the main case (the LTV/CAC Monte Carlo median), the odds, the company at each LTV/CAC, the financials, and what the seed measures."),
+     "The short read, rebased 24 Oct on the founders' market and measured inputs: one saver on the main case, the odds, what it takes "
+     "(the ladder), the company's financials, and what the seed measures."),
     ("2_Online_plan_v4.pdf", "online/Online_model_v4.pdf",
-     "The full online-first plan on the main case: the customer and product, one saver, the loan funnel, the odds, the company at each "
-     "LTV/CAC, the financials, and an appendix with every input (market, main case, target), year-by-year tables, the Monte Carlo, the levers, "
-     "the input audit and the spreadsheet check."),
+     "The full online-first plan on the main case: the customer and product, one saver, the loan funnel, the odds, what it takes, "
+     "the financials, and an appendix with every input, year-by-year tables, the Monte Carlo, the levers, the input audit and the spreadsheet check."),
     ("3_LTV_CAC_one_saver.pdf", "ltv/LTV_CAC_simple.pdf",
-     "What one saver is worth, in ten pages: how one saver makes money at our targets, how each assumption changes the number, the odds, "
-     "the company at each LTV/CAC, and the five checks the seed runs."),
+     "What one saver is worth over 5 and 8 years, and how much of it is cross-selling: the bridge from last week's 1.75×, the inputs "
+     "now used, the odds, what it takes, the company, and the four facts that decide it."),
     ("4_Seed_plan_0.5M.pdf", "seed/Seed_Plan_investor.pdf",
      "The $0.5M seed: customers (1 lakh sign-ups), product and team for 24 months, the reserve, and what the seed must prove."),
     ("5_Bachatt_teardown_memo.pdf", "memo/Bachatt_teardown_memo.pdf",
@@ -34,17 +34,19 @@ DOCS = [  # (name in final/, source, what it is)
 SHEETS = [  # (name, link, what it holds)
     ("Save4More || Financial Model", "https://docs.google.com/spreadsheets/d/1gDfeyy2YSmZt79-KTHM2wHdsanNyAVyTFQl7W9zQjMM",
      "The company, live, on the main case. Start at the 'Start here' tab; change the blue cells on 'v4 Inputs' and every v4 tab recalculates. "
-     "'v4 Monte Carlo' has the LTV/CAC Monte Carlo and the company at each LTV/CAC. The older offline tabs are hidden (View > Hidden sheets)."),
+     "'v4 Monte Carlo' has the LTV/CAC Monte Carlo and what it takes. The older offline tabs are hidden (View > Hidden sheets)."),
     ("SaveMore || LTVCAC", "https://docs.google.com/spreadsheets/d/1VdZy4vSSaTQmrp--txW31fjN8nHlF2iLQnLsUeAKTP4",
-     "One saver, live, on the main case: every input with today's market and our target beside it, the waterfall, the 1,000 futures of the "
+     "One saver, live, on the main case: every input with its source (and its range where still uncertain), the waterfall, the 1,000 futures of the "
      "LTV/CAC Monte Carlo, and a Projector tab that answers questions about them."),
 ]
 OPEN = [  # edited by hand as items close
-    "BSE StAR MF and the fund houses to confirm a daily SIP on one mandate (questions: `others/outreach/2026-10-22_daily_sip_questions.md`). "
-    "Until then the plan pays ₹2 a debit, weekly; at no debit cost the online saver's LTV/CAC rises (see the LTV/CAC deck, 'The tests that matter').",
-    "Insurance: a fixed referral fee through a broker, to be agreed. The plan counts it as 0.",
-    "Loan sizes (home ₹30 lakh, property ₹25 lakh, personal and business ₹3 lakh) are the founders' numbers of 22 Oct, above what the "
-    "research observed; the seed's first lending partner measures them.",
+    "Debits at ₹0 to us are UNCONFIRMED: BSE StAR MF and the fund houses must confirm in writing a daily ₹100 SIP on one mandate, probably one "
+    "hybrid fund since most daily minimums are ₹100 a scheme (questions: `others/outreach/2026-10-22_daily_sip_questions.md`). If we pay ₹2 a "
+    "weekly debit, money needed rises to $11.7M.",
+    "Bachatt's AVERAGE daily amount (₹100 is the minimum; ₹126 a day takes one saver to 1×) and its exact share still saving at 12 months "
+    "(30–40% given; 41% takes one saver to 1×).",
+    "The 0.75% equity fund fee in writing from a fund house (0.5% raises money needed to $10.6M).",
+    "Insurance: a fixed referral fee through a broker, to be agreed. The plan counts it as 0. Recharge, bills, FD and NPS are not in the launch app.",
     "Founder bios: later, when a pitch deck is built.",
 ]
 BACKGROUND = [  # linked, not copied: useful, but not the current numbers
@@ -53,8 +55,9 @@ BACKGROUND = [  # linked, not copied: useful, but not the current numbers
     ("others/reviews/INVESTMENT_REVIEW_v4_status.md", "Each point of the earlier investment review, with its status in the current plan."),
     ("others/tables/online_inputs_audit.csv", "Every input against its source, with a verdict (matches, partly, judgement, target)."),
     ("others/research/", "The evidence: one row per source, with IDs the decks cite."),
-    ("others/ltv/LTV_CAC_deck.pdf", "The detailed LTV/CAC deck (32 pages): every assumption with its range and sources, at our targets. Its "
-     "Monte Carlo pages are the earlier, plan-centred one (22 Oct); the current odds are in the decks in final/."),
+    ("others/ltv/LTV_CAC_deck.pdf", "The detailed LTV/CAC deck (32 pages): every assumption with its range and sources. Older than the "
+     "24 Oct rebase; the current numbers are in the decks in final/."),
+    ("others/reviews/2026-10-24_rebase/BRIEF.md", "The 24 Oct rebase: each founders' decision, its source, and every headline number with its table."),
     ("others/README.md", "The map of everything behind final/."),
 ]
 
@@ -71,18 +74,27 @@ def pick(name, key, value):
 def headline():
     lad = {r["rung"]: r for r in rows("ltv_ladder.csv")}
     od = {r["measure"]: r for r in rows("ltv_odds_summary.csv")}
-    m, t3, top, mk = lad["Median"], lad["3×"], lad["Our targets"], lad["Today's market"]
+    sp = {(r["case"], r["years"]): r for r in rows("ltv_saver_split.csv")}
+    m, two, three = lad["Main case"], lad.get("2×"), lad.get("3×")
+    s5, s8 = sp[("Main case", "5y")], sp[("Main case", "8y")]
     pm = lambda r: f"month {int(float(r['EBITDA positive from month']))}" if float(r["EBITDA positive from month"]) <= 96 else "not by year 8"
+    f = lambda r, k: float(r[k])
     return [
-        f"The cost to win is measured: ₹{float(m['LTV Rs']) / float(m['LTV/CAC 5y']):,.0f} an online saver (₹450 plus the 10% contingency; ₹600 in the "
-        f"seed). The value of a saver is not: with its ten unmeasured inputs drawn anywhere between today's market and our targets (1,000 random what-ifs), "
-        f"the median online saver returns {float(m['LTV/CAC 5y']):.2f}× over five years (1 in 10 below {float(od['LTV/CAC, 5 years']['P10']):.1f}×) and "
-        f"pays back in month {int(float(m['saver pays back in month']))}; {float(od['chance LTV/CAC >= 3']['P50']):.0%} of the what-ifs reach 3× and "
-        f"{float(od['chance LTV/CAC >= 1']['P50']):.0%} pay back.",
-        f"The main case is that median. At 20,000 online savers won a month from month 30 the company is EBITDA-positive from {pm(m)}, needs "
-        f"${float(m['money needed $M']):.1f}M in all, and adds up to {'−' if float(m['cumulative EBITDA 8y Rs cr']) < 0 else ''}₹{abs(float(m['cumulative EBITDA 8y Rs cr'])):.0f} crore of EBITDA over eight years.",
-        f"The ladder: at 3× profit comes in {pm(t3)} on ${float(t3['money needed $M']):.1f}M; at our targets ({float(top['LTV/CAC 5y']):.1f}×, every loan "
-        f"target at once) {pm(top)} on ${float(top['money needed $M']):.1f}M; at today's market ({float(mk['LTV/CAC 5y']):.1f}×) {pm(mk)}.",
+        f"Cross-selling alone (loans and cards) brings ₹{f(s5, 'cross-sell'):,.0f} per saver in five years and ₹{f(s8, 'cross-sell'):,.0f} in eight: "
+        f"{f(s5, 'cross-sell / CAC'):.2f}× and {f(s8, 'cross-sell / CAC'):.2f}× of the ₹{f(s5, 'cost to win'):,.0f} it costs to win a saver (₹450 at scale, "
+        f"the founders' figure, plus the 10% contingency), and less than the ₹{f(s5, 'serving'):,.0f} / ₹{f(s8, 'serving'):,.0f} it costs to serve "
+        f"them ({f(s5, 'cross-sell net of serving / CAC'):.2f}× after serving). With fund fees a saver returns {f(s5, 'LTV/CAC'):.2f}× in five years "
+        f"and {f(s8, 'LTV/CAC'):.2f}× in eight and pays back in month {int(f(m, 'saver pays back in month'))}. How long savers keep saving "
+        f"(Bachatt's 30–40%) gives {f(od['LTV/CAC, 5 years'], 'P10'):.2f}–{f(od['LTV/CAC, 5 years'], 'P90'):.2f}× at five years in 8 of 10 "
+        f"Monte Carlo draws. Debits at ₹0 and the 0.75% equity fund fee are still to be confirmed in writing.",
+        (f"The main case: at 20,000 online savers won a month from month 30 the company is not EBITDA-positive by year 8; it needs at least "
+         f"${f(m, 'money needed $M'):.1f}M by month 96 and the cash is still falling then." if f(m, "EBITDA positive from month") > 96 else
+         f"The main case: at 20,000 online savers won a month from month 30 the company is EBITDA-positive from {pm(m)} and needs "
+         f"${f(m, 'money needed $M'):.1f}M."),
+        (f"What it takes: 2× (₹{f(two, 'saved a day Rs'):.0f} a day, {f(two, 'still saving at 12 months'):.0%} still saving at a year, loans most of "
+         f"the way to our old targets) brings profit in {pm(two)} on ${f(two, 'money needed $M'):.1f}M" if two else "What it takes: see the ladder")
+        + (f"; 3× (₹{f(three, 'saved a day Rs'):.0f} a day, {f(three, 'still saving at 12 months'):.0%}) in {pm(three)} on "
+           f"${f(three, 'money needed $M'):.1f}M." if three else "."),
     ]
 
 
@@ -103,9 +115,9 @@ def readme():
          "agents in NCR. The app never holds anyone's money.", "",
          "## The numbers in three lines", ""]
     L += [f"- {s}" for s in headline()]
-    L += ["", "Every figure is a plan with targets, not evidence. The targets the seed must prove (from `tables/online_inputs_audit.csv`):", ""]
-    L += [f"- {r['input'][0].upper() + r['input'][1:]}: {'₹' if r['unit'].startswith('Rs') else ''}{r['likely_value'].replace('Rs ', '₹')}"
-          for r in rows("online_inputs_audit.csv") if r["verdict"] == "target"]
+    L += ["", "Since 24 Oct the founders fixed every input of a saver's value (market figures, Bachatt, or our judgement: ₹70k first loans, "
+          "20% apply, 20% approved, 2% lender payout); only retention and the debt fund's fee are still drawn. The decisions and sources are in "
+          "`others/reviews/2026-10-24_rebase/BRIEF.md` and `FIXES.md`; the bridge from last week's 1.75× is `others/tables/ltv_bridge.csv`."]
     L += ["", "## Documents", "", "| File | What it is | Pages | Built from |", "|---|---|---|---|"]
     for name, src, what in DOCS:
         L.append(f"| [`{name}`]({name}) | {what} | {pages(SRC / src) or ''} | `others/{src}` |")
@@ -120,7 +132,7 @@ def readme():
     L += [f"- [`{p}`](../{p}): {w}" for p, w in BACKGROUND]
     L += ["", "Superseded: [`others/archive/`](../others/archive/README.md) holds the earlier offline street-agent plan (16–18 Oct).",
           "", "## Refreshing this folder", "", "After changing an input, rebuild in this order (from the repo root), then run this script:", "", "```",
-          "cd others/model && PYTHONPATH=. python online_plan.py && PYTHONPATH=. python ltv_odds.py && PYTHONPATH=. python online_mc.py && PYTHONPATH=. python ltv_book.py <payload_dir>",
+          "cd others/model && PYTHONPATH=. python ltv_odds.py && PYTHONPATH=. python online_plan.py && PYTHONPATH=. python ltv_bridge.py && PYTHONPATH=. python ltv_book.py <payload_dir>",
           "cd .. && for b in ltv/build_ltv_deck.py ltv/build_ltv_simple.py online/build_online_v4.py online/build_online_case.py seed/build_seed_plan.py; do PYTHONPATH=model python $b; done",
           "cd .. && python final/make_final.py", "```", "",
           "The sheets are pushed separately (`others/model/v4_gsheet.py`, `v4_toy_check.py`, `v4_ltv_tab.py`, `ltv_book.py`).", ""]

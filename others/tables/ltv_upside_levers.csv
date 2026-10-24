@@ -1,0 +1,6 @@
+lever,label,main case,upside,LTV/CAC 5y at the upside alone,LTV/CAC 8y at the upside alone,pays back in month at the upside alone,alone for 1x (5y),alone for 2x (5y)
+daily,Average saved a day (Rs),daily 100,daily 200,1.592,2.75,44,daily 129.9,daily 248.4 (beyond the upside)
+keep_up,Still saving at 12 months,r12 0.349255; churn_late 0.0200745,r12 0.45; churn_late 0.01,1.256,2.7,53,r12 0.4046,r12 0.5472 (beyond the upside)
+apply,"Reachable users who apply for a loan, a year",_apply 0.2,_apply 0.35,0.92,1.54,65,_apply 0.4165 (beyond the upside),not reachable
+approved,First loans approved,approved_first 0.2,approved_first 0.3,0.802,1.39,72,not reachable,not reachable
+rises,Yearly rises in loan take-up and approval,takeup_growth 0; approval_growth 0,takeup_growth 0.05; approval_growth 0.1,0.801,1.41,71,not reachable,not reachable

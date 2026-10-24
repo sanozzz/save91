@@ -6,7 +6,11 @@ the LTV/CAC Monte Carlo's median (model/v4_toy_check.py calls online_plan.use_ma
    "_monthly_columns": {numpy key: column}, "_per_saver_columns": {...}, "_summary_live": {...}, "_yearly_live": {...}, "_meta": {...}}
 
 Tabs (sheetIds 201-208): v4 README, v4 Inputs, v4 Per saver, v4 Monthly, v4 Yearly, v4 Summary, v4 Levers, v4 Monte Carlo.
+Also rewrites the texts of 'Start here' (sheetId 200) in tables/v4_start_here.json. Every headline number in a text cell is read
+from the tables (headline()), never retyped; LTV/CAC shows at 2 decimals.
 The maths, its numpy twin and the checks: model/v4_toy_check.py (run this file first, then that one).
+REBASE 24 Oct: v4 Monte Carlo shows the new ltv_odds.py (2 drawn inputs, 5 upside levers): the summary, one saver's split at 5 and
+8 years (fund fees vs cross-sell), the bridge from 23 Oct, the "what it takes" ladder, each upside lever alone and the drawn inputs.
 
 Sheets syntax (as model/toy_gsheet.py): en_GB comma separators; every v4 named range starts with v_ (no clash with the 430
 names of the older tabs; none is a cell reference or a function name); MAKEARRAY / SCAN / MMULT / SEQUENCE / LAMBDA / LET;
@@ -181,7 +185,7 @@ def per_saver_columns():
             (f"{sv}_dep", f"{nm}: deposits per saver who joined (₹)", "spill", f"=ARRAYFORMULA({s}*{P}dep)", "inr2"),
             (f"{sv}_bal", f"{nm}: average fund balance per saver who joined (₹)", "spill", f"=ARRAYFORMULA({s}*{P}bavg)", "inr2"),
             (f"{sv}_trail", f"{nm}: fund trail (₹)", "spill", f"=ARRAYFORMULA({s}*{P}trail_pa)", "inr2"),
-            (f"{sv}_loanfee", f"{nm}: loan marketing fees at the DSA rate (₹; Monthly adds the fee ramp)", "spill",
+            (f"{sv}_loanfee", f"{nm}: loan referral fees at the lender payout (₹; Monthly adds the payout ramp, flat in the main case)", "spill",
              f"=ARRAYFORMULA({s}*{P}loanfee_pa)", "inr2"),
             (f"{sv}_cards", f"{nm}: card fees (₹)", "spill", f"=ARRAYFORMULA({s}*{P}cardfee_pa)", "inr2"),
             (f"{sv}_ins", f"{nm}: insurance (₹)", "spill", f"=ARRAYFORMULA({s}*{P}ins_pa)", "inr2"),
@@ -189,8 +193,9 @@ def per_saver_columns():
              f"=ARRAYFORMULA({s}*({P}oth_pa+{P}house_pa))", "inr2"),
             (f"{sv}_rev", f"{nm}: revenue (₹)", "spill",
              f"=ARRAYFORMULA({P}{sv}_trail+{P}{sv}_loanfee+{P}{sv}_cards+{P}{sv}_ins+{P}{sv}_oth)", "inr2"),
-            (f"{sv}_supp", f"{nm}: serving: support, tech for every KYC'd user reached, payments (₹)", "spill",
-             f"=ARRAYFORMULA({s}*({P}support+{P}tech_per_saver*{P + 'loan_reach' if sv == 'on' else '1'}+{P}debit_cost*{P}debits_month))", "inr2"),
+            (f"{sv}_supp", f"{nm}: serving: support, tech for every KYC'd user reached, payments, with the 10% contingency (₹)", "spill",
+             f"=ARRAYFORMULA({s}*({P}support+{P}tech_per_saver*{P + 'loan_reach' if sv == 'on' else '1'}+{P}debit_cost*{P}debits_month)"
+             f"*(1+{P}contingency))", "inr2"),
             (f"{sv}_cum", f"{nm}: revenue less serving, cumulative (₹; compare with the cost to win them)", "spill",
              f"=ARRAYFORMULA(SCAN(0,{P}{sv}_rev-{P}{sv}_supp,LAMBDA(acc,x,acc+x)))", "inr2"),
         ]
@@ -221,7 +226,7 @@ def per_saver_columns():
         ("topups", "Top-ups per active saver", "spill", n("=ARRAYFORMULA({p}topup_m*{p}tpool)"), "f6"),
         ("lent", "Money lent per active saver: first, repeat and top-up loans (₹)", "spill",
          n("=ARRAYFORMULA({p}first*{p}ticket+{p}repeat*{p}rep_ticket+{p}topups*{p}topup_amt)"), "inr2"),
-        ("loanfee_pa", "Per active saver: loan marketing fees at the DSA rate (₹)", "spill",
+        ("loanfee_pa", "Per active saver: loan referral fees at the lender payout (₹)", "spill",
          n("=ARRAYFORMULA({p}lent*{p}fee*(1-{p}taken_back))"), "rs4"),
         ("cards", "Cards per active saver", "spill",
          n("=ARRAYFORMULA(IF({p}age<=6,{p}card_share/6*{p}tf*{p}card_ae,IF({p}age<=12,{p}card_share*{p}card_catchup/6*{p}card_cg,0)))"), "f6"),
@@ -307,7 +312,7 @@ def monthly_columns():
          n("=ARRAYFORMULA((1+{p}takeup_growth)^({p}yc-1)/{p}mt_hold)"), "f3"),
         ("f_ta", "Take-up x approval factor, relative to the held year (loan fees, cards, home loans, LAP)",
          n("=ARRAYFORMULA({p}f_t*(1+{p}approval_growth)^({p}yc-1)/{p}ma_hold)"), "f3"),
-        ("feemult", "Loan fee multiplier (DSA rate x this; straight line to month 60, held)",
+        ("feemult", "Lender payout multiplier (the payout x this; straight line to month 60, held; 1 = flat)",
          n("=ARRAYFORMULA({p}fee_mult_start+({p}fee_mult_end-{p}fee_mult_start)*(IF({p}month>60,60,{p}month)-1)/59)"), "f3"),
         ("raw", "Online savers won before the pool cap: seed level, straight line to the plan level by ramp_end, then x growth a year",
          n(f"=MAKEARRAY({M},1,LAMBDA(m,z,IF(m<{{p}}launch,0,IF(m<={{p}}seed_end,{{p}}seed_online,IF(m<={{p}}ramp_end,{{p}}seed_online"
@@ -386,7 +391,7 @@ def monthly_columns():
         ("received", "Cash received from revenue: the revenue of comm_lag months earlier (₹)",
          n(f"=MAKEARRAY({M},1,LAMBDA(m,z,IF(m>{{p}}comm_lag,INDEX({{p}}revenue,MAX(1,m-{{p}}comm_lag)),0)))"), "inr"),
         ("cash_flow", "Cash flow: PAT - revenue + cash received (₹)", n("=ARRAYFORMULA({p}pat-{p}revenue+{p}received)"), "inr"),
-        ("cum", "Cumulative cash (₹; no interest on cash; money needed = its deepest hole + the floor)",
+        ("cum", "Cumulative cash (₹; no interest on cash; money needed = its deepest hole + the cash buffer)",
          n("=SCAN(0,{p}cash_flow,LAMBDA(acc,x,acc+x))"), "inr"),
         ("lens1", "Lens 1: arr_mult x 12 x the month's revenue (₹)", n("=ARRAYFORMULA({p}arr_mult*12*{p}revenue)"), "inr"),
         ("lens2", "Lens 2: aum_mult x AUM (₹)", n("=ARRAYFORMULA({p}aum_mult*{p}aum)"), "inr"),
@@ -461,7 +466,7 @@ SUMMARY_FORMULAS = {
     "EBITDA, year 8 (₹ crore)": "=SUMIFS({p}ebitda,{p}year,8)/1E7",
     "EBITDA positive from month (stays at or above 0 from here)":
         '=IF(INDEX({p}ebitda,96)<0,"after m96",IFERROR(MAX(FILTER({p}month,{p}ebitda<0))+1,1))',
-    "Money needed: deepest cumulative cash hole + the ₹5 crore floor (₹ crore)": "=(MAX(0,-MIN({p}cum))+{p}floor)/1E7",
+    "Money needed: deepest cumulative cash hole + the ₹5 crore cash buffer (₹ crore)": "=(MAX(0,-MIN({p}cum))+{p}floor)/1E7",
     "Money needed ($ million)": "=(MAX(0,-MIN({p}cum))+{p}floor)/{p}rs_per_usd/1E6",
     "Active savers, month 60": "=INDEX({p}active,60)",
     "AUM (average fund balance), month 60 (₹ crore)": "=INDEX({p}aum,60)/1E7",
@@ -472,7 +477,7 @@ SUMMARY_FORMULAS = {
 KIND = {"EBITDA positive from month (stays at or above 0 from here)": "month", "Active savers, month 60": "count",
         "Savers won by month 60 (online + doorstep)": "count", "Money needed ($ million)": "usd"}
 NOTES = {"EBITDA, year 5 (₹ crore)": "Near break-even EBITDA can be small: then read the gap in ₹ crore (column G), not as a %",
-         "Money needed: deepest cumulative cash hole + the ₹5 crore floor (₹ crore)":
+         "Money needed: deepest cumulative cash hole + the ₹5 crore cash buffer (₹ crore)":
              "Cumulative cash = PAT with revenue's cash arriving comm_lag (2) months late; Monthly 'Cumulative cash'",
          "EBITDA positive from month (stays at or above 0 from here)": "Gap in months",
          "Lens 1 at month 60: 20 x revenue run-rate (₹ crore)": "$1B = ₹9,500 crore at ₹95; OUR JUDGEMENT multiples (v4 Inputs)"}
@@ -577,21 +582,43 @@ def text(s):
 
 
 LVS = f"{op.LEVER_LEVEL:,}"
-LEVER_TRY = {
-    "The main case": f"Plan level {LVS}; every other input as on v4 Inputs (the main case)",
-    "24% still saving at a year (savings apps)": f"Plan level {LVS}; online still saving at month 12 24.15%, at month 3 52%",
-    "45% still saving at a year": f"Plan level {LVS}; online still saving at month 12 45%",
-    "Rs 200 a day": f"Plan level {LVS}; daily amount ₹200",
-    "Rs 300 a day": f"Plan level {LVS}; daily amount ₹300",
-    "10% apply for a loan a year": f"Plan level {LVS}; apply 7%; product table take-ups: gold loan 1.5%, LAP 0.3%, home loan 0.2%",
-    "50% apply for a loan a year": f"Plan level {LVS}; apply 35%; product table take-ups: gold loan 7.5%, LAP 1.5%, home loan 1%",
-    "Loan offers to savers only": f"Plan level {LVS}; loan reach 1 (row 'KYC'd users who see loan offers', end of v4 Inputs)",
-    "Credit-hungry: 45% stay + 50% apply": f"Plan level {LVS}; online still saving at month 12 45%; apply 35%; gold 7.5%, LAP 1.5%, home 1%",
-    "Cost to win Rs 300": f"Plan level {LVS}; cost to win after the seed ₹300",
-    "Cost to win Rs 600 (our funnel)": f"Plan level {LVS}; cost to win after the seed ₹600",
-    "Debt-only funds": f"Plan level {LVS}; equity share 0 (the SIP cross-sell switches on by itself)",
-    "Online only after m18": f"Plan level {LVS}; doorstep after the test 0",
+
+
+def _pc(x):
+    """0.2 -> '20%', 0.2415 -> '24.15%', 0.0105 -> '1.05%' (as typed into v4 Inputs)."""
+    return f"{round(100 * x, 4):g}%"
+
+
+TRY_WORDS = {  # v4 Inputs cell -> (words, value in words)
+    "on_r12": ("online still saving at month 12", _pc), "on_r3": ("online still saving at month 3", _pc),
+    "churn_late": ("both savers' drop-off a month after month 12", _pc),
+    "daily": ("daily amount", lambda x: f"₹{x:,.0f}"), "apply": ("apply (personal + business loans)", _pc),
+    "approved_first": ("approved, first loan", _pc), "takeup_growth": ("take-up rise a year", _pc),
+    "approval_growth": ("approval rise a year", _pc), "loan_reach": ("loan reach (end of v4 Inputs)", lambda x: f"{x:g}"),
+    "debit_cost": ("payment cost per debit (end of v4 Inputs)", lambda x: f"₹{x:g}"),
+    "debits_month": ("debits a month", lambda x: "52/12 (weekly)" if abs(x - 52 / 12) < 1e-9 else f"{x:g}"),
+    "eq_trail": ("our trail on equity SIP balances", _pc), "cac_rs": ("cost to win after the seed", lambda x: f"₹{x:,.0f}"),
+    "eq_share": ("equity share", lambda x: f"{x:g} (the SIP cross-sell switches on by itself)" if x == 0 else _pc(x)),
+    "door_after": ("doorstep after the test", lambda x: f"{x:g}"),
 }
+PRODUCT_WORDS = {"loan_gold": "gold loan", "loan_lap": "LAP", "loan_home": "home loan"}
+
+
+def lever_try(name):
+    """'Try it live' text from the very cells the reconciliation types into v4 Inputs (v4_toy_check.LEVER_MAP)."""
+    ch = vt.LEVER_MAP[name]
+    if not ch:
+        return f"Plan level {LVS}; every other input as on v4 Inputs (the main case)"
+    parts, prods = [], []
+    for k, x in ch.items():
+        if k.startswith("takeup:"):
+            prods.append(f"{PRODUCT_WORDS.get(k[7:], k[7:])} {_pc(x)}")
+        else:
+            w, f = TRY_WORDS[k]
+            parts.append(f"{w} {f(x)}")
+    if prods:
+        parts.append("product table take-ups: " + ", ".join(prods))
+    return f"Plan level {LVS}; " + "; ".join(parts)
 
 
 def levers_sheet(recon):
@@ -600,8 +627,8 @@ def levers_sheet(recon):
     lev = [x for x in recon if str(x["case"]).startswith("lever")]
     worst = max(abs(x["gap_pct"]) for x in lev if "Revenue" in x["measure"])
     pm = max(abs(x["gap"]) for x in lev if "month" in x["measure"] and not isinstance(x["gap"], str))
-    missing = sorted(set(r["case"] for r in data) - set(LEVER_TRY))
-    assert not missing, f"new lever rows with no 'try it live' text: {missing}"
+    missing = sorted(set(r["case"] for r in data) - set(vt.LEVER_MAP))
+    assert not missing, f"lever rows the sheet does not replay (v4_toy_check.LEVER_CASES): {missing}"
     cells = {"A1": (f"Levers around the main case at {LVS} online savers a month from month 30 (tables/ltv_main_levers.csv, model/ltv_odds.py, "
                     f"run {RUN_DATE}): one change at a time on top of the main case. Pasted values from the Python model; editing them changes nothing. "
                     "To try one live, type the inputs in the last column into v4 Inputs: the sheet reproduces every lever within "
@@ -614,124 +641,441 @@ def levers_sheet(recon):
         for j, c_ in enumerate(cols):
             val = row[c_]
             cells[f"{col(j + 1)}{i}"] = (text(val) if j == 0 else ("yes" if val == "True" else "no" if val == "False" else num(val)))
-        cells[f"{col(len(cols) + 1)}{i}"] = LEVER_TRY.get(row["case"], "")
+        cells[f"{col(len(cols) + 1)}{i}"] = lever_try(row["case"])
     fm["number"][f"B3:{col(len(cols))}{len(data) + 2}"] = "#,##0.0##"
+    mc_ = col(1 + cols.index("money needed $M"))
+    for i, row in enumerate(data, start=3):           # money needed '+' (at least) while the company still loses money at month 96
+        if row["EBITDA positive from month"] == "after m96":
+            fm["number"][f"{mc_}{i}"] = '#,##0.0"+"'
     return {"title": "v4 Levers", "cells": cells, "named_ranges": {}, "formats": fm}
 
 
-LADDER_COLS = [("rung", "Rung"), ("position (0 market, 1 targets)", "Share of the way from today's market to our target"),
-               ("LTV/CAC 5y", "Online LTV/CAC, 5 years"), ("chance of at least this", "Chance of at least this (share of the 1,000 draws)"),
-               ("EBITDA positive from month", "EBITDA positive from month (97 = not by month 96)"), ("money needed $M", "Money needed, $M"),
-               ("Y5 EBITDA Rs cr", "Year-5 EBITDA, ₹ crore"), ("cumulative EBITDA 8y Rs cr", "Cumulative EBITDA, 8 years, ₹ crore")]
-DRIVER_COLS = [("label", "Input"), ("median if at market", "Median LTV/CAC if the seed finds today's market"),
-               ("median if at target", "Median LTV/CAC if it finds our target"), ("chance >=3x if at market", "Chance of 3x: at market"),
-               ("chance >=3x if at target", "Chance of 3x: at target")]
+def _f(x):
+    try:
+        return float(x)
+    except (TypeError, ValueError):
+        return None
+
+
+def _x(v):
+    """LTV/CAC at 2 decimals, e.g. 0.78×."""
+    return f"{float(v):.2f}×"
+
+
+def _pct_words(x):
+    """0.35 -> '35%', 0.349445 -> '34.9%', 0.4123 -> '41.2%'."""
+    x = 100 * float(x)
+    return f"{x:.0f}%" if abs(x - round(x)) < 0.05 else f"{x:.1f}%"
+
+
+def _month(v, never="not by month 96"):
+    """97 = not by month 96 (ltv_odds.py's code) -> words; else the month as a number."""
+    f = _f(v)
+    return never if f is None or f >= 97 else int(round(f))
+
+
+def human_params(s):
+    """'r12 0.4123; churn_late 0.015' / 'daily 125.6 (beyond the upside)' / 'not reachable' -> words for the sheet."""
+    if s.strip() == "not reachable":
+        return "not reachable"
+    beyond = " (beyond the upside)" if "(beyond the upside)" in s else ""
+    s = s.replace(" (beyond the upside)", "")
+    kv = {}
+    for part in s.split(";"):
+        p, v = part.strip().rsplit(" ", 1)
+        kv[p] = float(v)
+    out = []
+    if "daily" in kv:
+        out.append(f"₹{kv['daily']:,.0f} a day")
+    if "r12" in kv:
+        out.append(f"{_pct_words(kv['r12'])} still saving at 12 months")
+    if "churn_late" in kv:
+        out.append(f"drop-off after {_pct_words(kv['churn_late'])} a month")
+    if "_apply" in kv:
+        out.append(f"{_pct_words(kv['_apply'])} apply for a loan a year")
+    if "approved_first" in kv:
+        out.append(f"{_pct_words(kv['approved_first'])} of first loans approved")
+    if "takeup_growth" in kv or "approval_growth" in kv:
+        tg, ag = kv.get("takeup_growth", 0.0), kv.get("approval_growth", 0.0)
+        out.append("no yearly rises" if tg == 0 and ag == 0 else f"take-up +{_pct_words(tg)} and approval +{_pct_words(ag)} a year")
+    if "_debt_trail" in kv:
+        out.append(f"debt fund fee {100 * kv['_debt_trail']:.2f}%")
+    return ", ".join(out) + beyond
+
+
+def _range_words(params):
+    """A drawn input's range in words: {'r12': (0.30, 0.40), 'churn_late': (0.025, 0.015)} -> '30% to 40%, drop-off after 2.5% to 1.5% a month'."""
+    out = []
+    for p, (a, b) in params.items():
+        if p == "r12":
+            out.append(f"{_pct_words(a)} to {_pct_words(b)}")
+        elif p == "churn_late":
+            out.append(f"drop-off after {_pct_words(a)} to {_pct_words(b)} a month")
+        elif p.endswith("_trail"):
+            out.append(f"{100 * a:.2f}% to {100 * b:.2f}% a year")
+        else:
+            out.append(f"{p.lstrip('_')} {a:g} to {b:g}")
+    return ", ".join(out)
+
+
+def _share(x):
+    """A share of the 1,000 draws in words: 0.003 -> '0.3%', 0.903 -> '90%'."""
+    x = float(x)
+    return f"{x:.1%}" if 0 < x < 0.01 else f"{x:.0%}"
+
+
+def _minus(s):
+    return s.replace("-", "−")
+
+
+def headline():
+    """The headline numbers, read from the tables (never retyped): the main case's split, the Monte Carlo, the ladder, the levers.
+    Wording rules (reviews/2026-10-24_rebase/FIXES.md section B): cross-sell in rupees, before and after serving; the cost to win is
+    the founders' figure; shares of the 1,000 draws, not chances; money needed '+' while the company still loses money at month 96."""
+    summ = {r["measure"]: r for r in read("ltv_odds_summary.csv")}
+    sp = {(r["case"], r["years"]): r for r in read("ltv_saver_split.csv")}
+    lad = {r["rung"]: r for r in read("ltv_ladder.csv")}
+    ups = {r["lever"]: r for r in read("ltv_upside_levers.csv")}
+    lev = {r["case"]: r for r in read("ltv_main_levers.csv")}
+    sl = {r["case"]: r for r in read("online_ltv_levers.csv")}          # one saver at each lever
+    br = read("ltv_bridge.csv")
+    m5, m8 = sp[("Main case", "5y")], sp[("Main case", "8y")]
+    s = lambda k, q="P50": summ[k][q]
+    losing = float(s("chance EBITDA positive by month 96")) == 0      # every draw still loses money at month 96
+    plus = "+" if losing else ""
+    rs = lambda v: f"₹{float(v):,.0f}"
+    xn5, xn8 = _minus(_x(m5["cross-sell net of serving / CAC"])), _minus(_x(m8["cross-sell net of serving / CAC"]))
+    v = vt.base_inputs()
+    h = {"l5": _x(m5["LTV/CAC"]), "l8": _x(m8["LTV/CAC"]), "x5": _x(m5["cross-sell / CAC"]), "x8": _x(m8["cross-sell / CAC"]),
+         "xn5": xn5, "xn8": xn8, "xn": xn5 if xn5 == xn8 else f"{xn5} in 5 years, {xn8} in 8",
+         "xs5": rs(m5["cross-sell"]), "xs8": rs(m8["cross-sell"]), "sv5": rs(m5["serving"]), "sv8": rs(m8["serving"]),
+         "f5": _x(m5["fund fees / CAC"]), "f8": _x(m8["fund fees / CAC"]),
+         "cac": rs(m5["cost to win"]), "cac0": rs(op.CAC), "seed_cac": rs(op.SEED_CAC), "pb": _month(lad["Main case"]["saver pays back in month"]),
+         "l5_p10": f"{float(s('LTV/CAC, 5 years', 'P10')):.2f}", "l5_p90": _x(s("LTV/CAC, 5 years", "P90")),
+         "l8_p10": f"{float(s('LTV/CAC, 8 years', 'P10')):.2f}", "l8_p90": _x(s("LTV/CAC, 8 years", "P90")),
+         "ch1_5": _share(s("chance LTV/CAC >= 1")), "ch1_8": _share(s("chance 8-year LTV/CAC >= 1")),
+         "pb_p10": _month(s("Saver pays back in month (97 = not by 96)", "P10")),
+         "pb_p90": _month(s("Saver pays back in month (97 = not by 96)", "P90")),
+         "money": f"${float(s('Money needed, $M')):.1f}M{plus}", "money_p10": f"${float(s('Money needed, $M', 'P10')):.1f}M",
+         "money_p90": f"${float(s('Money needed, $M', 'P90')):.1f}M", "plus": plus, "losing": losing,
+         "ebitda96": float(s("chance EBITDA positive by month 96")), "cum8": float(s("Cumulative EBITDA to month 96, Rs crore")),
+         "bridge0": _x(br[0]["LTV/CAC 5y"]), "bridge1": _x(br[-1]["LTV/CAC 5y"]),
+         "d1": ups["daily"]["alone for 1x (5y)"], "r1": ups["keep_up"]["alone for 1x (5y)"],
+         "three": "3×" in lad, "lad": lad,
+         # the two unconfirmed inputs and the cost to win, one saver at each lever (tables/online_ltv_levers.csv)
+         "debit2": _x(sl["We pay Rs 2 a debit, weekly"]["LTV/CAC 60m"]), "fee05": _x(sl["Equity fund fee 0.5%, not 0.75%"]["LTV/CAC 60m"]),
+         "cac600_5": _x(sl["Cost to win Rs 600 (our funnel)"]["LTV/CAC 60m"]), "cac600_8": _x(sl["Cost to win Rs 600 (our funnel)"]["LTV/CAC 96m"]),
+         "cac600_rs": rs(sl["Cost to win Rs 600 (our funnel)"]["cost to win Rs"]),
+         "cac600_money": f"${float(lev['Cost to win Rs 600 (our funnel)']['money needed $M']):.1f}M"
+                         + ("+" if lev["Cost to win Rs 600 (our funnel)"]["EBITDA positive from month"] == "after m96" else ""),
+         "old5": _x(sl["Loan funnel at our old targets"]["LTV/CAC 60m"]),
+         "old_pm": lev["Loan funnel at our old targets"]["EBITDA positive from month"].replace("after m96", "after month 96"),
+         "blend": f"{100 * (v['eq_share'] * v['eq_trail'] + (1 - v['eq_share']) * v['debt_trail']):.2f}%"}
+    h["ebitda_words"] = ("is not EBITDA positive by month 96 in any of the 1,000 draws" if h["ebitda96"] == 0 else
+                         f"is EBITDA positive by month 96 in only {_share(h['ebitda96'])} of the 1,000 draws")
+    p0 = lambda x: f"{float(x):.0%}"
+    h["d1w"] = human_params(h["d1"]).split(",")[0]
+    h["r1w"] = f"{_pct_words(h['r1'].split()[1])} still saving at 12 months"
+    two = lad.get("2×")
+    h["two"] = (f"2× needs {human_params('daily ' + two['saved a day Rs'])}, {p0(two['still saving at 12 months'])} still saving, "
+                f"{p0(two['apply a year'])} applying for a loan a year and {p0(two['first loans approved'])} of first loans approved; "
+                f"the company then turns EBITDA positive from month {_month(two['EBITDA positive from month'])} on "
+                f"${float(two['money needed $M']):.1f}M") if two else "2× is not reachable on these levers"
+    three = lad.get("3×")
+    h["three_words"] = (f"3× needs {human_params('daily ' + three['saved a day Rs'])}, {p0(three['still saving at 12 months'])} still saving, "
+                        f"{p0(three['apply a year'])} applying and {p0(three['first loans approved'])} approved (EBITDA positive from month "
+                        f"{_month(three['EBITDA positive from month'])}, ${float(three['money needed $M']):.1f}M)") if three else \
+        "3× is out of reach on these levers"
+    # FIXES.md B1: the cross-sell answer in rupees, before and after serving
+    h["cross"] = (f"Cross-selling alone (loans and cards): {h['xs5']} per saver in 5 years, {h['xs8']} in 8. That is {h['x5']} and {h['x8']} "
+                  f"of the {h['cac']} it costs to win a saver, and less than the {h['sv5']} / {h['sv8']} it costs to serve them, so on its "
+                  f"own it never pays back ({h['xn']} after serving). Insurance, recharge, bills, FD and NPS are not counted.")
+    h["with_funds"] = (f"With fund fees, {h['l5']} in 5 years and {h['l8']} in 8; pays back "
+                       + (f"in month {h['pb']}." if isinstance(h["pb"], int) else "after month 96."))
+    # B2: the cost to win
+    h["cac_words"] = (f"{h['cac0']} at scale (the founders' figure; they call it 'fairly sorted') plus the 10% contingency = {h['cac']}. "
+                      f"The seed budgets {h['seed_cac']} while the brand is new, and measures it.")
+    # B3: unconfirmed inputs
+    h["unconfirmed"] = (f"Assumes debits cost us ₹0 and a {100 * v['eq_trail']:.2f}% equity fund fee, both still to be confirmed in writing "
+                        f"(₹2 a weekly debit would cut a saver to about {h['debit2']} at 5 years, a 0.5% fee to about {h['fee05']}).")
+    # B4 / B5-B7: the four facts
+    h["facts"] = (f"The four facts that decide it, all cheap to get: Bachatt's average daily amount; Bachatt's exact 12-month retention; the "
+                  f"₹0 debit cost in writing (BSE StAR MF or the fund houses); the fee on the fund the ₹100 goes into, in writing "
+                  f"({h['blend']} blended or better: the model uses {v['eq_share']:.0%} equity at {100 * v['eq_trail']:.2f}% and the rest "
+                  f"in debt at {100 * v['debt_trail']:.2f}%, and daily minimums of ~₹100 a scheme likely mean one hybrid fund).")
+    h["glossary"] = ("Words: LTV/CAC = what a saver brings in over 5 or 8 years, less the cost of serving them, divided by what it costs to "
+                     "win them. EBITDA = operating profit before interest, tax and depreciation. KYC'd = identity-checked. SIP = a regular "
+                     "investment into a mutual fund (here daily). Mandate = the saver's standing instruction for the debit. The Monte Carlo = "
+                     "we ran the model 1,000 times, picking retention and the debt fund's fee at random within their ranges; the median is "
+                     "the middle run, and P10-P90 is the range 8 in 10 runs fall in. Money needed = the seed + the deepest cash hole (fees "
+                     "arrive 2 months late) + a ₹5 crore cash buffer, at ₹95 = $1; '+' = at least, as the company is still losing money "
+                     "at month 96.")
+    return h
+
+
+LADDER_COLS = [("rung", "Rung", None), ("upside position (0 main case, 1 all upside)", "Share of the way to the upside (0 = main case)", "0%"),
+               ("saved a day Rs", "Saved a day, ₹", "#,##0"), ("still saving at 12 months", "Still saving at 12 months", "0.0%"),
+               ("apply a year", "Apply for a loan a year", "0.0%"), ("first loans approved", "First loans approved", "0.0%"),
+               ("rises", "Yearly rises: take-up / approval", None), ("LTV/CAC 5y", "LTV/CAC, 5 years", "0.00"),
+               ("LTV/CAC 8y", "LTV/CAC, 8 years", "0.00"), ("saver pays back in month", "Saver pays back in month", "0"),
+               ("chance of at least this", "Share of the 1,000 draws at least this high (everything else at the main case)", "0.0%"),
+               ("EBITDA positive from month", "Company EBITDA positive from month", "0"), ("money needed $M", "Money needed, $M ('+' = at least: still losing money at month 96)", "0.00"),
+               ("cumulative EBITDA 8y Rs cr", "Cumulative EBITDA, 8 years, ₹ crore", "#,##0.0")]
+SPLIT_ROWS = [("Fund fees", "Fund fees (₹)", "rs"), ("Loans (all referrals)", "Loans: every referral (₹)", "rs"), ("Cards", "Cards (₹)", "rs"),
+              ("Insurance", "Insurance (₹; a fixed referral fee, not counted)", "rs"),
+              ("Other products", "Other products (₹; recharge, bills, FD and NPS are not in the launch app)", "rs"),
+              ("cross-sell", "Cross-sell: loans + cards + insurance + other products (₹)", "rs"),
+              ("serving", "Serving: support, tech, payments, with the 10% contingency (₹)", "neg"),
+              ("net", "LTV: fund fees + cross-sell - serving (₹)", "rs"),
+              ("cost to win", "Cost to win, with the 10% contingency (₹)", "rs"), ("LTV/CAC", "LTV/CAC", "x"),
+              ("fund fees / CAC", "Fund fees alone / cost to win (before serving)", "x"),
+              ("cross-sell / CAC", "Cross-sell alone / cost to win (before serving)", "x"),
+              ("cross-sell net of serving / CAC", "Cross-sell after serving / cost to win", "x")]
+SPLIT_CASES = [("Main case", "Main case"), ("Low end (30% still saving)", "Low end (30% still saving)"),
+               ("High end (40% still saving)", "High end (40% still saving)")]
 
 
 def mc_sheet():
     summ, lad, drv = read("ltv_odds_summary.csv"), read("ltv_ladder.csv"), read("ltv_odds_drivers.csv")
+    sp = {(r["case"], r["years"]): r for r in read("ltv_saver_split.csv")}
+    br, ups = read("ltv_bridge.csv"), read("ltv_upside_levers.csv")
+    h = headline()
     t = vt.MAIN_T
-    cells = {"A1": (f"The LTV/CAC Monte Carlo (model/ltv_odds.py, run {RUN_DATE}): 1,000 Latin-hypercube draws, seed {lo.SEED}. The cost to win is held "
-                    "at the plan (₹600 in the seed, ₹450 after, plus the 10% contingency): it is measured (founders, 23 Oct). Each of the ten unmeasured "
-                    "inputs that make a saver's value is drawn anywhere between today's market and our target, the six loan inputs moving together "
-                    f"(0.5). Each draw runs one online saver and the company at {lo.LEVEL:,} online savers a month. The main case on v4 Inputs is the "
-                    "median. Pasted values, not live.")}
-    fm = {"number": {}, "bold_rows": [1], "freeze_rows": 0, "wrap_rows": [1], "col_widths": {"A": 420, "B": 160, "C": 160, "D": 160, "E": 160,
-                                                                                         "F": 160, "G": 160, "H": 160}}
-    r = 3
-    cells.update({f"A{r}": "Across the 1,000 draws", f"B{r}": "P10 (bad)", f"C{r}": "P50 (middle)", f"D{r}": "P90 (good)"})
+    drawn = "; ".join(f"{lab.split(' (')[0].lower()} ({_range_words(params)})" for lab, params in lo.INPUTS.values())
+    cells = {"A1": (f"The LTV/CAC Monte Carlo (model/ltv_odds.py, run {RUN_DATE}): we ran the model {lo.N:,} times (Latin-hypercube draws, seed "
+                    f"{lo.SEED}), picking the two still-uncertain inputs at random, each equally likely anywhere in its range: {drawn}. "
+                    "Everything else is fixed by the founders (market figures, Bachatt, or our judgement; v4 README). The cost to win is held: "
+                    f"{h['cac_words']} Each draw runs one online saver and the company at {lo.LEVEL:,} online savers a month. "
+                    "The main case on v4 Inputs is the median. Pasted values, not live."),
+             "A2": (f"The main case. {h['cross']} {h['with_funds']} At market numbers this is a fund-fee business; loans are a small add-on. "
+                    f"The company {h['ebitda_words']}; money needed {h['money']} (8 in 10 draws {h['money_p10']}-{h['money_p90']}; at least, "
+                    f"because the cash hole is still deepening at month 96). {h['unconfirmed']}")}
+    fm = {"number": {}, "bold_rows": [1], "freeze_rows": 0, "wrap_rows": [1, 2],
+          "col_widths": {"A": 420, **{col(j): 130 for j in range(2, 15)}}}
+    r = 4
+    # 1. across the draws
+    cells.update({f"A{r}": f"Across the {lo.N:,} draws (8 in 10 fall between P10 and P90)", f"B{r}": "P10", f"C{r}": "P50 (median)", f"D{r}": "P90"})
     fm["bold_rows"].append(r)
     r += 1
     for x in summ:
-        cells[f"A{r}"] = text(x["measure"].replace(" (97 = not by 96)", " (97 = not by month 96)"))
+        lab = x["measure"].replace(" (97 = not by 96)", "").replace(">=", "≥")
+        if lab.startswith("chance "):
+            lab = "Share of the 1,000 draws with " + lab[len("chance "):] + (" at 5 years" if lab.startswith("chance LTV/CAC") else "")
+        if lab.startswith("Money needed") and h["losing"]:
+            lab += " (at least: still losing money at month 96)"
+        cells[f"A{r}"] = text(lab)
         if x["P10"] != "":
-            cells.update({f"B{r}": num(x["P10"]), f"C{r}": num(x["P50"]), f"D{r}": num(x["P90"])})
-            fm["number"][f"B{r}:D{r}"] = "#,##0.00"
+            if "month" in x["measure"] and "97" in x["measure"]:
+                cells.update({f"{c_}{r}": _month(x[q]) for c_, q in (("B", "P10"), ("C", "P50"), ("D", "P90"))})
+                fm["number"][f"B{r}:D{r}"] = "0"
+            else:
+                cells.update({f"B{r}": num(x["P10"]), f"C{r}": num(x["P50"]), f"D{r}": num(x["P90"])})
+                fm["number"][f"B{r}:D{r}"] = ('0.00"+"' if "$M" in x["measure"] and h["losing"] else
+                                              "0.00" if "LTV/CAC" in x["measure"] or "$M" in x["measure"] else "#,##0.00")
         else:
             cells[f"C{r}"] = num(x["P50"])
             fm["number"][f"C{r}"] = "0.0%"
         r += 1
+    # 2. one saver: where the money comes from
     r += 1
-    cells[f"A{r}"] = ("The company at each LTV/CAC (tables/ltv_ladder.csv): every unmeasured input the same share of the way from today's market to "
-                      "our target, solved for each LTV/CAC; the median row is the main case, 'Our targets' the top")
+    cells[f"A{r}"] = ("One online saver won: where the money comes from (tables/ltv_saver_split.csv). The main case and the two ends of the "
+                      "drawn range of still saving at 12 months; ₹ per saver won, undiscounted")
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
     r += 1
-    for j, (_k, h) in enumerate(LADDER_COLS):
-        cells[f"{col(j + 1)}{r}"] = h
+    hdr = ["Line"] + [f"{nm}, {y}" for _k, nm in SPLIT_CASES for y in ("5 years", "8 years")]
+    for j, hh in enumerate(hdr):
+        cells[f"{col(j + 1)}{r}"] = hh
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    for key, lab, kind in SPLIT_ROWS:
+        cells[f"A{r}"] = text(lab)
+        j = 2
+        for ck, _nm in SPLIT_CASES:
+            for y in ("5y", "8y"):
+                v = float(sp[(ck, y)][key])
+                cells[f"{col(j)}{r}"] = num(round(-v if kind == "neg" else v, 3 if kind == "x" else 0)) + 0
+                j += 1
+        fm["number"][f"B{r}:G{r}"] = "0.00" if kind == "x" else "#,##0;-#,##0;0"
+        if key in ("net", "LTV/CAC", "cross-sell / CAC"):
+            fm["bold_rows"].append(r)
+        r += 1
+    # 3. the bridge
+    r += 1
+    cells[f"A{r}"] = (f"From the 23 October {h['bridge0']} to {h['bridge1']} today: a correction, then the founders' 24 Oct decisions, one at a time "
+                      "(tables/ltv_bridge.csv, model/ltv_bridge.py)")
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    for j, hh in enumerate(["Step", "LTV/CAC, 5 years", "Change, 5 years", "LTV/CAC, 8 years", "Change, 8 years", "Saver pays back in month"]):
+        cells[f"{col(j + 1)}{r}"] = hh
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    b0 = r
+    for x in br:
+        cells[f"A{r}"] = text(x["step"] + (" (to confirm in writing)" if x["step"].startswith("Debits at") else ""))
+        cells[f"B{r}"], cells[f"D{r}"] = num(x["LTV/CAC 5y"]), num(x["LTV/CAC 8y"])
+        if x["change 5y"] != "":
+            cells[f"C{r}"], cells[f"E{r}"] = num(x["change 5y"]), num(x["change 8y"])
+        cells[f"F{r}"] = _month(x["saver pays back in month"])
+        r += 1
+    fm["number"].update({f"B{b0}:B{r - 1}": "0.00", f"D{b0}:D{r - 1}": "0.00", f"C{b0}:C{r - 1}": "+0.00;-0.00;0.00",
+                         f"E{b0}:E{r - 1}": "+0.00;-0.00;0.00", f"F{b0}:F{r - 1}": "0"})
+    # 4. the ladder
+    r += 1
+    up1 = lad[-1] if lad[-1]["rung"] == "All upside" else next(x for x in lad if x["rung"] == "All upside")
+    cells[f"A{r}"] = ("What it takes (tables/ltv_ladder.csv): from the main case, the five upside levers move together the same share of the "
+                      f"way to their upside (all upside: {human_params('daily ' + up1['saved a day Rs'])}, "
+                      f"{_pct_words(up1['still saving at 12 months'])} still saving (drop-off {_pct_words(up1['drop-off a month after 12'])} a month), "
+                      f"{_pct_words(up1['apply a year'])} apply, {_pct_words(up1['first loans approved'])} approved, take-up +"
+                      f"{_pct_words(up1['take-up rise a year'])} and approval +{_pct_words(up1['approval rise a year'])} a year: the loan funnel "
+                      "at our old targets). The low and high ends move only the drawn still saving. Not other plans: what each multiple needs."
+                      + ("" if h["three"] else " 3× is not reachable on these levers."))
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    for j, (_k, hh, _f) in enumerate(LADDER_COLS):
+        cells[f"{col(j + 1)}{r}"] = hh
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
     r += 1
     l0 = r
     for x in lad:
-        for j, (k, _h) in enumerate(LADDER_COLS):
-            cells[f"{col(j + 1)}{r}"] = text(x[k]) if j == 0 else num(x[k])
+        for j, (k, _hh, _f) in enumerate(LADDER_COLS):
+            c_ = f"{col(j + 1)}{r}"
+            if k == "rung":
+                cells[c_] = text(x[k])
+            elif k == "rises":
+                tg, ag = float(x["take-up rise a year"]), float(x["approval rise a year"])
+                cells[c_] = "none" if tg == 0 and ag == 0 else f"{100 * tg:.1f}% / {100 * ag:.1f}%"
+            elif k in ("saver pays back in month", "EBITDA positive from month"):
+                cells[c_] = _month(x[k])
+            else:
+                cells[c_] = num(x[k])
+        if x["rung"] == "Main case":
+            fm["bold_rows"].append(r)
         r += 1
-    fm["number"][f"B{l0}:B{r - 1}"] = "0.0%"
-    fm["number"][f"C{l0}:C{r - 1}"] = "0.00"
-    fm["number"][f"D{l0}:D{r - 1}"] = "0.0%"
-    fm["number"][f"F{l0}:H{r - 1}"] = "#,##0.0"
+    for j, (_k, _hh, f_) in enumerate(LADDER_COLS):
+        if f_:
+            fm["number"][f"{col(j + 1)}{l0}:{col(j + 1)}{r - 1}"] = f_
+    mcol = col(1 + [k for k, _hh, _f in LADDER_COLS].index("money needed $M"))
+    for i, x in enumerate(lad):                       # money needed '+' (at least) while the company still loses money at month 96
+        if _month(x["EBITDA positive from month"]) == "not by month 96":
+            fm["number"][f"{mcol}{l0 + i}"] = '0.00"+"'
+    # 5. the upside levers one at a time
     r += 1
-    cells[f"A{r}"] = f"The ten inputs drawn (model/ltv_odds.py): today's market, the main case ({t:.0%} of the way) and our target"
-    fm["bold_rows"].append(r)
-    r += 1
-    for j, h in enumerate(["Input", "Key", "Today's market", "Main case", "Our target", "Moves with the loan inputs"]):
-        cells[f"{col(j + 1)}{r}"] = h
-    fm["bold_rows"].append(r)
-    r += 1
-    show = lambda v: "; ".join(f"{p.lstrip('_')} {v_:,.0f}" if abs(v_) >= 1000 else f"{p.lstrip('_')} {v_:.4g}" for p, v_ in v)
-    for k, (lab, params, loan) in lo.INPUTS.items():
-        mk = [(p, a) for p, (a, b) in params.items()]
-        tg = [(p, b) for p, (a, b) in params.items()]
-        md = [(p, a + (b - a) * t) for p, (a, b) in params.items()]
-        cells.update({f"A{r}": text(lab), f"B{r}": k, f"C{r}": show(mk), f"D{r}": show(md), f"E{r}": show(tg), f"F{r}": "yes" if loan else "no"})
-        r += 1
-    r += 1
-    cells[f"A{r}"] = ("What each measurement is worth (tables/ltv_odds_drivers.csv): the same 1,000 draws with one input fixed at today's market, "
-                      "then at our target; every other input still drawn")
+    cells[f"A{r}"] = ("Each upside lever alone, from the main case (tables/ltv_upside_levers.csv): its LTV/CAC at the upside, and what it needs "
+                      "on its own for 1× and 2× at 5 years")
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
     r += 1
-    for j, (_k, h) in enumerate(DRIVER_COLS):
-        cells[f"{col(j + 1)}{r}"] = h
+    for j, hh in enumerate(["Lever", "Main case", "Upside", "LTV/CAC, 5 years, at the upside alone", "LTV/CAC, 8 years, at the upside alone",
+                            "Saver pays back in month, at the upside alone", "Alone for 1× at 5 years", "Alone for 2× at 5 years"]):
+        cells[f"{col(j + 1)}{r}"] = hh
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    u0 = r
+    for x in ups:
+        cells.update({f"A{r}": text(x["label"]), f"B{r}": human_params(x["main case"]), f"C{r}": human_params(x["upside"]),
+                      f"D{r}": num(x["LTV/CAC 5y at the upside alone"]), f"E{r}": num(x["LTV/CAC 8y at the upside alone"]),
+                      f"F{r}": _month(x["pays back in month at the upside alone"]), f"G{r}": human_params(x["alone for 1x (5y)"]),
+                      f"H{r}": human_params(x["alone for 2x (5y)"])})
+        r += 1
+    fm["number"].update({f"D{u0}:E{r - 1}": "0.00", f"F{u0}:F{r - 1}": "0"})
+    # 6. the drawn inputs and what pinning each is worth
+    r += 1
+    cells[f"A{r}"] = (f"The {len(lo.INPUTS)} drawn inputs (model/ltv_odds.py INPUTS) and what measuring each is worth (tables/ltv_odds_drivers.csv): "
+                      f"the same {lo.N:,} draws with one input at its low end, then its high end; the other still drawn")
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    for j, hh in enumerate(["Input", "Key", "Low end", f"Main case ({t:.0%} of the way)", "High end", "Median LTV/CAC (5 years) if at the low end",
+                            "Median LTV/CAC (5 years) if at the high end", "Rank correlation with LTV/CAC"]):
+        cells[f"{col(j + 1)}{r}"] = hh
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
     r += 1
     d0 = r
-    for x in drv:
-        for j, (k, _h) in enumerate(DRIVER_COLS):
-            cells[f"{col(j + 1)}{r}"] = text(x[k]) if j == 0 else num(x[k])
+    dv = {x["input"]: x for x in drv}
+    for k, (lab, params) in lo.INPUTS.items():
+        words = lambda pos: human_params("; ".join(f"{p} {a + (b - a) * pos:g}" for p, (a, b) in params.items()))
+        cells.update({f"A{r}": text(lab), f"B{r}": k, f"C{r}": words(0.0), f"D{r}": words(t), f"E{r}": words(1.0),
+                      f"F{r}": num(dv[k]["median if low"]), f"G{r}": num(dv[k]["median if high"]), f"H{r}": num(dv[k]["rank corr with LTV/CAC"])})
         r += 1
-    fm["number"][f"B{d0}:C{r - 1}"] = "0.00"
-    fm["number"][f"D{d0}:E{r - 1}"] = "0.0%"
+    fm["number"].update({f"F{d0}:H{r - 1}": "0.00"})
     return {"title": "v4 Monte Carlo", "cells": cells, "named_ranges": {}, "formats": fm}
 
 
 # ---------------------------------------------------------------- v4 README
+def founders_inputs_words():
+    """The 24 Oct founders' inputs as the sheet carries them (v4 Inputs values, never retyped)."""
+    v, x = vt.base_inputs(), vt.X_ON
+    lakh = lambda rs: f"₹{rs / 1e5:g} lakh"
+    return (f"personal and business loans ₹{v['ticket']:,.0f} for a first loan (Bachatt's number), repeats {v['ticket_growth']:.0%} bigger "
+            f"for each year repaid, plus top-ups; {_pct_words(v['apply'] / op.LOAN_MIX['apply'])} of reachable users apply for a loan a year and "
+            f"{_pct_words(v['approved_first'])} of first applications are approved (the founders' market figure, between 11% and 25%; gold "
+            f"loans {op.GOLD_APPROVAL:.0%}, home and property {x['loan_home_approval']:.0%}), "
+            + ("no yearly rises" if v["takeup_growth"] == 0 and v["approval_growth"] == 0 else
+               f"take-up +{_pct_words(v['takeup_growth'])} and approval +{_pct_words(v['approval_growth'])} a year")
+            + f"; home loans {lakh(x['loan_home_ticket'])} and property loans {lakh(x['loan_lap_ticket'])} (market sizes); lender payout "
+            f"{_pct_words(v['fee'])}" + (" flat" if v["fee_mult_end"] == 1 else f" rising {v['fee_mult_end']:.2f}x by month 60")
+            + f"; KYC'd non-savers fade within ~3 months (loan reach {v['loan_reach']:.2f}); recharge, bills, FD and NPS off (not in the launch "
+            f"app); debits ₹{v['debit_cost']:g} to us through BSE StAR MF or the fund house (still to be confirmed in writing); equity fund "
+            f"fee {100 * v['eq_trail']:.2f}% (still to be confirmed in writing); ₹{v['daily']:,.0f} a day, our product's floor (Bachatt's "
+            "average is unknown, and its own minimums are lower: ₹51 / ₹101 a day, ₹20 for its liquid fund)")
+
+
+def founders_inputs_short():
+    v, x = vt.base_inputs(), vt.X_ON
+    return (f"₹{v['ticket'] / 1000:.0f}k first loans, {v['apply'] / op.LOAN_MIX['apply']:.0%} apply and {v['approved_first']:.0%} approved, "
+            f"home ₹{x['loan_home_ticket'] / 1e5:g} lakh and property ₹{x['loan_lap_ticket'] / 1e5:g} lakh, lender payout {v['fee']:.0%} flat, "
+            f"debits ₹{v['debit_cost']:g}, no recharge, bills, FD or NPS")
+
+
+def recon_words(recon):
+    """The README's reconciliation sentence: equal at the main case (no yearly rises), the levers' worst gap named."""
+    base = [r for r in recon if not str(r["case"]).startswith("lever")]
+    lev = [r for r in recon if str(r["case"]).startswith("lever")]
+    worst = max((r for r in lev if "Revenue" in r["measure"]), key=lambda r: abs(r["gap_pct"]))
+    num_gap = max(abs(r["gap_pct"]) for r in base if r["gap_pct"] not in ("", None))
+    months = all(r["ok"] for r in base if "month" in r["measure"])
+    head = ("Equal to the Python model at 20,000 and 1,50,000 a month: revenue and EBITDA in every year, money needed, active savers, "
+            "AUM and the lens at month 60 (largest gap {}); the profit month {}. The main case has no yearly rises, so the sheet's one "
+            "approximation (calendar growth) does not bite.".format("under 0.01%" if num_gap < 1e-4 else f"{num_gap:.2%}",
+                                                                   "the same" if months else "differs: see v4 Summary"))
+    return (head + f" The {len(vt.LEVER_MAP)} levers: {sum(x['ok'] for x in lev)} of {len(lev)} checks within target; worst revenue gap "
+            f"{abs(worst['gap_pct']):.2%} ({text(worst['case'].replace('lever: ', ''))}).")
+
+
 def readme_sheet(recon, counts, n_names):
     rec = {(r["case"], r["measure"]): r for r in recon}
     g = lambda lv, ms: rec[(lv, ms)]
     pct = lambda lv, ms: f"{g(lv, ms)['gap_pct']:+.2%}"
     yr_rev = max(abs(r["gap_pct"]) for r in recon if not str(r["case"]).startswith("lever") and r["measure"].startswith("Revenue, year"))
+    pm = lambda lv, k: (lambda s_: f"month {s_:.0f}" if not isinstance(s_, str) else s_.replace("after m96", "after month 96"))(g(lv, "EBITDA positive from month")[k])
+    lev = [x for x in recon if str(x["case"]).startswith("lever")]
+    h = headline()
     L = [
         (f"v4: the online-first plan, live (the main case, {RUN_DATE})", "bold"),
-        ("The 'v4' tabs mirror model/online_plan.py (company() and saver_inputs()) at the MAIN CASE: the median of the LTV/CAC Monte Carlo "
-         "(model/ltv_odds.py; founders 23-24 Oct: the cost to win is measured, the value of a saver is not). Every unmeasured loan and retention "
-         f"input sits {vt.MAIN_T:.0%} of the way from today's market to our target; our targets (LTV/CAC 7.7x) are the top of the ladder on "
-         "v4 Monte Carlo. Savers won online pan-India (₹100 a day, 80% equity SIP / 20% debt), 1 in 10 from doorstep agents in NCR, 96 months, "
-         f"8 years. Built {RUN_DATE}.", ""),
-        ("22 OCT CORRECTIONS (critical review, founder's choices): a 10% contingency on the cost to win a saver; tech ₹4 a month per "
-         "KYC'd user reached (savers and the KYC'd users who came with them), not ₹1 per saver; payments ₹2 a debit, weekly debits "
-         "until BSE StAR MF confirms a daily SIP on one mandate; insurance a fixed referral fee, not counted (0); Choti, gold and other "
-         "products not counted; 70% of gold-loan applications approved; the non-savers see gold, property and home loans only. "
-         "Each is an input on v4 Inputs. The main case is not evidence either: the seed measures the ten unmeasured inputs.", ""),
-        ("LOAN MARKETPLACE (operator 21 Oct; main-case values, targets in brackets): loan offers go to anyone KYC'd who opts in, from day 1 "
-         f"({vt.IN['_loan_reach']:.2f} KYC'd users per online saver won (2.5: 5 sign-ups, half finish KYC)), reachable as long as savers keep "
-         f"saving; {vt.base_inputs()['apply'] / 0.7:.1%} apply for a loan a year (35%; 70% personal or business, 15% gold, 3% property, 2% home); "
-         f"{vt.X_ON['approved_first']:.1%} of first applications approved (30%), {vt.X_ON['approved_repeat']:.1%} of repeats (70%); personal and "
-         f"business loans ₹{vt.X_ON['ticket'] / 1e5:.2f} lakh (₹3 lakh); DSA payouts 2% rising to {2 * (1 + vt.IN['_payout_rise']):.2f}% by year 5 "
-         "(3%). v4 Monthly 'loans to KYC'd users who never save' adds the non-savers' loans to revenue; the input is at the end of v4 Inputs. "
-         "v4 LTV shows one saver's waterfall live.", ""),
+        ("The 'v4' tabs mirror model/online_plan.py (company() and saver_inputs()) at the MAIN CASE, the only case. On 24 Oct the founders "
+         "questioned every input of a saver's value; two are still uncertain, still saving at 12 months (Bachatt's 30-40%) and our share of "
+         "the debt fund's fee, and sit at the median of the LTV/CAC Monte Carlo (model/ltv_odds.py, v4 Monte Carlo). Everything else is "
+         f"fixed by the founders (market figures, Bachatt, or our judgement). Cost to win: {h['cac_words']} The ladder and the levers show "
+         "what it takes; they are not other plans. Savers won online pan-India (₹100 a day, our product's floor; 80% equity SIP / 20% debt), "
+         f"1 in 10 from doorstep agents in NCR, 96 months, 8 years. Built {RUN_DATE}. {h['glossary']}", ""),
+        (f"THE ANSWER (main case; v4 LTV live, v4 Monte Carlo). {h['cross']} {h['with_funds']} At market numbers this is a fund-fee "
+         f"business; loans are a small add-on. All three loan numbers at our old targets together (lever 'Loan funnel at our old targets') "
+         f"give about {h['old5']} at 5 years and bring profit from month {h['old_pm']}, because loan fees arrive early while fund fees build slowly. "
+         f"The company at {lo.LEVEL:,} online savers a month {h['ebitda_words']}; money needed {h['money']} (at least: the cash "
+         f"hole is still deepening at month 96). What it takes: {h['d1w']} alone, or {h['r1w']} alone, takes a saver to 1× at 5 years; no "
+         f"single loan lever does. {h['two']}. {h['three_words'][0].upper() + h['three_words'][1:]}. {h['unconfirmed']}", ""),
+        (f"24 OCT FOUNDERS' INPUTS (each a blue cell on v4 Inputs, its source in column D): {founders_inputs_words()}. Kept from 22 Oct: a 10% "
+         "contingency on every cost line, serving included; support ₹5 a month per saver still saving and tech ₹4 a month per KYC'd user "
+         f"reached (only the tech scales with the loan reach); insurance not counted. Cost to win ₹600: {h['cac600_rs']} with the "
+         f"contingency, a saver about {h['cac600_5']} / {h['cac600_8']} at 5 / 8 years and the company {h['cac600_money']}. {h['facts']}", ""),
         ("The OLDER tabs (Inputs, Per saver, Monthly, Summary, Assumptions, Monte Carlo, Sign-ups, Agent pay, Sensitivity and the "
          "Company / City tabs) are the SUPERSEDED street-fleet model of 16-18 Oct. They are HIDDEN since 22 Oct (View > Hidden sheets "
          "to see them); do not use them for the plan. No v4 formula reads them, and no v4 name clashes with theirs (every v4 name "
@@ -739,13 +1083,14 @@ def readme_sheet(recon, counts, n_names):
         ("", ""),
         ("How to use it", "bold"),
         ("1. Change the BLUE cells on 'v4 Inputs'. The three scenario cells are at the top: online savers won a month from month 30 "
-         "(20,000 = the profitable path; 1,50,000 = grow fast), growth a year after month 30 (1.0 = flat; 1.2 = +20% a year), and "
-         "doorstep after the 18-month test (1 = yes, 0 = online only). Per saver, Monthly, Yearly and Summary recalculate.", ""),
+         "(20,000 = the main case; 1,50,000 = grow fast), growth a year after month 30 (1.0 = flat; 1.2 = +20% a year), and "
+         "doorstep after the 18-month test (1 = yes, 0 = online only). Per saver, Monthly, Yearly, Summary and v4 LTV recalculate.", ""),
         ("2. Grey cells are worked out from the blue ones; do not type there, or anywhere on Per saver, Monthly or Yearly.", ""),
         (f"3. 'v4 Summary' puts the live answer next to the Python model's {RUN_DATE} run at 20,000 and 1,50,000 a month (fixed values). "
          "Column E picks the Python value at your plan level (growth 1.0); the gap is meaningful while the other inputs are at the "
          "main case's values.", ""),
-        ("4. To try a lever (v4 Levers), type the inputs in its last column into v4 Inputs; the sheet reproduces each lever.", ""),
+        (f"4. To try a lever (v4 Levers), type the inputs in its last column into v4 Inputs; the sheet reproduces each of the {len(vt.LEVER_MAP)} "
+         "levers, the ₹2 debit and the 0.5% fund fee included.", ""),
         ("", ""),
         ("Tabs", "bold"),
         ("v4 Inputs: every input with its value, unit and source (blue), the worked-out values (grey) and the 19 cross-sell products.", ""),
@@ -757,9 +1102,11 @@ def readme_sheet(recon, counts, n_names):
          "by line, acquisition, the team by role, other costs, EBITDA, tax after losses carried forward, PAT, cumulative cash, the "
          "two lenses and each product's money.", ""),
         ("v4 Yearly: years 1-8 (SUMIFS on Monthly), ₹ crore.", ""),
-        ("v4 Summary: the headline measures, live, next to the Python run; the reconciliation table.", ""),
-        ("v4 Levers, v4 Monte Carlo: pasted values from the Python model (tables/ltv_main_levers.csv, ltv_ladder.csv, "
-         f"ltv_odds_summary.csv, ltv_odds_drivers.csv), run {RUN_DATE}. They do not move.", ""),
+        ("v4 Summary: the headline measures, live, next to the Python run; the reconciliation table. v4 LTV: one saver won, live: the "
+         "cost to win, each product line, serving, LTV/CAC at 5 and 8 years, cross-selling alone and the payback month.", ""),
+        ("v4 Levers, v4 Monte Carlo: pasted values from the Python model (tables/ltv_main_levers.csv; ltv_odds_summary.csv, "
+         "ltv_saver_split.csv, ltv_bridge.csv, ltv_ladder.csv, ltv_upside_levers.csv, ltv_odds_drivers.csv), "
+         f"run {RUN_DATE}. They do not move.", ""),
         ("", ""),
         ("How the sheet works", "bold"),
         ("Per active saver: every line except 'still saving' is the same for the online and the doorstep saver (take-ups, loan states "
@@ -772,11 +1119,11 @@ def readme_sheet(recon, counts, n_names):
          "the Choti bonus at month 24, monthly holdings for gold, recharge and bills).", ""),
         ("", ""),
         ("Simplifications (each measured against the Python model; model/v4_toy_check.py)", "bold"),
-        (f"1. Calendar growth. In Python, take-up grows {vt.X_ON['takeup_growth']:.1%} and approval {vt.X_ON['approval_growth']:.1%} each "
-         "calendar year in the main case (held after year 5) and every month's "
-         "cohort has its own profile. The sheet computes one profile at the held year (exact for every cohort from month 49) and "
-         "scales each month by that month's factor relative to the held year: take-up for insurance and other products, take-up x "
-         "approval for loan fees, cards, home loans and LAP.", ""),
+        ("1. Calendar growth. The main case has no yearly rises in take-up or approval (founders 24 Oct), so the sheet is exact there. "
+         "With rises on (the 'Loan funnel at our old targets' lever, the ladder's upside) Python gives every month's cohort its own "
+         "profile; the sheet computes one profile at the held year (exact for every cohort from month 49) and scales each month by that "
+         "month's factor relative to the held year: take-up for insurance and other products, take-up x approval for loan fees, cards, "
+         "home loans and LAP.", ""),
         ("2. Timing of the later money: money booked at take-up takes this month's factor; insurance renewals the factor of 12 months "
          "earlier, the Choti bonus 24 months earlier, holdings (gold, recharge, bills) 6 months earlier (lag_hold, a sheet-only "
          "calibration: holdings build from take-ups spread over his life, and the never-held pool offsets part of the lag; "
@@ -784,21 +1131,13 @@ def readme_sheet(recon, counts, n_names):
         ("3. Loan fees take the take-up x approval factor of the month for first loans, repeats and top-ups alike.", ""),
         ("4. Fixed in the sheet as in the Python plan: the marketplace opens in his month 1; early factors in months 1-6; a stopper "
          "lapses his policies and holdings; no interest on cash.", ""),
-        ("Costs and cash, exactly as the Python plan: a 10% contingency on every expensed line inside EBITDA (contingency); revenue "
-         "booked when earned but its cash 2 months later (comm_lag), so cash flow = PAT - revenue + cash received; money needed = "
-         "the deepest cumulative cash hole + ₹5 crore. Both are blue inputs on v4 Inputs.", ""),
+        ("Costs and cash, exactly as the Python plan: a 10% contingency on every expensed line inside EBITDA (contingency), and on serving "
+         "in the per-saver views (v4 Per saver, v4 LTV); revenue booked when earned but its cash 2 months later (comm_lag), so cash flow = "
+         "PAT - revenue + cash received; money needed = the deepest cumulative cash hole + a ₹5 crore cash buffer, at ₹95 = $1. Each is a "
+         "blue input on v4 Inputs.", ""),
         ("", ""),
         (f"Reconciliation at the main case's inputs, {RUN_DATE} (full table on v4 Summary and tables/v4_toy_check.csv)", "bold"),
-        (f"Revenue within {yr_rev:.2%} in every year at both levels. EBITDA year 5: "
-         f"{g(20000, 'EBITDA, year 5 (Rs crore)')['sheet']:.3f} vs {g(20000, 'EBITDA, year 5 (Rs crore)')['python']:.3f} ₹ crore at "
-         f"20,000 a month ({pct(20000, 'EBITDA, year 5 (Rs crore)')}); "
-         f"{g(150000, 'EBITDA, year 5 (Rs crore)')['sheet']:.3f} vs {g(150000, 'EBITDA, year 5 (Rs crore)')['python']:.3f} at 1,50,000 "
-         f"({pct(150000, 'EBITDA, year 5 (Rs crore)')}); year 8 {pct(20000, 'EBITDA, year 8 (Rs crore)')} and "
-         f"{pct(150000, 'EBITDA, year 8 (Rs crore)')}. EBITDA positive from month {g(20000, 'EBITDA positive from month')['sheet']:.0f} "
-         f"and {g(150000, 'EBITDA positive from month')['sheet']:.0f} (Python {g(20000, 'EBITDA positive from month')['python']:.0f} "
-         f"and {g(150000, 'EBITDA positive from month')['python']:.0f}). Money needed "
-         f"{pct(20000, 'Money needed (Rs crore)')} and {pct(150000, 'Money needed (Rs crore)')}. Active savers and AUM at month 60 "
-         "equal.", ""),
+        (recon_words(recon), ""),
         (f"Checks: model/v4_toy_check.py replays all {sum(counts.values()):,} formulas of the v4 tabs through a Google Sheets "
          f"formula interpreter (0 errors) and matches every Monthly and Per saver line, every Yearly cell and every Summary cell to "
          "its numpy twin at the base and at three other scenarios; the per-active profile equals the Python engine's month-49+ "
@@ -812,6 +1151,49 @@ def readme_sheet(recon, counts, n_names):
         if style == "bold":
             fm["bold_rows"].append(r)
     return {"title": "v4 README", "cells": cells, "named_ranges": {}, "formats": fm}
+
+
+# ---------------------------------------------------------------- 'Start here' (sheetId 200, the first tab; tables/v4_start_here.json)
+START = T / "v4_start_here.json"
+
+
+def start_here():
+    """The first tab's texts: the main case in a few lines, live from v4 LTV / v4 Summary where the sheet has the number, the rest
+    read from the tables (FIXES.md section B wording). Keeps the file's other keys (layout, the 22 Oct sheet changes)."""
+    sh = json.loads(START.read_text())
+    h = headline()
+    c = sh["cells"]
+    L = "'v4 LTV'!"
+    neg = '"0.00;−0.00"'
+    c["A2"] = (f"Updated {RUN_DATE}, on the founders' 24 Oct inputs. Savers put away ₹100 a day by UPI into mutual funds in their own name "
+               "(80% equity, 20% debt); we earn fund fees and, as a loan marketplace, referral fees from lenders. 9 in 10 savers come online, "
+               f"pan-India; 1 in 10 through doorstep agents in NCR. The app never holds anyone's money. {h['unconfirmed']}")
+    c["A5"] = "v4 README: the answer, the founders' 24 Oct inputs, what the model does and how to use it."
+    c["A7"] = ("v4 Summary: the headline numbers, live, next to the Python model.   v4 LTV: one saver's value against the cost to win "
+               "them, live, with cross-selling alone.")
+    c["A8"] = ("v4 Levers, v4 Monte Carlo: one change at a time on the company; the main case's range, where a saver's money comes from, "
+               "the bridge from 23 Oct and what it takes (fixed values from the Python model).")
+    c["A11"] = (f'="Cross-selling alone (loans and cards): ₹"&TEXT(SUM({L}B7:B10),"#,##0")&" per saver in 5 years, ₹"'
+                f'&TEXT(SUM({L}D7:D10),"#,##0")&" in 8. That is "&TEXT({L}B19,"0.00")&"× and "&TEXT({L}D19,"0.00")&"× of the ₹"'
+                f'&TEXT(-{L}B5,"#,##0")&" it costs to win a saver, and less than the ₹"&TEXT(-{L}B11,"#,##0")&" / ₹"&TEXT(-{L}D11,"#,##0")'
+                f'&" it costs to serve them, so on its own it never pays back ("&TEXT((SUM({L}B7:B10)+{L}B11)/-{L}B5,{neg})'
+                f'&"× after serving). With fund fees, "&TEXT({L}B17,"0.00")&"× in 5 years and "&TEXT({L}D17,"0.00")&"× in 8; pays back "'
+                f'&IF(ISNUMBER({L}B18),"in month "&{L}B18,"after month 96")&"."')
+    c["A12"] = ("=\"The company: \"&IF(ISNUMBER('v4 Summary'!B11),\"EBITDA positive from month \"&'v4 Summary'!B11,"
+                "\"EBITDA not positive by month 96\")&\"; year-5 EBITDA \"&IF('v4 Summary'!B8<0,\"−₹\",\"₹\")"
+                "&TEXT(ABS('v4 Summary'!B8),IF(ABS('v4 Summary'!B8)<10,\"0.00\",\"0.0\"))&\" crore; money needed $\""
+                "&TEXT('v4 Summary'!B13,\"0.0\")&\"M\"&IF(INDEX(v_cash_flow,96)<0,"
+                "\"+ (at least: the company is still losing money at month 96)\",\"\")&\", at ₹\"&TEXT(v_rs_per_usd,\"0\")&\" = $1.\"")
+    c["A13"] = (f"The main case is the median of the LTV/CAC Monte Carlo (v4 Monte Carlo). Two inputs are still uncertain: still saving at "
+                f"12 months (Bachatt's 30-40%) and our share of the debt fund's fee. Everything else is fixed by the founders (market figures, "
+                f"Bachatt, or our judgement: {founders_inputs_short()}; the full list is on v4 README). Cost to win: {h['cac_words']} "
+                f"{h['ch1_5']} of the 1,000 draws reach 1× at 5 years, holding everything else at the main case; {h['ch1_8']} by 8 years. "
+                f"8 in 10 draws: {h['l5_p10']}-{h['l5_p90']} at 5 years, {h['l8_p10']}-{h['l8_p90']} at 8. The company {h['ebitda_words']}. "
+                "At market numbers this is a fund-fee business; loans are a small add-on.")
+    c["A14"] = (f"What it takes (v4 Monte Carlo; not another plan): {h['d1w']} alone, or {h['r1w']} alone, takes a saver to 1× at 5 years; "
+                f"no single loan lever does. {h['two']}. {h['three_words'][0].upper() + h['three_words'][1:]}. {h['facts']}")
+    c["A15"] = h["glossary"]
+    return sh
 
 
 # ---------------------------------------------------------------- main
@@ -863,8 +1245,9 @@ def main():
                 old |= set(sh.get("named_ranges", {}))
     assert not (set(all_names) & old), set(all_names) & old
     sheets.insert(0, readme_sheet(recon, counts, len(all_names)))
-    for sh in sheets:
-        sh["sheetId"] = SHEET_IDS[sh["title"]]
+    start = start_here()
+    for sh in sheets + [start]:
+        sh["sheetId"] = SHEET_IDS.get(sh["title"], sh.get("sheetId"))
         sh["cells"] = {a1: neutral(v) if isinstance(v, str) and not v.startswith("=") else v for a1, v in sh["cells"].items()}
         for a1, val in sh["cells"].items():
             if isinstance(val, str) and not val.startswith("="):
@@ -891,7 +1274,8 @@ def main():
                                               "v4 Levers", "v4 Monte Carlo", "v4 README"],
                       "named_range_prefix": P, "months": M}}
     OUT.write_text(json.dumps(spec, ensure_ascii=False, indent=1))
-    print(f"wrote {OUT} ({OUT.stat().st_size / 1024:.0f} KB); formulas per tab {counts}; named ranges {len(all_names)}")
+    START.write_text(json.dumps(start, ensure_ascii=False, indent=1))
+    print(f"wrote {OUT} ({OUT.stat().st_size / 1024:.0f} KB); formulas per tab {counts}; named ranges {len(all_names)}; and {START.name}")
 
 
 if __name__ == "__main__":
