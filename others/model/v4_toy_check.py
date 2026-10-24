@@ -53,13 +53,30 @@ OUT = T / "v4_toy_check.csv"
 M = op.M                      # 96 months / ages
 CR = op.CR
 PFX = "v_"                    # every v4 named range starts with this (no clash with the old tabs' 430 names)
-RUN_DATE = "22 Oct 2026"
+RUN_DATE = "24 Oct 2026"
 LEVELS = (20000, 150000)
 LAG_HOLD = 6                  # months: holdings' calendar factor lag (sheet-only calibration; see main() sweep)
 LATER_LAG = {"ins": 12, "bonus": 24}   # renewals 12 months after take-up (the first renewal); Choti paid at month 24
 
+# 24 Oct (founders): the sheet is built on the main case, the LTV/CAC Monte Carlo's median (online_plan.use_main_case(), model/ltv_odds.py)
+MAIN_T = op.use_main_case()
+IN = op.in_force()
 X_ON = op.saver_inputs()
 X_DO = op.saver_inputs(doorstep=True)
+MC_NOTE = f"MAIN CASE, {MAIN_T:.0%} of the way from today's market to our target: "
+MC_BASIS = {  # sheet input -> where its main-case value sits (model/ltv_odds.py INPUTS; market = the middle of the 2024-26 evidence)
+    "on_r12": "market 35% (savings apps 24% to a credit hook 45%), target 38% (SBI MF's ₹250 daily SIP)",
+    "churn_late": "market 2.5% a month (1-4% after the first year), target 1.5% (agreed)",
+    "takeup_growth": "market no rise (no source found), target +5% a year (agreed)",
+    "approval_growth": "market no rise (no source found), target +10% a year (agreed)",
+    "apply": "market 20% of reachable users apply for any loan a year (1-5% of app users borrow), target 35% (operator 21 Oct); 70% of it personal or business",
+    "approved_first": "market 20% (an app lender approves 11% of new applicants), target 30% (operator 21 Oct)",
+    "approved_repeat": "market 74% (repeat customers at an app lender), target 70% (operator 21 Oct)",
+    "ticket": "market ₹50,000 (first loans ₹5-25k, digital lenders ₹15k-1.2 lakh), target ₹3 lakh (founders 22 Oct)",
+    "fee_mult_end": "market flat (DSA rate cards 1-2.5%, no rise), target 1.5x by month 60 (agreed)",
+    "debt_trail": "market 0.10% (liquid funds), target 0.35% (agreed debt fund trail)",
+    "loan_reach": "market savers only (1; not measured anywhere), target 2.5 (5 sign-ups a saver, half complete KYC)",
+}
 X0 = op.X0
 INS = ce.INSURANCE
 
@@ -67,10 +84,10 @@ INS = ce.INSURANCE
 # ---------------------------------------------------------------- inputs: (key, label, unit, format, value, basis)
 def input_sections():
     seed_online = op.SEED_ONLINE
-    return [
+    return main_case_basis([
         ("Scenario (change these to play the plan)", [
             ("level", "Online savers won a month from month 30 (the plan level)", "savers a month", "inr", 20000.0,
-             "SCENARIO. 20,000 = the profitable path; 1,50,000 = grow fast (online_plan.py frontier; online_mc.py plans)"),
+             "SCENARIO. 20,000 = the profitable path, the main case's level; 1,50,000 = grow fast"),
             ("growth", "Savers won a month grow by this factor each year after month 30 (1.0 = flat)", "x a year", "mult", 1.0,
              "SCENARIO. Every case in online_plan.py runs flat (1.0)"),
             ("door_after", "Doorstep agents keep signing savers after the 18-month test (1 = yes, 0 = online only after month 18)",
@@ -127,7 +144,7 @@ def input_sections():
             ("eq_return", "Equity return a year, net", "a year", "pct", op.EQ_RETURN, "Our estimate (conservative)"),
             ("debt_return", "Debt fund return a year, net", "a year", "pct", op.DEBT_RETURN, "Agreed"),
             ("eq_trail", "Our trail on equity SIP balances", "a year", "pct2", op.EQ_TRAIL, "Agreed SIP commission 0.75%"),
-            ("debt_trail", "Our trail on debt fund balances", "a year", "pct2", op.DEBT_TRAIL, "Agreed debt fund trail 0.35%"),
+            ("debt_trail", "Our trail on debt fund balances", "a year", "pct2", IN.get("_debt_trail", op.DEBT_TRAIL), "Agreed debt fund trail 0.35%"),
             ("sip_takeup_debt", "SIP cross-sell take-up a year when the savings sit in a debt fund (equity share 0)", "a year", "pct",
              X0["sip_takeup"], "Agreed; 0 while the core balance IS the equity SIP"),
         ]),
@@ -163,7 +180,8 @@ def input_sections():
              "Founders 22 Oct: ₹3 lakh (research found smaller: digital personal loans ₹18.8k-70k, FACE/CRIF; merchant loans ₹50k-5 lakh, Paytm ~₹2 lakh)"),
             ("fee", "Our payout at the start: a DSA's rate", "of the loan", "pct3", X_ON["fee"], "DSA payouts 1-2.5% on personal and business loans (research 21 Oct)"),
             ("fee_mult_start", "Fee multiplier in month 1", "x", "mult", X_ON["fee_mult_start"], "Agreed"),
-            ("fee_mult_end", "Fee multiplier reached by month 60 (straight line, held after)", "x", "mult", X_ON["fee_mult_end"], "Agreed"),
+            ("fee_mult_end", "Fee multiplier reached by month 60 (straight line, held after)", "x", "mult",
+             1.0 + IN.get("_payout_rise", op.PAYOUT_RISE), "Agreed"),
             ("taken_back", "Fees taken back", "share", "pct", X_ON["taken_back"], "Agreed"),
             ("tenure", "Loan tenure (no new loan while one runs)", "months", "num0", X_ON["tenure"], "Personal and business loans run 12-24 months"),
             ("ticket_growth", "Next loan bigger for each year repaid (repeat loans and top-ups)", "a year", "pct", X_ON["ticket_growth"], "Agreed"),
@@ -238,18 +256,27 @@ def input_sections():
             ("aum_mult", "Lens 2: x AUM (average fund balance)", "x", "mult", 0.45, "OUR JUDGEMENT"),
             ("rs_per_usd", "Rupees a dollar", "₹ a $", "inr", op.FX, "Operator 21 Oct"),
         ]),
-    ]
+    ])
 
 
 # inputs placed after the product table (added 21 Oct), so no earlier row or named range moves
 EXTRA_INPUTS = ("Loan marketplace and payments (added 21-22 Oct 2026)", [
     ("loan_reach", "KYC'd users who see loan offers per online saver won (5 sign-ups a saver, half complete KYC; doorstep counts 1)",
-     "people", "mult", op.LOAN_REACH, "Operator 21 Oct: offers to anyone KYC'd who opts in, from day 1, reachable as long as savers keep saving"),
+     "people", "mult", IN.get("_loan_reach", op.LOAN_REACH),
+     "Operator 21 Oct: offers to anyone KYC'd who opts in, from day 1, reachable as long as savers keep saving"),
     ("debit_cost", "Payment cost per debit", "₹ a debit", "inr1", op.DEBIT_COST,
      "The 2 Oct costing ₹2 base (₹0 to us through BSE StAR MF once confirmed; ₹5 list through a gateway)"),
     ("debits_month", "Debits a month per active saver (weekly until a daily SIP on one mandate is confirmed)", "debits a month", "f3",
      op.DEBITS_A_MONTH, "Founder 22 Oct: weekly (52 / 12) until BSE StAR MF and the fund houses confirm daily in writing"),
 ])
+
+
+def main_case_basis(sections):
+    """The main case's sheet inputs carry where they sit between today's market and our target."""
+    return [(sec, [(k, lab, u, f, val, MC_NOTE + MC_BASIS[k] if k in MC_BASIS else b) for k, lab, u, f, val, b in rows]) for sec, rows in sections]
+
+
+EXTRA_INPUTS = main_case_basis([EXTRA_INPUTS])[0]
 
 
 def base_inputs():
@@ -631,7 +658,7 @@ def check_per_active_exact(v):
 
 
 LEVER_MAP = {  # online_plan.LEVERS / main() cases -> the v4 Inputs cells that reproduce them (all at 80,000 a month)
-    "The plan": {},
+    "The main case": {},
     "24% still saving at a year (savings apps)": {"on_r12": 0.2415, "on_r3": 0.52},
     "45% still saving at a year": {"on_r12": 0.45},
     "Rs 200 a day": {"daily": 200.0},

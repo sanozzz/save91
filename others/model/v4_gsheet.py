@@ -1,5 +1,6 @@
 """Writes tables/v4_gsheet_spec.json: the v4 tabs of the Google Sheet (21 Oct 2026), the online-first plan of record
-(model/online_plan.py, company() and saver_inputs()), as live formulas plus value tabs.
+(model/online_plan.py, company() and saver_inputs()), as live formulas plus value tabs. Since 24 Oct the inputs are the main case,
+the LTV/CAC Monte Carlo's median (model/v4_toy_check.py calls online_plan.use_main_case(); model/ltv_odds.py).
 
   {"sheets": [{"title", "sheetId", "cells": {"A1": value or "=formula"}, "named_ranges": {name: "B3"}, "formats": {...}}],
    "_monthly_columns": {numpy key: column}, "_per_saver_columns": {...}, "_summary_live": {...}, "_yearly_live": {...}, "_meta": {...}}
@@ -22,6 +23,7 @@ import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
+import ltv_odds as lo  # noqa: E402
 import online_plan as op  # noqa: E402
 import toy_check as tc  # noqa: E402
 import v4_toy_check as vt  # noqa: E402
@@ -483,7 +485,7 @@ def summary_sheet(recon):
              "A2": "Plan level now (online savers won a month from month 30; change it on v4 Inputs)", "B2": f"={P}level",
              "A3": "Growth a year after month 30, now", "B3": f"={P}growth",
              "A4": ("Column E picks the Python value at your plan level when growth is 1.0. The gap (F, G) is meaningful only while every "
-                    "other blue input is at its 22 Oct value; the sheet's own error at those values is in the reconciliation below.")}
+                    "other blue input is at its main-case value; the sheet's own error at those values is in the reconciliation below.")}
     fm = {"number": {"B2": "#,##0", "B3": "0.00"}, "bold_rows": [1, 6], "freeze_rows": 0, "wrap_rows": [4, 6],
           "col_widths": {"A": 470, "B": 150, "C": 160, "D": 160, "E": 160, "F": 90, "G": 110, "H": 430}}
     hdr = ["Measure", "Sheet, live (current scenario)", "Python model, 20,000 a month (fixed)", "Python model, 1,50,000 a month (fixed)",
@@ -522,7 +524,7 @@ def summary_sheet(recon):
     yes_row = r
     # the reconciliation (values)
     r += 2
-    cells[f"A{r}"] = (f"Reconciliation at the 22 Oct inputs (model/v4_toy_check.py, tables/v4_toy_check.csv): the sheet's formulas "
+    cells[f"A{r}"] = (f"Reconciliation at the main case's inputs, {RUN_DATE} (model/v4_toy_check.py, tables/v4_toy_check.csv): the sheet's formulas "
                       "(numpy twin, replayed formula by formula) vs the Python model. Values, fixed.")
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
@@ -551,7 +553,7 @@ def summary_sheet(recon):
                       f"checks within target; worst revenue gap {max(abs(x['gap_pct']) for x in lev if 'Revenue' in x['measure']):.2%}, "
                       f"worst year-5 EBITDA gap {max(abs(x['gap']) for x in lev if 'EBITDA, year 5' in x['measure']):.2f} ₹ crore; "
                       + (lambda g: "profit month equal in every lever." if g == 0 else f"profit month within {g:.0f} of the model's in every lever.")(
-                          max(abs(x["gap"]) for x in lev if "month" in x["measure"])))
+                          max(abs(x["gap"]) for x in lev if "month" in x["measure"] and not isinstance(x["gap"], str))))
     fm["wrap_rows"].append(r)
     return {"title": "v4 Summary", "cells": cells, "named_ranges": {}, "formats": fm}, live, yes_row
 
@@ -576,7 +578,7 @@ def text(s):
 
 LVS = f"{op.LEVER_LEVEL:,}"
 LEVER_TRY = {
-    "The plan": f"Plan level {LVS}; every other input as on v4 Inputs",
+    "The main case": f"Plan level {LVS}; every other input as on v4 Inputs (the main case)",
     "24% still saving at a year (savings apps)": f"Plan level {LVS}; online still saving at month 12 24.15%, at month 3 52%",
     "45% still saving at a year": f"Plan level {LVS}; online still saving at month 12 45%",
     "Rs 200 a day": f"Plan level {LVS}; daily amount ₹200",
@@ -593,17 +595,17 @@ LEVER_TRY = {
 
 
 def levers_sheet(recon):
-    data = read("online_levers.csv")
+    data = read("ltv_main_levers.csv")
     cols = list(data[0])
     lev = [x for x in recon if str(x["case"]).startswith("lever")]
     worst = max(abs(x["gap_pct"]) for x in lev if "Revenue" in x["measure"])
-    pm = max(abs(x["gap"]) for x in lev if "month" in x["measure"])
+    pm = max(abs(x["gap"]) for x in lev if "month" in x["measure"] and not isinstance(x["gap"], str))
     missing = sorted(set(r["case"] for r in data) - set(LEVER_TRY))
     assert not missing, f"new lever rows with no 'try it live' text: {missing}"
-    cells = {"A1": (f"Levers at {LVS} online savers a month from month 30 (tables/online_levers.csv, model/online_plan.py, run {RUN_DATE}). "
-                    "Pasted values from the Python model; editing them changes nothing. To try one live, type the inputs in the last "
-                    f"column into v4 Inputs: the sheet reproduces every lever within {worst:.2%} on revenue and "
-                    f"{'the same profit month' if pm == 0 else f'the profit month within {pm:.0f}'} (tables/v4_toy_check.csv).")}
+    cells = {"A1": (f"Levers around the main case at {LVS} online savers a month from month 30 (tables/ltv_main_levers.csv, model/ltv_odds.py, "
+                    f"run {RUN_DATE}): one change at a time on top of the main case. Pasted values from the Python model; editing them changes nothing. "
+                    "To try one live, type the inputs in the last column into v4 Inputs: the sheet reproduces every lever within "
+                    f"{worst:.2%} on revenue and {'the same profit month' if pm == 0 else f'the profit month within {pm:.0f}'} (tables/v4_toy_check.csv).")}
     fm = {"number": {}, "bold_rows": [1, 2], "freeze_rows": 2, "freeze_cols": 1, "wrap_rows": [1, 2],
           "col_widths": {"A": 330, col(len(cols) + 1): 520}}
     for j, h in enumerate(cols + ["Try it live on v4 Inputs"]):
@@ -613,90 +615,95 @@ def levers_sheet(recon):
             val = row[c_]
             cells[f"{col(j + 1)}{i}"] = (text(val) if j == 0 else ("yes" if val == "True" else "no" if val == "False" else num(val)))
         cells[f"{col(len(cols) + 1)}{i}"] = LEVER_TRY.get(row["case"], "")
-    r = len(data) + 4
-    cells[f"A{r}"] = "The plan-level frontier (tables/online_frontier.csv): every level flat from month 30; the scenario cell on v4 Inputs plays these"
-    fm["bold_rows"].append(r)
-    fr = read("online_frontier.csv")
-    fcols = list(fr[0])
-    r += 1
-    for j, h in enumerate(fcols):
-        cells[f"{col(j + 1)}{r}"] = text(h)
-    fm["bold_rows"].append(r)
-    fm["wrap_rows"].append(r)
-    for i, row in enumerate(fr, start=r + 1):
-        for j, c_ in enumerate(fcols):
-            val = row[c_]
-            cells[f"{col(j + 1)}{i}"] = (text(val) if j == 0 else ("yes" if val == "True" else "no" if val == "False" else num(val)))
-    r2 = r + len(fr) + 2
-    cap = read("online_capture.csv")[0]
-    cells[f"A{r2}"] = "Capture 10 crore savers by month 96 (a third of a 30 crore segment; tables/online_capture.csv)"
-    fm["bold_rows"].append(r2)
-    for j, c_ in enumerate(fcols):
-        val = cap.get(c_, "")
-        cells[f"{col(j + 1)}{r2 + 1}"] = (text(val) if j == 0 else ("yes" if val == "True" else "no" if val == "False" else num(val) if val != "" else ""))
-    cells[f"{col(len(fcols) + 1)}{r2 + 1}"] = (f"Plan level {int(float(cap['online savers won a month (m30 on)'])):,}; pool 30,00,00,000; cap 33.33%. "
-                                              f"Needs ~1 in 3 sign-ups to start saving: at 1 in 5 it takes {float(cap['sign-ups needed at 1 in 5']) / 1e7:.0f} crore sign-ups")
-    fm["number"][f"B3:{col(len(cols))}{r2 + 1}"] = "#,##0.0##"
+    fm["number"][f"B3:{col(len(cols))}{len(data) + 2}"] = "#,##0.0##"
     return {"title": "v4 Levers", "cells": cells, "named_ranges": {}, "formats": fm}
 
 
+LADDER_COLS = [("rung", "Rung"), ("position (0 market, 1 targets)", "Share of the way from today's market to our target"),
+               ("LTV/CAC 5y", "Online LTV/CAC, 5 years"), ("chance of at least this", "Chance of at least this (share of the 1,000 draws)"),
+               ("EBITDA positive from month", "EBITDA positive from month (97 = not by month 96)"), ("money needed $M", "Money needed, $M"),
+               ("Y5 EBITDA Rs cr", "Year-5 EBITDA, ₹ crore"), ("cumulative EBITDA 8y Rs cr", "Cumulative EBITDA, 8 years, ₹ crore")]
+DRIVER_COLS = [("label", "Input"), ("median if at market", "Median LTV/CAC if the seed finds today's market"),
+               ("median if at target", "Median LTV/CAC if it finds our target"), ("chance >=3x if at market", "Chance of 3x: at market"),
+               ("chance >=3x if at target", "Chance of 3x: at target")]
+
+
 def mc_sheet():
-    summ = read("online_mc_summary.csv")
-    plans = [s for s in summ if s.get("online savers a month")]
-    savers = [s for s in summ if not s.get("online savers a month")]
-    cells = {"A1": (f"Monte Carlo of the Python model (model/online_mc.py, run {RUN_DATE}): 1,000 Latin-hypercube draws, seed 20261021; "
-                    "each draw runs both plans. Online ranges agreed 21 Oct, widened and linked 22 Oct (apply rate with 12-month retention, cost to "
-                    "win with reach; a stress test, not odds); every other input keeps its agreed 16 Oct distribution "
-                    "(tables/dist_agreed_v1.csv) and the bad-year copula. Pasted values, not live.")}
-    fm = {"number": {}, "bold_rows": [1, 3], "freeze_rows": 0, "wrap_rows": [1, 3], "col_widths": {"A": 420, "B": 160, "C": 160, "D": 160,
-                                                                                                 "E": 160, "F": 480}}
+    summ, lad, drv = read("ltv_odds_summary.csv"), read("ltv_ladder.csv"), read("ltv_odds_drivers.csv")
+    t = vt.MAIN_T
+    cells = {"A1": (f"The LTV/CAC Monte Carlo (model/ltv_odds.py, run {RUN_DATE}): 1,000 Latin-hypercube draws, seed {lo.SEED}. The cost to win is held "
+                    "at the plan (₹600 in the seed, ₹450 after, plus the 10% contingency): it is measured (founders, 23 Oct). Each of the ten unmeasured "
+                    "inputs that make a saver's value is drawn anywhere between today's market and our target, the six loan inputs moving together "
+                    f"(0.5). Each draw runs one online saver and the company at {lo.LEVEL:,} online savers a month. The main case on v4 Inputs is the "
+                    "median. Pasted values, not live.")}
+    fm = {"number": {}, "bold_rows": [1], "freeze_rows": 0, "wrap_rows": [1], "col_widths": {"A": 420, "B": 160, "C": 160, "D": 160, "E": 160,
+                                                                                         "F": 160, "G": 160, "H": 160}}
     r = 3
-    cells[f"A{r}"], cells[f"B{r}"], cells[f"C{r}"] = "Measure", text(plans[0]["plan"]), text(plans[1]["plan"])
-    r += 1
-    r0 = r
-    for k in [k for k in plans[0] if k not in ("plan",) and plans[0][k] not in ("", None)]:
-        cells[f"A{r}"] = text(k)
-        cells[f"B{r}"], cells[f"C{r}"] = num(plans[0][k]), num(plans[1][k])
-        fm["number"][f"B{r}:C{r}"] = "0.0%" if k.startswith("chance") else "#,##0.##"
-        r += 1
-    r += 1
-    cells.update({f"A{r}": "One saver, 60-month revenue (₹)", f"B{r}": "P10", f"C{r}": "P50", f"D{r}": "P90"})
+    cells.update({f"A{r}": "Across the 1,000 draws", f"B{r}": "P10 (bad)", f"C{r}": "P50 (middle)", f"D{r}": "P90 (good)"})
     fm["bold_rows"].append(r)
     r += 1
-    for s in savers:
-        cells.update({f"A{r}": text(s["plan"]), f"B{r}": num(s["P10"]), f"C{r}": num(s["P50"]), f"D{r}": num(s["P90"])})
-        fm["number"][f"B{r}:D{r}"] = "#,##0"
+    for x in summ:
+        cells[f"A{r}"] = text(x["measure"].replace(" (97 = not by 96)", " (97 = not by month 96)"))
+        if x["P10"] != "":
+            cells.update({f"B{r}": num(x["P10"]), f"C{r}": num(x["P50"]), f"D{r}": num(x["P90"])})
+            fm["number"][f"B{r}:D{r}"] = "#,##0.00"
+        else:
+            cells[f"C{r}"] = num(x["P50"])
+            fm["number"][f"C{r}"] = "0.0%"
         r += 1
     r += 1
-    cells[f"A{r}"] = "Online ranges drawn (tables/online_mc_inputs.csv; PERT low / likely / high)"
-    fm["bold_rows"].append(r)
-    r += 1
-    for j, h in enumerate(["Input", "Low", "Likely", "High", "Shape", "Basis"]):
-        cells[f"{col(j + 1)}{r}"] = h
-    fm["bold_rows"].append(r)
-    r += 1
-    for x in read("online_mc_inputs.csv"):
-        cells.update({f"A{r}": text(x["label"]), f"B{r}": num(x["low"]), f"C{r}": num(x["likely"]), f"D{r}": num(x["high"]),
-                      f"E{r}": x["shape"], f"F{r}": text(x["basis"])})
-        fm["number"][f"B{r}:D{r}"] = "#,##0.###"
-        r += 1
-    r += 1
-    cells[f"A{r}"] = ("What moves the answer (tables/online_mc_drivers.csv): Spearman rank correlation of each drawn input with money "
-                      "needed and year-5 EBITDA on the profitable path, sorted by the first. Below about 0.06 is noise at 1,000 draws.")
+    cells[f"A{r}"] = ("The company at each LTV/CAC (tables/ltv_ladder.csv): every unmeasured input the same share of the way from today's market to "
+                      "our target, solved for each LTV/CAC; the median row is the main case, 'Our targets' the top")
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
     r += 1
-    for j, h in enumerate(["Input", "Key", "Rank corr with money needed (profitable path)", "Rank corr with year-5 EBITDA (profitable path)"]):
+    for j, (_k, h) in enumerate(LADDER_COLS):
+        cells[f"{col(j + 1)}{r}"] = h
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    l0 = r
+    for x in lad:
+        for j, (k, _h) in enumerate(LADDER_COLS):
+            cells[f"{col(j + 1)}{r}"] = text(x[k]) if j == 0 else num(x[k])
+        r += 1
+    fm["number"][f"B{l0}:B{r - 1}"] = "0.0%"
+    fm["number"][f"C{l0}:C{r - 1}"] = "0.00"
+    fm["number"][f"D{l0}:D{r - 1}"] = "0.0%"
+    fm["number"][f"F{l0}:H{r - 1}"] = "#,##0.0"
+    r += 1
+    cells[f"A{r}"] = f"The ten inputs drawn (model/ltv_odds.py): today's market, the main case ({t:.0%} of the way) and our target"
+    fm["bold_rows"].append(r)
+    r += 1
+    for j, h in enumerate(["Input", "Key", "Today's market", "Main case", "Our target", "Moves with the loan inputs"]):
+        cells[f"{col(j + 1)}{r}"] = h
+    fm["bold_rows"].append(r)
+    r += 1
+    show = lambda v: "; ".join(f"{p.lstrip('_')} {v_:,.0f}" if abs(v_) >= 1000 else f"{p.lstrip('_')} {v_:.4g}" for p, v_ in v)
+    for k, (lab, params, loan) in lo.INPUTS.items():
+        mk = [(p, a) for p, (a, b) in params.items()]
+        tg = [(p, b) for p, (a, b) in params.items()]
+        md = [(p, a + (b - a) * t) for p, (a, b) in params.items()]
+        cells.update({f"A{r}": text(lab), f"B{r}": k, f"C{r}": show(mk), f"D{r}": show(md), f"E{r}": show(tg), f"F{r}": "yes" if loan else "no"})
+        r += 1
+    r += 1
+    cells[f"A{r}"] = ("What each measurement is worth (tables/ltv_odds_drivers.csv): the same 1,000 draws with one input fixed at today's market, "
+                      "then at our target; every other input still drawn")
+    fm["bold_rows"].append(r)
+    fm["wrap_rows"].append(r)
+    r += 1
+    for j, (_k, h) in enumerate(DRIVER_COLS):
         cells[f"{col(j + 1)}{r}"] = h
     fm["bold_rows"].append(r)
     fm["wrap_rows"].append(r)
     r += 1
     d0 = r
-    for x in read("online_mc_drivers.csv"):
-        cells.update({f"A{r}": text(x["label"]), f"B{r}": x["input"], f"C{r}": num(x["rank corr with money needed (profitable path)"]),
-                      f"D{r}": num(x["rank corr with Y5 EBITDA (profitable path)"])})
+    for x in drv:
+        for j, (k, _h) in enumerate(DRIVER_COLS):
+            cells[f"{col(j + 1)}{r}"] = text(x[k]) if j == 0 else num(x[k])
         r += 1
-    fm["number"][f"C{d0}:D{r - 1}"] = "+0.000;-0.000;0.000"
+    fm["number"][f"B{d0}:C{r - 1}"] = "0.00"
+    fm["number"][f"D{d0}:E{r - 1}"] = "0.0%"
     return {"title": "v4 Monte Carlo", "cells": cells, "named_ranges": {}, "formats": fm}
 
 
@@ -707,20 +714,24 @@ def readme_sheet(recon, counts, n_names):
     pct = lambda lv, ms: f"{g(lv, ms)['gap_pct']:+.2%}"
     yr_rev = max(abs(r["gap_pct"]) for r in recon if not str(r["case"]).startswith("lever") and r["measure"].startswith("Revenue, year"))
     L = [
-        ("v4: the online-first plan, live (corrected 22 Oct 2026)", "bold"),
-        ("The 'v4' tabs mirror the plan of record, model/online_plan.py (company() and saver_inputs()): savers won online pan-India "
-         "(₹100 a day, 80% equity SIP / 20% debt), 1 in 10 from doorstep agents in NCR, 96 months, 8 years. Built "
-         f"{RUN_DATE}.", ""),
+        (f"v4: the online-first plan, live (the main case, {RUN_DATE})", "bold"),
+        ("The 'v4' tabs mirror model/online_plan.py (company() and saver_inputs()) at the MAIN CASE: the median of the LTV/CAC Monte Carlo "
+         "(model/ltv_odds.py; founders 23-24 Oct: the cost to win is measured, the value of a saver is not). Every unmeasured loan and retention "
+         f"input sits {vt.MAIN_T:.0%} of the way from today's market to our target; our targets (LTV/CAC 7.7x) are the top of the ladder on "
+         "v4 Monte Carlo. Savers won online pan-India (₹100 a day, 80% equity SIP / 20% debt), 1 in 10 from doorstep agents in NCR, 96 months, "
+         f"8 years. Built {RUN_DATE}.", ""),
         ("22 OCT CORRECTIONS (critical review, founder's choices): a 10% contingency on the cost to win a saver; tech ₹4 a month per "
          "KYC'd user reached (savers and the KYC'd users who came with them), not ₹1 per saver; payments ₹2 a debit, weekly debits "
          "until BSE StAR MF confirms a daily SIP on one mandate; insurance a fixed referral fee, not counted (0); Choti, gold and other "
          "products not counted; 70% of gold-loan applications approved; the non-savers see gold, property and home loans only. "
-         "Each is an input on v4 Inputs. Every figure here is a plan with targets, not evidence.", ""),
-        ("LOAN MARKETPLACE (operator 21 Oct): loan offers go to anyone KYC'd who opts in, from day 1 (2.5 KYC'd users per online saver won: 5 sign-ups, "
-         "half finish KYC), reachable as long as savers keep saving; 35% apply for a loan a year (70% personal or business, 15% gold, "
-         "3% property, 2% home; 35% is a target, inside which the opt-in sits); 30% of first applications approved, 70% of repeats; DSA payouts (2% on personal and business loans, "
-         "rising to 3% by year 5). v4 Monthly 'loans to KYC'd users who never save' adds the non-savers' loans to revenue; the input "
-         "is at the end of v4 Inputs. v4 LTV shows one saver's waterfall live.", ""),
+         "Each is an input on v4 Inputs. The main case is not evidence either: the seed measures the ten unmeasured inputs.", ""),
+        ("LOAN MARKETPLACE (operator 21 Oct; main-case values, targets in brackets): loan offers go to anyone KYC'd who opts in, from day 1 "
+         f"({vt.IN['_loan_reach']:.2f} KYC'd users per online saver won (2.5: 5 sign-ups, half finish KYC)), reachable as long as savers keep "
+         f"saving; {vt.base_inputs()['apply'] / 0.7:.1%} apply for a loan a year (35%; 70% personal or business, 15% gold, 3% property, 2% home); "
+         f"{vt.X_ON['approved_first']:.1%} of first applications approved (30%), {vt.X_ON['approved_repeat']:.1%} of repeats (70%); personal and "
+         f"business loans ₹{vt.X_ON['ticket'] / 1e5:.2f} lakh (₹3 lakh); DSA payouts 2% rising to {2 * (1 + vt.IN['_payout_rise']):.2f}% by year 5 "
+         "(3%). v4 Monthly 'loans to KYC'd users who never save' adds the non-savers' loans to revenue; the input is at the end of v4 Inputs. "
+         "v4 LTV shows one saver's waterfall live.", ""),
         ("The OLDER tabs (Inputs, Per saver, Monthly, Summary, Assumptions, Monte Carlo, Sign-ups, Agent pay, Sensitivity and the "
          "Company / City tabs) are the SUPERSEDED street-fleet model of 16-18 Oct. They are HIDDEN since 22 Oct (View > Hidden sheets "
          "to see them); do not use them for the plan. No v4 formula reads them, and no v4 name clashes with theirs (every v4 name "
@@ -731,9 +742,9 @@ def readme_sheet(recon, counts, n_names):
          "(20,000 = the profitable path; 1,50,000 = grow fast), growth a year after month 30 (1.0 = flat; 1.2 = +20% a year), and "
          "doorstep after the 18-month test (1 = yes, 0 = online only). Per saver, Monthly, Yearly and Summary recalculate.", ""),
         ("2. Grey cells are worked out from the blue ones; do not type there, or anywhere on Per saver, Monthly or Yearly.", ""),
-        ("3. 'v4 Summary' puts the live answer next to the Python model's 22 Oct run at 20,000 and 1,50,000 a month (fixed values). "
-         "Column E picks the Python value at your plan level (growth 1.0); the gap is meaningful while the other inputs are at their "
-         "22 Oct values.", ""),
+        (f"3. 'v4 Summary' puts the live answer next to the Python model's {RUN_DATE} run at 20,000 and 1,50,000 a month (fixed values). "
+         "Column E picks the Python value at your plan level (growth 1.0); the gap is meaningful while the other inputs are at the "
+         "main case's values.", ""),
         ("4. To try a lever (v4 Levers), type the inputs in its last column into v4 Inputs; the sheet reproduces each lever.", ""),
         ("", ""),
         ("Tabs", "bold"),
@@ -747,8 +758,8 @@ def readme_sheet(recon, counts, n_names):
          "two lenses and each product's money.", ""),
         ("v4 Yearly: years 1-8 (SUMIFS on Monthly), ₹ crore.", ""),
         ("v4 Summary: the headline measures, live, next to the Python run; the reconciliation table.", ""),
-        ("v4 Levers, v4 Monte Carlo: pasted values from the Python model (tables/online_levers.csv, online_frontier.csv, "
-         f"online_mc_summary.csv, online_mc_drivers.csv, online_mc_inputs.csv), run {RUN_DATE}. They do not move.", ""),
+        ("v4 Levers, v4 Monte Carlo: pasted values from the Python model (tables/ltv_main_levers.csv, ltv_ladder.csv, "
+         f"ltv_odds_summary.csv, ltv_odds_drivers.csv), run {RUN_DATE}. They do not move.", ""),
         ("", ""),
         ("How the sheet works", "bold"),
         ("Per active saver: every line except 'still saving' is the same for the online and the doorstep saver (take-ups, loan states "
@@ -761,7 +772,8 @@ def readme_sheet(recon, counts, n_names):
          "the Choti bonus at month 24, monthly holdings for gold, recharge and bills).", ""),
         ("", ""),
         ("Simplifications (each measured against the Python model; model/v4_toy_check.py)", "bold"),
-        ("1. Calendar growth. In Python, take-up grows 5% and approval 10% each calendar year (held after year 5) and every month's "
+        (f"1. Calendar growth. In Python, take-up grows {vt.X_ON['takeup_growth']:.1%} and approval {vt.X_ON['approval_growth']:.1%} each "
+         "calendar year in the main case (held after year 5) and every month's "
          "cohort has its own profile. The sheet computes one profile at the held year (exact for every cohort from month 49) and "
          "scales each month by that month's factor relative to the held year: take-up for insurance and other products, take-up x "
          "approval for loan fees, cards, home loans and LAP.", ""),
@@ -776,7 +788,7 @@ def readme_sheet(recon, counts, n_names):
          "booked when earned but its cash 2 months later (comm_lag), so cash flow = PAT - revenue + cash received; money needed = "
          "the deepest cumulative cash hole + ₹5 crore. Both are blue inputs on v4 Inputs.", ""),
         ("", ""),
-        ("Reconciliation at the 22 Oct inputs (full table on v4 Summary and tables/v4_toy_check.csv)", "bold"),
+        (f"Reconciliation at the main case's inputs, {RUN_DATE} (full table on v4 Summary and tables/v4_toy_check.csv)", "bold"),
         (f"Revenue within {yr_rev:.2%} in every year at both levels. EBITDA year 5: "
          f"{g(20000, 'EBITDA, year 5 (Rs crore)')['sheet']:.3f} vs {g(20000, 'EBITDA, year 5 (Rs crore)')['python']:.3f} ₹ crore at "
          f"20,000 a month ({pct(20000, 'EBITDA, year 5 (Rs crore)')}); "

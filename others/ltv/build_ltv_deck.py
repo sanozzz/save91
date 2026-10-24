@@ -893,7 +893,7 @@ def fee_test():
     rows = [("Our targets", plan_fee, NAVY, x(ON["ltvcac"])),
             ("Needed for 3×, everything else at target", n3, TEAL, "3×"),
             ("Needed for 3× if fewer keep saving", m3, TEAL, "3×"),
-            ("The main case (the Monte Carlo median)", main_fee, NAVY3, x(main_x)),
+            ("The main case (the Monte Carlo median)", main_fee, NAVY3, f"{main_x:.2f}×"),
             ("Break-even, everything else at target", n1, AMBER, "1×"),
             ("Break-even if fewer keep saving", m1, AMBER, "1×"),
             ("Today's market, every input", mkt_fee, SLATE, x(mkt_x))]
@@ -916,7 +916,7 @@ def fee_test():
         ("Today's market", "On the largest payments and lending apps, 1–5% of users take a loan in a year and first loans are ₹5,000–25,000. "
                            "Nobody has measured savers who choose to see lender offers."),
         ("What the seed measures", "Month by month: the share of KYC'd users who opt in to offers, first loans per 100, the median approved loan, "
-                                   "and the fee lenders pay after clawbacks, in writing.")])
+                                   "and the fee lenders pay after refunds to lenders, in writing.")])
     title = (f"What has to be true: lenders pay us {rs(plan_fee)} per saver won at our targets and {rs(main_fee)} in the main case; "
              f"3× needs {rs(n3)}, break-even {rs(n1)}")
     src = (f"Lender fees per saver won: every loan referral fee from one online saver won and the KYC'd users who came with them, over five years, after "

@@ -59,6 +59,7 @@ X0 = ce.likely_inputs(ce.load_dists()[0])
 EQ_RETURN, DEBT_RETURN = 0.10, 0.07          # JUDGEMENT: equity 10% a year net (conservative); debt agreed 7%
 EQ_TRAIL, DEBT_TRAIL = X0["sip_comm"], X0["trail"]   # agreed: equity SIP commission 0.75%; debt fund 0.35%
 OV = {}                                       # lever overrides (what it takes); online saver only for r3 / r12
+MAIN = {}                                     # the main case under every lever (use_main_case()); empty = our targets
 DOOR = {"r3": 0.80, "r12": X0["r12"]}        # doorstep saver retention (agreed street); the Monte Carlo draws it
 
 
@@ -69,7 +70,7 @@ def saver_inputs(mix="80/20", doorstep=False):
         "daily": 100.0, "days": 20.0,                         # operator: Rs 100 a day; agreed ~20 debit days
         "rollover": 1.0,                                      # an SIP has no yearly term payout (the street product did)
         "fund_return": eq * EQ_RETURN + (1 - eq) * DEBT_RETURN,
-        "trail": eq * EQ_TRAIL + (1 - eq) * DEBT_TRAIL,
+        "trail": eq * EQ_TRAIL + (1 - eq) * in_force().get("_debt_trail", DEBT_TRAIL),   # the Monte Carlo draws the debt fund's trail
         "sip_takeup": 0.0 if eq else X0["sip_takeup"],        # the core balance IS the equity SIP in the 80/20 base
         # operator 21 Oct: online base 38% still saving at a year = SBI MF's Rs 250 daily SIP (first-time investors, no loans;
         # NG-033 / XO-05: 35.64% stopped at an average age of ~6 months -> a steady ~7% a month -> ~80% at month 3, ~38% at 12).
@@ -91,7 +92,7 @@ def saver_inputs(mix="80/20", doorstep=False):
         "kyc_cost": 0.0,                                      # inside the all-in CAC / the doorstep cost
         **OFF_PRODUCTS,
     })
-    x.update({k: v for k, v in OV.items() if not (doorstep and k in ("r12", "r3")) and not k.startswith("_")})
+    x.update({k: v for k, v in in_force().items() if not (doorstep and k in ("r12", "r3")) and not k.startswith("_")})
     return x
 
 
@@ -107,9 +108,29 @@ def profiles(x):
     return _CACHE[key]
 
 
+def in_force():
+    """The overrides in force: the main case (if set), then any lever on top."""
+    return {**MAIN, **OV}
+
+
+def use_main_case(on=True):
+    """Founders 23 Oct: the financials are built on the LTV/CAC Monte Carlo's median ("CAC is fairly sorted and measured while LTV
+    isn't"). Sets MAIN to every unmeasured input the median's share of the way from today's market to our target (tables/ltv_ladder.csv,
+    model/ltv_odds.py); on=False goes back to our targets. Returns that share."""
+    MAIN.clear()
+    _CACHE.clear()
+    if not on:
+        return 1.0
+    import ltv_odds                              # imported with MAIN empty, so its targets are ours
+    with (TAB / "ltv_ladder.csv").open() as f:
+        t = float(next(r for r in csv.DictReader(f) if r["rung"] == "Median")["position (0 market, 1 targets)"])
+    MAIN.update(ltv_odds.overrides(ltv_odds.at(t)))
+    return t
+
+
 def payout_mult():
     t = np.arange(1, M + 1)
-    return 1.0 + OV.get("_payout_rise", PAYOUT_RISE) * np.minimum(t - 1, 59) / 59
+    return 1.0 + in_force().get("_payout_rise", PAYOUT_RISE) * np.minimum(t - 1, 59) / 59
 
 
 def calendar(prof, won):
@@ -208,7 +229,7 @@ def company(level, growth=1.0, cac=CAC, seed_cac=SEED_CAC, mix="80/20", doorstep
     Con, Cdo = calendar(profiles(saver_inputs(mix)), on), calendar(profiles(saver_inputs(mix, True)), door)
     for k in ("rev_origination", "loans", "money_lent_new", *(f"rev_xs_{q}" for q in LOAN_REACH_XS)):
         if k in Con:
-            Con[k] = Con[k] * OV.get("_loan_reach", LOAN_REACH)  # KYC'd non-savers who came with the online saver also borrow
+            Con[k] = Con[k] * in_force().get("_loan_reach", LOAN_REACH)  # KYC'd non-savers who came with the online saver also borrow
     L = {k: Con[k] + Cdo[k] for k in LINES}
     t = np.arange(1, M + 1)
     fee_mult = payout_mult()                          # agreed: DSA rate to 1.5x by month 60, held after
@@ -230,7 +251,7 @@ def company(level, growth=1.0, cac=CAC, seed_cac=SEED_CAC, mix="80/20", doorstep
         rf = (1.07 ** ((tt - SEED_END - 1) // 12)) if tt > SEED_END else 1.0
         people[i] = sum(PAY[r] * n for r, n in h.items()) * rf
         heads[i] = sum(h.values())
-    reached = Con["still_saving"] * OV.get("_loan_reach", LOAN_REACH) + Cdo["still_saving"]   # KYC'd users who use the app
+    reached = Con["still_saving"] * in_force().get("_loan_reach", LOAN_REACH) + Cdo["still_saving"]   # KYC'd users who use the app
     tech = np.where(t <= 3, 1_500_000 / 3, 0) + 150000 + reached * TECH_PER_SAVER  # base_inputs + Rs 4 per KYC'd user reached
     payments = active * DEBIT_COST * DEBITS_A_MONTH
     office = np.where(t <= SEED_END, 75000, 150000 + heads * 10000)
@@ -305,7 +326,7 @@ def yearly(o):
 def unit_rows():
     rows = []
     door_cac = unit_rows_door_cac()
-    for nm, x, c, rch in (("Online saver", saver_inputs(), CAC, LOAN_REACH), ("Doorstep saver", saver_inputs(doorstep=True), door_cac, 1.0)):
+    for nm, x, c, rch in (("Online saver", saver_inputs(), CAC, in_force().get("_loan_reach", LOAN_REACH)), ("Doorstep saver", saver_inputs(doorstep=True), door_cac, 1.0)):
         d = ltv_parts(x, rch)
         p, inc, serve = d["_p"], d["income"], d["serving"]
         cum = np.cumsum(inc - serve)
@@ -332,7 +353,7 @@ def ltv_parts(x, reach=None):
     """One saver won, months 1-96: revenue by line and serving cost. Loans count every KYC'd user reached with the saver (online
     LOAN_REACH, doorstep 1) and the company's loan-fee ramp (1x to 1.5x by month 60; a month-1 joiner's age = the calendar month)."""
     p = profiles(x)
-    reach = OV.get("_loan_reach", LOAN_REACH) if reach is None else reach
+    reach = in_force().get("_loan_reach", LOAN_REACH) if reach is None else reach
     t = np.arange(1, M + 1)
     fee_mult = payout_mult()
     orig0 = p["rev_origination"][0]
@@ -359,10 +380,11 @@ def ltv_view(x, cac, months=60, reach=None):
                     "LTV/CAC 96m": round(cum[-1] / cac, 2), "pays back in month": pay or "after month 96"}
 
 
-def ltv_tables():
+def ltv_lines():
+    """One online and one doorstep saver won: the waterfall lines over 60 months and the cumulative net curve, months 0-96."""
     door_cac = unit_rows_door_cac()
     lines, curve = [], []
-    for nm, x, c, rch in (("Online saver", saver_inputs(), CAC, LOAN_REACH), ("Doorstep saver", saver_inputs(doorstep=True), door_cac, 1.0)):
+    for nm, x, c, rch in (("Online saver", saver_inputs(), CAC, in_force().get("_loan_reach", LOAN_REACH)), ("Doorstep saver", saver_inputs(doorstep=True), door_cac, 1.0)):
         d, cum, v = ltv_view(x, c, reach=rch)
         c = c * (1 + CONTINGENCY)
         lines.append({"saver": nm, "line": "Cost to win", "Rs over 60 months": -round(c)})
@@ -372,6 +394,11 @@ def ltv_tables():
         lines.append({"saver": nm, "line": "Net over 60 months", "Rs over 60 months": round(float(cum[59] - c))})
         for m in range(97):
             curve.append({"saver": nm, "month": m, "cumulative net Rs": round(float((cum[m - 1] if m else 0.0) - c), 1)})
+    return lines, curve
+
+
+def ltv_tables():
+    lines, curve = ltv_lines()
     write("online_ltv_waterfall.csv", lines)
     write("online_ltv_curve.csv", curve)
     rows = []
@@ -394,7 +421,7 @@ def loan_funnel_rows():
     p = profiles(x)
     t = np.arange(1, M + 1)
     fee_mult = payout_mult()
-    users = 100 * LOAN_REACH                                   # KYC'd users reached per 100 online savers won
+    users = 100 * in_force().get("_loan_reach", LOAN_REACH)          # KYC'd users reached per 100 online savers won
     n = 60
     rows = [{"stage": "sign-ups", "per 100 savers won": 100 * SIGNUPS_PER_SAVER},
             {"stage": "KYC'd users who see loan offers", "per 100 savers won": users},

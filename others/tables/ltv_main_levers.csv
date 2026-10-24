@@ -1,0 +1,14 @@
+case,online savers won a month (m30 on),growth a year,savers won by m60,active savers m60,AUM m60 Rs cr,Y5 revenue Rs cr,Y5 EBITDA Rs cr,Y8 revenue Rs cr,Y8 EBITDA Rs cr,EBITDA positive from month,money needed $M,20x ARR m60 Rs cr,0.45x AUM m60 Rs cr,$1B on both at m60
+The main case,20000,1.0,842168,351543,1001,22.6,-4.0,43.5,11.2,63,4.7,526,451,False
+24% still saving at a year (savings apps),20000,1.0,842168,259508,713,16.0,-7.9,30.7,2.7,81,5.8,372,321,False
+45% still saving at a year,20000,1.0,842168,394830,1182,26.2,-1.5,51.4,16.7,58,4.3,613,532,False
+Rs 200 a day,20000,1.0,842168,351543,2002,27.7,1.2,57.7,25.4,53,3.9,655,901,False
+Rs 300 a day,20000,1.0,842168,351543,3004,32.9,6.3,71.9,39.6,49,3.5,784,1352,False
+10% apply for a loan a year,20000,1.0,842168,351543,1001,12.7,-13.8,26.8,-5.5,after m96,9.2,302,451,False
+50% apply for a loan a year,20000,1.0,842168,351543,1001,36.6,10.0,67.7,35.5,45,2.9,846,451,False
+Loan offers to savers only,20000,1.0,842168,351543,1001,16.7,-8.8,33.6,2.9,82,6.2,392,451,False
+Credit-hungry: 45% stay + 50% apply,20000,1.0,842168,394830,1182,42.3,14.6,80.0,45.3,42,2.8,985,532,False
+Cost to win Rs 300,20000,1.0,842168,351543,1001,22.6,0.0,43.5,15.2,55,3.4,526,451,False
+Cost to win Rs 600 (our funnel),20000,1.0,842168,351543,1001,22.6,-8.1,43.5,7.0,73,6.4,526,451,False
+Debt-only funds,20000,1.0,842168,351543,981,19.2,-7.3,34.2,1.9,83,5.8,442,442,False
+Online only after m18,20000,1.0,759368,306905,868,20.4,-3.8,38.8,9.6,64,4.4,474,391,False

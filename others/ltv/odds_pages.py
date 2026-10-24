@@ -2,8 +2,6 @@
 (online/build_online_case.py): the odds, what proving each input buys, the company at each LTV/CAC (the ladder) and the main
 case's financials. Numbers: tables/ltv_odds_*.csv and ltv_ladder*.csv (model/ltv_odds.py). Each page function returns
 (kicker, title, body, source); the deck puts it in its own page frame."""
-import math
-
 import numpy as np
 import pandas as pd
 
@@ -22,12 +20,27 @@ LAD = pd.read_csv(ld.TAB / "ltv_ladder.csv").set_index("rung")
 LADY = pd.read_csv(ld.TAB / "ltv_ladder_yearly.csv")
 L = DRAWS["ltv_cac"]
 MED, P1, P3 = float(L.median()), float((L >= 1).mean()), float((L >= 3).mean())
+XMED = f"{MED:.2f}×"          # the main case to two decimals: the live sheet's own 1.7515 and the model's 1.7495 both read 1.75
 MAIN, TOP = LAD.loc["Median"], LAD.loc["Our targets"]
 T_MAIN = float(MAIN["position (0 market, 1 targets)"])
 CAC = op.CAC * (1 + op.CONTINGENCY)
 N_IN = len(lo.INPUTS)
 assert abs(float(MAIN["LTV/CAC 5y"]) - MED) < 0.01, (MAIN["LTV/CAC 5y"], MED)
 assert abs(float(TOP["LTV/CAC 5y"]) - ld.ON["ltvcac"]) < 0.01, (TOP["LTV/CAC 5y"], ld.ON["ltvcac"])
+
+
+# where each market value comes from (reviews/2026-10-23_ltv_cac_check/evidence.md), shared with the decks' input tables
+SOURCE = {"ticket": "first loans ₹5,000–25,000; digital lenders ₹15,000–1.2 lakh (bureau, FACE)",
+          "apply": "1–5% of app users borrow a year (Paytm, Kissht, PhonePe filings)",
+          "reach": "not measured anywhere",
+          "keep": "24–45% at a year; 1–4% a month after",
+          "approved": "11% of new applicants at an app lender (prospectus)",
+          "rises": "no source found",
+          "home_lap": "mass-market lenders ₹10–15 lakh / ₹3–10 lakh",
+          "payout": "rate cards 1–2.5%, flat",
+          "trail": "0.50–0.88% equity, 0.08–0.50% debt",
+          "repeat": "74% of repeat customers at an app lender"}
+assert set(SOURCE) == set(lo.INPUTS)
 
 
 def month(m):
@@ -41,7 +54,7 @@ def usd(v):
 
 def cr(v):
     v = float(v)
-    return f"{'−' if v < 0 else ''}₹{abs(v):,.0f} Cr" if abs(v) >= 10 else f"{'−' if v < 0 else ''}₹{abs(v):.1f} Cr"
+    return f"{'−' if v < 0 else ''}₹{abs(v):,.0f} Cr" if abs(v) >= 10 else f"{'−' if v < 0 else ''}₹{abs(v):.2f} Cr"
 
 
 def lakh(v):
@@ -66,7 +79,7 @@ def val(k, t):
     if k == "keep":
         return f"{v['r12']:.0%}, then {v['churn_late']:.1%} stop a month"
     if k == "trail":
-        return pct(v["trail"], 2)
+        return pct(0.8 * op.EQ_TRAIL + 0.2 * v["_debt_trail"], 2)
     raise KeyError(k)
 
 
@@ -86,7 +99,7 @@ def odds_svg(W=1100, H=300):
     for v in range(0, 9):
         out.append(T(X(v), bot + 18, f"{v}×", 11.5, 600, SLATE, "middle"))
     out.append(T(x1, bot + 36, "online LTV/CAC over five years, 1,000 what-ifs", 11.5, 600, SLATE, "end"))
-    for v, lab, col, dash in ((MED, f"median {x(MED)}", NAVY, ""), (3.0, "3×", SLATE, ' stroke-dasharray="4 4"')):
+    for v, lab, col, dash in ((MED, f"median {XMED}", NAVY, ""), (3.0, "3×", SLATE, ' stroke-dasharray="4 4"')):
         out.append(f'<line x1="{X(v):.1f}" y1="{top - 6}" x2="{X(v):.1f}" y2="{bot}" stroke="{col}" stroke-width="2"{dash}/>')
         out.append(T(X(v) + 6, top + 4, lab, 13, 800, col))
     tv = float(TOP["LTV/CAC 5y"])
@@ -99,7 +112,7 @@ def odds_svg(W=1100, H=300):
 
 
 def p_odds():
-    title = (f"With the cost to win fixed at {rs(CAC)}, the median saver returns {x(MED)}; {P3:.0%} of the what-ifs reach 3× and "
+    title = (f"With the cost to win fixed at {rs(CAC)}, the median saver returns {XMED}; {P3:.0%} of the what-ifs reach 3× and "
              f"{1 - P1:.0%} do not pay back in five years")
     body = odds_svg() + chips([
         ("Cost to win is known", f"₹{op.SEED_CAC:.0f} in the seed and {rs(op.CAC)} after, measured on our own funnel, plus our 10% contingency. "
@@ -107,7 +120,7 @@ def p_odds():
         ("The value is not", f"Each of {N_IN} unmeasured inputs is equally likely anywhere between today's market and our target. "
                              "Loan inputs move together: savers who want credit apply more, borrow more and are approved more."),
         (f"{x(float(TOP['LTV/CAC 5y']))} is the top corner", "It needs every input at its target at the same time. None of the 1,000 what-ifs gets "
-                                                            f"there; the best tenth reach {math.floor(float(np.percentile(L, 90)) * 10) / 10:.1f}× or more.")])
+                                                            f"there; the best tenth reach {x(float(np.percentile(L, 90)))} or more.")])
     return ("THE ODDS", title, body,
             "A Monte Carlo: 1,000 random what-ifs, the loan inputs moving together. Market values: the middle of the 2024–26 evidence. "
             "LTV/CAC: revenue less serving over 60 months, divided by the cost to win; undiscounted.")
@@ -133,7 +146,7 @@ def prove_svg(W=1100):
         if b - a > 0.035:
             out.append(T(X(a) - 10, y + 19, f"{a:.0%}", 12, 800, LATE, "end") + T(X(b) + 10, y + 19, f"{b:.0%}", 12, 800, TEAL))
         else:
-            out.append(T(X(max(a, b)) + 12, y + 19, f"about {b:.0%} either way", 11.5, 700, SLATE))
+            out.append(T(X(max(a, b)) + 12, y + 19, f"{min(a, b):.0%}–{max(a, b):.0%}: hardly moves it", 11.5, 700, SLATE))
         y += rh
     out.append(f'<line x1="{X(P3):.1f}" y1="18" x2="{X(P3):.1f}" y2="{y}" stroke="{NAVY}" stroke-width="1.5" stroke-dasharray="4 4"/>')
     out.append(T(X(P3), y + 14, f"not yet measured: {P3:.0%}", 11.5, 700, NAVY, "middle"))
@@ -169,7 +182,7 @@ def ladder_svg(W=1100):
         lv = float(r["LTV/CAC 5y"])
         col = NAVY if main else (LATE if lv < 1 - 1e-6 else (SLATE if lv < 3 - 1e-6 else TEAL))
         chance = {"Our targets": "every target at once", "Today's market": "every input at market"}.get(k, f"chance {float(r['chance of at least this']):.0%}")
-        out.append(T(0, y + 23, x(lv), 18, 800, col) + T(62, y + 16, name, 13, 700, NAVY if main else INK)
+        out.append(T(0, y + 23, XMED if main else x(lv), 18, 800, col) + T(62, y + 16, name, 13, 700, NAVY if main else INK)
                    + T(62, y + (30 if name else 23), chance, 11.5, 500, SLATE))
         w = (xb1 - xb0) * float(r["money needed $M"]) / mx
         ink = NAVY if main else INK
@@ -182,13 +195,13 @@ def ladder_svg(W=1100):
 
 def p_ladder():
     t3 = LAD.loc["3×"]
-    title = (f"At the median {x(MED)} EBITDA turns positive in {month(MAIN['EBITDA positive from month'])} on {usd(MAIN['money needed $M'])}; "
+    title = (f"At the median {XMED} EBITDA turns positive in {month(MAIN['EBITDA positive from month'])} on {usd(MAIN['money needed $M'])}; "
              f"at 3×, {month(t3['EBITDA positive from month'])} on {usd(t3['money needed $M'])}; at our targets, {month(TOP['EBITDA positive from month'])} "
              f"on {usd(TOP['money needed $M'])}")
     body = ladder_svg() + chips([
         ("One plan, many outcomes", f"Every row is the same company: {lo.LEVEL:,} online savers a month from month 30, the same team and the same cost to win. "
                                     "Only the value of a saver changes."),
-        ("The main case", f"Every unmeasured input {T_MAIN:.0%} of the way from today's market to our target gives the median, {x(MED)}. "
+        ("The main case", f"Every unmeasured input {T_MAIN:.0%} of the way from today's market to our target gives the median, {XMED}. "
                           "The financials are built on it."),
         ("What the seed buys", f"Which row we are on. The next round (money needed less the $0.5M seed) is about "
                                f"{usd(float(MAIN['money needed $M']) - 0.5)} at the median and {usd(float(t3['money needed $M']) - 0.5)} at 3×.")])
@@ -238,13 +251,13 @@ def p_financials():
              ("Team and other costs, ₹ Cr", [-(a + b) for a, b in zip(g("Team Rs cr"), g("Other costs Rs cr"))], "{:.1f}"),
              ("<b>EBITDA, ₹ Cr</b>", g("EBITDA Rs cr"), "<b>{:.1f}</b>"),
              ("Cumulative EBITDA, ₹ Cr", list(np.cumsum(g("EBITDA Rs cr"))), "{:.1f}")]
-    rows = [[lab] + [f.format(v).replace("-", "−") for v in vs] for lab, vs, f in lines]
+    rows = [[lab] + [f.replace(".1f", ".2f" if "Cr" in lab else ".1f").format(v).replace("-", "−") for v in vs] for lab, vs, f in lines]
     tb = table([""] + [f"Y{y}" for y in yrs], rows, [32] + [68 / 8] * 8, 11.5, compact=True)
     ins = "".join(f'<tr><td>{a}</td><td><b>{b}</b></td><td style="color:{SLATE}">{c}</td></tr>' for a, b, c in main_inputs())
     box = (f'<div style="font-size:11px;font-weight:700;letter-spacing:1px;color:{SLATE};margin-bottom:4px">THE MAIN CASE\'S INPUTS, OUR TARGET IN GREY</div>'
            f'<table class="at compact" style="font-size:11px"><colgroup><col style="width:46%"><col style="width:28%"><col style="width:26%"></colgroup>{ins}</table>')
     body = two(ebitda_svg(y_), box, 560) + f'<div style="margin-top:14px">{tb}</div>'
-    title = (f"The main case, {x(MED)}: EBITDA turns positive in {month(m['EBITDA positive from month'])}, the company needs {usd(m['money needed $M'])} "
+    title = (f"The main case, {XMED}: EBITDA turns positive in {month(m['EBITDA positive from month'])}, the company needs {usd(m['money needed $M'])} "
              f"in all, and 8 years add up to {cr(m['cumulative EBITDA 8y Rs cr'])}")
     return ("THE FINANCIALS", title, body,
             f"{lo.LEVEL:,} online savers a month from month 30 after the seed, 1 in 10 from the doorstep; cost to win ₹{op.SEED_CAC:.0f} in the seed and "

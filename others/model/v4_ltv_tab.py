@@ -51,9 +51,9 @@ def cells():
     c["A2"] = ("Every number on this tab recalculates from the blue cells on v4 Inputs, through v4 Per saver and v4 Monthly. A saver who joins in month 1, "
                "each month at that month's calendar take-up and approval factors (as v4 Monthly). Revenue is undiscounted; serving = support, tech for every KYC'd user "
                "reached and payments (debit cost x debits a month); the cost to win includes the 10% contingency; the company's fixed costs (team, office, brand) "
-               "are not in this view. Columns G-I: the Python model of 22 Oct (fixed values).")
+               "are not in this view. Columns G-I: the Python model at the main case, 24 Oct (fixed values).")
     head = ["Line (₹ per saver won)", "Online saver, 5 years", "Doorstep saver, 5 years", "Online saver, 8 years", "Doorstep saver, 8 years", None,
-            "Python model: online, 5 years (22 Oct, fixed)", "Python model: doorstep, 5 years (22 Oct, fixed)", "Gap, online (sheet - Python)"]
+            "Python model: online, 5 years (main case, 24 Oct, fixed)", "Python model: doorstep, 5 years (main case, 24 Oct, fixed)", "Gap, online (sheet - Python)"]
     for j, h in enumerate(head):
         if h:
             c[f"{col(j)}4"] = h
@@ -94,15 +94,8 @@ def cells():
     c["B20"] = "=v_cac_rs*(1+v_contingency)"
     c["C20"] = "=IFERROR(SUMPRODUCT((v_month>=31)*v_door_cost)/SUMPRODUCT((v_month>=31)*v_door_won),v_door_cac)*(1+v_contingency)"
     # Python, fixed
-    W = {}
-    with (T / "online_ltv_waterfall.csv").open() as f:
-        for row in csv.DictReader(f):
-            W[(row["saver"], row["line"])] = float(row["Rs over 60 months"])
-    lv = {}
-    with (T / "online_ltv_levers.csv").open() as f:
-        for row in csv.DictReader(f):
-            if row["case"] == "The plan":
-                lv = row
+    W = {(row["saver"], row["line"]): float(row["Rs over 60 months"]) for row in vt.op.ltv_lines()[0]}   # the main case (vt sets it)
+    lv = vt.op.ltv_view(vt.op.saver_inputs(), vt.op.CAC)[2]
     py_lines = ["Cost to win", "Fund fees", "Loans (all referrals)", "Insurance", "Cards", "Other products", "Serving (support + tech)", "Net over 60 months"]
     for i, ln in enumerate(py_lines):
         r = 5 + i
@@ -232,7 +225,7 @@ def finish():
 
 
 def twin():
-    """The values the live tab must show at the 22 Oct inputs (numpy twin of every v4 formula)."""
+    """The values the live tab must show at the main case's inputs (numpy twin of every v4 formula)."""
     v = vt.base_inputs()
     ps, m = vt.sheet(v)
     t = np.arange(1, 97)

@@ -12,7 +12,10 @@ savers a month from month 30).
 The ladder (founders' choice, 23 Oct: "ladder by LTV/CAC"): every input the same share of the way from market to target, solved
 for each LTV/CAC rung, then run through the company. The Monte Carlo median rung is the main case for the financials.
 
-Writes tables/ltv_odds_draws.csv, ltv_odds_summary.csv, ltv_odds_drivers.csv, ltv_ladder.csv, ltv_ladder_yearly.csv."""
+Around the main case (online_plan.use_main_case()): the plan's one-at-a-time levers and the loan funnel, for the v4 plan deck.
+
+Writes tables/ltv_odds_draws.csv, ltv_odds_summary.csv, ltv_odds_drivers.csv, ltv_ladder.csv, ltv_ladder_yearly.csv,
+ltv_main_levers.csv, ltv_main_funnel.csv."""
 import csv
 
 import numpy as np
@@ -38,7 +41,7 @@ INPUTS = {
                                                  "loan_lap_ticket": (5e5, X["loan_lap_ticket"])}, True),
     "payout": ("Lender payout rising by year 5", {"_payout_rise": (0.0, op.PAYOUT_RISE)}, False),
     "keep": ("Still saving after a year, and after", {"r12": (0.35, X["r12"]), "churn_late": (0.025, X["churn_late"])}, False),
-    "trail": ("Our share of fund fees", {"trail": (0.0062, X["trail"])}, False),
+    "trail": ("Our share of fund fees", {"_debt_trail": (0.0010, op.DEBT_TRAIL)}, False),   # 80/20 blend 0.62% -> 0.67%; debt-only follows
     "repeat": ("Repeat applications approved", {"approved_repeat": (0.735, X["approved_repeat"])}, False),
 }
 KEYS = list(INPUTS)
@@ -124,6 +127,27 @@ def write(name, rows):
         w.writerows(rows)
 
 
+def main_tables():
+    """The plan's levers (online_plan.LEVERS, the two costs to win, debt-only funds, online only) and the loan funnel, around the main case."""
+    op.use_main_case()
+    try:
+        lev = []
+        for nm, ov in op.LEVERS:
+            op.OV.clear()
+            op.OV.update(ov)
+            lev.append(op.row(op.company(LEVEL, 1.0, name="The main case" if nm == "The plan" else nm)))
+        op.OV.clear()
+        for nm, cac in (("Cost to win Rs 300", 300.0), ("Cost to win Rs 600 (our funnel)", 600.0)):
+            lev.append(op.row(op.company(LEVEL, 1.0, cac=cac, name=nm)))
+        lev.append(op.row(op.company(LEVEL, 1.0, mix="debt", name="Debt-only funds")))
+        lev.append(op.row(op.company(LEVEL, 1.0, doorstep_after=False, name="Online only after m18")))
+        write("ltv_main_levers.csv", lev)
+        write("ltv_main_funnel.csv", op.loan_funnel_rows())
+    finally:
+        op.OV.clear()
+        op.use_main_case(False)
+
+
 def main():
     u = sample()
     draws = []
@@ -187,6 +211,7 @@ def main():
         yearly += [{"rung": name, **r} for r in op.yearly(o)]
     write("ltv_ladder.csv", ladder)
     write("ltv_ladder_yearly.csv", yearly)
+    main_tables()
 
     for s in summ:
         print(s)

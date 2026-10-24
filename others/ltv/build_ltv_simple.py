@@ -26,31 +26,26 @@ lo = od.lo
 assert abs(lo.saver(lo.at(1.0))["ltv_cac"] - ON["ltvcac"]) < 0.01, (lo.saver(lo.at(1.0)), ON["ltvcac"])   # the same engine as the plan
 
 # One assumption at a time, the cost to win held (it is measured): (name, ours, today's market, the Monte Carlo input, inside the
-# evidence?, short source). Market values are model/ltv_odds.py's, so this page and the Monte Carlo cannot drift apart.
-ONE = [("Average personal or business loan", short_rs(X["ticket"], "rs"), "₹50,000", "ticket", False,
-        "first loans ₹5,000–25,000; digital lenders ₹15,000–1.2 lakh (bureau, FACE)"),
-       ("Share of reachable users who apply, a year", pct(op.LOAN_APPLY), "20%", "apply", False,
-        "1–5% of app users borrow a year (Paytm, Kissht, PhonePe filings)"),
-       ("Loan offers to KYC'd users who never save", f"{REACH - 1:.1f} per saver", "savers only (not measured)", "reach", False, "not measured anywhere"),
-       ("Still saving after a year, and after", f"{X['r12']:.0%}, then 1.5% stop a month", "35%, then 2.5%", "keep", True,
-        "24–45% at a year; 1–4% a month after"),
-       ("First applications approved", pct(X["approved_first"]), "20%", "approved", False, "11% of new applicants at an app lender (prospectus)"),
-       ("Yearly rises in take-up and approvals", "+5% and +10% a year", "no rise (no source)", "rises", False, "no source found"),
-       ("Home and property loan size", f"{short_rs(X['loan_home_ticket'], 'rs')} / {short_rs(X['loan_lap_ticket'], 'rs')}", "₹12 lakh / ₹5 lakh",
-        "home_lap", False, "mass-market lenders ₹10–15 lakh / ₹3–10 lakh"),
-       ("Lender payout on personal and business loans", f"{pct(X['fee'])} rising to {pct(X['fee'] * 1.5)}", f"{pct(X['fee'])}, flat", "payout", False,
-        "rate cards 1–2.5%, flat"),
-       ("Our share of fund fees", pct(X["trail"], 2), "0.62%", "trail", True, "0.50–0.88% equity, 0.08–0.50% debt"),
-       ("Repeat applications approved", pct(X["approved_repeat"]), "74%", "repeat", True, "74% of repeat customers at an app lender")]
+# evidence?); the short source is odds_pages.SOURCE. Market values are model/ltv_odds.py's, so this page and the Monte Carlo cannot drift apart.
+ONE = [("Average personal or business loan", short_rs(X["ticket"], "rs"), "₹50,000", "ticket", False),
+       ("Share of reachable users who apply, a year", pct(op.LOAN_APPLY), "20%", "apply", False),
+       ("Loan offers to KYC'd users who never save", f"{REACH - 1:.1f} per saver", "savers only (not measured)", "reach", False),
+       ("Still saving after a year, and after", f"{X['r12']:.0%}, then 1.5% stop a month", "35%, then 2.5%", "keep", True),
+       ("First applications approved", pct(X["approved_first"]), "20%", "approved", False),
+       ("Yearly rises in take-up and approvals", "+5% and +10% a year", "no rise (no source)", "rises", False),
+       ("Home and property loan size", f"{short_rs(X['loan_home_ticket'], 'rs')} / {short_rs(X['loan_lap_ticket'], 'rs')}", "₹12 lakh / ₹5 lakh", "home_lap", False),
+       ("Lender payout on personal and business loans", f"{pct(X['fee'])} rising to {pct(X['fee'] * 1.5)}", f"{pct(X['fee'])}, flat", "payout", False),
+       ("Our share of fund fees", pct(X["trail"], 2), "0.62%", "trail", True),
+       ("Repeat applications approved", pct(X["approved_repeat"]), "74%", "repeat", True)]
 assert {r[3] for r in ONE} == set(lo.INPUTS), "every Monte Carlo input on the page"
-ONE = [(*r[:3], lo.saver({**lo.at(1.0), r[3]: 0.0})["ltv_cac"], *r[4:]) for r in ONE]   # -> (name, ours, market, LTV/CAC, inside, source)
+ONE = [(*r[:3], lo.saver({**lo.at(1.0), r[3]: 0.0})["ltv_cac"], r[4], od.SOURCE[r[3]]) for r in ONE]   # -> (name, ours, market, LTV/CAC, inside, source)
 ONE.sort(key=lambda r: r[3])
 
 
 def cover(n):
     mkt = float(od.LAD.loc["Today's market", "LTV/CAC 5y"])
     tiles = [(rs(CAC), "to win one online saver: measured,<br>held fixed (₹450 + our 10% contingency)"),
-             (x(od.MED), f"LTV/CAC in the main case, the median<br>of 1,000 draws; {od.P3:.0%} of them reach 3×"),
+             (od.XMED, f"LTV/CAC in the main case, the median<br>of 1,000 draws; {od.P3:.0%} of them reach 3×"),
              (x(ON["ltvcac"]), f"our target, not the main case: every<br>loan target holding, paid back in month {ON['pay']}")]
     t = "".join(f'<div class="ctile"><div class="cbig" style="font-size:40px">{a}</div><div class="csub" style="font-size:14px">{b}</div></div>' for a, b in tiles)
     return f"""<section class="page cover">
@@ -99,7 +94,7 @@ def p_money(n):
         ("Loans make the money", f"Lenders pay us a referral fee on every loan we bring: {rs(ON['pb'] + ON['ol'])} of the {rs(ON['rev'])} a saver brings in five years."),
         ("Saving pays its own way, just", f"Fund fees ({rs(ON['fund'])}) about cover the cost of serving a saver ({rs(-ON['serve'])}): support, tech and payments."),
         (f"{x(ON['ltvcac'])} is our target, not the main case", f"{rs(ON['ltv'])} back (revenue less serving) on {rs(CAC)} to win if every target holds. "
-                                                              f"With the unmeasured inputs drawn, the median is {x(od.MED)} (page 5).")])
+                                                              f"With the unmeasured inputs drawn, the median is {od.XMED} (page 5).")])
     return page(n, "At our targets", "HOW ONE SAVER MAKES MONEY",
                 f"At our targets, one online saver: {rs(CAC)} to win, {rs(ON['ltv'])} back in five years: {x(ON['ltvcac'])}", body,
                 "One online saver won, months 1–60, undiscounted. Net after the cost to win = LTV less the cost to win.")

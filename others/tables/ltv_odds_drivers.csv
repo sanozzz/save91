@@ -7,5 +7,5 @@ home_lap,Home and property loan size,loan_home_ticket 1.2e+06; loan_lap_ticket 5
 rises,Yearly rises in take-up and approvals,takeup_growth 0; approval_growth 0,takeup_growth 0.05; approval_growth 0.1,1.579,1.917,0.153,0.265,0.811,0.871,0.671
 approved,First applications approved,approved_first 0.2,approved_first 0.3,1.566,1.9,0.141,0.269,0.809,0.872,0.669
 payout,Lender payout rising by year 5,_payout_rise 0,_payout_rise 0.5,1.644,1.832,0.194,0.259,0.81,0.851,0.051
-trail,Our share of fund fees,trail 0.0062,trail 0.0067,1.717,1.787,0.224,0.239,0.813,0.847,-0.013
+trail,Our share of fund fees,_debt_trail 0.001,_debt_trail 0.0035,1.717,1.787,0.224,0.239,0.813,0.847,-0.013
 repeat,Repeat applications approved,approved_repeat 0.735,approved_repeat 0.7,1.751,1.746,0.231,0.229,0.836,0.836,-0.018

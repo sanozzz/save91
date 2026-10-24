@@ -86,7 +86,7 @@ def page(n, section, kicker, title, body, src=""):
 # ---------- 1 cover
 def cover():
     m, top = od.MAIN, od.TOP
-    tiles = [(f"{od.MED:.1f}× LTV/CAC", f"in the main case, the median of 1,000 draws: {od.rs(od.CAC)} to win (measured), {od.rs(float(m['LTV Rs']))} back over "
+    tiles = [(f"{od.XMED} LTV/CAC", f"in the main case, the median of 1,000 draws: {od.rs(od.CAC)} to win (measured), {od.rs(float(m['LTV Rs']))} back over "
                                         f"five years, paid back in month {int(m['saver pays back in month'])}"),
              (yr(m["EBITDA positive from month"]).capitalize() if int(m["EBITDA positive from month"]) <= 96 else "Not by year 8",
               f"EBITDA turns positive in the main case ({od.month(m['EBITDA positive from month'])}, {od.usd(m['money needed $M'])} raised in all, "
@@ -449,7 +449,7 @@ def unicorn():
     rows = UNIC.to_dict("records") + [dict(CAPR, case="Capture 10 crore savers")]
     mx = max(max(max(r["0.45x AUM m60 Rs cr"], r["20x ARR m60 Rs cr"]) for r in rows), UNI) * 1.04
     X = lambda v: (W - x0 - 230) * v / mx
-    names = {"The plan": "The plan", "Rs 300 a day": "₹300 a day", "Credit-hungry": "Savers who want credit",
+    names = {"The plan": "At our targets", "Rs 300 a day": "₹300 a day", "Credit-hungry": "Savers who want credit",
              "Credit-hungry + Rs 200 a day": "Want credit + ₹200 a day", "Credit-hungry + Rs 300 a day": "Want credit + ₹300 a day",
              "Capture 10 crore savers": "Capture 10 crore savers (12.4 lakh a month)"}
     s = [T(0, 14, "VALUE AT MONTH 60, ₹ CRORE: FIVE CASES AT 2.5 LAKH ONLINE SAVERS A MONTH, AND THE 10-CRORE PATH. $1B ONLY IF BOTH BARS CLEAR THE LINE", 11.5, 700, SLATE, ls=1.1)]
@@ -585,11 +585,11 @@ def p_main_saver(n):
     loans = dict(MAIN_ITEMS)["Loans (all referrals)"]
     body = f"""<div style="display:flex;gap:22px;align-items:flex-start"><div style="flex:0 0 680px">{wf}</div><div style="flex:0 0 450px">{payback_two()}</div></div>
 <div class="chips3" style="margin-top:2px">
-<div class="chip"><b>{od.MED:.1f}× in 5 years, {float(m['LTV/CAC 8y']):.1f}× in 8</b>LTV/CAC = what a saver brings in, less the cost of serving them, divided by the {od.rs(od.CAC)} it cost to win them. Undiscounted.</div>
+<div class="chip"><b>{od.XMED} in 5 years, {float(m['LTV/CAC 8y']):.1f}× in 8</b>LTV/CAC = what a saver brings in, less the cost of serving them, divided by the {od.rs(od.CAC)} it cost to win them. Undiscounted.</div>
 <div class="chip"><b>Loans are {loans / rev:.0%} of revenue</b>Lender fees of ₹{loans:,.0f} on top of ₹{dict(MAIN_ITEMS)['Fund fees']:,.0f} of fund fees. Saving alone about covers its serving cost; the loans make the return.</div>
 <div class="chip"><b>At our targets: {od.TOP['LTV/CAC 5y']:.1f}×</b>Paid back in month {TOP_V['pays back in month']} if every loan target holds at once. In the main case every input sits {od.T_MAIN:.0%} of the way from today's market to its target.</div></div>"""
     return page(n, "One saver", "LTV / CAC, THE MAIN CASE", f"A saver won online costs {od.rs(od.CAC)} and returns {od.rs(float(m['LTV Rs']))} over five years in the main case: "
-                f"{od.MED:.1f}× LTV/CAC, paid back in month {int(m['saver pays back in month'])}",
+                f"{od.XMED} LTV/CAC, paid back in month {int(m['saver pays back in month'])}",
                 body, f"Main case: every unmeasured input {od.T_MAIN:.0%} of the way from today's market to our target, which gives the Monte Carlo median. ₹100 a day; "
                       "80/20 equity and debt funds. Serving = ₹5 support, ₹4 tech for each KYC'd user reached and ₹2 a weekly debit, a month while saving; the cost "
                       "to win includes our 10% contingency. Not in this view: the company's fixed costs (team, office, brand).")
@@ -625,8 +625,8 @@ def p_seed_main(n):
              (f"${nxt_m:.1f}M or ${nxt_3:.1f}M", "the next round: in the main case, or if the seed proves 3×")]
     tl = "".join(f'<div class="kpi"><b>{a}</b><span>{b}</span></div>' for a, b in tiles)
     body = f'<div class="gates">{g}</div><div class="sub-h" style="margin-top:18px">HOW THE SEED GETS THERE</div><div class="kpis" style="grid-template-columns:repeat(4,1fr)">{tl}</div>' + \
-        ('<div class="rbox" style="margin-top:12px">The seed is not a profit plan. The cost to win is already measured; the seed buys the five measurements of what a '
-         'saver is worth, and they decide which row of the ladder the next round is raised on.</div>')
+        ('<div class="rbox" style="margin-top:10px">The seed is not a profit plan. The cost to win is measured; the seed buys five measurements of what a saver '
+         'is worth, and they decide the row of the ladder the next round is raised on.</div>')
     return page(n, "What the seed proves", "THE FIVE NUMBERS", f"The $0.5M seed measures the five numbers that decide LTV/CAC, and with it whether the next round is "
                 f"about ${nxt_m:.1f}M or ${nxt_3:.1f}M", body,
                 "Chance of 3×: the Monte Carlo with that one input fixed at today's market value, then at our target, every other input still drawn. Next round: "
