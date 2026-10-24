@@ -107,6 +107,11 @@ def profiles(x):
     return _CACHE[key]
 
 
+def payout_mult():
+    t = np.arange(1, M + 1)
+    return 1.0 + OV.get("_payout_rise", PAYOUT_RISE) * np.minimum(t - 1, 59) / 59
+
+
 def calendar(prof, won):
     out = {k: np.zeros(M) for k in LINES}
     for c in range(M):
@@ -127,6 +132,7 @@ SEED_ONLINE = 97200 * 0.5 * 0.4 / (SEED_END - LAUNCH + 1)     # seed plan at 90/
 DOOR_SHARE = 0.10
 TECH_PER_SAVER = 4.0               # Rs a month per KYC'd user reached (the 2 Oct costing; was Rs 1, our judgement)
 DEBIT_COST, DEBITS_A_MONTH = 2.0, 52 / 12   # weekly debits at Rs 2 (tri_costs base) until a daily SIP is confirmed in writing
+PAYOUT_RISE = 0.5                  # agreed: the DSA payout rises to 1.5x by month 60, held after (OV "_payout_rise" overrides)
 GOLD_APPROVAL = 0.70               # gold loans are secured; the lender's call (our assumption)
 OFF_PRODUCTS = {"ins_partner_share": 0.0, "choti_takeup": 0.0, "gold_takeup": 0.0}   # fixed insurance fee not counted; Choti, digital gold off
 # Loan marketplace (operator 21 Oct): loan offers go to ANYONE KYC'd from day 1, and a KYC'd user who never saves stays reachable
@@ -205,7 +211,7 @@ def company(level, growth=1.0, cac=CAC, seed_cac=SEED_CAC, mix="80/20", doorstep
             Con[k] = Con[k] * OV.get("_loan_reach", LOAN_REACH)  # KYC'd non-savers who came with the online saver also borrow
     L = {k: Con[k] + Cdo[k] for k in LINES}
     t = np.arange(1, M + 1)
-    fee_mult = 1.0 + 0.5 * np.minimum(t - 1, 59) / 59          # agreed: DSA rate to 1.5x by month 60, held after
+    fee_mult = payout_mult()                          # agreed: DSA rate to 1.5x by month 60, held after
     ins = ("hlth_small", "hlth_family", "life_term", "accident", "two_wheeler", "device", "shop")
     rev = {"Fund trail": L["rev_fund"], "Loan marketing fees": L["rev_origination"] * fee_mult, "Cards": L["rev_cards"],
            "Insurance": sum(L[f"rev_xs_{p}"] for p in ins),
@@ -328,7 +334,7 @@ def ltv_parts(x, reach=None):
     p = profiles(x)
     reach = OV.get("_loan_reach", LOAN_REACH) if reach is None else reach
     t = np.arange(1, M + 1)
-    fee_mult = 1.0 + 0.5 * np.minimum(t - 1, 59) / 59
+    fee_mult = payout_mult()
     orig0 = p["rev_origination"][0]
     xsl0 = sum(p[f"rev_xs_{q}"][0] for q in LOAN_XS)
     xsr0 = sum(p[f"rev_xs_{q}"][0] for q in LOAN_REACH_XS)
@@ -387,7 +393,7 @@ def loan_funnel_rows():
     x = saver_inputs()
     p = profiles(x)
     t = np.arange(1, M + 1)
-    fee_mult = 1.0 + 0.5 * np.minimum(t - 1, 59) / 59
+    fee_mult = payout_mult()
     users = 100 * LOAN_REACH                                   # KYC'd users reached per 100 online savers won
     n = 60
     rows = [{"stage": "sign-ups", "per 100 savers won": 100 * SIGNUPS_PER_SAVER},

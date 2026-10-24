@@ -1,0 +1,8 @@
+rung,"position (0 market, 1 targets)",LTV/CAC 5y,LTV/CAC 8y,LTV Rs,saver pays back in month,chance of at least this,EBITDA positive from month,cumulative EBITDA positive from month,money needed $M,Y5 revenue Rs cr,Y5 EBITDA Rs cr,Y8 EBITDA Rs cr,cumulative EBITDA 3y Rs cr,cumulative EBITDA 5y Rs cr,cumulative EBITDA 8y Rs cr,active savers m60
+Today's market,0.0,0.44,0.83,218,97,1.0,97,97,11.58,7.8,-17.3,-12.9,-23.6,-59.1,-102.1,335218
+1×,0.2958,1.0,1.65,495,61,0.836,97,97,8.11,14.1,-11.9,-3.1,-22.3,-49.2,-67.1,345155
+2×,0.5223,2.0,3.12,990,35,0.432,57,95,4.17,25.5,-1.2,16.2,-19.8,-29.7,2.6,353111
+Median,0.4784,1.749,2.75,866,39,0.5,63,97,4.68,22.6,-4.0,11.2,-20.4,-34.7,-15.3,351543
+3×,0.6587,3.0,4.64,1485,25,0.229,46,67,3.08,37.3,10.2,36.9,-17.4,-9.5,76.6,358055
+5×,0.8386,5.0,7.77,2475,16,0.028,37,49,2.27,61.8,34.1,80.6,-12.7,32.1,231.4,364757
+Our targets,1.0,7.703,12.16,3813,12,0.0,33,41,1.76,95.9,67.7,142.9,-6.4,89.6,449.6,370959

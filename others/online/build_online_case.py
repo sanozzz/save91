@@ -1,7 +1,10 @@
 """Online-first business case (21 Oct 2026). Landscape pages in the seed plan's design (seed/build_seed_plan.py CSS and
-helpers). Operator: revamp the numbers for online-first + offline test; base = the plan (evidence where it exists, targets with pass lines where not); both a
-profitable path and a unicorn track. Numbers: tables/online_*.csv (model/online_plan.py). Builds
-online/Online_business_case.html and .pdf."""
+helpers). Operator: revamp the numbers for online-first + offline test; both a profitable path and a unicorn track.
+23 Oct (founders): the financials are built around the LTV/CAC Monte Carlo ("CAC is fairly sorted and measured while LTV isn't"):
+one main case, the Monte Carlo median, plus the ladder of LTV/CAC rungs (model/ltv_odds.py, pages from ltv/odds_pages.py); the
+unicorn test stays as the upside at our targets. The plan-based pages (p_unit, p_ltv_levers, p_frontier, p_plans, p_levers, p_seed)
+stay here for the v4 plan deck (online/build_online_v4.py). Numbers: tables/online_*.csv (model/online_plan.py) and
+tables/ltv_odds_*.csv, ltv_ladder*.csv. Builds online/Online_business_case.html and .pdf."""
 import re
 import subprocess
 import sys
@@ -16,6 +19,7 @@ import build_seed_plan as sp  # noqa: E402  (CSS, colours and svg helpers)
 sys.path.insert(0, str(ROOT / "ltv"))
 sys.path.insert(0, str(ROOT / "model"))
 import build_ltv_deck as ld  # noqa: E402  (the lender-fee test page, shared with the LTV/CAC deck)
+import odds_pages as od  # noqa: E402  (the Monte Carlo pages, shared with the LTV/CAC deck)
 
 TAB = ROOT / "tables"
 INK, NAVY, TEAL, BLUE, AMBER, SLATE, MUTE, LINE, BG, RED = sp.INK, sp.NAVY, sp.TEAL, sp.BLUE, sp.AMBER, sp.SLATE, sp.MUTE, sp.LINE, sp.BG, sp.RED
@@ -81,23 +85,26 @@ def page(n, section, kicker, title, body, src=""):
 
 # ---------- 1 cover
 def cover():
-    keys = ("45% still saving at a year", "Rs 200 a day", "Rs 300 a day", "Cost to win Rs 300", "50% apply for a loan a year")
-    lo, hi = min(lm(k) for k in keys), max(lm(k) for k in keys)
-    tiles = [(f"{LV0['LTV/CAC 60m']:.1f}× LTV/CAC", f"if our loan targets hold. One online saver: ₹{int(LV0['cost to win Rs'])} to win, ₹{int(LV0['contribution 60m Rs']):,} back over five years, paid back in month {int(LV0['pays back in month'])}"),
-             (yr(LEAN['EBITDA positive from month']).capitalize(), f"EBITDA turns positive in the plan ({pf(LEAN['EBITDA positive from month'])}, ${LEAN['money needed $M']}M raised, 20,000 savers a month)"),
-             (f"Months {lo}–{hi}", f"with any one change: ₹200–300 a day, 45% still saving, half applying for loans or ₹300 to win ({LVS} savers a month)"),
-             (("$1B: 10 crore" if unicorn_title().startswith("Only capturing") else ("Not by year 5" if unicorn_title().startswith("No combination") else "$1B by year 5")), unicorn_title())]
+    m, top = od.MAIN, od.TOP
+    tiles = [(f"{od.MED:.1f}× LTV/CAC", f"in the main case, the median of 1,000 draws: {od.rs(od.CAC)} to win (measured), {od.rs(float(m['LTV Rs']))} back over "
+                                        f"five years, paid back in month {int(m['saver pays back in month'])}"),
+             (yr(m["EBITDA positive from month"]).capitalize() if int(m["EBITDA positive from month"]) <= 96 else "Not by year 8",
+              f"EBITDA turns positive in the main case ({od.month(m['EBITDA positive from month'])}, {od.usd(m['money needed $M'])} raised in all, "
+              f"{od.lo.LEVEL:,} savers a month)"),
+             (f"{od.P3:.0%} chance of 3×", f"and {od.P1:.0%} that a saver at least pays back in five years; the value of a saver is what we do not yet know"),
+             (f"{top['LTV/CAC 5y']:.1f}× at our targets", f"if every loan target holds: profit from {od.month(top['EBITDA positive from month'])} on "
+                                                         f"{od.usd(top['money needed $M'])}. The seed finds out which we are nearer")]
     t = "".join(f'<div class="ctile"><div class="cbig" style="font-size:34px">{a}</div><div class="csub">{b}</div></div>' for a, b in tiles)
     return f"""<section class="page cover">
 <div class="cleft">
   <div class="cbrand">{sp.NAME}</div><div class="cwork">Working name, to be finalised</div>
   <div class="ctitle" style="font-size:52px">Online-first business case</div>
-  <div class="ctag">What the numbers say in the plan, and the five numbers that change them.</div>
+  <div class="ctag">What the numbers say when the cost to win is known and the value of a saver is not: one main case, and the company at each LTV/CAC.</div>
   <div class="cmeta">October 2026 · Confidential</div>
 </div>
 <div class="cright"><div class="cgrid">{t}</div>
 <div class="cnote" style="margin-top:22px">Every number comes from one model: monthly groups of savers, each with the same agreed product lines, stacked into a company.
-Online savers at ₹100 a day; 1 in 10 savers from a doorstep pilot.</div></div>
+Online savers at ₹100 a day; 1 in 10 savers from a doorstep pilot. Funds are bought in the saver's name; the app never holds money.</div></div>
 </section>"""
 
 
@@ -113,10 +120,11 @@ def money(v):
     return f"{'−' if v < 0 else '+'}₹{abs(v):,.0f}"
 
 
-def waterfall(saver="Online saver"):
+def waterfall(saver="Online saver", items=None):
     """Cost to win, then each revenue line over 60 months, then serving: where the saver's value comes from."""
-    w = LTVW[LTVW.saver == saver]
-    items = list(zip(w["line"], w["Rs over 60 months"].astype(float)))
+    if items is None:
+        w = LTVW[LTVW.saver == saver]
+        items = list(zip(w["line"], w["Rs over 60 months"].astype(float)))
     W, H, x0, y0, y1 = 680, 296, 10, 62, 236
     lvl, bars = 0.0, []
     for nm, v in items:
@@ -143,7 +151,9 @@ def waterfall(saver="Online saver"):
         s.append(R(x, min(Y(a), Y(b)), bw, max(abs(Y(a) - Y(b)), 2), col, r=4))
         v = b - a
         ty = min(Y(a), Y(b)) - 7 if v >= 0 else max(Y(a), Y(b)) + 16
-        s.append(T(x + bw / 2, ty, money(v) if not net else f"₹{v:,.0f}", 13 if net else 12, 800 if net else 700, col if not net else NAVY2, "middle"))
+        inside = v >= 0 and b < 0 and Y(b) - Y(0) < 18               # a rising bar that stops just under zero: label inside it
+        s.append(T(x + bw / 2, Y(b) + 17 if inside else ty, money(v) if not net else f"₹{v:,.0f}", 13 if net else 12, 800 if net else 700,
+                   "white" if inside else (col if not net else NAVY2), "middle"))
         for k, ln in enumerate(names.get(nm, [nm])):
             s.append(T(x + bw / 2, y1 + 34 + k * 14, ln, 11.5, 700 if net else 600, INK if net else SLATE, "middle"))
         if i < len(bars) - 1 and not net:
@@ -439,8 +449,8 @@ def unicorn():
     rows = UNIC.to_dict("records") + [dict(CAPR, case="Capture 10 crore savers")]
     mx = max(max(max(r["0.45x AUM m60 Rs cr"], r["20x ARR m60 Rs cr"]) for r in rows), UNI) * 1.04
     X = lambda v: (W - x0 - 230) * v / mx
-    names = {"The plan": "The plan", "Rs 300 a day": "₹300 a day", "Credit-hungry": "Credit-hungry savers",
-             "Credit-hungry + Rs 200 a day": "Credit-hungry + ₹200 a day", "Credit-hungry + Rs 300 a day": "Credit-hungry + ₹300 a day",
+    names = {"The plan": "The plan", "Rs 300 a day": "₹300 a day", "Credit-hungry": "Savers who want credit",
+             "Credit-hungry + Rs 200 a day": "Want credit + ₹200 a day", "Credit-hungry + Rs 300 a day": "Want credit + ₹300 a day",
              "Capture 10 crore savers": "Capture 10 crore savers (12.4 lakh a month)"}
     s = [T(0, 14, "VALUE AT MONTH 60, ₹ CRORE: FIVE CASES AT 2.5 LAKH ONLINE SAVERS A MONTH, AND THE 10-CRORE PATH. $1B ONLY IF BOTH BARS CLEAR THE LINE", 11.5, 700, SLATE, ls=1.1)]
     for i, r in enumerate(rows):
@@ -514,6 +524,126 @@ def p_seed():
                 body, f"Profit months at {LVS} online savers a month (the plan), one assumption changed at a time. The seed plan, a separate document, has the team and the use of funds.")
 
 
+# ---------- the main case (23 Oct): one saver, the odds, the ladder, the financials, what each measurement is worth, the seed
+def case_saver(t):
+    """One online saver won with every unmeasured input the share t of the way from today's market to our target: the waterfall
+    lines over 60 months, the cumulative net curve (months 0-96) and the LTV/CAC summary."""
+    op = od.op
+    op.OV.clear()
+    op.OV.update(od.lo.overrides(od.lo.at(t)))
+    op._CACHE.clear()
+    try:
+        d, cum, v = op.ltv_view(op.saver_inputs(), op.CAC)
+    finally:
+        op.OV.clear()
+        op._CACHE.clear()
+    c = v["cost to win Rs"]
+    items = [("Cost to win", -float(c))] + [(k, float(d[k][:60].sum())) for k in ("Fund fees", "Loans (all referrals)", "Insurance", "Cards", "Other products")
+                                            if abs(float(d[k][:60].sum())) >= 0.5]
+    items += [("Serving (support + tech)", -float(d["serving"][:60].sum())), ("Net over 60 months", float(cum[59] - c))]
+    curve = [(m, float((cum[m - 1] if m else 0.0) - c)) for m in range(97)]
+    return items, curve, v
+
+
+MAIN_ITEMS, MAIN_CURVE, MAIN_V = case_saver(od.T_MAIN)
+_, TOP_CURVE, TOP_V = case_saver(1.0)
+assert abs(MAIN_V["contribution 60m Rs"] / MAIN_V["cost to win Rs"] - od.MED) < 0.01
+
+
+def payback_two():
+    """Cumulative net per online saver won: the main case against our targets."""
+    W, H, x0, x1, y0, y1 = 450, 296, 52, 440, 44, 240
+    vals = [v for _m, v in MAIN_CURVE + TOP_CURVE]
+    lo_, hi = min(vals), max(vals)
+    X = lambda m: x0 + (x1 - x0) * m / 96
+    Y = lambda v: y1 - (y1 - y0) * (v - lo_) / (hi - lo_)
+    s = [T(0, 14, "WHEN IT PAYS BACK: CUMULATIVE ₹ PER SAVER WON", 11.5, 700, SLATE, ls=1.1)]
+    s.append(f'<line x1="{x0}" y1="{Y(0)}" x2="{x1}" y2="{Y(0)}" stroke="{INK}" stroke-width="1.2"/>')
+    for m in (0, 12, 24, 36, 48, 60, 72, 84, 96):
+        s.append(T(X(m), y1 + 18, f"{m}", 11, 600, MUTE, "middle"))
+    s.append(T(x1, y1 + 34, "months after the saver joins", 11, 600, MUTE, "end"))
+    for v in (lo_, 0, hi):
+        s.append(T(x0 - 6, Y(v) + 4, f"{'−' if v < 0 else ''}₹{abs(v):,.0f}" if v else "0", 10.5, 600, MUTE, "end"))
+    s.append(f'<line x1="{X(60)}" y1="{y0}" x2="{X(60)}" y2="{y1}" stroke="{LINE}" stroke-width="1.5" stroke-dasharray="4 4"/>')
+    s.append(T(X(60) + 4, y0 + 10, "5 years", 11, 700, MUTE))
+    for cv, col, w, dash in ((TOP_CURVE, "#9fb8d6", 2.2, ' stroke-dasharray="6 4"'), (MAIN_CURVE, NAVY, 3, "")):
+        pts = " ".join(f"{X(m):.1f},{Y(v):.1f}" for m, v in cv)
+        s.append(f'<polyline points="{pts}" fill="none" stroke="{col}" stroke-width="{w}"{dash}/>')
+    pm = MAIN_V["pays back in month"]
+    if isinstance(pm, int):
+        s.append(f'<circle cx="{X(pm)}" cy="{Y(0)}" r="5" fill="{NAVY}"/>')
+        s.append(T(X(pm) + 8, Y(0) + 18, f"main case: pays back in month {pm}", 12, 700, NAVY))
+    s.append(T(X(36) - 6, Y(TOP_CURVE[36][1]), f"our targets: month {TOP_V['pays back in month']}", 11.5, 700, SLATE, "end"))
+    v60 = MAIN_CURVE[60][1]
+    s.append(T(X(60) + 6, Y(v60) - 22, f"{'+' if v60 >= 0 else '−'}₹{abs(v60):,.0f} at 5 years", 12, 800, NAVY))
+    return svg(W, H, "".join(s))
+
+
+def p_main_saver(n):
+    wf, xsell, rev = waterfall(items=MAIN_ITEMS)
+    m = od.MAIN
+    loans = dict(MAIN_ITEMS)["Loans (all referrals)"]
+    body = f"""<div style="display:flex;gap:22px;align-items:flex-start"><div style="flex:0 0 680px">{wf}</div><div style="flex:0 0 450px">{payback_two()}</div></div>
+<div class="chips3" style="margin-top:2px">
+<div class="chip"><b>{od.MED:.1f}× in 5 years, {float(m['LTV/CAC 8y']):.1f}× in 8</b>LTV/CAC = what a saver brings in, less the cost of serving them, divided by the {od.rs(od.CAC)} it cost to win them. Undiscounted.</div>
+<div class="chip"><b>Loans are {loans / rev:.0%} of revenue</b>Lender fees of ₹{loans:,.0f} on top of ₹{dict(MAIN_ITEMS)['Fund fees']:,.0f} of fund fees. Saving alone about covers its serving cost; the loans make the return.</div>
+<div class="chip"><b>At our targets: {od.TOP['LTV/CAC 5y']:.1f}×</b>Paid back in month {TOP_V['pays back in month']} if every loan target holds at once. In the main case every input sits {od.T_MAIN:.0%} of the way from today's market to its target.</div></div>"""
+    return page(n, "One saver", "LTV / CAC, THE MAIN CASE", f"A saver won online costs {od.rs(od.CAC)} and returns {od.rs(float(m['LTV Rs']))} over five years in the main case: "
+                f"{od.MED:.1f}× LTV/CAC, paid back in month {int(m['saver pays back in month'])}",
+                body, f"Main case: every unmeasured input {od.T_MAIN:.0%} of the way from today's market to our target, which gives the Monte Carlo median. ₹100 a day; "
+                      "80/20 equity and debt funds. Serving = ₹5 support, ₹4 tech for each KYC'd user reached and ₹2 a weekly debit, a month while saving; the cost "
+                      "to win includes our 10% contingency. Not in this view: the company's fixed costs (team, office, brand).")
+
+
+def p_odds(n):
+    return page(n, "The odds", *od.p_odds())
+
+
+def p_ladder(n):
+    return page(n, "The company", *od.p_ladder())
+
+
+def p_financials(n):
+    return page(n, "The financials", *od.p_financials())
+
+
+def p_prove(n):
+    return page(n, "What decides it", *od.p_prove())
+
+
+def p_seed_main(n):
+    drv = od.DRV.head(5)
+    gates = [(od.lo.INPUTS[k][0], f"Target {od.val(k, 1)}; today's market {od.val(k, 0)}.",
+              f"Chance of 3×: {float(r['chance >=3x if at market']):.0%} at market, {float(r['chance >=3x if at target']):.0%} at target.")
+             for k, r in drv.iterrows()]
+    t3 = od.LAD.loc["3×"]
+    nxt_m, nxt_3 = float(od.MAIN["money needed $M"]) - 0.5, float(t3["money needed $M"]) - 0.5
+    g = "".join(f'<div class="gate" style="padding:16px"><span>{i + 1}</span><b>{a}</b><em style="display:block;margin-top:6px">{b}</em>'
+                f'<em style="display:block;margin-top:6px;color:{NAVY};font-weight:700">{c}</em></div>' for i, (a, b, c) in enumerate(gates))
+    tiles = [("$0.5M", "the seed: build, licences, a lean team, the doorstep pilot"), ("1 lakh", "sign-ups in months 4–18 to read the five numbers"),
+             ("Months 16–18", "12 months of data on the first savers; raise the next round (the seed budget runs to month 24 if it is late)"),
+             (f"${nxt_m:.1f}M or ${nxt_3:.1f}M", "the next round: in the main case, or if the seed proves 3×")]
+    tl = "".join(f'<div class="kpi"><b>{a}</b><span>{b}</span></div>' for a, b in tiles)
+    body = f'<div class="gates">{g}</div><div class="sub-h" style="margin-top:18px">HOW THE SEED GETS THERE</div><div class="kpis" style="grid-template-columns:repeat(4,1fr)">{tl}</div>' + \
+        ('<div class="rbox" style="margin-top:12px">The seed is not a profit plan. The cost to win is already measured; the seed buys the five measurements of what a '
+         'saver is worth, and they decide which row of the ladder the next round is raised on.</div>')
+    return page(n, "What the seed proves", "THE FIVE NUMBERS", f"The $0.5M seed measures the five numbers that decide LTV/CAC, and with it whether the next round is "
+                f"about ${nxt_m:.1f}M or ${nxt_3:.1f}M", body,
+                "Chance of 3×: the Monte Carlo with that one input fixed at today's market value, then at our target, every other input still drawn. Next round: "
+                "money needed in all, less the $0.5M seed. The seed plan, a separate document, has the team and the use of funds.")
+
+
+def p_upside(n):
+    ok = UNIC[UNIC["$1B on both at m60"].astype(str) == "True"]
+    title = (f"Upside, not the plan: at 2.5 lakh savers a month with every target holding, {len(ok)} of {len(UNIC)} cases clear $1B by year 5; "
+             f"the cheapest needs ${ok['money needed $M'].min()}M" if len(ok) else "Upside, not the plan: " + unicorn_title()[0].lower() + unicorn_title()[1:])
+    return page(n, "Appendix", "THE UPSIDE: $1B BY YEAR 5, AT OUR TARGETS", title,
+                unicorn(), "Our targets for every loan input (LTV/CAC 7.7×); five cases at 2.5 lakh online savers a month from month 30, and the 10-crore path at "
+                           "12.4 lakh a month (30 crore segment, a third captured); 1 in 10 savers from the doorstep. Yardsticks: 20× the month-60 revenue run-rate; "
+                           "0.45× money saved (a little below the ~0.5× a recent savings-app round paid on money invested). "
+                           f"Sign-ups stop at 20% of a 7 crore pool in month {CAPM}.")
+
+
 # ---------- 8 assumptions
 ASSUME = [("Online saver", "₹100 a day, ~20 debit days a month; 80% still saving at month 3, 38% at a year",
            "₹100 is our assumption (Bachatt's stated minimum). Retention: our extrapolation from SBI MF's ₹250 daily SIP for first-time investors (36% of a year's sign-ups stopped within it); savings apps' 24% is the downside"),
@@ -521,9 +651,9 @@ ASSUME = [("Online saver", "₹100 a day, ~20 debit days a month; 80% still savi
            "Agreed street inputs; the agent sets the mandate at sign-up. A competitor's street team reports 100–125 a person a month. All-in cost ₹405 a saver at scale (₹446 with our contingency)"),
           ("Funds", "80% equity SIP / 20% debt; returns 10% / 7% a year; fees 0.75% / 0.35% of balance",
            "Mix from a practitioner conversation (not yet a filed research row); fees from fund-house disclosures; the equity return is our estimate"),
-          ("Cost to win a saver", "₹600 during the seed (our funnel), ₹450 after; range ₹300–600",
-           "₹450 sits between a competitor's reported ₹300 per customer (per sign-up or per saver not stated) and our own funnel's ₹600; the seed measures it"),
-          ("Loans", "Offers to every KYC'd user (2.5 per online saver) from day 1; 35% apply a year (70% personal or business, 15% gold, 3% property, 2% home); "
+          ("Cost to win a saver", "₹600 during the seed (our funnel), ₹450 after, plus our 10% contingency; held fixed",
+           "Measured on our own funnel (founders, 23 Oct: \"CAC is fairly sorted and measured\"), so the Monte Carlo does not draw it"),
+          ("Loans, our targets", "Offers to every KYC'd user (2.5 per online saver) from day 1; 35% apply a year (70% personal or business, 15% gold, 3% property, 2% home); "
                     "30% of first applications approved, 70% of repeats; ₹3 lakh personal/business loans at a 2% payout rising to 3%; home loans ₹30 lakh, property ₹25 lakh",
            "Founders' choice on reach and apply rate; payouts at DSA norms (1–2.5% personal and business, 0.5–1.5% property, 0.25–1.5% gold); "
            "loan sizes are the founders' numbers (22 Oct), above the digital-lender and micro-LAP averages in research/xs_funnel_2026-10-21.csv; gold from industry data"),
@@ -536,10 +666,19 @@ ASSUME = [("Online saver", "₹100 a day, ~20 debit days a month; 80% still savi
           ("Not counted", "Interest on cash; any own-book lending; revenue beyond these lines", "Conservative by design")]
 
 
-def p_assume():
-    rows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in ASSUME)
-    return page(8, "Appendix", "ASSUMPTIONS", "Every input, and where it comes from",
-                f'<table class="at"><tr><th>Input</th><th>Value</th><th>Basis</th></tr>{rows}</table>')
+def main_loans():
+    v = lambda k: od.val(k, od.T_MAIN)
+    return ("Loans, main case", f"Every loan input {od.T_MAIN:.0%} of the way from today's market to our target: {v('ticket')} personal and business loans, "
+            f"{v('apply')} of reachable users apply a year, {v('approved')} of first applications approved, offers to {v('reach')}, home / property loans {v('home_lap')}",
+            "Targets: the founders' (the loans row below). Market: the middle of the 2024–26 evidence. Monte Carlo: 1,000 draws, each of 10 inputs anywhere "
+            "between the two, loan inputs linked at 0.5; its median is the main case")
+
+
+def p_assume(n=8):
+    rows = "".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in ASSUME[:4] + [main_loans()] + ASSUME[4:])
+    return page(n, "Appendix", "ASSUMPTIONS", "Every input, and where it comes from",
+                f'<table class="at compact tight" style="font-size:10px"><colgroup><col style="width:14%"><col style="width:43%"><col style="width:43%"></colgroup>'
+                f'<tr><th>Input</th><th>Value</th><th>Basis</th></tr>{rows}</table>')
 
 
 def p_fees():
@@ -548,11 +687,11 @@ def p_fees():
 
 
 def build():
-    pages = [cover(), p_unit(), p_ltv_levers(), p_fees(), p_frontier(), p_plans(), p_levers(), p_unicorn(), p_seed(), p_assume()]
-    pages = [pages[0]] + [re.sub(r'(<footer class="pf"><span>[^<]*</span><span>)[^<]*(</span></footer>)', rf"\g<1>{i}\2", h)
-                          for i, h in enumerate(pages[1:], start=2)]
+    fns = [p_main_saver, p_odds, p_ladder, p_financials, lambda n: p_fees(), p_seed_main, p_assume, p_upside]
+    pages = [cover()] + [re.sub(r'(<footer class="pf"><span>[^<]*</span><span>)[^<]*(</span></footer>)', rf"\g<1>{i}\2", f(i))
+                         for i, f in enumerate(fns, start=2)]
     html = (f'<!doctype html><html><head><meta charset="utf-8"><title>Online-first business case</title><style>{sp.CSS}</style></head>'
-            f'<body>{"".join(pages)}</body></html>')
+            f'<body>{"".join(pages)}</body></html>').replace("</style>", ".at.compact td { padding: 4px 8px; } .at.compact th { padding: 4px 8px; } .at.tight td { padding: 3px 8px; line-height: 1.3; }</style>", 1)
     out = HERE / "Online_business_case.html"
     out.write_text(html)
     pdf = HERE / "Online_business_case.pdf"

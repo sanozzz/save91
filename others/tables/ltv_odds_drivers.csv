@@ -1,0 +1,11 @@
+input,label,market,target,median if at market,median if at target,chance >=3x if at market,chance >=3x if at target,chance >=1x if at market,chance >=1x if at target,rank corr with LTV/CAC
+ticket,Average personal or business loan,ticket 50000,ticket 300000,1.095,2.626,0.0,0.391,0.581,0.995,0.832
+reach,Loan offers to KYC'd users who never save,_loan_reach 1,_loan_reach 2.5,1.266,2.308,0.004,0.355,0.703,0.931,0.758
+apply,"Reachable users who apply for a loan, a year",_apply 0.2,_apply 0.35,1.374,2.249,0.034,0.318,0.739,0.933,0.753
+keep,"Still saving after a year, and after",r12 0.35; churn_late 0.025,r12 0.38; churn_late 0.015,1.515,2.044,0.159,0.304,0.749,0.9,0.139
+home_lap,Home and property loan size,loan_home_ticket 1.2e+06; loan_lap_ticket 500000,loan_home_ticket 3e+06; loan_lap_ticket 2.5e+06,1.491,1.995,0.143,0.276,0.772,0.928,0.682
+rises,Yearly rises in take-up and approvals,takeup_growth 0; approval_growth 0,takeup_growth 0.05; approval_growth 0.1,1.579,1.917,0.153,0.265,0.811,0.871,0.671
+approved,First applications approved,approved_first 0.2,approved_first 0.3,1.566,1.9,0.141,0.269,0.809,0.872,0.669
+payout,Lender payout rising by year 5,_payout_rise 0,_payout_rise 0.5,1.644,1.832,0.194,0.259,0.81,0.851,0.051
+trail,Our share of fund fees,trail 0.0062,trail 0.0067,1.717,1.787,0.224,0.239,0.813,0.847,-0.013
+repeat,Repeat applications approved,approved_repeat 0.735,approved_repeat 0.7,1.751,1.746,0.231,0.229,0.836,0.836,-0.018

@@ -17,6 +17,7 @@ sys.path.insert(0, str(ROOT / "model"))
 import build_seed_plan as sp  # noqa: E402
 import cohort_engine as ce  # noqa: E402
 import ltv_book as lb  # noqa: E402
+import ltv_odds as lo  # noqa: E402
 import online_plan as op  # noqa: E402
 
 TAB = ROOT / "tables"
@@ -855,25 +856,47 @@ def market():
         op._CACHE.clear()
 
 
+def fees_at(t):
+    """Lender fees per online saver won over five years, and LTV/CAC, with every unmeasured input the share t of the way from
+    today's market to our target (model/ltv_odds.py); the cost to win stays at the plan."""
+    op.OV.clear()
+    op.OV.update(lo.overrides(lo.at(t)))
+    op._CACHE.clear()
+    try:
+        d, _cum, v = op.ltv_view(op.saver_inputs(), op.CAC)
+        return float(d["Loans (all referrals)"][:60].sum()), v["contribution 60m Rs"] / v["cost to win Rs"]
+    finally:
+        op.OV.clear()
+        op._CACHE.clear()
+
+
+LADDER = pd.read_csv(TAB / "ltv_ladder.csv").set_index("rung")
+
+
 def fee_test():
-    """(title, body, footnote) of the page on lender fees per saver won: the plan's, what 1x and 3x need, today's market rates."""
+    """(title, body, footnote) of the page on lender fees per saver won: our targets', the main case's, what 1x and 3x need, today's
+    market. The cost to win is held at the plan throughout (founders 23 Oct: "CAC is fairly sorted and measured while LTV isn't")."""
     def need(o):
         c, rest = -o["cac"], o["ltv"] - o["pb"] - o["ol"]           # rest: what the saver brings without loans, less serving
         return c - rest, 3 * c - rest
     plan_fee = ON["pb"] + ON["ol"]
+    assert abs(fees_at(1.0)[0] - plan_fee) < 2, (fees_at(1.0)[0], plan_fee)
     n1, n3 = need(ON)
-    m = at(cac=MKT_CAC, **MKT_SAVE)
+    m = at(**MKT_SAVE)
     m1, m3 = need(m)
-    mkt_fee, mkt_x = market()
+    t_main = float(LADDER.loc["Median", "position (0 market, 1 targets)"])
+    main_fee, main_x = fees_at(t_main)
+    mkt_fee, mkt_x = fees_at(0.0)
     per_saver = float((P["loans_first"][0][:60].sum() + P["loans_repeat"][0][:60].sum() + P["topups"][0][:60].sum()) * REACH)
     rate = ON["pb"] / (per_saver * X["ticket"])                     # fee per personal/business loan, share of its size (ramp and growth in)
     top = max(plan_fee, m3)
-    rows = [("The plan", plan_fee, NAVY, x(ON["ltvcac"])),
-            ("Needed for 3×, everything else as planned", n3, TEAL, "3×"),
-            ("Needed for 3× if a saver costs ₹750 to win and fewer keep saving", m3, TEAL, "3×"),
-            ("Break-even, everything else as planned", n1, AMBER, "1×"),
-            ("Break-even at ₹750 to win and fewer keep saving", m1, AMBER, "1×"),
-            ("Ordinary app users at today's market rates", mkt_fee, SLATE, x(mkt_x))]
+    rows = [("Our targets", plan_fee, NAVY, x(ON["ltvcac"])),
+            ("Needed for 3×, everything else at target", n3, TEAL, "3×"),
+            ("Needed for 3× if fewer keep saving", m3, TEAL, "3×"),
+            ("The main case (the Monte Carlo median)", main_fee, NAVY3, x(main_x)),
+            ("Break-even, everything else at target", n1, AMBER, "1×"),
+            ("Break-even if fewer keep saving", m1, AMBER, "1×"),
+            ("Today's market, every input", mkt_fee, SLATE, x(mkt_x))]
     bars = "".join(
         f'<div style="display:flex;align-items:center;gap:10px;margin:7px 0">'
         f'<div style="flex:0 0 250px;font-size:12px;line-height:1.3;color:{INK}">{lab}</div>'
@@ -885,20 +908,23 @@ def fee_test():
     trows = [[short_rs(t, "rs"), loans(n1, t), loans(n3, t), loans(m3, t)] for t in (50000.0, 100000.0, X["ticket"])]
     right = (f'<div style="font-size:12.5px;line-height:1.45;margin-bottom:6px"><b style="color:{NAVY}">What that means in loans:</b> personal and business '
              f'loans per 100 savers won over five years, at each average loan size (other lenders\' loans not counted, so these are the most needed). '
-             f'The plan has {per_saver * 100:.0f} at {short_rs(X["ticket"], "rs")}.</div>'
-             + table(["Average loan", "Break-even", "3×", "3× at ₹750 and fewer keep saving"], trows, [25, 22, 18, 35], 12, compact=True))
+             f'Our targets have {per_saver * 100:.0f} at {short_rs(X["ticket"], "rs")}.</div>'
+             + table(["Average loan", "Break-even", "3×", "3× if fewer keep saving"], trows, [25, 22, 18, 35], 12, compact=True))
     body = two(left, right, 600) + chips([
-        ("Why this number", f"Lender fees are {plan_fee / ON['rev']:.0%} of a saver's revenue. The {x(ON['ltvcac'])} holds only if lenders pay about "
-                            f"{rs(plan_fee)} per saver won; below {rs(n3)} it falls under 3×."),
+        ("Why this number", f"Lender fees are {plan_fee / ON['rev']:.0%} of a saver's revenue at our targets. The cost to win is known, so this is the "
+                            f"number that decides: below {rs(n3)} per saver won, LTV/CAC falls under 3×."),
         ("Today's market", "On the largest payments and lending apps, 1–5% of users take a loan in a year and first loans are ₹5,000–25,000. "
                            "Nobody has measured savers who choose to see lender offers."),
         ("What the seed measures", "Month by month: the share of KYC'd users who opt in to offers, first loans per 100, the median approved loan, "
                                    "and the fee lenders pay after clawbacks, in writing.")])
-    title = (f"What has to be true: lenders pay us {rs(plan_fee)} per saver won in the plan; 3× needs {rs(n3)} and break-even {rs(n1)}")
-    src = ("Lender fees per saver won: every loan referral fee from one online saver won and the KYC'd users who came with them, over five years, after "
-           "payouts taken back. Fewer keep saving: 35% still saving at a year and 2.5% stopping each month after, the middle of the evidence. Today's "
-           "market rates: 20% of reachable users apply a year, 20% of first applications approved, ₹50,000 personal and business loans, ₹12 lakh home "
-           "and ₹5 lakh property loans, a 2% payout with no rise, 0.62% fund trail, ₹750 to win a saver.")
+    title = (f"What has to be true: lenders pay us {rs(plan_fee)} per saver won at our targets and {rs(main_fee)} in the main case; "
+             f"3× needs {rs(n3)}, break-even {rs(n1)}")
+    src = (f"Lender fees per saver won: every loan referral fee from one online saver won and the KYC'd users who came with them, over five years, after "
+           f"payouts taken back. Cost to win {rs(-ON['cac'])} throughout (₹450 plus our 10% contingency). Fewer keep saving: 35% still saving at a year and "
+           "2.5% stopping each month after, the middle of the evidence. Main case: every unmeasured input "
+           f"{t_main:.0%} of the way from today's market to our target. Today's market: 20% of reachable users apply a year, 20% of first applications "
+           "and 74% of repeats approved, no yearly rises, ₹50,000 personal and business loans, ₹12 lakh home and ₹5 lakh property loans, offers to "
+           "savers only, a 2% payout with no rise, 0.62% of the fund as our fee, 35% still saving at a year and 2.5% stopping a month after.")
     return title, body, src
 
 

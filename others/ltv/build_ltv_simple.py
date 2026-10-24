@@ -1,17 +1,18 @@
-"""The short LTV/CAC deck: one point a page, how each assumption moves the number (founders 23 Oct: "easy to understand ... keep things pointed").
+"""The short LTV/CAC deck (ten pages): one point a page, how each assumption moves the number (founders 23 Oct: "easy to understand ... keep things pointed").
 Every number is worked out from model/online_plan.py and the detailed deck's helpers (build_ltv_deck.py); market values are the middle of the
-evidence in reviews/2026-10-23_ltv_cac_check (evidence.md). Writes ltv/LTV_CAC_simple.html and .pdf.
+evidence in reviews/2026-10-23_ltv_cac_check (evidence.md). The Monte Carlo pages (founders 23 Oct: "do monte carlo on that"; "CAC is
+fairly sorted and measured while LTV isn't") come from ltv/odds_pages.py. Writes ltv/LTV_CAC_simple.html and .pdf.
 Usage (from others/): PYTHONPATH=model python ltv/build_ltv_simple.py"""
 import re
 import subprocess
 import sys
 from pathlib import Path
 
-import numpy as np
 
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE))
-import build_ltv_deck as ld  # noqa: E402  (page frame, colours, the plan's numbers, the fee test and the fragility chart)
+import build_ltv_deck as ld  # noqa: E402  (page frame, colours, the plan's numbers and the fee test)
+import odds_pages as od  # noqa: E402  (the Monte Carlo pages: the odds, what each measurement is worth, the ladder)
 
 op, sp = ld.op, ld.sp
 ON, X, P, REACH = ld.ON, ld.X, ld.P, ld.REACH
@@ -21,63 +22,47 @@ rs, x, pct, short_rs = ld.rs, ld.x, ld.pct, ld.short_rs
 CAC = -ON["cac"]                                               # ₹495: the ₹450 input plus the 10% contingency
 
 
-def ltvx(ov=None, cac=None, reach=None, ramp=True):
-    """Online LTV/CAC over five years with some plan inputs changed; ramp=False holds the lender payout at its starting rate."""
-    op.OV.clear()
-    op.OV.update(ov or {})
-    op._CACHE.clear()
-    try:
-        d = op.ltv_parts(op.saver_inputs(), reach)
-        t = np.arange(1, op.M + 1)
-        held = 0.0 if ramp else d["personal and business loans"] * (1 / (1.0 + 0.5 * np.minimum(t - 1, 59) / 59) - 1)
-        ltv = float((d["income"] + held - d["serving"])[:60].sum())
-        return ltv / ((op.CAC if cac is None else cac) * (1 + op.CONTINGENCY))
-    finally:
-        op.OV.clear()
-        op._CACHE.clear()
+lo = od.lo
+assert abs(lo.saver(lo.at(1.0))["ltv_cac"] - ON["ltvcac"]) < 0.01, (lo.saver(lo.at(1.0)), ON["ltvcac"])   # the same engine as the plan
 
-
-assert abs(ltvx() - ON["ltvcac"]) < 0.01, (ltvx(), ON["ltvcac"])   # the same engine as the plan
-
-# One assumption at a time: (name, ours, today's market, overrides, cac, reach, ramp, inside the evidence?, short source)
-ONE = [("Average personal or business loan", short_rs(X["ticket"], "rs"), "₹50,000", {"ticket": 50000.0}, None, None, True, False,
+# One assumption at a time, the cost to win held (it is measured): (name, ours, today's market, the Monte Carlo input, inside the
+# evidence?, short source). Market values are model/ltv_odds.py's, so this page and the Monte Carlo cannot drift apart.
+ONE = [("Average personal or business loan", short_rs(X["ticket"], "rs"), "₹50,000", "ticket", False,
         "first loans ₹5,000–25,000; digital lenders ₹15,000–1.2 lakh (bureau, FACE)"),
-       ("Share of reachable users who apply, a year", pct(op.LOAN_APPLY), "20%", op.loan_mix(0.20), None, None, True, False,
+       ("Share of reachable users who apply, a year", pct(op.LOAN_APPLY), "20%", "apply", False,
         "1–5% of app users borrow a year (Paytm, Kissht, PhonePe filings)"),
-       ("Cost to win a saver", rs(op.CAC), "₹750", {}, 750.0, None, True, False, "₹800–1,400 per new investor at the largest investing app"),
-       ("Loan offers to KYC'd users who never save", f"{REACH - 1:.1f} per saver", "savers only (not measured)", {}, None, 1.0, True, False, "not measured anywhere"),
-       ("Still saving after a year, and after", f"{X['r12']:.0%}, then 1.5% stop a month", "35%, then 2.5%", {"r12": 0.35, "churn_late": 0.025},
-        None, None, True, True, "24–45% at a year; 1–4% a month after"),
-       ("First applications approved", pct(X["approved_first"]), "20%", {"approved_first": 0.20}, None, None, True, False,
-        "11% of new applicants at an app lender (prospectus)"),
-       ("Yearly rises in take-up and approvals", "+5% and +10% a year", "no rise (no source)", ld.FLAT, None, None, True, False, "no source found"),
+       ("Loan offers to KYC'd users who never save", f"{REACH - 1:.1f} per saver", "savers only (not measured)", "reach", False, "not measured anywhere"),
+       ("Still saving after a year, and after", f"{X['r12']:.0%}, then 1.5% stop a month", "35%, then 2.5%", "keep", True,
+        "24–45% at a year; 1–4% a month after"),
+       ("First applications approved", pct(X["approved_first"]), "20%", "approved", False, "11% of new applicants at an app lender (prospectus)"),
+       ("Yearly rises in take-up and approvals", "+5% and +10% a year", "no rise (no source)", "rises", False, "no source found"),
        ("Home and property loan size", f"{short_rs(X['loan_home_ticket'], 'rs')} / {short_rs(X['loan_lap_ticket'], 'rs')}", "₹12 lakh / ₹5 lakh",
-        {"loan_home_ticket": 1.2e6, "loan_lap_ticket": 5e5}, None, None, True, False, "mass-market lenders ₹10–15 lakh / ₹3–10 lakh"),
-       ("Lender payout on personal and business loans", f"{pct(X['fee'])} rising to {pct(X['fee'] * 1.5)}", f"{pct(X['fee'])}, flat", {}, None, None,
-        False, False, "rate cards 1–2.5%, flat"),
-       ("Fund trail (our share of fund fees)", pct(X["trail"], 2), "0.62%", {"trail": 0.0062}, None, None, True, True,
-        "0.50–0.88% equity, 0.08–0.50% debt"),
-       ("Repeat applications approved", pct(X["approved_repeat"]), "74%", {"approved_repeat": 0.735}, None, None, True, True,
-        "74% of repeat customers at an app lender")]
-ONE = [(*r[:3], ltvx(r[3], r[4], r[5], r[6]), *r[7:]) for r in ONE]           # -> (name, ours, market, LTV/CAC, inside, source)
+        "home_lap", False, "mass-market lenders ₹10–15 lakh / ₹3–10 lakh"),
+       ("Lender payout on personal and business loans", f"{pct(X['fee'])} rising to {pct(X['fee'] * 1.5)}", f"{pct(X['fee'])}, flat", "payout", False,
+        "rate cards 1–2.5%, flat"),
+       ("Our share of fund fees", pct(X["trail"], 2), "0.62%", "trail", True, "0.50–0.88% equity, 0.08–0.50% debt"),
+       ("Repeat applications approved", pct(X["approved_repeat"]), "74%", "repeat", True, "74% of repeat customers at an app lender")]
+assert {r[3] for r in ONE} == set(lo.INPUTS), "every Monte Carlo input on the page"
+ONE = [(*r[:3], lo.saver({**lo.at(1.0), r[3]: 0.0})["ltv_cac"], *r[4:]) for r in ONE]   # -> (name, ours, market, LTV/CAC, inside, source)
 ONE.sort(key=lambda r: r[3])
 
 
-def cover():
-    m_fee, m_x = ld.market()
-    tiles = [(rs(CAC), "to win one online saver<br>(₹450 + our 10% contingency)"), (rs(ON["ltv"]), "back over five years,<br>after the cost of serving them"),
-             (x(ON["ltvcac"]), f"LTV/CAC, paid back in month {ON['pay']},<br><b>if our loan targets hold</b>")]
+def cover(n):
+    mkt = float(od.LAD.loc["Today's market", "LTV/CAC 5y"])
+    tiles = [(rs(CAC), "to win one online saver: measured,<br>held fixed (₹450 + our 10% contingency)"),
+             (x(od.MED), f"LTV/CAC in the main case, the median<br>of 1,000 draws; {od.P3:.0%} of them reach 3×"),
+             (x(ON["ltvcac"]), f"our target, not the main case: every<br>loan target holding, paid back in month {ON['pay']}")]
     t = "".join(f'<div class="ctile"><div class="cbig" style="font-size:40px">{a}</div><div class="csub" style="font-size:14px">{b}</div></div>' for a, b in tiles)
     return f"""<section class="page cover">
 <div class="cleft">
   <div class="cbrand">{sp.NAME}</div><div class="cwork">Working name, to be finalised</div>
   <div class="ctitle" style="font-size:50px">What one saver is worth</div>
-  <div class="ctag">LTV/CAC in eight pages: how one saver makes money, and how each assumption changes the number.</div>
+  <div class="ctag">LTV/CAC in {n} pages: how one saver makes money, how each assumption changes the number, and what the odds mean for the company.</div>
   <div class="cmeta">October 2026 · Confidential</div>
 </div>
 <div class="cright"><div class="cgrid" style="grid-template-columns:1fr">{t}</div>
-<div class="cnote" style="margin-top:18px;font-size:14px;line-height:1.45">Loans are {(ON['pb'] + ON['ol']) / ON['rev']:.0%} of the money. At today's market
-rates for app users the same saver returns {x(m_x)}. The seed's first job is to find out which world we are in.</div></div>
+<div class="cnote" style="margin-top:18px;font-size:14px;line-height:1.45">Loans are {(ON['pb'] + ON['ol']) / ON['rev']:.0%} of the money at our targets. With every
+input at today's market the same saver returns {x(mkt)}. The seed's first job is to find out where between the two we are.</div></div>
 </section>"""
 
 
@@ -105,7 +90,7 @@ def waterfall_svg(W=1100, H=360):
     x0 = 20 + len(steps) * (bw + gap)
     out.append(R(x0, Y(run), bw, Y(0) - Y(run), NAVY, r=4))
     out.append(T(x0 + bw / 2, Y(run) - 8, rs(run), 15, 800, NAVY, "middle"))
-    out.append(T(x0 + bw / 2, bot + 22, "Net, 5 years", 12, 700, INK, "middle"))
+    out.append(T(x0 + bw / 2, bot + 22, "After cost to win", 12, 700, INK, "middle"))
     return svg(W, H, "".join(out))
 
 
@@ -113,9 +98,10 @@ def p_money(n):
     body = waterfall_svg() + chips([
         ("Loans make the money", f"Lenders pay us a referral fee on every loan we bring: {rs(ON['pb'] + ON['ol'])} of the {rs(ON['rev'])} a saver brings in five years."),
         ("Saving pays its own way, just", f"Fund fees ({rs(ON['fund'])}) about cover the cost of serving a saver ({rs(-ON['serve'])}): support, tech and payments."),
-        (f"{x(ON['ltvcac'])}", f"{rs(ON['ltv'])} back (revenue less serving) on {rs(CAC)} to win, paid back in month {ON['pay']}.")])
-    return page(n, "The answer", "HOW ONE SAVER MAKES MONEY",
-                f"One online saver: {rs(CAC)} to win, {rs(ON['ltv'])} back in five years: {x(ON['ltvcac'])}", body,
+        (f"{x(ON['ltvcac'])} is our target, not the main case", f"{rs(ON['ltv'])} back (revenue less serving) on {rs(CAC)} to win if every target holds. "
+                                                              f"With the unmeasured inputs drawn, the median is {x(od.MED)} (page 5).")])
+    return page(n, "At our targets", "HOW ONE SAVER MAKES MONEY",
+                f"At our targets, one online saver: {rs(CAC)} to win, {rs(ON['ltv'])} back in five years: {x(ON['ltvcac'])}", body,
                 "One online saver won, months 1–60, undiscounted. Net after the cost to win = LTV less the cost to win.")
 
 
@@ -124,9 +110,9 @@ def funnel_svg(W=1100, H=210):
     rep = float(P["loans_repeat"][0][:60].sum() * REACH * 100)
     top_ = float(P["topups"][0][:60].sum() * REACH * 100)
     lent = float(P["money_lent"][0][:60].sum() * REACH * 100)
-    boxes = [("100", "savers won"), (f"{REACH * 100:.0f}", "KYC'd users see loan offers (5 sign-ups a saver, half finish KYC)"),
+    boxes = [("100", "savers won"), (f"{REACH * 100:.0f}", "KYC'd users see loan offers (each saver brings 5 sign-ups; half finish KYC)"),
              (pct(op.LOAN_APPLY), "of them apply for a loan each year"), (pct(X["approved_first"]), "of first applications approved"),
-             (f"{first + rep + top_:.0f} loans", f"in five years, ₹{lent / (first + rep + top_) / 1e5:.1f} lakh on average: ₹{lent / 1e5:,.0f} lakh lent"),
+             (f"{first + rep + top_:.0f} loans", f"in five years, ₹{lent / (first + rep + top_) / 1e5:.1f} lakh on average: ₹{lent / 1e5:,.0f} lakh lent by our partners"),
              (rs(ON["pb"]), f"in fees per saver won (about {ON['pb'] / lent * 100:.1%} of each loan)")]
     bw, gap = 158, (W - 6 * 158) / 5
     out = []
@@ -159,7 +145,7 @@ def p_loans(n):
                                    f"{rs(ON['pb'])} of the {rs(ON['ltv'])}."),
         ("Other lenders' loans", f"Gold, property and home loans referred to other lenders add {rs(ON['ol'])}, most of it from a few large property and home loans."),
         ("Who pays", "The lender, once, when the loan is paid out; part comes back if a loan closes or goes bad within six months. We never lend our own money.")])
-    return page(n, "The answer", "WHERE THE LOAN MONEY COMES FROM",
+    return page(n, "At our targets", "WHERE THE LOAN MONEY COMES FROM",
                 f"100 savers won bring {REACH * 100:.0f} people who can see loan offers; {sum(float(P[k][0][:60].sum()) for k in ('loans_first', 'loans_repeat', 'topups')) * REACH * 100:.0f} "
                 f"loans later, that is {rs(ON['pb'])} a saver", body,
                 "Per 100 online savers won, first five years. Offers reach users while the saver who brought them keeps saving.")
@@ -182,7 +168,7 @@ def one_svg(W=1100):
         out.append(T(x_(v) + 6, y + 18, f"{v:.1f}×", 12.5, 800, col))
         y += rh + 6
     out.append(f'<line x1="{x_(ON["ltvcac"]):.1f}" y1="16" x2="{x_(ON["ltvcac"]):.1f}" y2="{y}" stroke="{NAVY}" stroke-width="1.5"/>')
-    out.append(T(x_(ON["ltvcac"]), y + 14, f"plan {x(ON['ltvcac'])}", 11.5, 700, NAVY, "middle"))
+    out.append(T(x_(ON["ltvcac"]), y + 14, f"targets {x(ON['ltvcac'])}", 11.5, 700, NAVY, "middle"))
     out.append(f'<line x1="{x_(3):.1f}" y1="16" x2="{x_(3):.1f}" y2="{y}" stroke="{SLATE}" stroke-width="1.2" stroke-dasharray="4 4"/>')
     return svg(W, y + 22, "".join(out))
 
@@ -191,27 +177,24 @@ def p_one(n):
     big = ONE[0]
     legend = (f'<div style="display:flex;gap:18px;font-size:12px;color:{INK};margin:2px 0 4px">'
               f'<span><b style="color:{LATE}">■</b> not proven, below 3×</span><span><b style="color:{AMBER}">■</b> not proven, 3× or more</span>'
-              f'<span><b style="color:{TEAL}">■</b> our number is inside the evidence</span><span style="color:{SLATE}">each row: ours → today\'s market; grey: the plan, {x(ON["ltvcac"])}</span></div>')
+              f'<span><b style="color:{TEAL}">■</b> our number is inside the evidence</span><span style="color:{SLATE}">each row: ours → today\'s market; grey: our targets, {x(ON["ltvcac"])}</span></div>')
     return page(n, "Each assumption", "ONE AT A TIME",
                 f"Change one assumption to today's market value and see the number: {big[0].lower()} moves it most, to {x(big[3])}",
                 legend + one_svg(),
-                "Each bar: online LTV/CAC over five years with that one assumption at the market value and everything else as planned. Market values: the middle "
-                "of the 2024–26 evidence; sources on the last page.")
+                "Each bar: online LTV/CAC over five years with that one assumption at the market value and everything else at our targets. The cost to win "
+                "is measured and held at ₹495. Market values: the middle of the 2024–26 evidence; sources on the last page.")
 
 
-def p_together(n):
-    chart, worst_one, _ = ld.fragile_svg()
-    right = (f'<div style="font-size:15px;line-height:1.5;color:{INK}"><p style="margin:0 0 12px"><b style="color:{NAVY}">One miss is survivable.</b> '
-             f"Any single target can fall to the market and the saver still returns {worst_one:.1f}× or more.</p>"
-             f'<p style="margin:0 0 12px"><b style="color:{LATE}">Two misses are not.</b> The targets are linked: smaller savers borrow smaller loans, less often. '
-             "When two fall together the answer drops below 3×.</p>"
-             f'<p style="margin:0"><b style="color:{NAVY}">So it is one bet:</b> our savers earn more and want credit, and their saving record makes lenders say yes '
-             "more often and lend more. If it holds, the targets hold together.</p></div>")
-    left = (f'<div style="font-size:11.5px;font-weight:700;letter-spacing:1.1px;color:{SLATE}">ONLINE LTV/CAC, 5 YEARS</div>' + chart)
-    return page(n, "Several at once", "WHEN TARGETS MISS TOGETHER",
-                f"One target can miss and it stays at {worst_one:.1f}× or more; two together take it below 3×", two(left, right, 600),
-                "One target misses: only that input changes. Two or three miss: the inputs named change together. Today's market rates: every input at "
-                "the middle of the evidence.")
+def p_odds(n):
+    return page(n, "The odds", *od.p_odds())
+
+
+def p_prove(n):
+    return page(n, "The odds", *od.p_prove())
+
+
+def p_ladder(n):
+    return page(n, "The company", *od.p_ladder())
 
 
 def p_fee(n):
@@ -242,7 +225,7 @@ def p_seed(n):
             f'border-radius:10px;padding:10px 16px"><b style="color:{NAVY}">Checks 1 and 2 need no money lent and take weeks.</b> If they pass, '
             f"{x(ON['ltvcac'])} has evidence behind it. If they come back at market levels, we know before the money goes into scale, and we change the "
             "plan: bigger savers, a cheaper way to win them, or more per loan.</div>")
-    return page(n, "What the seed proves", "FIVE CHECKS", "Five checks tell us whether the bet holds, most of them before we lend a rupee", body,
+    return page(n, "What the seed proves", "FIVE CHECKS", "Five checks tell us whether the bet holds, most of them before we spend on growth", body,
                 "Pass marks are the plan's own targets. A soft credit check reads a bureau file without touching the person's score.")
 
 
@@ -256,10 +239,11 @@ def p_table(n):
 
 
 def build():
-    pages = [cover()] + [f(i) for i, f in enumerate([p_money, p_loans, p_one, p_together, p_fee, p_seed, p_table], start=2)]
+    fns = [p_money, p_loans, p_one, p_odds, p_prove, p_ladder, p_fee, p_seed, p_table]
+    pages = [cover(len(fns) + 1)] + [f(i) for i, f in enumerate(fns, start=2)]
     css = sp.CSS + (".at.compact td { padding: 4px 8px; } .at.compact th { padding: 4px 8px; }"
                     ".chips3 { margin-top: 10px !important; gap: 14px; } .chip { font-size: 12.5px; padding: 10px 14px; line-height: 1.4; } .chip b { font-size: 13.5px; }")
-    html = f'<!doctype html><html><head><meta charset="utf-8"><title>LTV/CAC in eight pages</title><style>{css}</style></head><body>{"".join(pages)}</body></html>'
+    html = f'<!doctype html><html><head><meta charset="utf-8"><title>What one saver is worth</title><style>{css}</style></head><body>{"".join(pages)}</body></html>'
     html = ld.deck_words(html)
     text = re.sub(r"<[^>]+>", " ", html)
     for bad in ("Bueno", "BetterPlace", "Bachatt", ".py", ".csv", "tables/"):
